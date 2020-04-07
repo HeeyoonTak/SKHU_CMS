@@ -1,0 +1,53 @@
+.l_account_table thead tr th {
+    text-align:center
+}
+
+.l_account_table tbody tr td{
+    vertical-align: middle;
+}
+
+.l_account_table tbody tr td input{
+    width: 90%;
+    margin: auto;
+}
+
+.l_account_table tbody tr td .btn-primary{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid !important;
+}
+
+.l_account_table thead tr th:last-child{
+    width: 5%;
+}
+
+.l_account_table tbody tr td:last-child a{
+    color: red;
+}
+
+
+#l_search_term {
+    width: 65%;
+    display: inline;
+}
+
+.btn-primary:hover{
+    background-color: white;
+    color: #90d7ea;
+    border-color: #90d7ea;
+}
+
+.btn-primary:focus{
+    background-color: #90d7ea;
+    color: white;
+    border-color: #90d7ea;
+}
+
+#l_search_term_btn{
+    margin-bottom: 0px;
+    border: 1px solid !important;
+}
+
+#l_account_save{
+    border: 1px solid !important;
+}
