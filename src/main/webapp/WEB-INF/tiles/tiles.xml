@@ -13,6 +13,9 @@
 		<put-attribute name="body" value="" />
 		<put-attribute name="footer"
 			value="/WEB-INF/tiles/tiles_footer.jsp" />
+		<put-attribute name="account_header"
+			value="/WEB-INF/tiles/account_header.jsp" />
+			
 	</definition>
 
 	<definition name="*/*" extends="layout_tiles">

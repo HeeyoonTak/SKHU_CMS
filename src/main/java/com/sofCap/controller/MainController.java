@@ -41,4 +41,14 @@ public class MainController {
 	public String clubUpdate() {
 		return "club_union/club_update";
 	}
+	
+	@RequestMapping("attendance")
+	public String attendance() {
+		return "club_union/attendance";
+	}
+	
+	@RequestMapping("account")
+	public String account() {
+		return "club_union/account";
+	}
 }

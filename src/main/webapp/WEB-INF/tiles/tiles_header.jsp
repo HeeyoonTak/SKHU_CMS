@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 
 <meta charset="UTF-8">
 <title>SKHU CMS</title>
@@ -61,6 +61,9 @@
 <!-- Theme Style -->
 <link rel="stylesheet" href="css/style.css">
 
+<link rel="stylesheet" href="css/hm_style.css">
+
+
 <!-- Modernizr JS -->
 <script src="js/modernizr-2.6.2.min.js"></script>
 <!-- FOR IE9 below -->
@@ -72,3 +75,17 @@
 	href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
 <!-- import JavaScript -->
 <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+<script>
+        function attachAddr(obj) {
+            const str = `<tr> 
+                                <td><input type="date" class="form-control input-lg"></td>
+                                <td><input type="number" class="form-control input-lg"></td>
+                                <td><input type="number" class="form-control input-lg"></td>
+                                <td><input type="text" class="form-control input-lg"></td>
+                                <td></td>
+                                <td><a href="#" class="btn btn-primary col-md">영수증</a></td>
+                                <td><a href="#">x</a></td>                            </tr>`;
+            $(obj).parents('tbody').prev('#addTd').append(str);
+        }
+    </script>
