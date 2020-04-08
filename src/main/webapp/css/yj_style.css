@@ -1,0 +1,42 @@
+.attendance_check_table thead tr th {
+	text-align: center;
+	width: 50px;
+}
+
+.attendance_check_table tbody tr td {
+	vertical-align: middle;
+}
+
+.attendance_check_table tbody tr td input {
+	width: 90%;
+	margin: auto;
+}
+
+.attendance_check_table tbody tr td .btn-primary {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border: 1px solid !important;
+}
+
+.attendance_check-list li {
+	font-weight: 600;
+	font-size: 14px;
+	padding: 10px 10px;
+	margin: 0 4px 0 0;
+	list-style: none;
+	cursor: pointer;
+}
+
+#search_term {
+	display: inline;
+}
+
+#search_term_btn {
+	margin-bottom: 0px;
+	border: 1px solid !important;
+}
+
+#save_term_btn {
+	margin-bottom: 0px;
+	border: 1px solid !important;
+}

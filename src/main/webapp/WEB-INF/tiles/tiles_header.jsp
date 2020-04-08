@@ -63,6 +63,8 @@
 
 <link rel="stylesheet" href="css/hm_style.css">
 
+<link rel="stylesheet" href="css/yj_style.css">
+
 
 <!-- Modernizr JS -->
 <script src="js/modernizr-2.6.2.min.js"></script>
