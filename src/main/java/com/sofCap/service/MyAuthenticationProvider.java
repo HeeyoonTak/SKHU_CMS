@@ -25,9 +25,9 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
 	/* 사용자가 입력한 로그인 아이디와 비밀번호가 authenticate 메소드의 파라미터로 전달된다. */
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-		String loginId = authentication.getName();
-		String passwd = authentication.getCredentials().toString();
-		return authenticate(loginId, passwd);
+		String login_id = authentication.getName();
+		String password = authentication.getCredentials().toString();
+		return authenticate(login_id, password);
 	}
 
 	public Authentication authenticate(String login_id, String password) throws AuthenticationException {
@@ -51,12 +51,14 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
 			role = "ROLE_guest";
 			break;
 		}
-
+		System.out.println("계정정보");
+		System.out.println(role);
 		System.out.println(login_id);
 		System.out.println(password);
 		grantedAuthorities.add(new SimpleGrantedAuthority(role));
 		return new MyAuthenticaion(login_id, password, grantedAuthorities, userDto);
 	}
+
 	@Override
 	public boolean supports(Class<?> authentication) {
 		return authentication.equals(UsernamePasswordAuthenticationToken.class);
@@ -66,16 +68,17 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
 		private static final long serialVersionUID = 1L;
 		UserDto userDto;
 
-		public MyAuthenticaion(String loginId, String password, List<GrantedAuthority> grantedAuthorities, UserDto userDto) {
-			super(loginId, password, grantedAuthorities);
+		public MyAuthenticaion(String login_id, String password, List<GrantedAuthority> grantedAuthorities,
+				UserDto userDto) {
+			super(login_id, password, grantedAuthorities);
 			this.userDto = userDto;
 		}
 
-		public UserDto getUser() {
+		public UserDto getUserDto() {
 			return userDto;
 		}
 
-		public void setUser(UserDto userDto) {
+		public void setUserDto(UserDto userDto) {
 			this.userDto = userDto;
 		}
 

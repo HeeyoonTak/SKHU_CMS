@@ -7,7 +7,7 @@ import com.sofCap.Dao.UserDao;
 import com.sofCap.dto.UserDto;
 
 @Service
-public class UserServiceImpl {
+public class UserServiceImpl implements UserService{
 
 	@Autowired UserDao userDao;
 
@@ -21,5 +21,11 @@ public class UserServiceImpl {
 			return null;
 		}
 		return userDto;
+	}
+
+	@Override
+	public UserDto findByLoginId(String login_id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

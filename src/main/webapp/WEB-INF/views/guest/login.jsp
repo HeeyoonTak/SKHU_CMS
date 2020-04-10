@@ -18,7 +18,7 @@
 										<p style="color: #444444">종합정보시스템 계정으로 로그인 해주세요.</p>
 									</div>
 									<label for="inputId" class="sr-only">ID</label> <input
-										type="text" name="loginId" class="form-control"
+										type="text" name="login_id" class="form-control"
 										placeholder="Id" autocomplete="off" required autofocus>
 								</div>
 							</div>
