@@ -19,16 +19,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/club_admin/**").hasRole("ClubAdmin")
 			.antMatchers("/club_union/**").hasRole("ClubUnion")
 			.antMatchers("/member/**").hasRole("Member")
-			.antMatchers("guest/**").permitAll()
-			.antMatchers("/").permitAll()
-			.antMatchers("/**").authenticated();
+			.antMatchers("/**").permitAll()
+			.antMatchers("/tiles/**").permitAll()
+			.antMatchers("/").permitAll();
+//			.antMatchers("/**").authenticated();
 
 		http.csrf().disable();
 
 		http.formLogin()
 			.loginPage("/guest/login")
-			.loginProcessingUrl("/guest/login_processing")
-			.failureUrl("/guest/login?error")
+			.loginProcessingUrl("/login_processing")
+			.failureUrl("/login?error")
 			.defaultSuccessUrl("/")
 			.usernameParameter("login_id")
 			.passwordParameter("password");

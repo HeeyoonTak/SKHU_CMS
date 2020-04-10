@@ -52,6 +52,8 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
 			break;
 		}
 
+		System.out.println(login_id);
+		System.out.println(password);
 		grantedAuthorities.add(new SimpleGrantedAuthority(role));
 		return new MyAuthenticaion(login_id, password, grantedAuthorities, userDto);
 	}

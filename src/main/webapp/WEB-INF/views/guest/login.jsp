@@ -32,10 +32,11 @@
 							</div>
 							<div class="col-md-12">
 								<div class="form-group">
-									<button class="btn btn-lg btn-primary" type="submit">로그인</button>
 									<c:if test="${ param.error != null }">
 										<div class="mt5" style="text-align: right">ID 혹은 비밀번호를 재확인 바랍니다.</div>
 									</c:if>
+									<button class="btn btn-lg btn-primary" type="submit">로그인</button>
+									
 								</div>
 							</div>
 
