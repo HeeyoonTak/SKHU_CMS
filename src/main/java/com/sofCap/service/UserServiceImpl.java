@@ -11,7 +11,17 @@ public class UserServiceImpl {
 
 	@Autowired UserDao userDao;
 
-	public UserDto findByLoginId(String login_id) {
-		return userDao.findByLoginId(login_id);
+	public UserDto login(String login_id, String password) {
+		UserDto userDto = userDao.findByLoginId(login_id);
+		if(userDto == null) {
+			return null;
+		}
+		String pw = password;
+		if(!userDto.getPassword().equals(pw)) {
+			return null;
+		}
+		return userDto;
 	}
+
+
 }
