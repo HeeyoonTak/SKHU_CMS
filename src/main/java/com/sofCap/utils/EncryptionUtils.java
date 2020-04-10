@@ -6,8 +6,10 @@ import java.security.MessageDigest;
 public class EncryptionUtils {
 
 
-	  public static String encryptSHA256(String s) { return encrypt(s, "SHA-256");
-	 }
+	/*
+	 * public static String encryptSHA256(String s) { return encrypt(s, "SHA-256");
+	 * }
+	 */
 
 	public static String encryptMD5(String s) {
 		return encrypt(s, "MD5");
