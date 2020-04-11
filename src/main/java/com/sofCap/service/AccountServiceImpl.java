@@ -11,10 +11,16 @@ import com.sofCap.dto.AccountDto;
 @Service
 public class AccountServiceImpl implements AccountService{
 	@Autowired AccountDao accountDao;
-	
+
 	@Override
 	public List<AccountDto> findAll(){
 		return accountDao.findAll();
 	}
+
+	@Override
+	public List<AccountDto> findByClubId(int club_id){
+		return accountDao.findByClubId(club_id);
+	}
+
 
 }

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+	
 <div id="fh5co-hero">
 	<a href="#fh5co-main"
 		class="smoothscroll fh5co-arrow to-animate hero-animate-4"><i
@@ -38,9 +40,9 @@
 			<div class="fh5co-spacer fh5co-spacer-md"></div>
 			<div id="fh5co-tab-feature-center" class="fh5co-tab text-center">
 				<ul class="resp-tabs-list hor_1">
-					<li><i class="fh5co-tab-menu-icon"></i>동아리 연합회</li>
-					<li><i class="fh5co-tab-menu-icon"></i>멋쟁이사자처럼</li>
-					<li><i class="fh5co-tab-menu-icon"></i>소울</li>
+					<c:forEach var="club" items="${ clubs }" itemValue="id" itemLabel="club_id">
+					<li><i class="fh5co-tab-menu-icon"></i>${ club.club_name }</li>
+					</c:forEach>
 				</ul>
 				<div class="resp-tabs-container hor_1">
 					<div>

@@ -9,4 +9,5 @@ import com.sofCap.dto.AccountDto;
 @Mapper
 public interface AccountMapper {
 	List<AccountDto> findAll();
+	List<AccountDto> findByClubId(int club_id);
 }
