@@ -32,8 +32,11 @@
 						<li><a href="left-sidebar.html">멋쟁이 사자처럼</a></li>
 						<li><a href="right-sidebar.html">개발자들</a></li>
 					</ul></li>
-				<li class="fh5co-special" style="padding-left: 20px"><a
-					href="contact.html">Login</a></li>
+				<li class="fh5co-special" style="padding-left: 20px">
+				<sec:authorize access="not authenticated">
+						<a class="btn btn-default" href="${R}/login">로그인</a>
+					</sec:authorize> 
+					</li>
 			</ul>
 		</nav>
 		<!-- </div> -->
