@@ -27,9 +27,9 @@ public class MainController {
 		return "club_admin/apply_q_form";
 	}
 	
-	@RequestMapping("club_admin")
-	public String clubAdmin() {
-		return "club_union/club_admin";
+	@RequestMapping("club_manage")
+	public String clubManage() {
+		return "club_union/club_manage";
 	}
 	
 	@RequestMapping("club_create")
