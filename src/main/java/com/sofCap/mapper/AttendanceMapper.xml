@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sofCap.mapper.AttendanceMapper">
+
+	<select id="findByDate" resultType="AttendanceDto">
+		SELECT DISTINCT DATE_FORMAT(date,'%Y-%m-%d')
+		FROM attendance;
+	</select>
+	
+	<select id="CountByDate" resultType="AttendanceDto">
+		SELECT COUNT(DISTINCT date)
+		FROM attendance;
+	</select>
+	
+</mapper>

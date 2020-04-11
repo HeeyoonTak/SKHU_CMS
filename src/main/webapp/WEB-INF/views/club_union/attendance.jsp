@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:url var="R" value="/" />
 <div id="fh5co-hero">
 	<a href="#fh5co-main"
 		class="smoothscroll fh5co-arrow to-animate hero-animate-4"><i
@@ -50,14 +52,19 @@
 					<table class="table text-center attendance_check_table">
 						<thead>
 							<tr>
-								<th style="width: 50px"></th>
-								<th>개발자들</th>
-								<th>멋쟁이 사자처럼</th>
-								<th>소울</th>
-								<th>엘피스</th>
-								<th>엠알크루</th>
-								<th>팝콘</th>
-								<th>플로우</th>
+								<th style="width: 50px">2020.03.03</th>
+								<th>O</th>
+								<th>O</th>
+								<th>O</th>
+								<th>O</th>
+								<th>O</th>
+								<th>O</th>
+								<th>O</th>
+								<!--<c:forEach var="club" items="${ clubs }">
+								<tr>
+									<th>${ club.club_name }</th>
+								</tr>
+							</c:forEach>-->
 							</tr>
 						</thead>
 						<tbody>
@@ -175,7 +182,4 @@
 			</div>
 		</div>
 	</div>
-
-
 </div>
-<!-- END fhtco-main -->
