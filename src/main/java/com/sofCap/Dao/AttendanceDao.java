@@ -1,14 +1,10 @@
-package com.sofCap.mapper;
+package com.sofCap.Dao;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Mapper;
-
 import com.sofCap.dto.AttendanceDto;
 
-@Mapper
-public interface AttendanceMapper {
-
+public interface AttendanceDao {
 	List<AttendanceDto> findByDate();
 
 	AttendanceDto CountByDate();

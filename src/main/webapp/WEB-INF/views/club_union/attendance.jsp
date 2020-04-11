@@ -52,19 +52,10 @@
 					<table class="table text-center attendance_check_table">
 						<thead>
 							<tr>
-								<th style="width: 50px">2020.03.03</th>
-								<th>O</th>
-								<th>O</th>
-								<th>O</th>
-								<th>O</th>
-								<th>O</th>
-								<th>O</th>
-								<th>O</th>
-								<!--<c:forEach var="club" items="${ clubs }">
-								<tr>
+								<th></th>
+								<c:forEach var="club" items="${ clubs }">
 									<th>${ club.club_name }</th>
-								</tr>
-							</c:forEach>-->
+								</c:forEach>
 							</tr>
 						</thead>
 						<tbody>
@@ -156,7 +147,7 @@
 						<tbody>
 							<tr>
 								<td colspan="9"><button
-										onclick="attachAddr(this); return false;"
+										onclick="attachAddrAtt(this); return false;"
 										class="btn btn-primary col-md">+</button></td>
 							</tr>
 						</tbody>

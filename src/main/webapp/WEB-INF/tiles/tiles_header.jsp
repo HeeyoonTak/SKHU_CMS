@@ -42,7 +42,7 @@
 <link rel="shortcut icon" href="favicon.ico">
 
 <!-- Google Webfont -->
-<link rel="stylesheet" href="fonts/nanum/NanumSquare_acB.ttf">
+<link rel="stylesheet" href="${R}fonts/nanum/NanumSquare_acB.ttf">
 
 <!--	<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'> -->
 <!-- Themify Icons -->
@@ -69,7 +69,7 @@
 
 
 <!-- Modernizr JS -->
-<script src="js/modernizr-2.6.2.min.js"></script>
+<script src="${R}js/modernizr-2.6.2.min.js"></script>
 <!-- FOR IE9 below -->
 <!--[if lt IE 9]>
 	<script src="js/respond.min.js"></script>
@@ -92,4 +92,20 @@
                                 <td><a href="#">x</a></td>                            </tr>`;
             $(obj).parents('tbody').prev('#addTd').append(str);
         }
-    </script>
+</script>
+
+<script>
+        function attachAddrAtt(obj) {
+            const str = `<tr> 
+            	<td><input type="date" class="form-control input-md"
+				style="width: 160px"></td>
+			<td><input type="checkbox" class="form-control input-sm"></td>
+			<td><input type="checkbox" class="form-control input-sm"></td>
+			<td><input type="checkbox" class="form-control input-sm"></td>
+			<td><input type="checkbox" class="form-control input-sm"></td>
+			<td><input type="checkbox" class="form-control input-sm"></td>
+			<td><input type="checkbox" class="form-control input-sm"></td>
+			<td><input type="checkbox" class="form-control input-sm"></td></tr>`;
+            $(obj).parents('tbody').prev('#addTd').append(str);
+        }
+</script>
