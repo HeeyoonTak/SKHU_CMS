@@ -12,4 +12,6 @@ public interface AttendanceMapper {
 	List<AttendanceDto> findByDate();
 
 	AttendanceDto CountByDate();
+
+	List<AttendanceDto> findAttendance();
 }

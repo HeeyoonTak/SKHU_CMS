@@ -59,76 +59,21 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td style="width: 50px">2020.03.03</td>
-								<td>O</td>
-								<td>O</td>
-								<td>O</td>
-								<td>O</td>
-								<td>O</td>
-								<td>O</td>
-								<td>O</td>
-							</tr>
-						</tbody>
-						<tbody>
-							<tr>
-								<td style="width: 50px">2020.03.10</td>
-								<td>O</td>
-								<td></td>
-								<td>O</td>
-								<td>O</td>
-								<td></td>
-								<td>O</td>
-								<td>O</td>
-							</tr>
-						</tbody>
-						<tbody>
-							<tr>
-								<td style="width: 50px">2020.03.17</td>
-								<td>O</td>
-								<td>O</td>
-								<td>O</td>
-								<td>O</td>
-								<td>O</td>
-								<td>O</td>
-								<td></td>
-							</tr>
-						</tbody>
-						<tbody>
-							<tr>
-								<td style="width: 50px">2020.03.24</td>
-								<td>O</td>
-								<td>O</td>
-								<td>O</td>
-								<td>O</td>
-								<td>O</td>
-								<td>O</td>
-								<td>O</td>
-							</tr>
-						</tbody>
-						<tbody>
-							<tr>
-								<td style="width: 50px">2020.03.31</td>
-								<td>O</td>
-								<td></td>
-								<td>O</td>
-								<td></td>
-								<td></td>
-								<td>O</td>
-								<td>O</td>
-							</tr>
-						</tbody>
-						<tbody>
-							<tr>
-								<td style="width: 50px">2020.04.07</td>
-								<td>O</td>
-								<td>O</td>
-								<td>O</td>
-								<td></td>
-								<td>O</td>
-								<td>O</td>
-								<td>O</td>
-							</tr>
+							<c:forEach var="checkdate" items="${ checkdate }">
+								<tr>
+									<td>${ checkdate.date }</td>
+									<c:forEach var="attendance" items="${ findAttendances }">
+										<c:choose>
+											<c:when test="${ attendance.check == 0}">
+												<td></td>
+											</c:when>
+											<c:otherwise>
+												<td>O</td>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+								</tr>
+							</c:forEach>
 						</tbody>
 						<tbody>
 							<tr>

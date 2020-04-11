@@ -5,13 +5,22 @@
 <mapper namespace="com.sofCap.mapper.AttendanceMapper">
 
 	<select id="findByDate" resultType="AttendanceDto">
-		SELECT DISTINCT DATE_FORMAT(date,'%Y-%m-%d')
+		SELECT DISTINCT
+		DATE_FORMAT(date,'%Y-%m-%d') date
 		FROM attendance;
 	</select>
-	
+
 	<select id="CountByDate" resultType="AttendanceDto">
 		SELECT COUNT(DISTINCT date)
 		FROM attendance;
 	</select>
-	
+
+	<select id="findAttendance" resultType="AttendanceDto">
+		SELECT `check`
+		FROM
+		attendance a JOIN club c
+		WHERE
+		c.club_name = '동아리연합회' AND a.date =
+		'2020-03-03';
+	</select>
 </mapper>
