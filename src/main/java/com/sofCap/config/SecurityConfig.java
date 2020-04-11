@@ -47,7 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.successHandler(myAuthenticationResultHandler)
 			.failureHandler(myAuthenticationResultHandler);
 		http.logout()
-		.logoutRequestMatcher(new AntPathRequestMatcher("logout_processing"))
+		.logoutRequestMatcher(new AntPathRequestMatcher("/logout_processing"))
 		.logoutSuccessUrl("/")
 		.invalidateHttpSession(true);
 
