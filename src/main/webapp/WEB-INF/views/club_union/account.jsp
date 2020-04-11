@@ -19,7 +19,7 @@
 						Lovely Made by <a href="http://freehtml5.co" target="_blank">FREEHTML5.co</a>
 					</h2>
 					<p class="to-animate hero-animate-3">
-						<a href="${R}" class="btn btn-outline btn-lg">Get Started</a>
+						<a href="#" class="btn btn-outline btn-lg">Get Started</a>
 					</p>
 				</div>
 			</div>
@@ -44,7 +44,7 @@
 				<ul class="resp-tabs-list hor_1">
 					<c:forEach var="club" items="${ clubs }">
 						<li><i class="fh5co-tab-menu-icon"></i> 
-						<a href="${R}clubunion/account?club_id=${club.id}">${ club.club_name }</a></li>
+						<a href="account?club_id=${club.id}">${ club.club_name }</a></li>
 					</c:forEach>
 				</ul>
 				<div class="resp-tabs-container hor_1">
@@ -85,18 +85,26 @@
 										<tr>
 											<td>${ account.date }</td>
 											<c:choose>
-											<c:when test="${ account.account_type == 0}">
-												<td>${ account.price }</td>
-												<td>-</td>
-											</c:when>
-											<c:otherwise>
-												<td>-</td>
-												<td>${ account.price }</td>
-											</c:otherwise>
+												<c:when test="${ account.account_type == 0}">
+													<td>${ account.price }</td>
+													<td>-</td>
+												</c:when>
+												<c:otherwise>
+													<td>-</td>
+													<td>${ account.price }</td>
+												</c:otherwise>
+											</c:choose>
+											<c:choose>
+												<c:when test="${empty account.remark}">
+													<td></td>
+												</c:when>
+												<c:otherwise>
+													<td>${ account.remark }</td>
+												</c:otherwise>
 											</c:choose>
 											<td>${ account.total }</td>
-											<td>${ account.file_id }</td>
-											<td><a href="${R}">x</a></td>
+											<td><a href="#" class="btn btn-primary">영수증</a></td>
+											<td><a href="#">x</a></td>
 										</tr>
 									</c:forEach>
 									<tbody>
@@ -106,8 +114,8 @@
 											<td><input type="number" class="form-control input-lg"></td>
 											<td><input type="text" class="form-control input-lg"></td>
 											<td></td>
-											<td><a href="${R}" class="btn btn-primary">영수증</a></td>
-											<td><a href="${R}">x</a></td>
+											<td><a href="#" class="btn btn-primary">영수증</a></td>
+											<td><a href="#">x</a></td>
 										</tr>
 									</tbody>
 									<tbody id="addTd"></tbody>
