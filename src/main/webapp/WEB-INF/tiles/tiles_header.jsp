@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:url var="R" value="/" />
 
 <meta charset="UTF-8">
 <title>SKHU CMS</title>
@@ -44,26 +46,26 @@
 
 <!--	<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'> -->
 <!-- Themify Icons -->
-<link rel="stylesheet" href="css/themify-icons.css">
+<link rel="stylesheet" href="${R}css/themify-icons.css">
 <!-- Bootstrap -->
-<link rel="stylesheet" href="css/bootstrap.css">
+<link rel="stylesheet" href="${R}css/bootstrap.css">
 <!-- Owl Carousel -->
-<link rel="stylesheet" href="css/owl.carousel.min.css">
-<link rel="stylesheet" href="css/owl.theme.default.min.css">
+<link rel="stylesheet" href="${R}css/owl.carousel.min.css">
+<link rel="stylesheet" href="${R}css/owl.theme.default.min.css">
 <!-- Magnific Popup -->
-<link rel="stylesheet" href="css/magnific-popup.css">
+<link rel="stylesheet" href="${R}css/magnific-popup.css">
 <!-- Superfish -->
-<link rel="stylesheet" href="css/superfish.css">
+<link rel="stylesheet" href="${R}css/superfish.css">
 <!-- Easy Responsive Tabs -->
-<link rel="stylesheet" href="css/easy-responsive-tabs.css">
+<link rel="stylesheet" href="${R}css/easy-responsive-tabs.css">
 <!-- Animate.css -->
-<link rel="stylesheet" href="css/animate.css">
+<link rel="stylesheet" href="${R}css/animate.css">
 <!-- Theme Style -->
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="${R}css/style.css">
 
-<link rel="stylesheet" href="css/hm_style.css">
+<link rel="stylesheet" href="${R}css/hm_style.css">
 
-<link rel="stylesheet" href="css/yj_style.css">
+<link rel="stylesheet" href="${R}css/yj_style.css">
 
 
 <!-- Modernizr JS -->

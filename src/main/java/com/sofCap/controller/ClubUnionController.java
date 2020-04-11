@@ -3,16 +3,16 @@ package com.sofCap.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.sofCap.dto.AccountDto;
 import com.sofCap.service.AccountService;
 import com.sofCap.service.ClubService;
 
-@RestController
+@Controller
 @RequestMapping("clubunion")
 public class ClubUnionController {
 	@Autowired
@@ -26,7 +26,7 @@ public class ClubUnionController {
 //	}
 
 	@RequestMapping("account")
-	public String account(Model model, @RequestParam("club_id") int club_id) {
+	public String account(Model model, @RequestParam(name="club_id",defaultValue="1") int club_id) {
 		List<AccountDto> accounts = accountService.findByClubId(club_id);
 		model.addAttribute("accounts", accounts);
 		model.addAttribute("clubs",clubService.findAll());
