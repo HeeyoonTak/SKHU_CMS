@@ -10,6 +10,22 @@ truncate table board;
 truncate table board_name;
 SET FOREIGN_KEY_CHECKS = 1; -- Enable foreign key checking.
 
+ALTER TABLE `softwarecapstion`.`apply_a` 
+DROP FOREIGN KEY `FK_applyA_userId`;
+ALTER TABLE `softwarecapstion`.`apply_a` 
+ADD CONSTRAINT `FK_applyA_userId`
+  FOREIGN KEY (`user_id`)
+  REFERENCES `softwarecapstion`.`user` (`id`)
+  ON DELETE CASCADE;
+
+ALTER TABLE `softwarecapstion`.`attendance` 
+DROP FOREIGN KEY `FK_attendance_userId`;
+ALTER TABLE `softwarecapstion`.`attendance` 
+ADD CONSTRAINT `FK_attendance_userId`
+  FOREIGN KEY (`user_id`)
+  REFERENCES `softwarecapstion`.`user` (`id`)
+  ON DELETE CASCADE;
+
 
 INSERT INTO club_type (id,type_name) VALUES
   (1,'동아리연합회'),
