@@ -6,11 +6,5 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("clubunion")
 public class ClubUnionController {
-//   @Autowired
-//   AccountService accountService;
-//
-//   @RequestMapping("account")
-//   public List<AccountDto> account() {
-//      return accountService.findAll();
-//   }
+
 }
