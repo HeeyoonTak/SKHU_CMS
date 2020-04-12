@@ -39,10 +39,15 @@ INSERT INTO club_type (id,type_name) VALUES
   
  INSERT INTO user (id, name, login_id, password, user_type, phone, email) VALUES
   (1, '동아리연합회', 'clubAs', '1234', '동연', null, null),
-  (2, '멋쟁이사자처럼 관리자', 'Lion', '1234', '동아리관리자', null, null),
-  (3, 'FLOW 관리자', 'Flow', '1234', '동아리관리자', null, null),
-  (4, 'ELPIS 관리자', 'Elpis', '1234', '동아리관리자', null, null),
-  (5, '아침햇살 관리자', 'Rice', '1234', '동아리관리자', null, null) ;
+  (2, '멋쟁이사자처럼', 'Lion', '1234', '동아리관리자', null, null),
+  (3, 'FLOW', 'Flow', '1234', '동아리관리자', null, null),
+  (4, 'ELPIS', 'Elpis', '1234', '동아리관리자', null, null),
+  (5, '아침햇살', 'Rice', '1234', '동아리관리자', null, null),
+  (6, '탁희윤', 'THY', '1234', '일반회원', null, null),
+  (7, '김명석', 'KMS', '1234', '일반회원', null, null),
+  (8, '이혜민', 'LHM', '1234', '일반회원', null, null),
+  (9, '안세연', 'ASY', '1234', '일반회원', null, null),
+  (10, '장예지', 'JYJ', '1234', '일반회원', null, null);
   
  INSERT INTO attendance (id, club_id, `check`, date, user_id) VALUES
   (1, 1, 0, '2020-03-03', 2),
