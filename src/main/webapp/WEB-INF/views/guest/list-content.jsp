@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <div id="fh5co-hero">
 	<a href="#fh5co-main"
 		class="smoothscroll fh5co-arrow to-animate hero-animate-4"><i
@@ -8,10 +11,12 @@
 	<div class="container">
 		<div class="col-md-8 col-md-offset-2">
 			<div class="fh5co-hero-wrap">
-				<div class="fh5co-hero-intro">
-					<h1 class="to-animate hero-animate-1">멋쟁이 사자처럼</h1>
-					<h2 class="to-animate hero-animate-2">웹프로그래밍을 기반으로 한 개발 동아리</h2>
-				</div>
+				<form>
+					<div class="fh5co-hero-intro">
+						<h1 class="to-animate hero-animate-1">멋쟁이 사자처럼</h1>
+						<h2 class="to-animate hero-animate-2">웹프로그래밍을 기반으로 한 개발 동아리</h2>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>
@@ -38,9 +43,11 @@
 									<img src="images/likelion.jpg"
 										style="width: 300px; height: 300px;">
 								</div>
-								<div class="col-md-6">
-									<p>웹프로그래밍을 기반으로 한 개발 동아리</p>
-								</div>
+								<form>
+									<div class="col-md-6">
+										<p>${club.content}</p>
+									</div>
+								</form>
 							</div>
 						</div>
 						<div>
@@ -58,12 +65,15 @@
 													<th style="text-align: center">등록일</th>
 													<!-- <th>조회</th>  -->
 												</tr>
-												<tr>
-													<td><a href="#">안녕하세요. 질문있어요.</a></td>
-													<!-- <td>아노미7</td>  -->
-													<td style="text-align: center">2017.09.01</td>
-													<!-- <td class="col-sm-1">10</td>  -->
-												</tr>
+												<c:forEach var="board" items="${boards}">
+													<tr>
+														<td><a href="#">${board.title}</a></td>
+														<!-- <td>아노미7</td>  -->
+														<td style="text-align: center"><fmt:formatDate
+																pattern="yyyy-MM-dd" value="${ board.date }" /></td>
+														<!-- <td class="col-sm-1">10</td>  -->
+													</tr>
+												</c:forEach>
 											</table>
 											<div class="col-md-offset-7" style="margin-left: 50%;">
 												<ul class="pagination">
