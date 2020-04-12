@@ -11,6 +11,6 @@ import com.sofCap.dto.BoardDto;
 public interface BoardMapper {
 	BoardDto findById(int id);
 
-	List<BoardDto> findByClubId(int club_no);
-	List<BoardDto> list(@Param("id") int club_id);
+	List<BoardDto> findByClubId_p(@Param("id") int club_id);
+	List<BoardDto> findAll_p();
 }
