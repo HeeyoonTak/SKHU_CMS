@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <div id="fh5co-hero">
 	<a href="#fh5co-main"
 		class="smoothscroll fh5co-arrow to-animate hero-animate-4"><i
@@ -44,12 +46,12 @@
 								<div class="col-xs-12" style="margin-bottom: 0px">
 									<div class="panel panel-info">
 										<div class="panel-heading">
-											<h3 class="panel-title">멋쟁이 사자처럼 비밀번호 변경</h3>
+											<h3 class="panel-title">${user.name}</h3>
 										</div>
 										<div class="panel-body">
-											<input type="text" class="form-control"
+											<input path="name" type="text" class="form-control"
 												placeholder="새로운 비밀번호를 입력해주세요">
-											<button class="btn btn-primary" href="#"
+											<button class="btn btn-primary" type="submit"
 												style="float: right; margin-top: 10px; margin-right: 0; margin-right: 0px; margin-bottom: 0px;">변경</button>
 										</div>
 									</div>

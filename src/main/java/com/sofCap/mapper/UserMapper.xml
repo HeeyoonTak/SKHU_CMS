@@ -9,5 +9,24 @@
 		FROM User
 		WHERE login_id= #{login_id}
 	</select>
+	<select id="findOne" resultType="UserDto">
+		SELECT * FROM USER WHERE id = #{id}
+	</select>
+	<select id="findAll" resultType="UserDto">
+		SELECT * FROM User
+	</select>
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT User (name, login_id, password, user_type)
+		VALUES(#{name},#{login_id},#{password},#{user_type})
+	</insert>
+	
+	<update id="update">
+		UPDATE User SET
+			password = #{user_type}
+		WHERE id = #{id}
+	</update>
+	<delete id="delete">
+		DELETE FROM User WHERE id = #{id}
+	</delete>
 	
 </mapper>
