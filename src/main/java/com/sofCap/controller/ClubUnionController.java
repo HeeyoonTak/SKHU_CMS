@@ -15,12 +15,6 @@ import com.sofCap.service.UserService;
 @Controller
 @RequestMapping("clubunion")
 public class ClubUnionController {
-//	//@Autowired AccountService accountService;
-//
-//	@RequestMapping("account")
-//		public List<AccountDto> account(){
-//			//return accountService.findAll();
-//		}
 	@Autowired
 	UserService userService;
 	@Autowired
