@@ -19,8 +19,8 @@ public class AttendanceDaoImpl implements AttendanceDao {
 	}
 
 	@Override
-	public AttendanceDto CountByDate() {
-		return attendanceMapper.CountByDate();
+	public List<String> findDate() {
+		return attendanceMapper.findDate();
 	}
 
 }

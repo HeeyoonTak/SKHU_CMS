@@ -8,9 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sofCap.dto.AttendanceDto;
-import com.sofCap.dto.ClubDto;
-import com.sofCap.mapper.AttendanceMapper;
-import com.sofCap.mapper.ClubMapper;
+import com.sofCap.service.AttendanceService;
+import com.sofCap.service.UserService;
 
 @Controller
 @RequestMapping("clubunion")
@@ -22,20 +21,20 @@ public class ClubUnionController {
 //			//return accountService.findAll();
 //		}
 	@Autowired
-	ClubMapper clubMapper;
+	UserService userService;
 	@Autowired
-	AttendanceMapper attendanceMapper;
+	AttendanceService attendanceService;
 
 	@RequestMapping("attendance")
 	public String attendance(Model model) {
-		ClubDto clubs = clubMapper.findClub();
-		model.addAttribute("clubs", clubs);
 
-		List<AttendanceDto> checkdate = attendanceMapper.findByDate();
-		model.addAttribute("checkdate", checkdate);
+		List<AttendanceDto> attendances = attendanceService.findByDate();
+		model.addAttribute("attendances", attendances);
 
-		List<AttendanceDto> findAttendances = attendanceMapper.findAttendance();
-		model.addAttribute("findAttendances", findAttendances);
+		List<String> findDate = attendanceService.findDate();
+		model.addAttribute("findDate", findDate);
+
+		model.addAttribute("users", userService.findAll());
 
 		return "club_union/attendance";
 	}

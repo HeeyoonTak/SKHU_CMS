@@ -10,4 +10,9 @@
 		WHERE login_id= #{login_id}
 	</select>
 	
+	<select id="findAll" resultType="UserDto">
+		SELECT *
+		FROM User
+	</select>
+	
 </mapper>

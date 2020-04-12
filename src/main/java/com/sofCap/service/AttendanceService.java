@@ -6,5 +6,5 @@ import com.sofCap.dto.AttendanceDto;
 
 public interface AttendanceService {
 	List<AttendanceDto> findByDate();
-	AttendanceDto CountByDate();
+	List<String> findDate();
 }

@@ -23,7 +23,7 @@
 <div id="fh5co-main">
 
 	<div class="container">
-		<div class="row">
+		<div class="row1">
 
 			<div class="col-md-9 col-md-push-3" id="fh5co-content">
 				<div class="row">
@@ -53,24 +53,24 @@
 						<thead>
 							<tr>
 								<th></th>
-								<c:forEach var="club" items="${ clubs }">
-									<th>${ club.club_name }</th>
+								<c:forEach var="attendances" items="${ attendances }">
+									<th>${ attendances.name }</th>
 								</c:forEach>
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="checkdate" items="${ checkdate }">
+							<c:forEach var="findDate" items="${ findDate }">
 								<tr>
-									<td>${ checkdate.date }</td>
-									<c:forEach var="attendance" items="${ findAttendances }">
-										<c:choose>
-											<c:when test="${ attendance.check == 0}">
-												<td></td>
-											</c:when>
-											<c:otherwise>
-												<td>O</td>
-											</c:otherwise>
-										</c:choose>
+									<td>${ findDate }</td>
+									<c:forEach var="attendances" items="${ attendances }">
+											<c:choose>
+												<c:when test="${ attendances.check == 0}">
+													<td></td>
+												</c:when>
+												<c:otherwise>
+													<td>O</td>
+												</c:otherwise>
+											</c:choose>
 									</c:forEach>
 								</tr>
 							</c:forEach>
@@ -78,7 +78,7 @@
 						<tbody>
 							<tr>
 								<td><input type="date" class="form-control input-md"
-									style="width: 160px">${countClub}</td>
+									style="width: 160px"></td>
 								<%
 									for (int i = 1; i < 5; i++) {
 								%>
@@ -86,9 +86,6 @@
 								<%
 									}
 								%>
-								<c:forEach var="countClub" items="${ countClub }">
-									<td><input type="checkbox" class="form-control input-sm"></td>
-								</c:forEach>
 							</tr>
 						</tbody>
 						<tbody id="addTd"></tbody>
@@ -115,7 +112,7 @@
 					<li>회계 관리</li>
 					<li>동아리 관리</li>
 					<li>공지사항</li>
-					<li>출석체크</li>
+					<li><a href="attendance">출석체크</a></li>
 					<li>회의록</li>
 				</ul>
 			</div>

@@ -19,8 +19,8 @@ public class AttendanceServiceImpl implements AttendanceService {
 	}
 
 	@Override
-	public AttendanceDto CountByDate() {
-		return attendanceDao.CountByDate();
+	public List<String> findDate() {
+		return attendanceDao.findDate();
 	}
 
 }

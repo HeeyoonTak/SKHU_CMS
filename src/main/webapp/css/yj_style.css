@@ -1,6 +1,6 @@
 .attendance_check_table thead tr th {
 	text-align: center;
-	width: 100px;
+	width: 50px;
 }
 
 .attendance_check_table tbody tr td {
@@ -39,4 +39,9 @@
 #save_term_btn {
 	margin-bottom: 0px;
 	border: 1px solid !important;
+}
+
+.row1 {
+  margin-left: -60px;
+  margin-right: -60px;
 }
