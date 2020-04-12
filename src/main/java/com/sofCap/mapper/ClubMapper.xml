@@ -10,7 +10,7 @@
 		WHERE club_name!='동아리연합회'; <!-- 동연제외 동아리 이름 출력 -->
 	</select>
 
-	<select id="countClub" resultType="ClubDto">
+	<select id="countClub" resultType="Integer">
 		SELECT COUNT(id)
 		FROM club
 		WHERE club_name!='동아리연합회'; <!-- 동연제외 동아리 개수 출력 -->

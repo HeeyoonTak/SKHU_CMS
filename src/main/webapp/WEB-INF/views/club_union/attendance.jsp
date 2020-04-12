@@ -78,14 +78,17 @@
 						<tbody>
 							<tr>
 								<td><input type="date" class="form-control input-md"
-									style="width: 160px"></td>
+									style="width: 160px">${countClub}</td>
+								<%
+									for (int i = 1; i < 5; i++) {
+								%>
 								<td><input type="checkbox" class="form-control input-sm"></td>
-								<td><input type="checkbox" class="form-control input-sm"></td>
-								<td><input type="checkbox" class="form-control input-sm"></td>
-								<td><input type="checkbox" class="form-control input-sm"></td>
-								<td><input type="checkbox" class="form-control input-sm"></td>
-								<td><input type="checkbox" class="form-control input-sm"></td>
-								<td><input type="checkbox" class="form-control input-sm"></td>
+								<%
+									}
+								%>
+								<c:forEach var="countClub" items="${ countClub }">
+									<td><input type="checkbox" class="form-control input-sm"></td>
+								</c:forEach>
 							</tr>
 						</tbody>
 						<tbody id="addTd"></tbody>

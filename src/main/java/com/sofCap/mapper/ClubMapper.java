@@ -11,5 +11,5 @@ public interface ClubMapper {
 
 	List<ClubDto> findClub();
 
-	ClubDto countClub();
+	int countClub();
 }
