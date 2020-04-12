@@ -6,6 +6,8 @@ truncate table club;
 truncate table account;
 truncate table user;
 truncate table attendance;
+truncate table board;
+truncate table board_name;
 SET FOREIGN_KEY_CHECKS = 1; -- Enable foreign key checking.
 
 
@@ -14,7 +16,7 @@ INSERT INTO club_type (id,type_name) VALUES
   (2,'종교/학술'),
   (3,'문화기획체육'),
   (4,'공연1'),
-  (5,'공연2') ;
+  (5,'공연2') ; 
   
   INSERT INTO club (id,club_name, club_type, content, file_id) VALUES
   (1,'동아리연합회', 1, null, null),
@@ -71,3 +73,15 @@ INSERT INTO club_type (id,type_name) VALUES
   (26, 1, 1, '2020-04-14', 3),
   (27, 1, 1, '2020-04-14', 4),
   (28, 1, 1, '2020-04-14', 5) ;
+  
+INSERT INTO board_name (id,board_name) VALUES
+  (1, '홍보'),
+  (2, '모집'),
+  (3, '공지') ;
+  
+ INSERT INTO board (id, board_name_id, title, content, date, file_id, club_id, start_date, end_date) VALUES
+  (1, 1, '아이디어톤 모집', '아이디어톤 홍보 공지', '2020-04-11', null, 2, null, null),
+  (2, 1, '해커톤 모집', '해커톤 홍보 공지', '2020-04-12', null, 2, null, null),
+  (3, 1, '공연 날짜 안내', '공연 날짜는 5/6부터 5/8까지 입니다.', '2020-04-12', null, 4, null, null) ;
+  
+ 
