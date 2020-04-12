@@ -53,28 +53,46 @@
 						<thead>
 							<tr>
 								<th></th>
-								<c:forEach var="attendances" items="${ attendances }">
-									<th>${ attendances.name }</th>
-								</c:forEach>
+								<th>멋쟁이 사자처럼</th>
+								<th>FLOW</th>
+								<th>ELPIS</th>
+								<th>아침햇살</th>
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="findDate" items="${ findDate }">
-								<tr>
-									<td>${ findDate }</td>
-									<c:forEach var="attendances" items="${ attendances }">
+							<tr>
+								<c:set var="date" value="0" />
+								<c:forEach var="attendances" items="${ attendances }"
+									varStatus="status">
+									<c:choose>
+										<c:when test="${ attendances.date eq date}">
 											<c:choose>
-												<c:when test="${ attendances.check == 0}">
+												<c:when test="${ attendances.check eq 0}">
 													<td></td>
 												</c:when>
 												<c:otherwise>
 													<td>O</td>
 												</c:otherwise>
 											</c:choose>
-									</c:forEach>
-								</tr>
-							</c:forEach>
+										</c:when>
+										<c:otherwise>
+							</tr>
 						</tbody>
+						<td>${ attendances.date }</td>
+						<c:choose>
+							<c:when test="${ attendances.check eq 0}">
+								<td></td>
+							</c:when>
+							<c:otherwise>
+								<td>O</td>
+							</c:otherwise>
+						</c:choose>
+						<c:set var="date" value="${ attendances.date }" />
+						</c:otherwise>
+						</c:choose>
+						<c:if test="${ status.count % 4 eq 0}">
+						</c:if>
+						</c:forEach>
 						<tbody>
 							<tr>
 								<td><input type="date" class="form-control input-md"

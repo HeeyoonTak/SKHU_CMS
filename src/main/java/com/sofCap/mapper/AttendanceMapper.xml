@@ -8,8 +8,8 @@
 		SELECT *
 		FROM attendance a
 		JOIN user u
-		WHERE a.user_id = u.id  GROUP BY a.user_id
-        ORDER BY a.date, u.id;
+		WHERE a.user_id = u.id
+		ORDER BY a.date, u.id;
 	</select>
 
 	<select id="findDate" resultType="String">

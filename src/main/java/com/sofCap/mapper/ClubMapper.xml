@@ -4,7 +4,7 @@
 
 <mapper namespace="com.sofCap.mapper.ClubMapper">
 
-	<select id="findClub" resultType="ClubDto">
+	<select id="findClub" resultType="String">
 		SELECT club_name
 		FROM club
 		WHERE club_name!='동아리연합회';
