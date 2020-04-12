@@ -51,3 +51,12 @@
 #l_account_save{
     border: 1px solid !important;
 }
+
+.hm_tab_container{
+	border: none;
+    border-top: 1px solid #ebebeb;
+    padding: 15px;
+    padding-top: 30px;
+    box-shadow: none;
+    
+}

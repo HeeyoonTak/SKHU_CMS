@@ -33,7 +33,8 @@
 	<div class="container">
 
 		<div class="row animate-box">
-			<h2 class="fh5co-uppercase-heading-sm text-center">회계 관리</h2>
+			<h2 class="fh5co-uppercase-heading-sm text-center" id="title">회계
+				관리</h2>
 
 		</div>
 
@@ -43,11 +44,15 @@
 			<div id="fh5co-tab-feature-center" class="fh5co-tab text-center">
 				<ul class="resp-tabs-list hor_1">
 					<c:forEach var="club" items="${ clubs }">
-						<li><i class="fh5co-tab-menu-icon"></i> 
-						<a href="account?club_id=${club.id}">${ club.club_name }</a></li>
+						<%-- <li><i class="fh5co-tab-menu-icon"></i>
+						<a href="account?club_id=${club.id}">${ club.club_name }</a></li> --%>
+						<li
+							onclick="location.href='account?club_id=${club.id}#fh5co-tab-feature-center${club.id}'"><i
+							class="fh5co-tab-menu-icon""></i>
+							${ club.club_name }</li>
 					</c:forEach>
 				</ul>
-				<div class="resp-tabs-container hor_1">
+				<div class="hm_tab_container">
 					<div>
 						<div class="row">
 							<form action="#" method="post">
