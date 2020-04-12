@@ -28,11 +28,8 @@ public class ClubUnionController {
 
 	@RequestMapping("attendance")
 	public String attendance(Model model) {
-		List<ClubDto> clubs = clubMapper.findClub();
+		ClubDto clubs = clubMapper.findClub();
 		model.addAttribute("clubs", clubs);
-
-		int countClub = clubMapper.countClub();
-		model.addAttribute("countClub", countClub);
 
 		List<AttendanceDto> checkdate = attendanceMapper.findByDate();
 		model.addAttribute("checkdate", checkdate);
