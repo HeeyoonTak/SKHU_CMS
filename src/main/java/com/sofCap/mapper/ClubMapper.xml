@@ -7,18 +7,20 @@
 	<select id="findClub" resultType="String">
 		SELECT club_name
 		FROM club
-		WHERE club_name!='동아리연합회';
+		WHERE
+		club_name!='동아리연합회'
+		ORDER BY id;
 	</select>
 
 	<select id="findById" resultType="ClubDto">
 		SELECT c.*
 		FROM Club c
-		WHERE c.id = #{id};
+		WHERE c.id
+		= #{id};
 	</select>
 
 	<select id="findAll" resultType="ClubDto">
 		SELECT c.*
 		FROM Club c
-
 	</select>
 </mapper>

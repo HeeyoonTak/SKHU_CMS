@@ -1,5 +1,7 @@
 package com.sofCap.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.sofCap.dto.ClubDto;
@@ -7,7 +9,9 @@ import com.sofCap.dto.ClubDto;
 @Mapper
 public interface ClubMapper {
 
-   ClubDto findClub();
-   ClubDto findById(int id);
-   ClubDto findAll();
+	List<String> findClub();
+
+	ClubDto findById(int id);
+
+	ClubDto findAll();
 }

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:url var="R" value="/" />
 <div id="fh5co-hero">
 	<a href="#fh5co-main"
@@ -53,10 +54,9 @@
 						<thead>
 							<tr>
 								<th></th>
-								<th>멋쟁이 사자처럼</th>
-								<th>FLOW</th>
-								<th>ELPIS</th>
-								<th>아침햇살</th>
+								<c:forEach var="clubs" items="${clubs}">
+									<th>${clubs}</th>
+								</c:forEach>
 							</tr>
 						</thead>
 						<tbody>
@@ -90,20 +90,15 @@
 						<c:set var="date" value="${ attendances.date }" />
 						</c:otherwise>
 						</c:choose>
-						<c:if test="${ status.count % 4 eq 0}">
-						</c:if>
+						<c:if test="${ status.count % fn:length(clubs) eq 0 } "></c:if>
 						</c:forEach>
 						<tbody>
 							<tr>
 								<td><input type="date" class="form-control input-md"
 									style="width: 160px"></td>
-								<%
-									for (int i = 1; i < 5; i++) {
-								%>
-								<td><input type="checkbox" class="form-control input-sm"></td>
-								<%
-									}
-								%>
+								<c:forEach var="clubs" items="${ clubs }">
+									<td><input type="checkbox" class="form-control input-sm"></td>
+								</c:forEach>
 							</tr>
 						</tbody>
 						<tbody id="addTd"></tbody>

@@ -96,16 +96,13 @@
 
 <script>
         function attachAddrAtt(obj) {
-            const str = `<tr> 
-            	<td><input type="date" class="form-control input-md"
-				style="width: 160px"></td>
+            const str = `<tr>
+		<td><input type="date" class="form-control input-md"
+			style="width: 160px"></td>
+		<c:forEach var="clubs" items="${ clubs }">
 			<td><input type="checkbox" class="form-control input-sm"></td>
-			<td><input type="checkbox" class="form-control input-sm"></td>
-			<td><input type="checkbox" class="form-control input-sm"></td>
-			<td><input type="checkbox" class="form-control input-sm"></td>
-			<td><input type="checkbox" class="form-control input-sm"></td>
-			<td><input type="checkbox" class="form-control input-sm"></td>
-			<td><input type="checkbox" class="form-control input-sm"></td></tr>`;
-            $(obj).parents('tbody').prev('#addTd').append(str);
-        }
+		</c:forEach>
+	</tr>`;
+    $(obj).parents('tbody').prev('#addTd').append(str);
+    }
 </script>
