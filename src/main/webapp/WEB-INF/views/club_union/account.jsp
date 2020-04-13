@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:url var="R" value="../" />
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="my" %>
+<c:url var="R" value="/" />
 
 
 <div id="fh5co-hero">
@@ -53,18 +55,23 @@
 						<div>
 							<div class="row">
 								<form action="#" method="post">
-									<div class="col-md-8"></div>
-									<div class="col-md-4">
+									<div class="col-md-9"></div>
+									<div class="col-md-3">
 										<div class="form-group">
-											<label for="search_term" class="sr-only">학기</label> <select
-												class="form-control input-lg" id="l_search_term">
+											<label for="search_term" class="sr-only">학기</label>
+											<my:semdate queryStringSemName="sem_name" />
+											<form:form method="get" modelAttribute="semdate">
+												<form:select path="sem_name"
+													class="form-control input-lg autosubmit" id="l_search_term">
+													<form:options value="sem_name" itemValue="sem_name"
+														itemLabel="sem_name" items="${ sems }" />
+												</form:select>
+												<!-- <select class="form-control input-lg" id="l_search_term">
 												<option>2019-1학기</option>
 												<option>2019-2학기</option>
 												<option selected>2020-1학기</option>
-											</select>
-
-											<!--<input type="submit" class="btn btn-primary btn-lg " value="검색">-->
-											<a class="btn btn-primary btn-lg" id="l_search_term_btn">검색</a>
+											</select> -->
+											</form:form>
 										</div>
 									</div>
 								</form>
