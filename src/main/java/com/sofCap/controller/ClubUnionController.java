@@ -25,9 +25,17 @@ public class ClubUnionController {
 //		return accountService.findAll();
 //	}
 
+//	@RequestMapping("account")
+//	public String account(Model model, @RequestParam(name="club_id",defaultValue="1") int club_id) {
+//		List<AccountDto> accounts = accountService.findByClubId(club_id);
+//		model.addAttribute("accounts", accounts);
+//		model.addAttribute("clubs",clubService.findAll());
+//		return "club_union/account";
+//	}
+	
 	@RequestMapping("account")
-	public String account(Model model, @RequestParam(name="club_id",defaultValue="1") int club_id) {
-		List<AccountDto> accounts = accountService.findByClubId(club_id);
+	public String account(Model model) {
+		List<AccountDto> accounts = accountService.findAll();
 		model.addAttribute("accounts", accounts);
 		model.addAttribute("clubs",clubService.findAll());
 		return "club_union/account";
