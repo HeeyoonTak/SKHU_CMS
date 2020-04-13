@@ -105,7 +105,9 @@ INSERT INTO board_name (id,board_name) VALUES
  INSERT INTO board (id, board_name_id, title, content, date, file_id, club_id, start_date, end_date) VALUES
   (1, 1, '아이디어톤 모집', '아이디어톤 홍보 공지', '2020-04-11', null, 2, null, null),
   (2, 1, '해커톤 모집', '해커톤 홍보 공지', '2020-04-12', null, 2, null, null),
-  (3, 1, '공연 날짜 안내', '공연 날짜는 5/6부터 5/8까지 입니다.', '2020-04-12', null, 4, null, null) ;
+  (3, 1, '공연 날짜 안내', '공연 날짜는 5/6부터 5/8까지 입니다.', '2020-04-12', null, 4, null, null),
+  (4, 2, '멋사 20기 모집', '20기 모집합니다.', '2020-04-10', null, 2, '2020-04-11', '2020-04-20'),
+  (5, 2, '아침햇살 모집', '아침햇살 모집합니다.', '2020-04-10', null, 5, '2020-04-12', '2020-04-21') ;
   
   INSERT INTO sem_date (id,start_date, ent_date, sem_name) VALUES
   (1, '2020-03-01', '2020-08-31', '2020-1학기'),
