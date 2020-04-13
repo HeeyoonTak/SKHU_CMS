@@ -17,4 +17,6 @@ public class BoardDto {
 	int club_id;
 	Date start_date;
 	Date end_date;
+
+	ClubDto club;
 }

@@ -8,6 +8,7 @@ truncate table user;
 truncate table attendance;
 truncate table board;
 truncate table board_name;
+truncate table sem_date;
 SET FOREIGN_KEY_CHECKS = 1; -- Enable foreign key checking.
 
 ALTER TABLE `softwarecapstion`.`apply_a` 
@@ -51,7 +52,8 @@ INSERT INTO club_type (id,type_name) VALUES
   (7,3, 200000, 200000, null, null, 0, now()),
   (8,3, -200000, 0, null, null, 0, now()),
   (9,4, 200000, 200000, null, null, 0, now()),
-  (10,4, -200000, 0, null, null, 0, now()) ;
+  (10,4, -200000, 0, null, null, 0, now()),
+  (11,1, 200000, 250000, null, null, 0, '2020-10-10') ;
   
  INSERT INTO user (id, name, login_id, password, user_type, phone, email) VALUES
   (1, '동아리연합회', 'clubAs', '1234', '동연', null, null),
@@ -105,4 +107,6 @@ INSERT INTO board_name (id,board_name) VALUES
   (2, 1, '해커톤 모집', '해커톤 홍보 공지', '2020-04-12', null, 2, null, null),
   (3, 1, '공연 날짜 안내', '공연 날짜는 5/6부터 5/8까지 입니다.', '2020-04-12', null, 4, null, null) ;
   
- 
+  INSERT INTO sem_date (id,start_date, end_date, sem_name) VALUES
+  (1, '2020-03-01', '2020-08-31', '2020-1학기'),
+  (2, '2020-09-01', '2021-02-28', '2020-2학기');
