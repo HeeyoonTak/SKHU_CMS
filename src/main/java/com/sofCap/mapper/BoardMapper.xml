@@ -18,15 +18,26 @@
 
 	<select id="findAll_p" resultMap="resultMap_BoardDto">
 		SELECT b.*, c.club_name
-		FROM Board b
+		FROM
+		Board b
 		LEFT JOIN Club c ON b.club_id = c.id
 		WHERE board_name_id = '1'
 	</select>
 
+	<select id="findAll_r" resultMap="resultMap_BoardDto">
+		SELECT b.*, c.club_name
+		FROM
+		Board b
+		LEFT JOIN Club c ON b.club_id = c.id
+		WHERE board_name_id = '2'
+	</select>
+	
 	<resultMap id="resultMap_BoardDto" type="BoardDto">
 		<id property="id" column="id" />
 		<result property="title" column="title" />
 		<result property="date" column="date" />
+		<result property="start_date" column="start_date" />
+		<result property="end_date" column="end_date" />
 		<association property="club" javaType="ClubDto">
 			<id property="id" column="id" />
 			<result property="club_name" column="club_name" />

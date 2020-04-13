@@ -36,4 +36,11 @@ public class BoardController {
 		model.addAttribute("boards",boards);
 		return "guest/publicity";
 	}
+
+	@RequestMapping("recruit")
+	public String recruit(Model model) {
+		List<BoardDto> boards = boardMapper.findAll_r();
+		model.addAttribute("boards",boards);
+		return "guest/recruit";
+	}
 }
