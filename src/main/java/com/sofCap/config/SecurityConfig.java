@@ -33,8 +33,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/member/**").hasRole("Member")
 			.antMatchers("/**").permitAll()
 			.antMatchers("/tiles/**").permitAll()
-			.antMatchers("/").permitAll();
-//			.antMatchers("/**").authenticated();
+			.antMatchers("/").permitAll()
+			.antMatchers("/member/**").authenticated()
+			.antMatchers("/club_union/**").authenticated()
+			.antMatchers("/club_admin/**").authenticated();
 
 		http.csrf().disable();
 
