@@ -52,7 +52,8 @@ INSERT INTO club_type (id,type_name) VALUES
   (7,3, 200000, 200000, null, null, 0, now()),
   (8,3, -200000, 0, null, null, 0, now()),
   (9,4, 200000, 200000, null, null, 0, now()),
-  (10,4, -200000, 0, null, null, 0, now()) ;
+  (10,4, -200000, 0, null, null, 0, now()),
+  (11,1, 200000, 250000, null, null, 0, '2020-10-10') ;
   
  INSERT INTO user (id, name, login_id, password, user_type, phone, email) VALUES
   (1, '동아리연합회', 'clubAs', '1234', '동연', null, null),
