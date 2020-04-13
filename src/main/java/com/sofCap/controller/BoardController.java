@@ -43,4 +43,11 @@ public class BoardController {
 		model.addAttribute("boards",boards);
 		return "guest/recruit";
 	}
+
+	@RequestMapping("notice")
+	public String union_notice(Model model) {
+		List<BoardDto> boards = boardMapper.findAll_n();
+		model.addAttribute("boards",boards);
+		return "club_union/union_notice";
+	}
 }
