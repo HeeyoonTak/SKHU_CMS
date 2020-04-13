@@ -8,4 +8,6 @@ public interface UserDao {
 	UserDto findByLoginId(String login_id);
 
 	List<UserDto> findAll();
+
+	List<String> findAdmin();
 }

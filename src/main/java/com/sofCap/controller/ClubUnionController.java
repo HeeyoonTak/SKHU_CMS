@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sofCap.dto.AttendanceDto;
 import com.sofCap.service.AttendanceService;
-import com.sofCap.service.ClubService;
 import com.sofCap.service.UserService;
 
 @Controller
@@ -17,8 +16,6 @@ import com.sofCap.service.UserService;
 public class ClubUnionController {
 	@Autowired
 	UserService userService;
-	@Autowired
-	ClubService clubService;
 	@Autowired
 	AttendanceService attendanceService;
 
@@ -31,7 +28,7 @@ public class ClubUnionController {
 		List<String> findDate = attendanceService.findDate();
 		model.addAttribute("findDate", findDate);
 
-		model.addAttribute("clubs", clubService.findClub());
+		model.addAttribute("adminUser", userService.findAdmin());
 
 		return "club_union/attendance";
 	}

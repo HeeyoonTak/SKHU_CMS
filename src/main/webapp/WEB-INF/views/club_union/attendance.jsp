@@ -54,16 +54,18 @@
 						<thead>
 							<tr>
 								<th></th>
-								<c:forEach var="clubs" items="${clubs}">
-									<th>${clubs}</th>
+								<c:forEach var="adminUser" items="${adminUser}">
+									<th>${adminUser}</th>
 								</c:forEach>
 								<th></th>
 							</tr>
 						</thead>
+						<c:set var="count" value="0" />
+						<c:set var="date" value="${findDate[0]}" />
+						<c:set var="admin" value="${fn:length(adminUser)}" />
 						<tbody>
 							<tr>
-								<c:set var="date" value="${findDate[0]}" />
-								<td>${findDate[0]}</td>
+								<td>${date}</td>
 								<c:forEach var="attendance" items="${ attendances }"
 									varStatus="status">
 									<c:choose>
@@ -71,39 +73,41 @@
 											<c:choose>
 												<c:when test="${ attendance.check eq 0}">
 													<td></td>
+													<c:set var="count" value="${count+1}" />
 												</c:when>
 												<c:otherwise>
 													<td>O</td>
+													<c:set var="count" value="${count+1}" />
 												</c:otherwise>
 											</c:choose>
-											<c:if test="${status.count eq fn:length(attendances)}">
-												<td><a href="#">x</a></td>
-											</c:if>
 										</c:when>
 										<c:otherwise>
-											<td><a href="#">x</a></td>
+											<c:choose>
+												<c:when test="${admin - count gt 0}">
+													<td>-</td>
+													<td><a href="#">x</a></td>
 							</tr>
 						</tbody>
-						<td>${ attendance.date }</td>
-						<c:choose>
-							<c:when test="${ attendance.check eq 0}">
-								<td></td>
-							</c:when>
-							<c:otherwise>
-								<td>O</td>
-							</c:otherwise>
-						</c:choose>
-						<c:set var="date" value="${ attendance.date }" />
+						<c:set var="date" value="${attendance.date}" />
+						<td>${date}</td>
+						</c:when>
+						<c:otherwise>
+							<td><a href="#">x</a></td>
+						</tr>
+						</tbody>
+						<c:set var="date" value="${attendance.date}" />
+						<td>${date}</td>
+						<c:set var="count" value="0" />
 						</c:otherwise>
 						</c:choose>
-						<c:if test="${ status.count % fn:length(clubs) eq 0 } ">
-						</c:if>
+						</c:otherwise>
+						</c:choose>
 						</c:forEach>
 						<tbody>
 							<tr>
 								<td><input type="date" class="form-control input-md"
 									style="width: 160px"></td>
-								<c:forEach var="clubs" items="${ clubs }">
+								<c:forEach var="adminUser" items="${ adminUser }">
 									<td><input type="checkbox" class="form-control input-sm"></td>
 								</c:forEach>
 								<td><a href="#">x</a></td>

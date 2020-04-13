@@ -99,7 +99,7 @@
             const str = `<tr>
 		<td><input type="date" class="form-control input-md"
 			style="width: 160px"></td>
-		<c:forEach var="clubs" items="${ clubs }">
+		<c:forEach var="adminUser" items="${ adminUser }">
 			<td><input type="checkbox" class="form-control input-sm"></td>
 		</c:forEach>
 		<td><a href="#">x</a></td>

@@ -8,14 +8,16 @@
 		SELECT *
 		FROM attendance a
 		JOIN user u
-		WHERE a.user_id = u.id
-		ORDER BY a.date, u.id;
+		WHERE a.user_id = u.id AND a.club_id = 1
+		ORDER BY a.date,
+		u.id;
 	</select>
 
 	<select id="findDate" resultType="String">
 		SELECT DISTINCT
 		DATE_FORMAT(date,'%Y-%m-%d') date
-		FROM attendance;
+		FROM attendance WHERE club_id = 1
+		ORDER BY date;
 	</select>
 
 </mapper>

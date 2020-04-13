@@ -15,6 +15,8 @@ public interface UserMapper {
 
 	List<UserDto> findAll();
 
+	List<String> findAdmin();
+
 	void insert(UserDto user);
 
 	void update(UserDto user);
