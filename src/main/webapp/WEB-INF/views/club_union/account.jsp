@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib tagdir="/WEB-INF/tags" prefix="my" %>
 <c:url var="R" value="/" />
 
 
@@ -15,14 +14,11 @@
 		<div class="col-md-8 col-md-offset-2">
 			<div class="fh5co-hero-wrap">
 				<div class="fh5co-hero-intro">
-					<h1 class="to-animate hero-animate-1">Slant. Free HTML5
-						Template</h1>
+					<h1 class="to-animate hero-animate-1">동아리 연합회</h1>
 					<h2 class="to-animate hero-animate-2">
-						Lovely Made by <a href="http://freehtml5.co" target="_blank">FREEHTML5.co</a>
+						동아리 연합회의 모든 내용을 볼 수 있습니다.
 					</h2>
-					<p class="to-animate hero-animate-3">
-						<a href="#" class="btn btn-outline btn-lg">Get Started</a>
-					</p>
+					
 				</div>
 			</div>
 		</div>
@@ -59,11 +55,10 @@
 									<div class="col-md-3">
 										<div class="form-group">
 											<label for="search_term" class="sr-only">학기</label>
-											<my:semdate queryStringSemName="sem_name" />
 											<form:form method="get" modelAttribute="semdate">
 												<form:select path="sem_name"
 													class="form-control input-lg autosubmit" id="l_search_term">
-													<form:options value="sem_name" itemValue="sem_name"
+													<form:options value="${ sem_name }" itemValue="sem_name"
 														itemLabel="sem_name" items="${ sems }" />
 												</form:select>
 												<!-- <select class="form-control input-lg" id="l_search_term">

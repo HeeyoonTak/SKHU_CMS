@@ -21,6 +21,10 @@
     width: 5%;
 }
 
+.l_account_table thead tr th:nth-child(5){
+    width: 10%;
+}
+
 .l_account_table tbody tr td:last-child a{
     color: red;
 }

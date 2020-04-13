@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +59,7 @@ public class ClubUnionController {
 	//버전 3
 	@RequestMapping("account")
 	public String account(Model model, SemDate semdate) {
+		System.out.print(semdate.getSem_name());
 		List<AccountDto> accounts = accountService.findBySem(semdate);
 		model.addAttribute("accounts", accounts);
 		model.addAttribute("clubs",clubService.findAll());
