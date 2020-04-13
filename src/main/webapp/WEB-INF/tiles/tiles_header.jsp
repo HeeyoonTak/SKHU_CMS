@@ -102,6 +102,7 @@
 		<c:forEach var="clubs" items="${ clubs }">
 			<td><input type="checkbox" class="form-control input-sm"></td>
 		</c:forEach>
+		<td><a href="#">x</a></td>
 	</tr>`;
     $(obj).parents('tbody').prev('#addTd').append(str);
     }

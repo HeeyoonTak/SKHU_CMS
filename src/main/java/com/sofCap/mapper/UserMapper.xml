@@ -28,10 +28,4 @@
 	<delete id="delete">
 		DELETE FROM User WHERE id = #{id}
 	</delete>
-	
-	<select id="findAll" resultType="UserDto">
-		SELECT *
-		FROM User
-	</select>
-	
 </mapper>

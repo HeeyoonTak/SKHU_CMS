@@ -57,40 +57,47 @@
 								<c:forEach var="clubs" items="${clubs}">
 									<th>${clubs}</th>
 								</c:forEach>
+								<th></th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<c:set var="date" value="0" />
-								<c:forEach var="attendances" items="${ attendances }"
+								<c:set var="date" value="${findDate[0]}" />
+								<td>${findDate[0]}</td>
+								<c:forEach var="attendance" items="${ attendances }"
 									varStatus="status">
 									<c:choose>
-										<c:when test="${ attendances.date eq date}">
+										<c:when test="${ attendance.date eq date}">
 											<c:choose>
-												<c:when test="${ attendances.check eq 0}">
+												<c:when test="${ attendance.check eq 0}">
 													<td></td>
 												</c:when>
 												<c:otherwise>
 													<td>O</td>
 												</c:otherwise>
 											</c:choose>
+											<c:if test="${status.count eq fn:length(attendances)}">
+												<td><a href="#">x</a></td>
+											</c:if>
 										</c:when>
 										<c:otherwise>
+											<td><a href="#">x</a></td>
 							</tr>
 						</tbody>
-						<td>${ attendances.date }</td>
+						<td>${ attendance.date }</td>
 						<c:choose>
-							<c:when test="${ attendances.check eq 0}">
+							<c:when test="${ attendance.check eq 0}">
 								<td></td>
 							</c:when>
 							<c:otherwise>
 								<td>O</td>
 							</c:otherwise>
 						</c:choose>
-						<c:set var="date" value="${ attendances.date }" />
+						<c:set var="date" value="${ attendance.date }" />
 						</c:otherwise>
 						</c:choose>
-						<c:if test="${ status.count % fn:length(clubs) eq 0 } "></c:if>
+						<c:if test="${ status.count % fn:length(clubs) eq 0 } ">
+						</c:if>
 						</c:forEach>
 						<tbody>
 							<tr>
@@ -99,6 +106,7 @@
 								<c:forEach var="clubs" items="${ clubs }">
 									<td><input type="checkbox" class="form-control input-sm"></td>
 								</c:forEach>
+								<td><a href="#">x</a></td>
 							</tr>
 						</tbody>
 						<tbody id="addTd"></tbody>
