@@ -69,7 +69,7 @@
 										<c:if test="${attendance.date eq findDate}">
 											<c:choose>
 												<c:when test="${ attendance.check eq 0}">
-													<td>X</td>
+													<td>-</td>
 												</c:when>
 												<c:otherwise>
 													<td>O</td>

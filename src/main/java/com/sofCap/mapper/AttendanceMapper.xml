@@ -26,8 +26,10 @@
 		FROM attendance a JOIN sem_date s
 		ON a.date
 		BETWEEN s.start_date
-		AND s.ent_date JOIN user u ON a.user_id = u.id
+		AND
+		s.end_date JOIN user u ON a.user_id = u.id
 		WHERE
-		s.sem_name=#{sem_name} AND a.club_id=1 ORDER BY a.date, a.user_id</select>
-
+		s.sem_name=#{sem_name}
+		AND a.club_id=1 ORDER BY a.date, a.user_id
+	</select>
 </mapper>
