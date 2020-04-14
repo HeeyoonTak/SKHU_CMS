@@ -15,5 +15,6 @@ public interface BoardMapper {
 	List<BoardDto> findAll_p();
 	List<BoardDto> findAll_r();
 	List<BoardDto> findAll_n();
+	List<BoardDto> findAll_m();
 
 }

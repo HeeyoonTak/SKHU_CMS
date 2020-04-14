@@ -52,4 +52,10 @@ public class BoardController {
 		return "club_union/union_notice";
 	}
 
+	@RequestMapping("minutes")
+	public String union_minutes(Model model) {
+		List<BoardDto> boards = boardMapper.findAll_m();
+		model.addAttribute("boards",boards);
+		return "club_union/union_minutes";
+	}
 }

@@ -21,7 +21,6 @@
 		<!-- START #fh5co-menu-wrap -->
 		<nav id="fh5co-menu-wrap" role="navigation">
 
-
 			<ul class="sf-menu" id="fh5co-primary-menu">
 				<li class="active"><a href="${R}index.html">동아리 연합회</a></li>
 				<li><a href="${R}" class="fh5co-sub-ddown">동아리</a>
@@ -40,10 +39,10 @@
 
 				<li class="fh5co-special" style="padding-left: 20px">
 					<sec:authorize access="not authenticated">
-						<a class=" btn btn-default" href="${R}/login">로그인</a>
+						<a class=" btn btn-default" href="${R}login">로그인</a>
 					</sec:authorize> 
 					<sec:authorize access="authenticated">
-						<a class="btn btn-default" href="${R}/logout_processing">로그아웃</a>
+						<a class="btn btn-default" href="${R}logout_processing">로그아웃</a>
 					</sec:authorize></li>
 
 			</ul>
