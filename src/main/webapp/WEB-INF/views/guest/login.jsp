@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:url var="R" value="/" />
+
 <div id="fh5co-hero" style="margin-bottom: 0px; height: 700px">
 
 	<!-- End fh5co-arrow -->
@@ -33,10 +36,12 @@
 							<div class="col-md-12">
 								<div class="form-group">
 									<c:if test="${ param.error != null }">
-										<div class="mt5" style="text-align: right">ID 혹은 비밀번호를 재확인 바랍니다.</div>
+										<div class="mt5" style="color:red;">ID 혹은 비밀번호를
+											재확인 바랍니다.</div>
 									</c:if>
+									<li></li>
 									<button class="btn btn-lg btn-primary" type="submit">로그인</button>
-									
+
 								</div>
 							</div>
 
