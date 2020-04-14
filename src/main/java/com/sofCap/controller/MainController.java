@@ -17,11 +17,6 @@ public class MainController {
 //		return "guest/list-content";
 //	}
 
-	@RequestMapping("list-content")
-	public String listcontent(){
-		return "guest/list-content";
-	}
-
 	@RequestMapping("login")
 	public String login() {
 		return "guest/login";
