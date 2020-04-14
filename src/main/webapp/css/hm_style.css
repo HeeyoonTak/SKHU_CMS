@@ -29,6 +29,10 @@
     color: red;
 }
 
+.l_account_table tbody tr td:nth-child(2){
+	width: 15%;
+}
+
 
 #l_search_term {
     display: inline;

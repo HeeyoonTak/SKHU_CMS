@@ -15,10 +15,9 @@
 			<div class="fh5co-hero-wrap">
 				<div class="fh5co-hero-intro">
 					<h1 class="to-animate hero-animate-1">동아리 연합회</h1>
-					<h2 class="to-animate hero-animate-2">
-						동아리 연합회의 모든 내용을 볼 수 있습니다.
-					</h2>
-					
+					<h2 class="to-animate hero-animate-2">동아리 연합회의 모든 내용을 볼 수
+						있습니다.</h2>
+
 				</div>
 			</div>
 		</div>
@@ -73,77 +72,90 @@
 							</div>
 							<div class="row">
 								<div class="panel panel-default">
-									<table class="table text-center l_account_table">
-										<thead>
-											<tr>
-												<th>날짜</th>
-												<th>지원금 사용내역</th>
-												<th>동아리회비 사용내역</th>
-												<th>비고</th>
-												<th>잔액</th>
-												<th>영수증 첨부</th>
-												<th></th>
-											</tr>
-										</thead>
-										<c:forEach var="account" items="${ accounts }">
-											<c:if test="${club.id eq account.club_id }">
-												<tbody>
-													<tr>
-														<td>${ account.date }</td>
-														<c:choose>
-															<c:when test="${ account.account_type == 0}">
-																<td>${ account.price }</td>
-																<td>-</td>
-															</c:when>
-															<c:otherwise>
-																<td>-</td>
-																<td>${ account.price }</td>
-															</c:otherwise>
-														</c:choose>
-														<c:choose>
-															<c:when test="${empty account.remark}">
-																<td></td>
-															</c:when>
-															<c:otherwise>
-																<td>${ account.remark }</td>
-															</c:otherwise>
-														</c:choose>
-														<td>${ account.total }</td>
-														<td><a href="#" class="btn btn-primary">영수증</a></td>
-														<td><a href="#">x</a></td>
-													</tr>
-												</tbody>
-											</c:if>
-										</c:forEach>
-										<tbody>
-											<tr>
-												<td><input type="date" class="form-control input-lg"></td>
-												<td><input type="number" class="form-control input-lg"></td>
-												<td><input type="number" class="form-control input-lg"></td>
-												<td><input type="text" class="form-control input-lg"></td>
-												<td></td>
-												<td><a href="#" class="btn btn-primary">영수증</a></td>
-												<td><a href="#">x</a></td>
-											</tr>
-										</tbody>
-										<tbody id="addTd"></tbody>
-										<tbody>
-											<tr>
-												<td colspan="6"><button onclick="attachAddr(this)"
-														class="btn btn-primary col-md" id="pls-btn">+</button></td>
-											</tr>
-										</tbody>
+									<form action="account_save" method="post">
+										<table class="table text-center l_account_table">
+											<thead>
+												<tr>
+													<th>날짜</th>
+													<th>지원금 사용내역</th>
+													<th>동아리회비 사용내역</th>
+													<th>비고</th>
+													<th>잔액</th>
+													<th>영수증 첨부</th>
+													<th></th>
+												</tr>
+											</thead>
+											<c:forEach var="account" items="${ accounts }">
+												<c:if test="${club.id eq account.club_id }">
+													<tbody>
+														<tr>
+															<td>${ account.date }</td>
+															<c:choose>
+																<c:when test="${ account.account_type == 0}">
+																	<td>${ account.price }</td>
+																	<td>-</td>
+																</c:when>
+																<c:otherwise>
+																	<td>-</td>
+																	<td>${ account.price }</td>
+																</c:otherwise>
+															</c:choose>
+															<c:choose>
+																<c:when test="${empty account.remark}">
+																	<td></td>
+																</c:when>
+																<c:otherwise>
+																	<td>${ account.remark }</td>
+																</c:otherwise>
+															</c:choose>
+															<td>${ account.total }</td>
+															<td><a href="#" class="btn btn-primary">영수증</a></td>
+															<td><a href="#">x</a></td>
+														</tr>
+													</tbody>
+												</c:if>
+											</c:forEach>
+											<tbody>
+												<tr>
+													<input type="hidden" name="club_id" value="${club.id}">
+													<td><input type="date" name="date"
+														class="form-control input-lg"></td>
+													<td><select class="form-control input-lg" name="account_type">
+															<c:forEach var="at" items="${ account_type }"
+																varStatus="i">
+																<option value="${i.index}">${ at }</option>
+															</c:forEach>
+													</select></td>
+													<td><input type="number" name="price"
+														class="form-control input-lg"></td>
+													<td><input type="text" name="remark"
+														class="form-control input-lg"></td>
+													<td></td>
+													<td><input type="file" name="file_id"
+														class="btn btn-primary" default=null></td>
+													<td><a href="#">x</a></td>
+												</tr>
+											</tbody>
+											<tbody id="addTd"></tbody>
+											<tbody>
+												<tr>
+													<td colspan="6"><button onclick="attachAddr(this)"
+															class="btn btn-primary col-md" id="pls-btn">+</button></td>
+												</tr>
+											</tbody>
 
-									</table>
+										</table>
 								</div>
 
 								<div class="row">
 									<div class="col-md-8"></div>
 									<div class="col-md-4">
-										<button class="btn btn-primary col-md-offset-7 btn-lg"
+										<button type="submit"
+											class="btn btn-primary col-md-offset-7 btn-lg"
 											id="l_account_save">회계 저장</button>
 									</div>
 								</div>
+								</form>
 							</div>
 						</div>
 					</div>

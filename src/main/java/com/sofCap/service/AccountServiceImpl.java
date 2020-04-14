@@ -28,5 +28,20 @@ public class AccountServiceImpl implements AccountService{
 		return accountDao.findBySem(sem_name);
 	}
 
-
+	@Override
+	public void update(AccountDto account) {
+	}
+	
+	@Override
+	public void insert(AccountDto account) {
+	}
+	
+	@Override
+	public void delete(int id) {
+	}
+	
+	@Override
+	public int getTotal(SemDate semdate, int club_id) {
+		return accountDao.getTotal(semdate, club_id);
+	}
 }

@@ -82,14 +82,21 @@
 
 <script>
         function attachAddr(obj) {
-            const str = `<tr> 
-                                <td><input type="date" class="form-control input-lg"></td>
-                                <td><input type="number" class="form-control input-lg"></td>
-                                <td><input type="number" class="form-control input-lg"></td>
-                                <td><input type="text" class="form-control input-lg"></td>
-                                <td></td>
-                                <td><a href="#" class="btn btn-primary col-md">영수증</a></td>
-                                <td><a href="#">x</a></td>                            </tr>`;
+            const str = `<tr>
+							<td><input type="date" name="date" class="form-control input-lg"></td>
+							<td>
+								<select class="form-control input-lg">
+									<c:forEach var="at" items="${ account_type }" varStatus="i">
+			                        	<option value="${i.index}">${ at }</option>
+			                        </c:forEach>
+			            		</select>
+			            	</td>
+			            	<td><input type="number" name="price" class="form-control input-lg"></td>
+							<td><input type="text" name="remark" class="form-control input-lg"></td>
+							<td></td>
+							<td><a href="#" class="btn btn-primary">영수증</a></td>
+							<td><a href="#">x</a></td>
+						</tr>`;
             $(obj).parents('tbody').prev('#addTd').append(str);
         }
     </script>
