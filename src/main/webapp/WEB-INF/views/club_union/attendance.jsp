@@ -60,48 +60,28 @@
 								<th></th>
 							</tr>
 						</thead>
-						<c:set var="count" value="0" />
-						<c:set var="date" value="${findDate[0]}" />
-						<c:set var="admin" value="${fn:length(adminUser)}" />
 						<tbody>
-							<tr>
-								<td>${date}</td>
-								<c:forEach var="attendance" items="${ attendances }"
-									varStatus="status">
-									<c:choose>
-										<c:when test="${ attendance.date eq date}">
+							<c:forEach var="findDate" items="${ findDate }">
+								<tr>
+									<td>${ findDate }</td>
+									<c:forEach var="attendance" items="${ attendances }"
+										varStatus="status">
+										<c:if test="${attendance.date eq findDate}">
 											<c:choose>
 												<c:when test="${ attendance.check eq 0}">
-													<td></td>
-													<c:set var="count" value="${count+1}" />
+													<td>X</td>
 												</c:when>
 												<c:otherwise>
 													<td>O</td>
-													<c:set var="count" value="${count+1}" />
 												</c:otherwise>
 											</c:choose>
-										</c:when>
-										<c:otherwise>
-											<c:choose>
-												<c:when test="${admin - count gt 0}">
-													<td>-</td>
-													<td><a href="#">x</a></td>
-							</tr>
+											<c:if test="${status.count % fn:length(adminUser) eq 0}">
+												<td><a href="#">x</a></td>
+								</tr>
 						</tbody>
-						<c:set var="date" value="${attendance.date}" />
-						<td>${date}</td>
-						</c:when>
-						<c:otherwise>
-							<td><a href="#">x</a></td>
-						</tr>
-						</tbody>
-						<c:set var="date" value="${attendance.date}" />
-						<td>${date}</td>
-						<c:set var="count" value="0" />
-						</c:otherwise>
-						</c:choose>
-						</c:otherwise>
-						</c:choose>
+						</c:if>
+						</c:if>
+						</c:forEach>
 						</c:forEach>
 						<tbody>
 							<tr>

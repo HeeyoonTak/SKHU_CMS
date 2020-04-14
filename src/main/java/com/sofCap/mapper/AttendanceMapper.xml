@@ -14,8 +14,8 @@
 	</select>
 
 	<select id="findDate" resultType="String">
-		SELECT DISTINCT
-		DATE_FORMAT(date,'%Y-%m-%d') date
+		SELECT DISTINCT DATE_FORMAT(
+		date,'%Y-%m-%d') date
 		FROM attendance WHERE club_id = 1
 		ORDER BY date;
 	</select>
