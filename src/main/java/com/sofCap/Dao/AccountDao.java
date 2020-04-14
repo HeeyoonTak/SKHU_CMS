@@ -1,6 +1,5 @@
 package com.sofCap.Dao;
 
-import java.sql.Date;
 import java.util.List;
 
 import com.sofCap.dto.AccountDto;
@@ -13,5 +12,5 @@ public interface AccountDao {
 	void update(AccountDto account);
 	void insert(AccountDto account);
 	void delete(int id);
-	int getTotal(SemDate semdate, int club_id);
+	Integer getTotal(String sem_name, int club_id);
 }

@@ -1,7 +1,6 @@
 package com.sofCap.controller;
 
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +27,7 @@ public class ClubUnionController {
 	ClubService clubService;
 	@Autowired
 	SemDateService semdateService;
-	
+
 	String[] account_type = {"중앙지원금", "동아리회비"};
 
 //	@RequestMapping("account")
@@ -54,10 +53,10 @@ public class ClubUnionController {
 //		return "club_union/account";
 //	}
 
-	// 버전 3	
+	// 버전 3
 	@RequestMapping(value = "account")
 	public String account(Model model, SemDate semdate) {
-		System.out.print(semdate.getSem_name());
+		System.out.println(semdate.getSem_name());
 		List<AccountDto> accounts = accountService.findBySem(semdate);
 		model.addAttribute("accounts", accounts);
 		model.addAttribute("clubs", clubService.findAll());
@@ -71,23 +70,27 @@ public class ClubUnionController {
 	@RequestMapping(value="account_save", method=RequestMethod.POST)
 	public String account_save(Model model, @RequestParam("club_id") int[] club_id,
 			@RequestParam("price") int[] price, @RequestParam("remark") String[] remark,
-			@RequestParam("file_id") int[] file_id, @RequestParam("account_type") int[] account_type, 
+			@RequestParam("file_id") int[] file_id, @RequestParam("account_type") int[] account_type,
 			@RequestParam("date") @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Date[] date, SemDate semdate) {
-		save(club_id, price, remark, file_id, account_type, date, semdate);
+		System.out.println(semdate.getSem_name());
+		String sem_name = semdate.getSem_name();
+		System.out.println(club_id.length);
+		System.out.println(file_id[0]);
+		save(club_id, price, remark, file_id, account_type, date, sem_name);
 		return account(model, semdate);
 	}
 
 	@Transactional
-	private void save(int[] club_id, int[] price, String[] remark, int[] file_id, 
-			int[] account_type, Date[] date, SemDate semdate)
+	private void save(int[] club_id, int[] price, String[] remark, int[] file_id,
+			int[] account_type, Date[] date, String sem_name)
 	{
-		for (int i = 0 ; i < club_id.length ; ++i) {
+		for (int i = 0 ; i < club_id.length ; i++) {
 			AccountDto account = new AccountDto();
 			account.setClub_id(club_id[i]);
 			account.setPrice(price[i]);
-			int total = accountService.getTotal(semdate, club_id[i]) + price[i];
+			int total = accountService.getTotal(sem_name, club_id[i]) + price[i];
 			account.setTotal(total);
-			System.out.print(total);
+			System.out.println("total:"+total);
 			account.setRemark(remark[i]);
 			account.setFile_id(file_id[i]);
 			account.setAccount_type(account_type[i]);

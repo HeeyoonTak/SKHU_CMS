@@ -35,7 +35,7 @@
 		VALUES (#{club_id}, #{price}, #{total}, #{remark}, #{file_id}, #{account_type}, #{date})
 	</insert>
 	
-	<select id="getTotal" resultType="int">
+	<select id="getTotal" resultType="Integer">
 		SELECT sum(a.price) 
 		FROM account a RIGHT JOIN sem_date s 
 		on a.date between s.start_date and s.end_date 

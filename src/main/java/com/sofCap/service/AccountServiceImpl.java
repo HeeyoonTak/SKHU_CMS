@@ -22,7 +22,7 @@ public class AccountServiceImpl implements AccountService{
 	public List<AccountDto> findByClubId(int club_id){
 		return accountDao.findByClubId(club_id);
 	}
-	
+
 	@Override
 	public List<AccountDto> findBySem(SemDate sem_name){
 		return accountDao.findBySem(sem_name);
@@ -31,17 +31,17 @@ public class AccountServiceImpl implements AccountService{
 	@Override
 	public void update(AccountDto account) {
 	}
-	
+
 	@Override
 	public void insert(AccountDto account) {
 	}
-	
+
 	@Override
 	public void delete(int id) {
 	}
-	
+
 	@Override
-	public int getTotal(SemDate semdate, int club_id) {
-		return accountDao.getTotal(semdate, club_id);
+	public Integer getTotal(String sem_name, int club_id) {
+		return accountDao.getTotal(sem_name, club_id);
 	}
 }

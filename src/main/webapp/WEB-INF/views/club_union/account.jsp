@@ -120,7 +120,8 @@
 													<input type="hidden" name="club_id" value="${club.id}">
 													<td><input type="date" name="date"
 														class="form-control input-lg"></td>
-													<td><select class="form-control input-lg" name="account_type">
+													<td><select class="form-control input-lg"
+														name="account_type">
 															<c:forEach var="at" items="${ account_type }"
 																varStatus="i">
 																<option value="${i.index}">${ at }</option>
@@ -131,8 +132,12 @@
 													<td><input type="text" name="remark"
 														class="form-control input-lg"></td>
 													<td></td>
-													<td><input type="file" name="file_id"
-														class="btn btn-primary" default=null></td>
+													<td>
+														<button class="btn btn-primary" type="button"
+															style="width: 100px; float: right"
+															onclick="location.href='worksubmit?id=${professorNotice.notice_no}&id2=${student.student_no}'">제출</button>
+														<input type="file" name="file_id" class="btn btn-primary">
+													</td>
 													<td><a href="#">x</a></td>
 												</tr>
 											</tbody>

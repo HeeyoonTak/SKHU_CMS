@@ -1,6 +1,5 @@
 package com.sofCap.Dao;
 
-import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,21 +27,21 @@ public class AccountDaoImpl implements AccountDao {
 	public List<AccountDto> findBySem(SemDate sem_name){
 		return accountMapper.findBySem(sem_name);
 	}
-	
+
 	@Override
 	public void update(AccountDto account) {
 	}
-	
+
 	@Override
 	public void insert(AccountDto account) {
 	}
-	
+
 	@Override
 	public void delete(int id) {
 	}
 
 	@Override
-	public int getTotal(SemDate semdate, int club_id) {
-		return accountMapper.getTotal(semdate, club_id);
+	public Integer getTotal(String sem_name, int club_id) {
+		return accountMapper.getTotal(sem_name, club_id);
 	}
 }

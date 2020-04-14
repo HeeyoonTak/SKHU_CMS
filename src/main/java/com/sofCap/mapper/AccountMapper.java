@@ -1,6 +1,5 @@
 package com.sofCap.mapper;
 
-import java.sql.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -16,6 +15,6 @@ public interface AccountMapper {
 	void update(AccountDto account);
 	void insert(AccountDto account);
 	void delete(int id);
-	int getTotal(SemDate semdate, int club_id);
-	
+	Integer getTotal(String sem_name, int club_id);
+
 }
