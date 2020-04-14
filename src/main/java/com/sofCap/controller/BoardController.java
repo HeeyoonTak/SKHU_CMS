@@ -33,6 +33,7 @@ public class BoardController {
 	@RequestMapping("publicity")
 	public String publicity(Model model) {
 		List<BoardDto> boards = boardMapper.findAll_p();
+
 		model.addAttribute("boards",boards);
 		return "guest/publicity";
 	}
@@ -50,4 +51,5 @@ public class BoardController {
 		model.addAttribute("boards",boards);
 		return "club_union/union_notice";
 	}
+
 }
