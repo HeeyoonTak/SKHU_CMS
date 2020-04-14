@@ -30,7 +30,7 @@ public class ClubUnionController {
 	AttendanceService attendanceService;
 
 	@RequestMapping("attendance")
-	public String attendance(Model model) {
+	public String attendance(Model model, SemDate sem_name) {
 
 		List<AttendanceDto> attendances = attendanceService.findByDate();
 		model.addAttribute("attendances", attendances);
@@ -39,6 +39,9 @@ public class ClubUnionController {
 		model.addAttribute("findDate", findDate);
 
 		model.addAttribute("adminUser", userService.findAdmin());
+
+		List<AttendanceDto> attendance = attendanceService.findBySem(sem_name);
+		model.addAttribute("attendance", attendance);
 
 		return "club_union/attendance";
 	}

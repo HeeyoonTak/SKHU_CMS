@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <c:url var="R" value="/" />
 <div id="fh5co-hero">
 	<a href="#fh5co-main"
@@ -33,12 +34,10 @@
 						<div class="col-md-7"></div>
 						<div class="col-md-4">
 							<div class="form-group">
-								<label for="search_term" class="sr-only">학기</label> <select
-									class="form-control input-md" id="search_term">
-									<option>2019-1학기</option>
-									<option>2019-2학기</option>
-									<option selected>2020-1학기</option>
-								</select>
+								<label for="search_term" class="sr-only">학기</label>
+								<form:select path="attendance">
+									<form:options items="${sem_name}" />
+								</form:select>
 							</div>
 						</div>
 						<!--<input type="submit" class="btn btn-primary btn-lg " value="검색">-->
