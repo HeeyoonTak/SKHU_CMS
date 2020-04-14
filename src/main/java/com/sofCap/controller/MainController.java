@@ -17,6 +17,11 @@ public class MainController {
 //		return "guest/list-content";
 //	}
 
+	@RequestMapping("list-content")
+	public String listcontent(){
+		return "guest/list-content";
+	}
+
 	@RequestMapping("login")
 	public String login() {
 		return "guest/login";
@@ -25,6 +30,22 @@ public class MainController {
 	@RequestMapping("apply_q_form")
 	public String applyQForm() {
 		return "club_admin/apply_q_form";
+	}
+
+
+	@RequestMapping("club_admin")
+	public String clubAdmin() {
+		return "club_union/club_admin";
+	}
+
+	@RequestMapping("club_create")
+	public String clubCreate() {
+		return "club_union/club_create";
+	}
+
+	@RequestMapping("club_update")
+	public String clubUpdate() {
+		return "club_union/club_update";
 	}
 
 	@RequestMapping("attendance")
@@ -36,4 +57,8 @@ public class MainController {
 	public String account() {
 		return "club_union/account";
 	}
+//	@RequestMapping("account")
+//	public String account() {
+//		return "club_union/account";
+//	}
 }
