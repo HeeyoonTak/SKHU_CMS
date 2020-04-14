@@ -36,6 +36,14 @@ public class ClubUnionController {
 		return "club_union/union_notice";
 	}
 
+	@RequestMapping("minutes")
+	public String union_minutes(Model model, Principal principal) {
+		UserDto user = userMapper.findByLoginId(principal.getName());
+		List<BoardDto> boards = boardMapper.findAll_m();
+		model.addAttribute("user",user);
+		model.addAttribute("boards",boards);
+		return "club_union/union_minutes";
+	}
 
 	AccountService accountService;
 	@Autowired

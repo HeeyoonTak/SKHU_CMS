@@ -21,7 +21,6 @@
 		<!-- START #fh5co-menu-wrap -->
 		<nav id="fh5co-menu-wrap" role="navigation">
 
-
 			<ul class="sf-menu" id="fh5co-primary-menu">
 				<li class="active"><a href="${R}index.html">동아리 연합회</a></li>
 				<li><a href="${R}" class="fh5co-sub-ddown">동아리</a>
