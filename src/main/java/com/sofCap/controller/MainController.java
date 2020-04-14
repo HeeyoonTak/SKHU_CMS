@@ -36,6 +36,7 @@ public class MainController {
 	public String account() {
 		return "club_union/account";
 	}
+	
 //	@RequestMapping("account")
 //	public String account() {
 //		return "club_union/account";
