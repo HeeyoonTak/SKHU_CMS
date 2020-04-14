@@ -17,12 +17,22 @@
                 activate: function () {
                 }
             }
+            
+            function getParameterByName(name) {
+                name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+                var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                    results = regex.exec(location.search);
+                return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+            }
+
             //Variables
             var options = $.extend(defaults, options);
             var opt = options, jtype = opt.type, jfit = opt.fit, jwidth = opt.width, vtabs = 'vertical', accord = 'accordion';
             var hash = window.location.hash;
             var historyApi = !!(window.history && history.replaceState);
+            var cId = getParameterByName('club_id');
 
+            
             //Events
             $(this).bind('tabactivate', function (e, currentTab) {
                 if (typeof options.activate === 'function') {
