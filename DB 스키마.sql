@@ -28,14 +28,11 @@ CREATE TABLE `account` (
   `price` int(11) NOT NULL,
   `total` int(11) NOT NULL,
   `remark` varchar(200) COLLATE utf8_bin DEFAULT NULL,
-  `file_id` int(11) DEFAULT NULL,
   `account_type` tinyint(1) NOT NULL,
   `date` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_account_clubId_idx` (`club_id`),
-  KEY `FK_account_fileId_idx` (`file_id`),
-  CONSTRAINT `FK_account_clubId` FOREIGN KEY (`club_id`) REFERENCES `club` (`id`),
-  CONSTRAINT `FK_account_fileId` FOREIGN KEY (`file_id`) REFERENCES `files` (`id`)
+  CONSTRAINT `FK_account_clubId` FOREIGN KEY (`club_id`) REFERENCES `club` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -146,7 +143,6 @@ CREATE TABLE `board` (
   `title` varchar(200) COLLATE utf8_bin NOT NULL,
   `content` longtext COLLATE utf8_bin NOT NULL,
   `date` datetime NOT NULL,
-  `file_id` int(11) DEFAULT NULL,
   `club_id` int(11) NOT NULL,
   `start_date` datetime DEFAULT NULL,
   `end_date` datetime DEFAULT NULL,
@@ -154,10 +150,8 @@ CREATE TABLE `board` (
   KEY `FK_board_boardNameId_idx` (`board_name_id`),
   KEY `FK_club_id_idx` (`club_id`),
   KEY `FK_board_club_id_idx` (`club_id`),
-  KEY `FK_board_fileId_idx` (`file_id`),
   CONSTRAINT `FK_board_boardNameId` FOREIGN KEY (`board_name_id`) REFERENCES `board_name` (`id`),
-  CONSTRAINT `FK_board_club_id` FOREIGN KEY (`club_id`) REFERENCES `club` (`id`),
-  CONSTRAINT `FK_board_fileId` FOREIGN KEY (`file_id`) REFERENCES `files` (`id`)
+  CONSTRAINT `FK_board_club_id` FOREIGN KEY (`club_id`) REFERENCES `club` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -205,12 +199,9 @@ CREATE TABLE `club` (
   `club_name` varchar(45) COLLATE utf8_bin NOT NULL,
   `club_type` int(11) NOT NULL,
   `content` longtext COLLATE utf8_bin,
-  `file_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_club_type_idx` (`club_type`),
-  KEY `FK_file_id_idx` (`file_id`),
-  CONSTRAINT `FK_club_type` FOREIGN KEY (`club_type`) REFERENCES `club_type` (`id`),
-  CONSTRAINT `FK_file_id` FOREIGN KEY (`file_id`) REFERENCES `files` (`id`)
+  CONSTRAINT `FK_club_type` FOREIGN KEY (`club_type`) REFERENCES `club_type` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -247,29 +238,89 @@ LOCK TABLES `club_type` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `files`
+-- Table structure for table `board_files`
 --
 
-DROP TABLE IF EXISTS `files`;
+DROP TABLE IF EXISTS `board_files`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `files` (
+CREATE TABLE `board_files` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `file_name` varchar(200) COLLATE utf8_bin NOT NULL,
   `size` int(11) NOT NULL,
   `data` longblob,
-  PRIMARY KEY (`id`)
+  `board_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_file_boardId_idx` (`board_id`),
+  CONSTRAINT `FK_file_boardId` FOREIGN KEY (`board_id`) REFERENCES `board` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `files`
+-- Dumping data for table `board_files`
 --
 
-LOCK TABLES `files` WRITE;
-/*!40000 ALTER TABLE `files` DISABLE KEYS */;
-/*!40000 ALTER TABLE `files` ENABLE KEYS */;
+LOCK TABLES `board_files` WRITE;
+/*!40000 ALTER TABLE `board_files` DISABLE KEYS */;
+/*!40000 ALTER TABLE `board_files` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `account_files`
+--
+
+DROP TABLE IF EXISTS `account_files`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `account_files` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `file_name` varchar(200) COLLATE utf8_bin NOT NULL,
+  `size` int(11) NOT NULL,
+  `data` longblob,
+  `account_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_file_accountId_idx` (`account_id`),
+  CONSTRAINT `FK_file_accountId` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `account_files`
+--
+
+LOCK TABLES `account_files` WRITE;
+/*!40000 ALTER TABLE `account_files` DISABLE KEYS */;
+/*!40000 ALTER TABLE `account_files` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `club_files`
+--
+
+DROP TABLE IF EXISTS `club_files`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `club_files` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `file_name` varchar(200) COLLATE utf8_bin NOT NULL,
+  `size` int(11) NOT NULL,
+  `data` longblob,
+  `club_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_file_clubId_idx` (`club_id`),
+  CONSTRAINT `FK_file_clubId` FOREIGN KEY (`club_id`) REFERENCES `club` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `club_files`
+--
+
+LOCK TABLES `club_files` WRITE;
+/*!40000 ALTER TABLE `club_files` DISABLE KEYS */;
+/*!40000 ALTER TABLE `club_files` ENABLE KEYS */;
+UNLOCK TABLES;
+
 
 --
 -- Table structure for table `sem_date`
@@ -281,7 +332,7 @@ DROP TABLE IF EXISTS `sem_date`;
 CREATE TABLE `sem_date` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `start_date` date NOT NULL,
-  `ent_date` date NOT NULL,
+  `end_date` date NOT NULL,
   `sem_name` varchar(45) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
