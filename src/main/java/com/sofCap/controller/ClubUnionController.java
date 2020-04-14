@@ -20,7 +20,7 @@ import com.sofCap.service.SemDateService;
 
 
 @Controller
-@RequestMapping("clubunion")
+@RequestMapping("club_union")
 public class ClubUnionController {
 	@Autowired
 	BoardMapper boardMapper;
