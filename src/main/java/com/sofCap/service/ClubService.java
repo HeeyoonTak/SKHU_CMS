@@ -9,5 +9,5 @@ public interface ClubService {
 
 	ClubDto findById(int id);
 
-	ClubDto findAll();
+	List<ClubDto> findAll();
 }

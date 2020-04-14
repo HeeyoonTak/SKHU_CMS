@@ -21,13 +21,16 @@
     width: 5%;
 }
 
+.l_account_table thead tr th:nth-child(5){
+    width: 10%;
+}
+
 .l_account_table tbody tr td:last-child a{
     color: red;
 }
 
 
 #l_search_term {
-    width: 65%;
     display: inline;
 }
 
@@ -50,4 +53,13 @@
 
 #l_account_save{
     border: 1px solid !important;
+}
+
+.hm_tab_container{
+	border: none;
+    border-top: 1px solid #ebebeb;
+    padding: 15px;
+    padding-top: 30px;
+    box-shadow: none;
+    
 }

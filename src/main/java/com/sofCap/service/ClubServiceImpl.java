@@ -24,8 +24,7 @@ public class ClubServiceImpl implements ClubService {
 	}
 
 	@Override
-	public ClubDto findAll() {
+	public List<ClubDto> findAll(){
 		return clubDao.findAll();
-	};
-
+	}
 }

@@ -9,5 +9,5 @@ public interface ClubDao {
 
 	ClubDto findById(int id);
 
-	ClubDto findAll();
+	List<ClubDto> findAll();
 }

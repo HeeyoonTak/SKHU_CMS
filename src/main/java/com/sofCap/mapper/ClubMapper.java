@@ -13,5 +13,5 @@ public interface ClubMapper {
 
 	ClubDto findById(int id);
 
-	ClubDto findAll();
+	List<ClubDto> findAll();
 }

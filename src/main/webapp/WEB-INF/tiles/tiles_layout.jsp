@@ -43,5 +43,8 @@
 	<script src="${R}js/jquery.waypoints.min.js"></script>
 	<!-- Main JS -->
 	<script src="${R}js/main.js"></script>
+	
+	<script src="${R}js/common.js"></script>
+	
 </body>
 </html>

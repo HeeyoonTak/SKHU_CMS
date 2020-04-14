@@ -32,6 +32,14 @@
 		WHERE board_name_id = '2'
 	</select>
 	
+	<select id="findAll_n" resultType="BoardDto">
+		SELECT b.*
+		FROM
+		Board b
+		LEFT JOIN Club c ON b.club_id = c.id
+		WHERE board_name_id = '3' AND club_id = '1'
+	</select>
+	
 	<resultMap id="resultMap_BoardDto" type="BoardDto">
 		<id property="id" column="id" />
 		<result property="title" column="title" />

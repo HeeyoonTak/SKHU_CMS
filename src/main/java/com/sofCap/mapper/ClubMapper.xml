@@ -23,4 +23,5 @@
 		SELECT c.*
 		FROM Club c
 	</select>
+
 </mapper>

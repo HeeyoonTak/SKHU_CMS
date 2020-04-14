@@ -24,7 +24,7 @@ public class ClubDaoImpl implements ClubDao {
 	}
 
 	@Override
-	public ClubDto findAll() {
+	public List<ClubDto> findAll(){
 		return clubMapper.findAll();
-	};
+	}
 }
