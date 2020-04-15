@@ -10,5 +10,4 @@ public interface UserService {
 
 	List<UserDto> findAll();
 
-	List<String> findAdmin();
 }

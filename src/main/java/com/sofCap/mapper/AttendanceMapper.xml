@@ -4,32 +4,36 @@
 
 <mapper namespace="com.sofCap.mapper.AttendanceMapper">
 
-	<select id="findByDate" resultType="AttendanceDto">
-		SELECT *
-		FROM attendance a
-		JOIN user u
-		WHERE a.user_id = u.id AND a.club_id = 1
-		ORDER BY a.date,
-		u.id;
+	<select id="findAdmin" resultType="String"> <!--학기별 출석체크 회원 리스트-->
+			SELECT DISTINCT u.name
+			FROM attendance a JOIN sem_date s ON a.date BETWEEN s.start_date AND s.end_date
+			JOIN user u ON a.user_id = u.id
+			WHERE s.id = #{s.id}
+			   AND a.club_id = 1
+			ORDER BY u.id
 	</select>
 
-	<select id="findDate" resultType="String">
-		SELECT DISTINCT DATE_FORMAT(
-		date,'%Y-%m-%d') date
-		FROM attendance WHERE club_id = 1
-		ORDER BY date;
+	<select id="findDate" resultType="String"> <!--학기별 출석체크 날짜 리스트-->
+		SELECT DISTINCT DATE_FORMAT(a.date,'%Y-%m-%d') date
+		FROM attendance a JOIN sem_date s ON a.date
+		BETWEEN s.start_date AND s.end_date
+		WHERE s.id = #{s.id}
+			 AND club_id = 1
+		ORDER BY date
 	</select>
 
-	<select id="findBySem" resultType="AttendanceDto">
-		SELECT a.*, s.sem_name,
-		u.name
-		FROM attendance a JOIN sem_date s
-		ON a.date
-		BETWEEN s.start_date
-		AND
-		s.end_date JOIN user u ON a.user_id = u.id
-		WHERE
-		s.sem_name=#{sem_name}
-		AND a.club_id=1 ORDER BY a.date, a.user_id
+	<select id="findBySemDate" resultType="AttendanceDto">  <!--학기별 출석체크 리스트-->
+		SELECT a.id
+			  ,a.club_id
+			  ,a.check
+			  ,a.date
+		      ,a.user_id
+			  ,s.sem_name
+			  ,u.name
+		FROM attendance a JOIN sem_date s ON a.date BETWEEN s.start_date AND s.end_date
+		JOIN user u ON a.user_id = u.id
+		WHERE s.id = #{semId}
+		  AND a.club_id  = 1
+		ORDER BY a.date, a.user_id
 	</select>
 </mapper>

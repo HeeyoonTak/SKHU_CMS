@@ -3,13 +3,12 @@ package com.sofCap.service;
 import java.util.List;
 
 import com.sofCap.dto.AttendanceDto;
-import com.sofCap.model.SemDate;
 
 public interface AttendanceService {
-	List<AttendanceDto> findByDate();
 
-	List<String> findDate();
+	List<String> findDate(int semId);
 
-	List<AttendanceDto> findBySem(SemDate sem_name);
+	List<AttendanceDto> findBySemDate(int semId);
 
+	List<String> findAdmin(int semId);
 }

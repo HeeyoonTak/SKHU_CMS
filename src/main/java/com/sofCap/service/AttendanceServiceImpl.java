@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.sofCap.Dao.AttendanceDao;
 import com.sofCap.dto.AttendanceDto;
-import com.sofCap.model.SemDate;
 
 @Service
 public class AttendanceServiceImpl implements AttendanceService {
@@ -15,18 +14,18 @@ public class AttendanceServiceImpl implements AttendanceService {
 	AttendanceDao attendanceDao;
 
 	@Override
-	public List<AttendanceDto> findByDate() {
-		return attendanceDao.findByDate();
+	public List<String> findDate(int semId) {
+		return attendanceDao.findDate(semId);
 	}
 
 	@Override
-	public List<String> findDate() {
-		return attendanceDao.findDate();
+	public List<AttendanceDto> findBySemDate(int semId) {
+		return attendanceDao.findBySemDate(semId);
 	}
 
 	@Override
-	public List<AttendanceDto> findBySem(SemDate sem_name) {
-		return attendanceDao.findBySem(sem_name);
+	public List<String> findAdmin(int semId) {
+		return attendanceDao.findAdmin(semId);
 	}
 
 }

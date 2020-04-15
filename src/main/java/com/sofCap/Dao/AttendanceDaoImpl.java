@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import com.sofCap.dto.AttendanceDto;
 import com.sofCap.mapper.AttendanceMapper;
-import com.sofCap.model.SemDate;
 
 @Repository
 public class AttendanceDaoImpl implements AttendanceDao {
@@ -15,18 +14,18 @@ public class AttendanceDaoImpl implements AttendanceDao {
 	AttendanceMapper attendanceMapper;
 
 	@Override
-	public List<AttendanceDto> findByDate() {
-		return attendanceMapper.findByDate();
+	public List<String> findDate(int semId) {
+		return attendanceMapper.findDate(semId);
 	}
 
 	@Override
-	public List<String> findDate() {
-		return attendanceMapper.findDate();
+	public List<AttendanceDto> findBySemDate(int semId) {
+		return attendanceMapper.findBySemDate(semId);
 	}
 
 	@Override
-	public List<AttendanceDto> findBySem(SemDate sem_name) {
-		return attendanceMapper.findBySem(sem_name);
+	public List<String> findAdmin(int semId) {
+		return attendanceMapper.findAdmin(semId);
 	}
 
 }

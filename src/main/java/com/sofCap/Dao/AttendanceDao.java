@@ -3,12 +3,12 @@ package com.sofCap.Dao;
 import java.util.List;
 
 import com.sofCap.dto.AttendanceDto;
-import com.sofCap.model.SemDate;
 
 public interface AttendanceDao {
-	List<AttendanceDto> findByDate();
 
-	List<String> findDate();
+	List<String> findDate(int semId);
 
-	List<AttendanceDto> findBySem(SemDate sem_name);
+	List<AttendanceDto> findBySemDate(int semId);
+
+	List<String> findAdmin(int semId);
 }

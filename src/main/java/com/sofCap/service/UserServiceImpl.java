@@ -37,8 +37,4 @@ public class UserServiceImpl implements UserService {
 		return userDao.findAll();
 	}
 
-	@Override
-	public List<String> findAdmin() {
-		return userDao.findAdmin();
-	}
 }

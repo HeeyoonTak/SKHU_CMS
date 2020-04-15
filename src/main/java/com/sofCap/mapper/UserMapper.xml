@@ -4,11 +4,6 @@
 
 <mapper namespace="com.sofCap.mapper.UserMapper">
 
-	<select id="findAdmin" resultType="String">
-		SELECT name FROM user WHERE
-		user_type='동아리관리자' ORDER BY id
-	</select>
-
 	<select id="findByLoginId" resultType="UserDto">
 		SELECT *
 		FROM User

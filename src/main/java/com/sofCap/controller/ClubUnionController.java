@@ -1,16 +1,19 @@
 package com.sofCap.controller;
 
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sofCap.dto.AccountDto;
-import com.sofCap.dto.AttendanceDto;
 import com.sofCap.dto.BoardDto;
+import com.sofCap.dto.SemDateDto;
 import com.sofCap.dto.UserDto;
 import com.sofCap.mapper.BoardMapper;
 import com.sofCap.mapper.UserMapper;
@@ -30,18 +33,25 @@ public class ClubUnionController {
 	AttendanceService attendanceService;
 
 	@RequestMapping("attendance")
-	public String attendance(Model model, SemDate sem_name) {
+	public String attendance(Model model, @RequestParam(value = "semId", defaultValue = "0") int semId) {
 
-		List<AttendanceDto> attendances = attendanceService.findByDate();
-		model.addAttribute("attendances", attendances);
+		// 화면 select box 사용하기 위한 데이터 가공
+		List<SemDateDto> semDate = semdateService.findAll();
+		Map<String, String> sems = new HashMap<>();
+		for (int i = 0; i < semDate.size(); i++) {
+			sems.put(Integer.toString(semDate.get(i).getId()), semDate.get(i).getSem_name());
+		}
+		model.addAttribute("sems", sems);
 
-		List<String> findDate = attendanceService.findDate();
-		model.addAttribute("findDate", findDate);
+		// 처음 화면 실행시 최근 학기 데이터 불러오기
+		if (semId == 0) {
+			semId = semDate.get(semDate.size() - 1).getId();
+		}
 
-		model.addAttribute("adminUser", userService.findAdmin());
-
-		List<AttendanceDto> attendance = attendanceService.findBySem(sem_name);
-		model.addAttribute("attendance", attendance);
+		model.addAttribute("selectSemId", semId);
+		model.addAttribute("findDate", attendanceService.findDate(semId));
+		model.addAttribute("attendance", attendanceService.findBySemDate(semId));
+		model.addAttribute("adminUser", attendanceService.findAdmin(semId));
 
 		return "club_union/attendance";
 	}

@@ -24,8 +24,4 @@ public class UserDaoImpl implements UserDao {
 		return userMapper.findAll();
 	}
 
-	@Override
-	public List<String> findAdmin() {
-		return userMapper.findAdmin();
-	}
 }
