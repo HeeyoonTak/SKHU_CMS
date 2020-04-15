@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sofCap.mapper.BoardMapper">
+	<select id="findById" resultType="BoardDto">
+		SELECT * FROM Board WHERE id =
+		#{id}
+	</select>
+
+	<select id="findByClubId_p" resultType="BoardDto">
+		SELECT b.*
+		FROM Board b
+		LEFT JOIN Club c ON b.club_id = c.id
+		WHERE club_id = #{id} AND
+		board_name_id = '1'
+	</select>
+
+	<select id="findAll_p" resultMap="resultMap_BoardDto">
+		SELECT b.*, c.club_name
+		FROM
+		Board b
+		LEFT JOIN Club c ON b.club_id = c.id
+		WHERE board_name_id = '1'
+	</select>
+
+	<select id="findAll_r" resultMap="resultMap_BoardDto">
+		SELECT b.*, c.club_name
+		FROM
+		Board b
+		LEFT JOIN Club c ON b.club_id = c.id
+		WHERE board_name_id = '2'
+	</select>
+	
+	<select id="findAll_n" resultType="BoardDto">
+		SELECT b.*
+		FROM
+		Board b
+		LEFT JOIN Club c ON b.club_id = c.id
+		WHERE board_name_id = '3' AND club_id = '1'
+	</select>
+	
+	<select id="findAll_m" resultType="BoardDto">
+		SELECT b.*
+		FROM
+		Board b
+		LEFT JOIN Club c ON b.club_id = c.id
+		WHERE board_name_id = '4' AND club_id = '1'
+	</select>
+	
+	<resultMap id="resultMap_BoardDto" type="BoardDto">
+		<id property="id" column="id" />
+		<result property="title" column="title" />
+		<result property="date" column="date" />
+		<result property="start_date" column="start_date" />
+		<result property="end_date" column="end_date" />
+		<association property="club" javaType="ClubDto">
+			<id property="id" column="id" />
+			<result property="club_name" column="club_name" />
+		</association>
+	</resultMap>
+</mapper>
