@@ -8,14 +8,17 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.sofCap.dto.AccountDto;
 import com.sofCap.model.SemDate;
 import com.sofCap.service.AccountService;
 import com.sofCap.service.ClubService;
+import com.sofCap.service.FileService;
 import com.sofCap.service.SemDateService;
 
 @Controller
@@ -27,6 +30,8 @@ public class ClubUnionController {
 	ClubService clubService;
 	@Autowired
 	SemDateService semdateService;
+	@Autowired
+	FileService fileService;
 
 	String[] account_type = {"중앙지원금", "동아리회비"};
 
@@ -70,18 +75,17 @@ public class ClubUnionController {
 	@RequestMapping(value="account_save", method=RequestMethod.POST)
 	public String account_save(Model model, @RequestParam("club_id") int[] club_id,
 			@RequestParam("price") int[] price, @RequestParam("remark") String[] remark,
-			@RequestParam("file_id") int[] file_id, @RequestParam("account_type") int[] account_type,
+			@RequestBody MultipartFile[] file, @RequestParam("account_type") int[] account_type,
 			@RequestParam("date") @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Date[] date, SemDate semdate) {
 		System.out.println(semdate.getSem_name());
 		String sem_name = semdate.getSem_name();
 		System.out.println(club_id.length);
-		System.out.println(file_id[0]);
-		save(club_id, price, remark, file_id, account_type, date, sem_name);
+		save(club_id, price, remark, file, account_type, date, sem_name);
 		return account(model, semdate);
 	}
 
 	@Transactional
-	private void save(int[] club_id, int[] price, String[] remark, int[] file_id,
+	private void save(int[] club_id, int[] price, String[] remark, MultipartFile[] file,
 			int[] account_type, Date[] date, String sem_name)
 	{
 		for (int i = 0 ; i < club_id.length ; i++) {
@@ -92,7 +96,9 @@ public class ClubUnionController {
 			account.setTotal(total);
 			System.out.println("total:"+total);
 			account.setRemark(remark[i]);
-			account.setFile_id(file_id[i]);
+			if(!file[i].isEmpty()) {
+//				int f_id = fileService.accountFileUpload(file[i], find);
+			}
 			account.setAccount_type(account_type[i]);
 			account.setDate(date[i]);
 			accountService.insert(account);

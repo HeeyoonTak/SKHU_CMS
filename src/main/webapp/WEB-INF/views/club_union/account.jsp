@@ -133,11 +133,7 @@
 														class="form-control input-lg"></td>
 													<td></td>
 													<td>
-														<button class="btn btn-primary" type="button"
-															style="width: 100px; float: right"
-															onclick="location.href='worksubmit?id=${professorNotice.notice_no}&id2=${student.student_no}'">제출</button>
-														<input type="file" name="file_id" class="btn btn-primary">
-													</td>
+														<input type="file" name="file" class="btn btn-primary">													</td>
 													<td><a href="#">x</a></td>
 												</tr>
 											</tbody>
