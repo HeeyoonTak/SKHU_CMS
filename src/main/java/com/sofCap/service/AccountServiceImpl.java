@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sofCap.Dao.AccountDao;
+import com.sofCap.dao.AccountDao;
 import com.sofCap.dto.AccountDto;
 import com.sofCap.model.SemDate;
 
