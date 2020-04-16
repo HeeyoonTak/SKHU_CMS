@@ -21,4 +21,8 @@ public class UserDaoImpl implements UserDao {
 	public List<UserDto> findAll() {
 		return userMapper.findAll();
 	}
+
+	public UserDto findOne(int id) {
+		return userMapper.findOne(id);
+	}
 }
