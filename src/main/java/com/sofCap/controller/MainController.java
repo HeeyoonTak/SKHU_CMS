@@ -27,14 +27,15 @@ public class MainController {
 //	}
 
 	@RequestMapping("login")
-	public String login(Model model, Principal principal) {
-		UserDto user = userService.findByLoginId(principal.getName());
-		model.addAttribute("user", user);
+	public String login() {
 		return "guest/login";
 	}
 
 	@RequestMapping("myPage")
-	public String myPage() {
+	public String myPage(Model model, Principal principal) {
+
+		UserDto user = userService.findByLoginId(principal.getName());
+		model.addAttribute("user", user);
 
 		return "guest/myPage";
 	}
