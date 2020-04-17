@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sofCap.mapper.SemDateMapper">
+	<select id="findAll" resultType="SemDateDto">
+		SELECT * 
+		FROM sem_date
+	</select>
+
+	<select id="findByDate" resultType="String">
+		SELECT s.sem_name 
+		FROM sem_date s
+		WHERE #{date} between s.start_date and s.end_date
+	</select>
+</mapper>

@@ -3,29 +3,34 @@
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.sofCap.mapper.UserMapper">
+
 	<select id="findByLoginId" resultType="UserDto">
 		SELECT *
 		FROM User
-		WHERE login_id= #{login_id}
+		WHERE
+		login_id= #{login_id}
 	</select>
-	
+
 	<select id="findOne" resultType="UserDto">
-		SELECT * FROM USER WHERE id = #{id}
+		SELECT * FROM USER WHERE id =
+		#{id}
 	</select>
-	
+
 	<select id="findAll" resultType="UserDto">
 		SELECT * FROM User
 	</select>
-	
+
 	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
-		INSERT User (name, login_id, password, user_type)
+		INSERT
+		User (name, login_id, password, user_type)
 		VALUES(#{name},#{login_id},#{password},"동아리 관리자")
 	</insert>
-	
+
 	<update id="update">
 		UPDATE User SET
-			password = #{user_type}
-		WHERE id = #{id}
+		password = #{user_type}
+		WHERE id =
+		#{id}
 	</update>
 	
 	<update id="updateMypage">

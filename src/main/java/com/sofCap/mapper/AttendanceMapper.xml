@@ -36,4 +36,13 @@
 		  AND a.club_id  = 1
 		ORDER BY a.date, a.user_id
 	</select>
+	
+	<delete id="delete">
+		set sql_safe_updates = 0;
+		DELETE a
+		FROM attendance AS a
+		WHERE a.date = #{date}
+		AND a.club_id = 1
+	</delete>
+	
 </mapper>

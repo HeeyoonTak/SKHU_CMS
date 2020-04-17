@@ -35,7 +35,7 @@ INSERT INTO club_type (id,type_name) VALUES
   (4,'공연1'),
   (5,'공연2') ; 
   
-  INSERT INTO club (id,club_name, club_type, content) VALUES
+INSERT INTO club (id,club_name, club_type, content) VALUES
   (1,'동아리연합회', 1, null),
   (2,'멋쟁이사자처럼', 2, null),
   (3,'FLOW', 3, null),
@@ -43,7 +43,7 @@ INSERT INTO club_type (id,type_name) VALUES
   (5,'아침햇살', 5, null),
   (6,'All for RYU', 2, null),
   (7,'행운', 5, null);
-
+  
  INSERT INTO account (id,club_id, price, total, remark, account_type, date) VALUES
   (1,1, 200000, 200000, null,  0, now()),
   (2,1, -200000, 0, null,  0, now()),

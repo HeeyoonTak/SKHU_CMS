@@ -1,6 +1,7 @@
 package com.sofCap.controller;
 
 import java.security.Principal;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,7 +58,12 @@ public class ClubUnionController {
 		return "club_union/attendance";
 	}
 
-	@Autowired
+	@RequestMapping("attendance_delete")
+	public String delete(Model model, @RequestParam("date") Date date) {
+		attendanceService.delete(date);
+		return "redirect:attendance";
+	}
+
 	BoardMapper boardMapper;
 	@Autowired
 	UserMapper userMapper;
