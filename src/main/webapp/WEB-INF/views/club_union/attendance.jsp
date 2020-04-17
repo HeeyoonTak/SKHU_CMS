@@ -68,7 +68,7 @@
 												</c:otherwise>
 											</c:choose>
 											<c:if test="${status.count % fn:length(adminUser) eq 0}">
-												<td><a href="#">x</a></td>
+												<td><a href="attendance_delete?date=${attendance.date}">x</a></td>
 								</tr>
 						</tbody>
 						</c:if>
