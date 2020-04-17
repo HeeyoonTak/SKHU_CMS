@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sofCap.mapper.AccountMapper">
+	<select id="findAll" resultType="AccountDto">
+		SELECT * FROM account
+	</select>
+
+	<select id="findByClubId" resultType="AccountDto">
+		SELECT * FROM account WHERE
+		club_id = #{club_id}
+	</select>
+
+	<select id="findBySem" resultType="AccountDto">
+		SELECT a.*, s.sem_name 
+		FROM account a RIGHT JOIN sem_date s 
+		ON a.date BETWEEN s.start_date AND s.end_date 
+		WHERE s.sem_name=#{sem_name};
+	</select>
+</mapper>
