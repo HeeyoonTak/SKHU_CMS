@@ -38,6 +38,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public void updateMypage(UserDto user) {
+		// TODO Auto-generated method stub
+		userDao.updateMypage(user);
+	}
+
+}
 	public List<UserDto> findAll() {
 		return userDao.findAll();
 	}

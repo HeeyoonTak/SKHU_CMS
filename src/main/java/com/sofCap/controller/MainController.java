@@ -1,10 +1,15 @@
 package com.sofCap.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.security.Principal;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sofCap.dto.UserDto;
@@ -15,6 +20,7 @@ import com.sofCap.service.UserService;
 public class MainController {
 
 	@Autowired UserService userService;
+
 
 	@RequestMapping("")
 	public String main() {
@@ -33,11 +39,25 @@ public class MainController {
 
 	@RequestMapping("myPage")
 	public String myPage(Model model, Principal principal) {
-
 		UserDto user = userService.findByLoginId(principal.getName());
 		model.addAttribute("user", user);
 
 		return "guest/myPage";
+	}
+
+	@PostMapping("myPage")
+	public String myPage(UserDto user1, Model model, Principal principal, HttpServletResponse response) throws IOException{
+		UserDto user = userService.findByLoginId(principal.getName());
+		user.setEmail(user1.getEmail());
+		user.setPhone(user1.getPhone());
+		user.setPassword(user1.getPassword());
+		userService.updateMypage(user);
+
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		out.println("<script>alert('마이페이지 수정 완료.'); history.go(-1);</script>");
+		out.flush();
+		return "redirect:guest/myPage";
 	}
 
 	@RequestMapping("apply_q_form")
