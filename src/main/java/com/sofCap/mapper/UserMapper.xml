@@ -27,6 +27,15 @@
 			password = #{user_type}
 		WHERE id = #{id}
 	</update>
+	
+	<update id="updateMypage">
+		UPDATE User SET
+			email = #{email},
+			phone = #{phone},
+			password = #{password}
+		WHERE id=#{id}
+	</update>
+	
 	<delete id="delete">
 		DELETE FROM User WHERE id = #{id}
 	</delete>

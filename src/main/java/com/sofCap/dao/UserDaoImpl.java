@@ -22,7 +22,15 @@ public class UserDaoImpl implements UserDao {
 		return userMapper.findAll();
 	}
 
+	@Override
 	public UserDto findOne(int id) {
 		return userMapper.findOne(id);
 	}
+
+	@Override
+	public void updateMypage(UserDto user) {
+		// TODO Auto-generated method stub
+		userMapper.updateMypage(user);
+	}
+
 }

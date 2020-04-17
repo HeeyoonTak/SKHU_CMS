@@ -33,4 +33,11 @@ public class UserServiceImpl implements UserService{
 	public UserDto findOne(int id) {
 		return userDao.findOne(id);
 	}
+
+	@Override
+	public void updateMypage(UserDto user) {
+		// TODO Auto-generated method stub
+		userDao.updateMypage(user);
+	}
+
 }

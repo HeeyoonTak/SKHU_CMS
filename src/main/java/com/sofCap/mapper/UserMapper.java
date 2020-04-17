@@ -13,5 +13,6 @@ public interface UserMapper {
 	List<UserDto> findAll();
 	void insert(UserDto user);
 	void update(UserDto user);
+	void updateMypage(UserDto user);
 	void delete(int id);
 }

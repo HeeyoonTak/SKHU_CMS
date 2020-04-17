@@ -6,4 +6,6 @@ public interface UserService {
 
 	UserDto findOne(int id);
 	UserDto findByLoginId(String login_id);
+	void updateMypage(UserDto user);
+
 }
