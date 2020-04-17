@@ -32,14 +32,25 @@
 	</update>
 	
 	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
-		INSERT account(club_id, price, total, remark, file_id, account_type, date) 
+		 INSERT account(club_id, price, total, remark, file_id, account_type, date) 
 		VALUES (#{club_id}, #{price}, #{total}, #{remark}, #{file_id, jdbcType=INTEGER}, #{account_type}, #{date})
 	</insert>
 	
 	<select id="getTotal" resultType="Integer">
-		SELECT sum(a.price) 
-		FROM account a RIGHT JOIN sem_date s 
+		SET @total := 0;
+		select @total as total_sum
+		from(
+		select date,(@total := @total + price) as cumulative_sum
+		from account a RIGHT JOIN sem_date s
+		on a.date between s.start_date and s.end_date
+		where s.sem_name=#{sem_name} and club_id=#{club_id} and <![CDATA[date < #{date}]]>
+		order by a.date ASC) as c
+		order by c.date DESC LIMIT 1;
+		
+	 
+		<!-- FROM account a RIGHT JOIN sem_date s 
 		on a.date between s.start_date and s.end_date 
-		where s.sem_name=#{sem_name} and club_id=#{club_id};
+		where s.sem_name=#{sem_name} and club_id=#{club_id}
+		ORDER BY a.date ASC; -->
 	</select>
 </mapper>

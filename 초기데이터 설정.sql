@@ -9,9 +9,7 @@ truncate table attendance;
 truncate table board;
 truncate table board_name;
 truncate table sem_date;
-truncate table account_files;
-truncate table board_files;
-truncate table club_files;
+truncate table files;
 SET FOREIGN_KEY_CHECKS = 1; -- Enable foreign key checking.
 
 ALTER TABLE `softwarecapstion`.`apply_a` 
@@ -38,7 +36,7 @@ INSERT INTO club_type (id,type_name) VALUES
   (4,'공연1'),
   (5,'공연2') ; 
   
-  INSERT INTO club (id,club_name, club_type, content) VALUES
+INSERT INTO club (id,club_name, club_type, content) VALUES
   (1,'동아리연합회', 1, null),
   (2,'멋쟁이사자처럼', 2, null),
   (3,'FLOW', 3, null),
@@ -46,18 +44,18 @@ INSERT INTO club_type (id,type_name) VALUES
   (5,'아침햇살', 5, null),
   (6,'All for RYU', 2, null),
   (7,'행운', 5, null);
-
+  
  INSERT INTO account (id,club_id, price, total, remark, account_type, date) VALUES
-  (1,1, 200000, 200000, null,  0, now()),
-  (2,1, -200000, 0, null,  0, now()),
-  (3,1, 100000, 100000, null, 1, now()),
-  (4,1, -50000, 50000, null, 1, now()),
-  (5,2, 200000, 200000, null, 0, now()),
-  (6,2, -200000, 0, null, 0, now()),
-  (7,3, 200000, 200000, null, 0, now()),
-  (8,3, -200000, 0, null, 0, now()),
-  (9,4, 200000, 200000, null, 0, now()),
-  (10,4, -200000, 0, null, 0, now()),
+  (1,1, 200000, 200000, null,  0, '2020-03-02'),
+  (2,1, -200000, 0, null,  0, '2020-03-03'),
+  (3,1, 100000, 100000, null, 1, '2020-03-07'),
+  (4,1, -50000, 50000, null, 1, '2020-03-10'),
+  (5,2, 200000, 200000, null, 0, '2020-03-02'),
+  (6,2, -200000, 0, null, 0, '2020-03-02'),
+  (7,3, 200000, 200000, null, 0, '2020-03-02'),
+  (8,3, -200000, 0, null, 0, '2020-03-10'),
+  (9,4, 200000, 200000, null, 0, '2020-03-02'),
+  (10,4, -200000, 0, null, 0, '2020-03-02'),
   (11,1, 200000, 250000, null, 0, '2020-10-10') ;
   
  INSERT INTO user (id, name, login_id, password, user_type, phone, email) VALUES
@@ -74,6 +72,12 @@ INSERT INTO club_type (id,type_name) VALUES
   (11, 'All for RYU', 'RJY', '1234', '동아리관리자', null, null),
   (12, '행운', 'JSW', '1234', '동아리관리자', null, null);
   
+ LOCK TABLES `user_club` WRITE;
+/*!40000 ALTER TABLE `user_club` DISABLE KEYS */;
+INSERT INTO `user_club` VALUES (1,1,1),(2,2,2),(3,3,3),(4,4,4),(5,5,5),(6,6,4),(7,6,3),(8,7,2),(9,8,2),(10,8,6),(11,9,5),(12,10,7);
+/*!40000 ALTER TABLE `user_club` ENABLE KEYS */;
+UNLOCK TABLES;
+
  INSERT INTO attendance (id, club_id, `check`, date, user_id) VALUES
   (1, 1, 0, '2020-03-03', 2),
   (2, 1, 1, '2020-03-03', 3),

@@ -92,7 +92,7 @@ public class ClubUnionController {
 			AccountDto account = new AccountDto();
 			account.setClub_id(club_id[i]);
 			account.setPrice(price[i]);
-			int total = accountService.getTotal(sem_name, club_id[i]) + price[i];
+			int total = accountService.getTotal(sem_name, club_id[i], date[i]) + price[i];
 			account.setTotal(total);
 			System.out.println("total:"+total);
 			account.setRemark(remark[i]);

@@ -1,5 +1,6 @@
 package com.sofCap.service;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +49,7 @@ public class AccountServiceImpl implements AccountService{
 	}
 
 	@Override
-	public Integer getTotal(String sem_name, int club_id) {
-		return accountDao.getTotal(sem_name, club_id);
+	public Integer getTotal(String sem_name, int club_id, Date date) {
+		return accountDao.getTotal(sem_name, club_id, date);
 	}
 }

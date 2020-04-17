@@ -1,5 +1,6 @@
 .l_account_table thead tr th {
-    text-align:center
+    text-align:center;
+    vertical-align: middle;
 }
 
 .l_account_table tbody tr td{

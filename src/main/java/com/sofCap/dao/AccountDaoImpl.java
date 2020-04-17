@@ -1,5 +1,6 @@
 package com.sofCap.dao;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,7 @@ public class AccountDaoImpl implements AccountDao {
 	}
 
 	@Override
-	public Integer getTotal(String sem_name, int club_id) {
-		return accountMapper.getTotal(sem_name, club_id);
+	public Integer getTotal(String sem_name, int club_id, Date date) {
+		return accountMapper.getTotal(sem_name, club_id, date);
 	}
 }
