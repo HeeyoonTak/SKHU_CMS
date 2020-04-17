@@ -3,7 +3,7 @@
 
 <mapper namespace="com.sofCap.mapper.FileMapper">
 	<insert id="accountFileUpload" useGeneratedKeys="true" keyProperty="id">
-		INSERT account_files (file_name, size, data, account_id)
-		VALUES (#{file_name}, #{size}, #{data}, #{account_id})
+		INSERT files (file_name, size, data)
+		VALUES (#{file_name}, #{size}, #{data})
 	</insert>
 </mapper>

@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sofCap.Dao.SemDateDao;
+import com.sofCap.dao.SemDateDao;
 import com.sofCap.dto.SemDateDto;
 
 @Service
