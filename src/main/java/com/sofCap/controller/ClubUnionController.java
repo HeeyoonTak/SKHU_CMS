@@ -10,9 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sofCap.dto.AccountDto;
+import com.sofCap.dto.AttendanceDto;
 import com.sofCap.dto.BoardDto;
 import com.sofCap.dto.SemDateDto;
 import com.sofCap.dto.UserDto;
@@ -61,6 +63,12 @@ public class ClubUnionController {
 	@RequestMapping("attendance_delete")
 	public String delete(Model model, @RequestParam("date") Date date) {
 		attendanceService.delete(date);
+		return "redirect:attendance";
+	}
+
+	@RequestMapping(value = "attendance", method = RequestMethod.POST)
+	public String update(AttendanceDto attendance, Model model) {
+		attendanceService.update(attendance);
 		return "redirect:attendance";
 	}
 

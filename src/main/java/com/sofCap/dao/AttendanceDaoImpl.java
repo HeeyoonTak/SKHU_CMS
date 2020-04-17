@@ -34,4 +34,14 @@ public class AttendanceDaoImpl implements AttendanceDao {
 		attendanceMapper.delete(date);
 	}
 
+	@Override
+	public void insert(AttendanceDto attendance) {
+		attendanceMapper.insert(attendance);
+	}
+
+	@Override
+	public void update(AttendanceDto attendance) {
+		attendanceMapper.update(attendance);
+	}
+
 }

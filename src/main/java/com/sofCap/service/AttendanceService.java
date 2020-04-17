@@ -14,4 +14,8 @@ public interface AttendanceService {
 	List<String> findAdmin(int semId);
 
 	void delete(Date date);
+
+	void insert(AttendanceDto attendance);
+
+	void update(AttendanceDto attendance);
 }

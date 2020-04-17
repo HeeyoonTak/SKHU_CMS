@@ -4,39 +4,38 @@
 
 <mapper namespace="com.sofCap.mapper.AttendanceMapper">
 
-	<select id="findAdmin" resultType="String"> <!--학기별 출석체크 회원 리스트-->
-			SELECT DISTINCT u.name
-			FROM attendance a JOIN sem_date s ON a.date BETWEEN s.start_date AND s.end_date
-			JOIN user u ON a.user_id = u.id
-			WHERE s.id = #{s.id}
-			   AND a.club_id = 1
-			ORDER BY u.id
+	<select id="findAdmin" resultType="String"> <!--학기별 출석체크 회원 리스트 -->
+		SELECT DISTINCT u.name
+		FROM attendance a JOIN sem_date s ON a.date BETWEEN s.start_date AND s.end_date
+		JOIN user u ON a.user_id = u.id
+		WHERE s.id = #{s.id}
+		AND a.club_id = 1
+		ORDER BY u.id
 	</select>
 
-	<select id="findDate" resultType="String"> <!--학기별 출석체크 날짜 리스트-->
+	<select id="findDate" resultType="String"> <!--학기별 출석체크 날짜 리스트 -->
 		SELECT DISTINCT DATE_FORMAT(a.date,'%Y-%m-%d') date
-		FROM attendance a JOIN sem_date s ON a.date
-		BETWEEN s.start_date AND s.end_date
+		FROM attendance a JOIN sem_date s ON a.date BETWEEN s.start_date AND s.end_date
 		WHERE s.id = #{s.id}
-			 AND club_id = 1
+		AND club_id = 1
 		ORDER BY date
 	</select>
 
-	<select id="findBySemDate" resultType="AttendanceDto">  <!--학기별 출석체크 리스트-->
+	<select id="findBySemDate" resultType="AttendanceDto">  <!--학기별 출석체크 리스트 -->
 		SELECT a.id
-			  ,a.club_id
-			  ,a.check
-			  ,a.date
-		      ,a.user_id
-			  ,s.sem_name
-			  ,u.name
+		,a.club_id
+		,a.check
+		,a.date
+		,a.user_id
+		,s.sem_name
+		,u.name
 		FROM attendance a JOIN sem_date s ON a.date BETWEEN s.start_date AND s.end_date
 		JOIN user u ON a.user_id = u.id
 		WHERE s.id = #{semId}
-		  AND a.club_id  = 1
+		AND a.club_id = 1
 		ORDER BY a.date, a.user_id
 	</select>
-	
+
 	<delete id="delete">
 		set sql_safe_updates = 0;
 		DELETE a
@@ -44,5 +43,18 @@
 		WHERE a.date = #{date}
 		AND a.club_id = 1
 	</delete>
-	
+
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT attendance(club_id, `check`, date, user_id)
+		VALUES (1, #{check}, #{date}, #{user_id})
+	</insert>
+
+	<update id="update">
+		UPDATE attendance
+		SET `check` = #{check}
+		WHERE club_id = 1
+		AND date = #{date}
+		AND user_id = #{user_id}
+	</update>
+
 </mapper>

@@ -42,66 +42,72 @@
 				</div>
 				<div class="content-box animate-box">
 					<h2>출석체크</h2>
-					<table class="table text-center attendance_check_table">
-						<thead>
-							<tr>
-								<th></th>
-								<c:forEach var="adminUser" items="${adminUser}">
-									<th>${adminUser}</th>
-								</c:forEach>
-								<th></th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach var="findDate" items="${ findDate }">
+					<form action="attendance" method="post"
+						enctype="multipart/form-data" onsubmit="return check();"
+						name="attendance_submit">
+						<table class="table text-center attendance_check_table">
+							<thead>
 								<tr>
-									<td>${ findDate }</td>
-									<c:forEach var="attendance" items="${ attendance }"
-										varStatus="status">
-										<c:if test="${attendance.date eq findDate}">
-											<c:choose>
-												<c:when test="${ attendance.check eq 0 }">
-													<td>-</td>
-												</c:when>
-												<c:otherwise>
-													<td>O</td>
-												</c:otherwise>
-											</c:choose>
-											<c:if test="${status.count % fn:length(adminUser) eq 0}">
-												<td><a href="attendance_delete?date=${attendance.date}">x</a></td>
+									<th></th>
+									<c:forEach var="adminUser" items="${adminUser}">
+										<th>${adminUser}</th>
+									</c:forEach>
+									<th></th>
 								</tr>
-						</tbody>
-						</c:if>
-						</c:if>
-						</c:forEach>
-						</c:forEach>
-						<tbody>
-							<tr>
-								<td><input type="date" class="form-control input-md"
-									style="width: 160px"></td>
-								<c:forEach var="adminUser" items="${ adminUser }">
-									<td><input type="checkbox" class="form-control input-sm"></td>
-								</c:forEach>
-								<td><a href="#">x</a></td>
-							</tr>
-						</tbody>
-						<tbody id="addTd"></tbody>
-						<tbody>
-							<tr>
-								<td colspan="9"><button
-										onclick="attachAddrAtt(this); return false;"
-										class="btn btn-primary col-md">+</button></td>
-							</tr>
-						</tbody>
-					</table>
+							</thead>
+							<tbody>
+								<c:forEach var="findDate" items="${ findDate }">
+									<tr>
+										<td>${ findDate }</td>
+										<c:forEach var="attendance" items="${ attendance }"
+											varStatus="status">
+											<c:if test="${attendance.date eq findDate}">
+												<c:choose>
+													<c:when test="${ attendance.check eq 0 }">
+														<td>-</td>
+													</c:when>
+													<c:otherwise>
+														<td>O</td>
+													</c:otherwise>
+												</c:choose>
+												<c:if test="${status.count % fn:length(adminUser) eq 0}">
+													<td><a
+														href="attendance_delete?date=${attendance.date}">x</a></td>
+									</tr>
+							</tbody>
+							</c:if>
+							</c:if>
+							</c:forEach>
+							</c:forEach>
+							<tbody>
+								<tr>
+									<td><input type="date" class="form-control input-md"
+										style="width: 160px"></td>
+									<c:forEach var="adminUser" items="${ adminUser }">
+										<td><input type="checkbox" class="form-control input-sm"></td>
+									</c:forEach>
+									<td><a href="#">x</a></td>
+								</tr>
+							</tbody>
+							<tbody id="addTd"></tbody>
+							<tbody>
+								<tr>
+									<td colspan="9"><button
+											onclick="attachAddrAtt(this); return false;"
+											class="btn btn-primary col-md">+</button></td>
+								</tr>
+							</tbody>
+						</table>
 				</div>
 				<div class="row">
 					<div class="col-md-8"></div>
 					<div class="col-md-4">
-						<button class="btn btn-primary col-md-offset-7 btn-lg"
-							id="save_term_btn">저장</button>
+						<input type="submit"
+							class="btn btn-primary col-md-offset-7 btn-lg"
+							id="attendance_submit" name="attendance_submit" value="출석 저장">
 					</div>
 				</div>
+				</form>
 			</div>
 
 			<div class="col-md-3 col-md-pull-9" id="fh5co-sidebar">

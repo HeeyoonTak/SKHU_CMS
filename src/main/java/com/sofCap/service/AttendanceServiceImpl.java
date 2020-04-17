@@ -34,4 +34,18 @@ public class AttendanceServiceImpl implements AttendanceService {
 		attendanceDao.delete(date);
 	}
 
+	@Override
+	public void insert(AttendanceDto attendance) {
+		attendanceDao.insert(attendance);
+	}
+
+	@Override
+	public void update(AttendanceDto attendance) {
+		AttendanceDto attendances = new AttendanceDto();
+		attendances.setDate(attendance.getDate());
+		attendances.setCheck(attendance.getCheck());
+		attendances.setUser_id(attendance.getUser_id());
+		attendances.setClub_id(1);
+		attendanceDao.update(attendances);
+	}
 }
