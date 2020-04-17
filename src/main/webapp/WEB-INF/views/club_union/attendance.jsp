@@ -112,10 +112,10 @@
 
 			<div class="col-md-3 col-md-pull-9" id="fh5co-sidebar">
 				<ul class="attendance_check-list hor_1">
-					<li>회계 관리</li>
+					<li><a href="${R}notice">공지사항</a></li>
+					<li><a href="${R}account">회계 관리</a></li>
 					<li>동아리 관리</li>
-					<li>공지사항</li>
-					<li><a href="attendance">출석체크</a></li>
+					<li><a href="${R}attendance">출석체크</a></li>
 					<li>회의록</li>
 				</ul>
 			</div>
