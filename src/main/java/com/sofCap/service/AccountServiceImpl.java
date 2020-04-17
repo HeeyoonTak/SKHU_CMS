@@ -12,6 +12,7 @@ import com.sofCap.model.SemDate;
 @Service
 public class AccountServiceImpl implements AccountService{
 	@Autowired AccountDao accountDao;
+	@Autowired FileService fileService;
 
 	@Override
 	public List<AccountDto> findAll(){
@@ -30,14 +31,20 @@ public class AccountServiceImpl implements AccountService{
 
 	@Override
 	public void update(AccountDto account) {
+		accountDao.update(account);
+		return;
 	}
 
 	@Override
 	public void insert(AccountDto account) {
+		accountDao.insert(account);
+		return;
 	}
 
 	@Override
 	public void delete(int id) {
+		accountDao.delete(id);
+		return;
 	}
 
 	@Override

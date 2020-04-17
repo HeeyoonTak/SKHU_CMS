@@ -30,14 +30,19 @@ public class AccountDaoImpl implements AccountDao {
 
 	@Override
 	public void update(AccountDto account) {
+		accountMapper.update(account);
+		return;
 	}
 
 	@Override
 	public void insert(AccountDto account) {
+		accountMapper.insert(account);
+		return;
 	}
 
 	@Override
 	public void delete(int id) {
+		accountMapper.delete(id);
 	}
 
 	@Override

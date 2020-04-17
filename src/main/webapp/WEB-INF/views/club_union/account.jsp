@@ -72,7 +72,7 @@
 							</div>
 							<div class="row">
 								<div class="panel panel-default">
-									<form action="account_save" method="post">
+									<form action="account_save" method="post"  enctype="multipart/form-data">
 										<table class="table text-center l_account_table">
 											<thead>
 												<tr>

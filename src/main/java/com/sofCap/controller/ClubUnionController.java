@@ -97,7 +97,8 @@ public class ClubUnionController {
 			System.out.println("total:"+total);
 			account.setRemark(remark[i]);
 			if(!file[i].isEmpty()) {
-//				int f_id = fileService.accountFileUpload(file[i], find);
+				int f_id = fileService.accountFileUpload(file[i]);
+				account.setFile_id(f_id);
 			}
 			account.setAccount_type(account_type[i]);
 			account.setDate(date[i]);

@@ -8,6 +8,6 @@ import com.sofCap.dto.FilesDto;
 
 public interface FileService {
 	void accountFileUpload(FilesDto file);
-	int accountFileUpload(MultipartFile uploadFile, int account_id) throws IOException;
+	int accountFileUpload(MultipartFile uploadFile);
 
 }
