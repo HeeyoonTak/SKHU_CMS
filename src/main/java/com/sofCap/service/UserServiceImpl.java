@@ -43,7 +43,6 @@ public class UserServiceImpl implements UserService {
 		userDao.updateMypage(user);
 	}
 
-
 	@Override
 	public List<UserDto> findAll() {
 		return userDao.findAll();

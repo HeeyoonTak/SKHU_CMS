@@ -10,6 +10,4 @@ public interface UserService {
 	UserDto findByLoginId(String login_id);
 	void updateMypage(UserDto user);
 	List<UserDto> findAll();
-
-
 }
