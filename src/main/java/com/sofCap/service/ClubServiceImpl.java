@@ -9,8 +9,19 @@ import com.sofCap.dao.ClubDao;
 import com.sofCap.dto.ClubDto;
 
 @Service
-public class ClubServiceImpl implements ClubService{
-	@Autowired ClubDao clubDao;
+public class ClubServiceImpl implements ClubService {
+	@Autowired
+	ClubDao clubDao;
+
+	@Override
+	public List<String> findClub() {
+		return clubDao.findClub();
+	}
+
+	@Override
+	public ClubDto findById(int id) {
+		return clubDao.findById(id);
+	}
 
 	@Override
 	public List<ClubDto> findAll(){

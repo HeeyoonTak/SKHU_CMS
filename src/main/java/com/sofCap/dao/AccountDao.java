@@ -1,6 +1,5 @@
 package com.sofCap.dao;
 
-import java.sql.Date;
 import java.util.List;
 
 import com.sofCap.dto.AccountDto;

@@ -1,5 +1,6 @@
 package com.sofCap.service;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,11 @@ public class AttendanceServiceImpl implements AttendanceService {
 	@Override
 	public List<String> findAdmin(int semId) {
 		return attendanceDao.findAdmin(semId);
+	}
+
+	@Override
+	public void delete(Date date) {
+		attendanceDao.delete(date);
 	}
 
 }

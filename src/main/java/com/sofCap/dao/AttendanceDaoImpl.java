@@ -1,5 +1,6 @@
 package com.sofCap.dao;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,11 @@ public class AttendanceDaoImpl implements AttendanceDao {
 	@Override
 	public List<String> findAdmin(int semId) {
 		return attendanceMapper.findAdmin(semId);
+	}
+
+	@Override
+	public void delete(Date date) {
+		attendanceMapper.delete(date);
 	}
 
 }
