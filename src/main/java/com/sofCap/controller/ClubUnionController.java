@@ -64,6 +64,7 @@ public class ClubUnionController {
 		return "redirect:attendance";
 	}
 
+	@Autowired
 	BoardMapper boardMapper;
 	@Autowired
 	UserMapper userMapper;
@@ -86,6 +87,7 @@ public class ClubUnionController {
 		return "club_union/union_minutes";
 	}
 
+	@Autowired
 	AccountService accountService;
 	@Autowired
 	ClubService clubService;
