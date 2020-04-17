@@ -1,4 +1,4 @@
-package com.sofCap.Dao;
+package com.sofCap.dao;
 
 import java.util.List;
 

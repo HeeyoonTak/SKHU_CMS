@@ -1,4 +1,4 @@
-package com.sofCap.Dao;
+package com.sofCap.dao;
 
 import java.util.List;
 
@@ -8,4 +8,5 @@ public interface UserDao {
 	UserDto findByLoginId(String login_id);
 
 	List<UserDto> findAll();
+	UserDto findOne(int id);
 }

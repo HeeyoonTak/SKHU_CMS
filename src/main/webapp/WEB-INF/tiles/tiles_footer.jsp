@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <footer role="contentinfo" id="fh5co-footer">
-	<a href="#" class="fh5co-arrow fh5co-gotop footer-box"><i
-		class="ti-angle-up"></i></a>
+	<!-- <a href="#" class="fh5co-arrow fh5co-gotop footer-box"><i
+		class="ti-angle-up"></i></a> -->
 	<div class="container">
 		<div class="row">
 			<div class="col-md-4 col-sm-6 footer-box">

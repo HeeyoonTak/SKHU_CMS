@@ -37,6 +37,8 @@
 						<li><a href="${R}right-sidebar.html">개발자들</a></li>
 					</ul></li>
 
+				<li><sec:authorize access="authenticated"><a href="${R}myPage"}>마이페이지</a></sec:authorize></li>
+
 				<li class="fh5co-special" style="padding-left: 20px">
 					<sec:authorize access="not authenticated">
 						<a class=" btn btn-default" href="${R}login">로그인</a>
@@ -44,7 +46,7 @@
 					<sec:authorize access="authenticated">
 						<a class="btn btn-default" href="${R}logout_processing">로그아웃</a>
 					</sec:authorize></li>
-
+					
 			</ul>
 		</nav>
 		<!-- </div> -->

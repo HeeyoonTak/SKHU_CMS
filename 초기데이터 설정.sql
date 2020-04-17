@@ -9,9 +9,6 @@ truncate table attendance;
 truncate table board;
 truncate table board_name;
 truncate table sem_date;
-truncate table account_files;
-truncate table board_files;
-truncate table club_files;
 SET FOREIGN_KEY_CHECKS = 1; -- Enable foreign key checking.
 
 ALTER TABLE `softwarecapstion`.`apply_a` 

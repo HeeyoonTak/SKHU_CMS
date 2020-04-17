@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sofCap.Dao.UserDao;
+import com.sofCap.dao.UserDao;
 import com.sofCap.dto.UserDto;
 
 @Service
@@ -29,7 +29,12 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserDto findByLoginId(String login_id) {
 		// TODO Auto-generated method stub
-		return null;
+		return userDao.findByLoginId(login_id);
+	}
+
+	@Override
+	public UserDto findOne(int id) {
+		return userDao.findOne(id);
 	}
 
 	@Override

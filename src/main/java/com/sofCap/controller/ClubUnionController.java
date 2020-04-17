@@ -27,6 +27,36 @@ import com.sofCap.service.UserService;
 @Controller
 @RequestMapping("club_union")
 public class ClubUnionController {
+
+	@Autowired
+	UserService userService;
+	@Autowired
+	AttendanceService attendanceService;
+
+	@RequestMapping("attendance")
+	public String attendance(Model model, @RequestParam(value = "semId", defaultValue = "0") int semId) {
+
+		// 화면 select box 사용하기 위한 데이터 가공
+		List<SemDateDto> semDate = semdateService.findAll();
+		Map<String, String> sems = new HashMap<>();
+		for (int i = 0; i < semDate.size(); i++) {
+			sems.put(Integer.toString(semDate.get(i).getId()), semDate.get(i).getSem_name());
+		}
+		model.addAttribute("sems", sems);
+
+		// 처음 화면 실행시 최근 학기 데이터 불러오기
+		if (semId == 0) {
+			semId = semDate.get(semDate.size() - 1).getId();
+		}
+
+		model.addAttribute("selectSemId", semId);
+		model.addAttribute("findDate", attendanceService.findDate(semId));
+		model.addAttribute("attendance", attendanceService.findBySemDate(semId));
+		model.addAttribute("adminUser", attendanceService.findAdmin(semId));
+
+		return "club_union/attendance";
+	}
+
 	@Autowired
 	UserService userService;
 	@Autowired

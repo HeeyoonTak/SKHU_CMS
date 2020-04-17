@@ -1,4 +1,4 @@
-package com.sofCap.Dao;
+package com.sofCap.dao;
 
 import java.util.List;
 
@@ -24,4 +24,8 @@ public class UserDaoImpl implements UserDao {
 		return userMapper.findAll();
 	}
 
+	@Override
+	public UserDto findOne(int id) {
+		return userMapper.findOne(id);
+	}
 }
