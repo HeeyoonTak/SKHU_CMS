@@ -74,6 +74,12 @@ INSERT INTO club_type (id,type_name) VALUES
   (11, 'All for RYU', 'RJY', '1234', '동아리관리자', null, null),
   (12, '행운', 'JSW', '1234', '동아리관리자', null, null);
   
+  LOCK TABLES `user_club` WRITE;
+/*!40000 ALTER TABLE `user_club` DISABLE KEYS */;
+INSERT INTO `user_club` VALUES (1,1,1),(2,2,2),(3,3,3),(4,4,4),(5,5,5),(6,6,4),(7,6,3),(8,7,2),(9,8,2),(10,8,6),(11,9,5),(12,10,7);
+/*!40000 ALTER TABLE `user_club` ENABLE KEYS */;
+UNLOCK TABLES;
+
  INSERT INTO attendance (id, club_id, `check`, date, user_id) VALUES
   (1, 1, 0, '2020-03-03', 2),
   (2, 1, 1, '2020-03-03', 3),
