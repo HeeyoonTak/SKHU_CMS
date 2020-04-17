@@ -100,3 +100,13 @@
             $(obj).parents('tbody').prev('#addTd').append(str);
         }
     </script>
+
+	<script>
+		function check(){
+		        if($('#uploadImage').val()=="") 
+		        { 
+		            alert("영수증을 첨부해주세요");
+		            return false; 
+		        }
+		}
+	</script>

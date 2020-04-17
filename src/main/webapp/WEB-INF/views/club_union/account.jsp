@@ -72,7 +72,7 @@
 							</div>
 							<div class="row">
 								<div class="panel panel-default">
-									<form action="account_save" method="post"  enctype="multipart/form-data">
+									<form action="account_save" method="post"  enctype="multipart/form-data" onsubmit="return check();" name="account_submit">
 										<table class="table text-center l_account_table">
 											<thead>
 												<tr>
@@ -133,7 +133,8 @@
 														class="form-control input-lg"></td>
 													<td></td>
 													<td>
-														<input type="file" name="file" class="btn btn-primary">													</td>
+														<input type="file" name="file" class="btn btn-primary" id="uploadImage">													
+													</td>
 													<td><a href="#">x</a></td>
 												</tr>
 											</tbody>
@@ -151,9 +152,9 @@
 								<div class="row">
 									<div class="col-md-8"></div>
 									<div class="col-md-4">
-										<button type="submit"
+										<input type="submit"
 											class="btn btn-primary col-md-offset-7 btn-lg"
-											id="l_account_save">회계 저장</button>
+											id="l_account_save" name="l_account_save" value="회계 저장">
 									</div>
 								</div>
 								</form>
