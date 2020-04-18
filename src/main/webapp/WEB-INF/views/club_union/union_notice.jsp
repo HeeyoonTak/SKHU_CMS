@@ -43,7 +43,7 @@
 									</tr>
 									<c:forEach var="board" items="${boards}">
 										<tr>
-											<td><a href="#">${board.title}</a></td>
+											<td><a href="content?id=${board.id}">${board.title}</a></td>
 											<td style="text-align: center"><fmt:formatDate pattern="yyyy-MM-dd" value="${ board.date }" /></td>
 											<c:if test = "${user.user_type == '동연'}">
 										    <td><a href="#" style="color: #ff0000">x</a></td>
