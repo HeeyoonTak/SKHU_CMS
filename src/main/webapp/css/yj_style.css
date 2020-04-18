@@ -12,6 +12,16 @@
 	margin: auto;
 }
 
+#modalTable tr td {
+	text-align: center;
+	vertical-align: middle;
+}
+
+#modalTable tr td input {
+	width: 100%;
+	margin: auto;
+}
+
 .attendance_check_table tbody tr td .btn-primary {
 	margin-top: 10px;
 	margin-bottom: 10px;
@@ -42,6 +52,30 @@
 }
 
 .row1 {
-  margin-left: -60px;
-  margin-right: -60px;
+	margin-left: -60px;
+	margin-right: -60px;
+}
+
+.modal-footer .btn-primary {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border: 1px solid !important;
+}
+
+#closeModal:hover {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border: 1px solid !important;
+	background-color: #90d7ea;
+	color: white;
+	border-color: #90d7ea;
+}
+
+#closeModal {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border: 1px solid !important;
+	background-color: white;
+	color: #90d7ea;
+	border-color: #90d7ea;
 }
