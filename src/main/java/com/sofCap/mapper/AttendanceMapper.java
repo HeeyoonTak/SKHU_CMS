@@ -16,6 +16,10 @@ public interface AttendanceMapper {
 
 	List<String> findAdmin(int semId);
 
+	List<String> findByDateModal(Date date);
+
+	List<AttendanceDto> findByDate(Date date);
+
 	void delete(Date date);
 
 	void insert(AttendanceDto attendance);

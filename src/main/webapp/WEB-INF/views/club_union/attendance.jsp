@@ -58,7 +58,8 @@
 						<tbody>
 							<c:forEach var="findDate" items="${ findDate }">
 								<tr>
-									<td>${ findDate }</td>
+									<td id="attendanceUpdate" data-toggle="modal"
+										data-target="#attendanceModal">${ findDate }</a></td>
 									<c:forEach var="attendance" items="${ attendance }"
 										varStatus="status">
 										<c:if test="${attendance.date eq findDate}">
@@ -79,7 +80,8 @@
 						</c:forEach>
 						</c:forEach>
 						<tbody>
-							<tr><!--출석체크 삽입 모달-->
+							<tr>
+								<!--출석체크 삽입 모달-->
 								<td colspan="${fn:length(adminUser) + 2}">
 									<button id="createBtn" type="button"
 										class="btn btn-primary col-md" data-toggle="modal"
@@ -104,8 +106,9 @@
 	</div>
 </div>
 
-<script>
+<script type="text/javascript">
 	window.onload = function() {
 		$("#selectSemId").val(${selectSemId}).prop("selected", true);
 	}
+
 </script>

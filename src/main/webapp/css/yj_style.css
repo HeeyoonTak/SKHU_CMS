@@ -79,3 +79,11 @@
 	color: #90d7ea;
 	border-color: #90d7ea;
 }
+
+#attendanceUpdate {
+	text-decoration: underline;
+}
+
+#attendanceUpdate:hover {
+	color: #90d7ea;
+}

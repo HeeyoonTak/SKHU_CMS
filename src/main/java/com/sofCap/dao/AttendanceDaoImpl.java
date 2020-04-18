@@ -30,6 +30,16 @@ public class AttendanceDaoImpl implements AttendanceDao {
 	}
 
 	@Override
+	public List<String> findByDateModal(Date date) {
+		return attendanceMapper.findByDateModal(date);
+	}
+
+	@Override
+	public List<AttendanceDto> findByDate(Date date) {
+		return attendanceMapper.findByDate(date);
+	}
+
+	@Override
 	public void delete(Date date) {
 		attendanceMapper.delete(date);
 	}

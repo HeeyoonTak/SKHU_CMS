@@ -8,8 +8,8 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -67,16 +67,34 @@ public class ClubUnionController {
 		return "redirect:attendance";
 	}
 
-	@RequestMapping(value = "attendance", method = RequestMethod.POST)
-	public String update(AttendanceDto attendance, Model model) {
+	@RequestMapping(value = "attendance_modal", method = RequestMethod.GET)
+	public String edit(@RequestParam("date") Date date, Model model) {
+		model.addAttribute("findByDate", attendanceService.findByDate(date));
+		return "club_union/attendance_modal";
+	}
+
+	@Transactional
+	@RequestMapping(value = "attendance_modal", method = RequestMethod.POST)
+	public String edit(AttendanceDto attendance, Model model) {
 		attendanceService.update(attendance);
 		return "redirect:attendance";
 	}
+	/*
+	 * @RequestMapping("attendance_update") public String update(Model
+	 * model, @RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date
+	 * date) { model.addAttribute("findByDateUser",
+	 * attendanceService.findByDateModal(date)); return "club_union/attendance"; }
+	 */
+	/*
+	 * @RequestMapping(value = "attendance", method = RequestMethod.POST) public
+	 * String update(AttendanceDto attendance, Model model) {
+	 * attendanceService.update(attendance); return "redirect:attendance"; }
+	 */
 
-	@PutMapping("/attendance")
-	public void update(AttendanceDto attendance) {
-		attendanceService.update(attendance);
-	}
+	/*
+	 * @PutMapping("/attendance") public void update(AttendanceDto attendance) {
+	 * attendanceService.update(attendance); }
+	 */
 
 	@Autowired
 	BoardMapper boardMapper;

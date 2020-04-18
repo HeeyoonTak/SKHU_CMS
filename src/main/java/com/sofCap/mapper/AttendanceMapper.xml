@@ -35,6 +35,32 @@
 		AND a.club_id = 1
 		ORDER BY a.date, a.user_id
 	</select>
+	
+	<select id="findByDateModal" resultType="String"> <!--모달창에서 날짜 선택시 해당 학기별 회원 리스트-->
+		<![CDATA[
+		SET @date:=#{date};
+		SELECT @semId:=id FROM sem_date WHERE @date >= start_date AND @date < end_date;
+		
+		SELECT DISTINCT u.name
+		FROM attendance a JOIN sem_date s ON a.date BETWEEN s.start_date AND s.end_date
+		JOIN user u ON a.user_id = u.id
+		WHERE s.id = @semId
+		AND a.club_id = 1
+		ORDER BY u.id
+		]]> <!-- '<'기호 사용하기 위해 선언 -->
+	</select>
+	
+	<select id="findByDate" resultType="AttendanceDto"> <!-- 날짜별 출석 현황 - 수정 페이지 -->
+		SELECT a.id
+		,a.club_id
+		,a.`check`
+		,DATE_FORMAT(a.date,'%Y-%m-%d') date
+		,u.name
+		FROM attendance a JOIN user u ON a.user_id = u.id
+		WHERE club_id = 1
+        AND a.date = #{date}
+		ORDER BY a.user_id
+	</select>
 
 	<delete id="delete">
 		set sql_safe_updates = 0;
@@ -51,10 +77,8 @@
 
 	<update id="update">
 		UPDATE attendance
-		SET `check` = #{check}
-		WHERE club_id = 1
-		AND date = #{date}
-		AND user_id = #{user_id}
+		SET `check` = #{check}, club_id = 1, date = #{date}, user_id = #{user_id}
+        WHERE id = #{id}
 	</update>
 
 </mapper>

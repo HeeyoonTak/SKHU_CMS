@@ -7,23 +7,17 @@ $(document).ready(function() {
 
 	// 출석체크 추가 버튼 클릭
 	$("#createBtn").click(function() {
-		action = 'create';
-		type = 'POST'
+		action = 'update';
 		$("#modal-title").text("출석체크");
 		$("#attendanceModal").modal();
 	});
 
 	// 출석체크 수정하기 날짜 클릭
-	$(".attendance_check_table tr").click(function() {
-		action = 'update';
-		type = 'PUT';
-		bno = this.value;
+	$("#attendanceUpdate").click(function() {
+		action = 'edit';
+		type = 'GET';
 
-		/*// content 담기
-		var row = $(this).parent().parent().parent();
-		var tr = row.children();*/
-		var tr = $(this);
-		var td = tr.children();
+		var tr = row.children();
 
 		var userName = tr.eq(0).text();
 		var check = tr.eq(1).text();
@@ -38,13 +32,6 @@ $(document).ready(function() {
 
 	// Modal의 Submit 버튼 클릭
 	$("#modalSubmit").click(function() {
-
-		if (action == 'create') {
-			bno = 0;
-			url = '/attendance';
-		} else if (action == 'update') {
-			url = '/attendance';
-		}
 
 		var data = {
 			"bno" : bno,

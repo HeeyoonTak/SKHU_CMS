@@ -16,9 +16,9 @@
 					<tr>
 						<td>출석 날짜</td>
 						<td><input type="date" class="form-control input-md"
-							style="width: 200px"></td>
+							style="width: 200px" name="date" id="date">${date}</td>
 					</tr>
-					<c:forEach var="adminUser" items="${ adminUser }">
+					<c:forEach var="adminUser" items="${adminUser}">
 						<tr>
 							<td>${adminUser}</td>
 							<td><input type="checkbox" class="form-control input-sm"></td>
@@ -27,8 +27,10 @@
 				</table>
 			</div>
 			<div class="modal-footer">
-				<button id="modalSubmit" type="button" class="btn btn-primary col-md">저장</button>
-				<button id="closeModal" type="button" class="btn btn-primary col-md" data-dismiss="modal">Close</button>
+				<button id="modalSubmit" type="button"
+					class="btn btn-primary col-md">저장</button>
+				<button id="closeModal" type="button" class="btn btn-primary col-md"
+					data-dismiss="modal">Close</button>
 			</div>
 		</div>
 	</div>

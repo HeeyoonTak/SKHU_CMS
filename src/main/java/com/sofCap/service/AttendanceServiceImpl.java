@@ -30,6 +30,16 @@ public class AttendanceServiceImpl implements AttendanceService {
 	}
 
 	@Override
+	public List<String> findByDateModal(Date date) {
+		return attendanceDao.findByDateModal(date);
+	}
+
+	@Override
+	public List<AttendanceDto> findByDate(Date date) {
+		return attendanceDao.findByDate(date);
+	}
+
+	@Override
 	public void delete(Date date) {
 		attendanceDao.delete(date);
 	}
@@ -41,11 +51,6 @@ public class AttendanceServiceImpl implements AttendanceService {
 
 	@Override
 	public void update(AttendanceDto attendance) {
-		AttendanceDto attendances = new AttendanceDto();
-		attendances.setDate(attendance.getDate());
-		attendances.setCheck(attendance.getCheck());
-		attendances.setUser_id(attendance.getUser_id());
-		attendances.setClub_id(1);
-		attendanceDao.update(attendances);
+		attendanceDao.update(attendance);
 	}
 }
