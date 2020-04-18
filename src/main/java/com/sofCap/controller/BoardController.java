@@ -30,11 +30,25 @@ public class BoardController {
 		return "guest/list-content";
 	}
 
-	@RequestMapping("content")
-	public String content(Model model, @RequestParam("id") int id) {
+	@RequestMapping("c_p_content")
+	public String c_p_content(Model model, @RequestParam("id") int id) {
 		BoardDto board = boardMapper.findOne(id);
 		model.addAttribute("board",board);
-		return "guest/post-content";
+		return "guest/c_p_content";
+	}
+
+	@RequestMapping("p_content")
+	public String p_content(Model model, @RequestParam("id") int id) {
+		BoardDto board = boardMapper.findOne(id);
+		model.addAttribute("board",board);
+		return "guest/p_content";
+	}
+
+	@RequestMapping("r_content")
+	public String r_content(Model model, @RequestParam("id") int id) {
+		BoardDto board = boardMapper.findOne(id);
+		model.addAttribute("board",board);
+		return "guest/r_content";
 	}
 
 	@RequestMapping("publicity")

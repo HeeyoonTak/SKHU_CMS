@@ -38,7 +38,7 @@
 				<div>
 					<div class="row">
 						<div class="col-md-12" style="margin-bottom: 20px">
-							
+							<h2 class="h3">홍보 게시판</h2>
 						</div>
 						<div class="col-md-12">
 							<div style="margin-left: 50px">
@@ -64,7 +64,7 @@
 								</table>
 								<div class="row">
 									<div class="col-md-12">
-										<a class="btn btn-primary btn-lg" id="l_search_term_btn" style="float:right;">작성</a>
+										<a class="btn btn-primary btn-lg" id="l_search_term_btn" style="float:right;" href="publicity">목록</a>
 									</div>
 								</div>
 							</div>
