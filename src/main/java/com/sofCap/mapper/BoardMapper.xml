@@ -48,6 +48,10 @@
 		WHERE board_name_id = '4' AND club_id = '1'
 	</select>
 
+	<delete id="delete">
+		DELETE FROM Board WHERE id = #{id}
+	</delete>
+	
 	<resultMap id="resultMap_BoardDto" type="BoardDto">
 		<id property="id" column="id" />
 		<result property="title" column="title" />

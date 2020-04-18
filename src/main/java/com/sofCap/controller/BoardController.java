@@ -55,14 +55,14 @@ public class BoardController {
 	public String n_content(Model model, @RequestParam("id") int id) {
 		BoardDto board = boardMapper.findOne(id);
 		model.addAttribute("board",board);
-		return "guest/n_content";
+		return "club_union/n_content";
 	}
 
 	@RequestMapping("m_content")
 	public String m_content(Model model, @RequestParam("id") int id) {
 		BoardDto board = boardMapper.findOne(id);
 		model.addAttribute("board",board);
-		return "guest/m_content";
+		return "club_union/m_content";
 	}
 
 	@RequestMapping("publicity")

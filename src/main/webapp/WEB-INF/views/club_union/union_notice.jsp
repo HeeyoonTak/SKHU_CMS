@@ -51,7 +51,7 @@
 											<td style="text-align: center"><fmt:formatDate pattern="yyyy-MM-dd" value="${ board.date }" /></td>
 											<%-- <c:if test = "${user.user_type == '동연'}"> --%>
 										    <sec:authorize access="authenticated">
-										    <td><a href="#" style="color: #ff0000">x</a></td>
+										    <td><a href="n_delete?id=${board.id}" style="color: #ff0000">x</a></td>
 										    </sec:authorize>
 										    <%-- </c:if> --%>
 										</tr>

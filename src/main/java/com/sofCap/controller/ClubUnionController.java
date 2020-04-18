@@ -82,7 +82,13 @@ public class ClubUnionController {
 	public String n_content(Model model, @RequestParam("id") int id) {
 		BoardDto board = boardMapper.findOne(id);
 		model.addAttribute("board",board);
-		return "guest/n_content";
+		return "club_union/n_content";
+	}
+
+	@RequestMapping("n_delete")
+	public String n_delete(Model model, @RequestParam("id") int id) {
+		boardMapper.delete(id);
+		return "redirect:notice";
 	}
 
 	@RequestMapping("minutes")
@@ -98,7 +104,13 @@ public class ClubUnionController {
 	public String m_content(Model model, @RequestParam("id") int id) {
 		BoardDto board = boardMapper.findOne(id);
 		model.addAttribute("board",board);
-		return "guest/m_content";
+		return "club_union/m_content";
+	}
+
+	@RequestMapping("m_delete")
+	public String m_delete(Model model, @RequestParam("id") int id) {
+		boardMapper.delete(id);
+		return "redirect:minutes";
 	}
 
 	@Autowired
