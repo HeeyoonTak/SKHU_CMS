@@ -22,7 +22,7 @@ public class BoardController {
 	BoardMapper boardMapper;
 
 	@RequestMapping("list-content")
-	public String listContent(Model model, @RequestParam("id") int club_id) {
+	public String list_content(Model model, @RequestParam("id") int club_id) {
 		ClubDto club = clubMapper.findById(club_id);
 		List<BoardDto> boards = boardMapper.findByClubId_p(club_id);
 		model.addAttribute("club", club);
@@ -30,10 +30,16 @@ public class BoardController {
 		return "guest/list-content";
 	}
 
+	@RequestMapping("content")
+	public String content(Model model, @RequestParam("id") int id) {
+		BoardDto board = boardMapper.findOne(id);
+		model.addAttribute("board",board);
+		return "guest/post-content";
+	}
+
 	@RequestMapping("publicity")
 	public String publicity(Model model) {
 		List<BoardDto> boards = boardMapper.findAll_p();
-
 		model.addAttribute("boards",boards);
 		return "guest/publicity";
 	}

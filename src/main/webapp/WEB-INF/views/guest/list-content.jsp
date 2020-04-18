@@ -67,7 +67,7 @@
 												</tr>
 												<c:forEach var="board" items="${boards}">
 													<tr>
-														<td><a href="#">${board.title}</a></td>
+														<td><a href="content?id=${board.id}">${board.title}</a></td>
 														<!-- <td>아노미7</td>  -->
 														<td style="text-align: center"><fmt:formatDate
 																pattern="yyyy-MM-dd" value="${ board.date }" /></td>
