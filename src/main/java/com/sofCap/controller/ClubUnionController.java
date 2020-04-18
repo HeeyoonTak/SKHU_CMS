@@ -78,6 +78,13 @@ public class ClubUnionController {
 		return "club_union/union_notice";
 	}
 
+	@RequestMapping("n_content")
+	public String n_content(Model model, @RequestParam("id") int id) {
+		BoardDto board = boardMapper.findOne(id);
+		model.addAttribute("board",board);
+		return "guest/n_content";
+	}
+
 	@RequestMapping("minutes")
 	public String union_minutes(Model model, Principal principal) {
 		UserDto user = userMapper.findByLoginId(principal.getName());
@@ -85,6 +92,13 @@ public class ClubUnionController {
 		model.addAttribute("user", user);
 		model.addAttribute("boards", boards);
 		return "club_union/union_minutes";
+	}
+
+	@RequestMapping("m_content")
+	public String m_content(Model model, @RequestParam("id") int id) {
+		BoardDto board = boardMapper.findOne(id);
+		model.addAttribute("board",board);
+		return "guest/m_content";
 	}
 
 	@Autowired
