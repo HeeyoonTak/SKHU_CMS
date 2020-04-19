@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sofCap.dto.AccountDto;
 import com.sofCap.dto.AttendanceDto;
@@ -73,11 +76,35 @@ public class ClubUnionController {
 		return "club_union/attendance_modal";
 	}
 
+	@ResponseBody
 	@Transactional
 	@RequestMapping(value = "attendance_modal", method = RequestMethod.POST)
 	public String edit(AttendanceDto attendance, Model model) {
 		attendanceService.update(attendance);
 		return "redirect:attendance";
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/test", method = RequestMethod.POST, produces = "application/json; charset=utf8")
+	public String attendanceModal(@RequestParam("find") Date date, Model model) throws Exception {
+
+		// 출석체크 삽입 모달창 사용하기 위한 데이터 가공
+		model.addAttribute("modalUser", attendanceService.findByDateModal(date));
+
+		// 출석체크 수정 모달창 사용하기 위한 데이터 가공
+		List<AttendanceDto> check = attendanceService.findByDate(date);
+
+		JSONObject robj = new JSONObject();
+		JSONArray jlist = new JSONArray();
+		for (int i = 0; i < check.size(); i++) {
+			JSONObject item = new JSONObject();
+			item.put("name", "" + check.get(i).getName());
+			item.put("check", "" + check.get(i).getCheck());
+			jlist.put(item);
+		}
+		robj.put("testlist", jlist);
+
+		return robj.toString();
 	}
 	/*
 	 * @RequestMapping("attendance_update") public String update(Model

@@ -55,6 +55,7 @@
 		,a.club_id
 		,a.`check`
 		,DATE_FORMAT(a.date,'%Y-%m-%d') date
+		,a.user_id
 		,u.name
 		FROM attendance a JOIN user u ON a.user_id = u.id
 		WHERE club_id = 1

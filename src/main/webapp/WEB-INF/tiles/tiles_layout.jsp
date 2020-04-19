@@ -38,7 +38,7 @@
 	<!-- FastClick for Mobile/Tablets -->
 	<script src="${R}js/fastclick.js"></script>
 	<!-- Parallax -->
-	<script src="${R}js/jquery.parallax-scroll.min.js"></script>
+<%-- 	<script src="${R}js/jquery.parallax-scroll.min.js"></script> --%>
 	<!-- Waypoints -->
 	<script src="${R}js/jquery.waypoints.min.js"></script>
 	<!-- Main JS -->
