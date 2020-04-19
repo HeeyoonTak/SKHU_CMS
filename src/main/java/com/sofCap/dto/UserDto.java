@@ -1,5 +1,7 @@
 package com.sofCap.dto;
 
+import javax.validation.constraints.Email;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,5 +16,6 @@ public class UserDto {
 	String password;
 	String user_type;
 	String phone;
+	@Email
 	String email;
 }
