@@ -20,7 +20,12 @@ public interface BoardMapper {
 	List<BoardDto> findAll_n();
 
 	List<BoardDto> findAll_m();
+
 	BoardDto findOne(@Param("id") int id);
+
+	List<BoardDto> listFive_p();
+
+	List<BoardDto> listFive_r();
 
 	void delete(int id);
 }
