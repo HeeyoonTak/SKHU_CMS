@@ -141,16 +141,16 @@
 														class="form-control input-lg" placeholder="사용내용 및 비고"></td>
 													<!-- <td></td> -->
 													<td>
-													  	<input type="text" class="fileName form-control input-sm" id="fileName"  disabled="disabled">
-														<input type="file" name="file" class="btn btn-primary" id="uploadImage">													
+														<input type="file" name="file" class="btn btn-primary" id="uploadImage" onchange="fileChange(this);">
+														<label for="uploadImage" class="fileName" style="display:none"></label>													
 													</td>
-													<td><a href="#">x</a></td>
+													<td><a onclick="return delete_row(this);">x</a></td>
 												</tr>
 											</tbody>
 											<tbody id="addTd"></tbody>
 											<tbody>
 												<tr>
-													<td colspan="6"><button onclick="attachAddr(this)"
+													<td colspan="6"><button onclick="return attachAddr(this);"
 															class="btn btn-primary col-md" id="pls-btn">+</button></td>
 												</tr>
 											</tbody>

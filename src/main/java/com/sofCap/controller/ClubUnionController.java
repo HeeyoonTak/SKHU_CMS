@@ -61,7 +61,7 @@ public class ClubUnionController {
 	// 버전 3
 	@RequestMapping(value = "account")
 	public String account(Model model, SemDate semdate) {
-		System.out.println(semdate.getSem_name());
+//		System.out.println(semdate.getSem_name());
 		String sem_name = semdate.getSem_name();
 		List<AccountDto> accounts = accountService.findBySem(semdate);
 		List<AccountDto> totals = accountService.getTotalByClubId(sem_name);
@@ -80,7 +80,6 @@ public class ClubUnionController {
 			@RequestParam("price") int[] price, @RequestParam("remark") String[] remark,
 			@RequestBody MultipartFile[] file, @RequestParam("account_type") int[] account_type,
 			@RequestParam("date") @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Date[] date, SemDate semdate) {
-		System.out.println(semdate.getSem_name());
 		String sem_name = semdate.getSem_name();
 		System.out.println(club_id.length);
 		save(club_id, price, remark, file, account_type, date, sem_name);

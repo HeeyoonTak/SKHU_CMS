@@ -84,39 +84,54 @@
 <script>
         function attachAddr(obj) {
             const str = `<tr>
-							<td><input type="date" name="date" class="form-control input-lg"></td>
-							<td>
-								<select class="form-control input-lg">
-									<c:forEach var="at" items="${ account_type }" varStatus="i">
-			                        	<option value="${i.index}">${ at }</option>
-			                        </c:forEach>
-			            		</select>
-			            	</td>
-			            	<td><input type="number" name="price" class="form-control input-lg"></td>
-							<td><input type="text" name="remark" class="form-control input-lg"></td>
-							<td></td>
-							<td><a href="#" class="btn btn-primary">영수증</a></td>
-							<td><a href="#">x</a></td>
-						</tr>`;
+				<input type="hidden" name="club_id" value="${club.id}">
+				<td><input type="date" name="date"
+					class="form-control input-lg"></td>
+				<td><select class="form-control input-lg"
+					name="account_type">
+						<c:forEach var="at" items="${ account_type }"
+							varStatus="i">
+							<option value="${i.index}">${ at }</option>
+						</c:forEach>
+				</select></td>
+				<td><input type="number" name="price"
+					class="form-control input-lg" placeholder="사용금액"></td>
+				<td><input type="text" name="remark"
+					class="form-control input-lg" placeholder="사용내용 및 비고"></td>
+				<!-- <td></td> -->
+				<td>
+					<input type="file" name="file" class="btn btn-primary" id="uploadImage" onchange="fileChange(this);">
+					<label for="uploadImage" class="fileName" style="display:none"></label>													
+				</td>
+				<td><a onclick="return delete_row(this);">x</a></td>
+			</tr>`;
             $(obj).parents('tbody').prev('#addTd').append(str);
+            return false;
+        }
+    </script>
+    <script>
+        function delete_row(obj) {
+            $(obj).parents('tbody tr').remove();
+            return false;
         }
     </script>
 
-	<script>
+<script>
 		function check(){
-		        if($('#uploadImage').val()=="") 
+		        if($(this).closet('#uploadImage').val()=="") 
 		        { 
 		            alert("영수증을 첨부해주세요");
 		            return false; 
 		        }
 		}
 	</script>
-	
-	<script>
-    $(document).ready(function(){
-        $('input[type="file"]').change(function(e){
-            var fileName = e.target.files[0].name;
-            $(this).siblings('.fileName').val(fileName);            
-        });
-    });
+
+<script>
+    function fileChange(obj){
+            var fileName = obj.files[0].name;
+            $(obj).siblings('.fileName').css("display","inline-block");
+            $(obj).siblings('.fileName').text(fileName);   
+            return false;         
+        };
+    
 	</script>
