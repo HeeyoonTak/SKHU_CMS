@@ -47,7 +47,7 @@ public class AccountDaoImpl implements AccountDao {
 	}
 
 	@Override
-	public Integer getTotal(String sem_name, int club_id, Date date) {
-		return accountMapper.getTotal(sem_name, club_id, date);
+	public List<AccountDto> getTotalByClubId(String sem_name) {
+		return accountMapper.getTotalByClubId(sem_name);
 	}
 }

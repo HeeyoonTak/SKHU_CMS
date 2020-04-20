@@ -22,10 +22,6 @@
     width: 5%;
 }
 
-.l_account_table thead tr th:nth-child(5){
-    width: 10%;
-}
-
 .l_account_table thead tr th:nth-child(2){
 	width: 15%;
 }
@@ -34,6 +30,17 @@
     color: red;
 }
 
+.l_account_table tbody tr td #uploadImage{
+	width: 100px;
+}
+
+.l_account_table tbody tr.total-row td:first-child{
+	text-align:end;
+}
+
+.l_account_table tbody tr.total-row td{
+	font-size: x-large;
+}
 #l_search_term {
     display: inline;
 }

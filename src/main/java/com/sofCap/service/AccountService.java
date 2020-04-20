@@ -13,5 +13,5 @@ public interface AccountService {
 	void update(AccountDto account);
 	void insert(AccountDto account);
 	void delete(int id);
-	Integer getTotal(String sem_name, int club_id, Date date);
-}
+	List<AccountDto> getTotalByClubId(String sem_name);
+	}

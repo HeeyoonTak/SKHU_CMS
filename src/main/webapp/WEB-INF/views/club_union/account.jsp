@@ -77,17 +77,17 @@
 											<thead>
 												<tr>
 													<th>날짜</th>
-													<th>지원금 사용내역</th>
-													<th>동아리회비 사용내역</th>
-													<th>비고</th>
-													<th>잔액</th>
+													<th>지원금 사용금액</th>
+													<th>동아리회비 사용금액</th>
+													<th>사용내용 및 비고</th>
+													<!-- <th>잔액</th> -->
 													<th>영수증 첨부</th>
 													<th></th>
 												</tr>
 											</thead>
+											<tbody>
 											<c:forEach var="account" items="${ accounts }">
 												<c:if test="${club.id eq account.club_id }">
-													<tbody>
 														<tr>
 															<td>${ account.date }</td>
 															<c:choose>
@@ -108,13 +108,21 @@
 																	<td>${ account.remark }</td>
 																</c:otherwise>
 															</c:choose>
-															<td>${ account.total }</td>
+															<%-- <td>${ account.total }</td> --%>
 															<td><a href="#" class="btn btn-primary">영수증</a></td>
 															<td><a href="#">x</a></td>
 														</tr>
-													</tbody>
 												</c:if>
 											</c:forEach>
+											<c:forEach var="total" items="${ totals }">
+												<c:if test="${ club.id eq total.club_id }"> 
+														<tr class="total-row">
+															<td colspan=4>잔액 : </td>
+															<td colspan=2>${ total.total }</td>
+														</tr>
+												</c:if>
+											</c:forEach>
+											</tbody>
 											<tbody>
 												<tr>
 													<input type="hidden" name="club_id" value="${club.id}">
@@ -128,11 +136,12 @@
 															</c:forEach>
 													</select></td>
 													<td><input type="number" name="price"
-														class="form-control input-lg"></td>
+														class="form-control input-lg" placeholder="사용금액"></td>
 													<td><input type="text" name="remark"
-														class="form-control input-lg"></td>
-													<td></td>
+														class="form-control input-lg" placeholder="사용내용 및 비고"></td>
+													<!-- <td></td> -->
 													<td>
+													  	<input type="text" class="fileName form-control input-sm" id="fileName"  disabled="disabled">
 														<input type="file" name="file" class="btn btn-primary" id="uploadImage">													
 													</td>
 													<td><a href="#">x</a></td>

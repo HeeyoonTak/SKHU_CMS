@@ -79,6 +79,7 @@
 	href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
 <!-- import JavaScript -->
 <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 
 <script>
         function attachAddr(obj) {
@@ -109,4 +110,13 @@
 		            return false; 
 		        }
 		}
+	</script>
+	
+	<script>
+    $(document).ready(function(){
+        $('input[type="file"]').change(function(e){
+            var fileName = e.target.files[0].name;
+            $(this).siblings('.fileName').val(fileName);            
+        });
+    });
 	</script>

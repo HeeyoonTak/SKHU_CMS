@@ -12,45 +12,44 @@
 	</select>
 
 	<select id="findBySem" resultType="AccountDto">
-		SELECT a.*, s.sem_name 
-		FROM account a RIGHT JOIN sem_date s 
-		ON a.date BETWEEN s.start_date AND s.end_date 
+		SELECT a.*, s.sem_name
+		FROM account a RIGHT JOIN sem_date s
+		ON a.date BETWEEN s.start_date AND s.end_date
 		WHERE s.sem_name=#{sem_name}
 		ORDER BY date ASC
 	</select>
-	
+
 	<update id="update">
 		UPDATE account
 		SET club_id = #{club_id},
-			price = #{price},
-			total = #{total},
-			remark = #{remark},
-			file_id = #{file_id},
-			account_type = #{account_type},
-			date = #{date}
+		price = #{price},
+		total = #{total},
+		remark = #{remark},
+		file_id = #{file_id},
+		account_type = #{account_type},
+		date = #{date}
 		WHERE id = #{id}
 	</update>
-	
+
 	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
-		 INSERT account(club_id, price, total, remark, file_id, account_type, date) 
-		VALUES (#{club_id}, #{price}, #{total}, #{remark}, #{file_id, jdbcType=INTEGER}, #{account_type}, #{date})
+		INSERT
+		account(club_id, price, total, remark, file_id, account_type, date)
+		VALUES (#{club_id}, #{price}, #{total}, #{remark}, #{file_id,
+		jdbcType=INTEGER}, #{account_type}, #{date})
 	</insert>
-	
-	<select id="getTotal" resultType="Integer">
-		SET @total := 0;
-		select @total as total_sum
-		from(
-		select date,(@total := @total + price) as cumulative_sum
-		from account a RIGHT JOIN sem_date s
-		on a.date between s.start_date and s.end_date
-		where s.sem_name=#{sem_name} and club_id=#{club_id} and <![CDATA[date < #{date}]]>
-		order by a.date ASC) as c
-		order by c.date DESC LIMIT 1;
+
+	<select id="getTotalByClubId" resultType="AccountDto">
+		select sum(price) as total, a.club_id
+		from account a right join sem_date s
+		on a. date between s.start_date and s.end_date
+		where s.sem_name=#{sem_name} and <![CDATA[a.date <= now()]]>
+		group by a.club_id
 		
-	 
-		<!-- FROM account a RIGHT JOIN sem_date s 
-		on a.date between s.start_date and s.end_date 
-		where s.sem_name=#{sem_name} and club_id=#{club_id}
-		ORDER BY a.date ASC; -->
+		<!-- SET @total := 0; select @total as total_sum from( select date,(@total 
+			:= @total + price) as cumulative_sum from account a RIGHT JOIN sem_date s 
+			on a.date between s.start_date and s.end_date where s.sem_name=#{sem_name} 
+			and club_id=#{club_id} and <![CDATA[date <= now()]]> order by a.date ASC) 
+			as c order by c.date DESC LIMIT 1; -->
+
 	</select>
 </mapper>

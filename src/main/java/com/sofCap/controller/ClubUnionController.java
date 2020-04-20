@@ -62,12 +62,15 @@ public class ClubUnionController {
 	@RequestMapping(value = "account")
 	public String account(Model model, SemDate semdate) {
 		System.out.println(semdate.getSem_name());
+		String sem_name = semdate.getSem_name();
 		List<AccountDto> accounts = accountService.findBySem(semdate);
+		List<AccountDto> totals = accountService.getTotalByClubId(sem_name);
 		model.addAttribute("accounts", accounts);
 		model.addAttribute("clubs", clubService.findAll());
 		model.addAttribute("sems", semdateService.findAll());
 		model.addAttribute("semdate", semdate);
 		model.addAttribute("account_type", account_type);
+		model.addAttribute("totals", totals);
 		return "club_union/account";
 	}
 
@@ -81,7 +84,7 @@ public class ClubUnionController {
 		String sem_name = semdate.getSem_name();
 		System.out.println(club_id.length);
 		save(club_id, price, remark, file, account_type, date, sem_name);
-		return account(model, semdate);
+		return "redirect:account";
 	}
 
 	@Transactional
@@ -92,9 +95,9 @@ public class ClubUnionController {
 			AccountDto account = new AccountDto();
 			account.setClub_id(club_id[i]);
 			account.setPrice(price[i]);
-			int total = accountService.getTotal(sem_name, club_id[i], date[i]) + price[i];
-			account.setTotal(total);
-			System.out.println("total:"+total);
+//			int total = accountService.getTotalByClubId(sem_name, club_id[i]);
+			account.setTotal(0);
+			System.out.println("total:"+account.getTotal());
 			account.setRemark(remark[i]);
 			if(!file[i].isEmpty()) {
 				int f_id = fileService.accountFileUpload(file[i]);
