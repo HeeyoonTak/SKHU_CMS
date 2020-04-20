@@ -16,37 +16,41 @@
 		board_name_id = '1'
 	</select>
 
+	<select id="findOne" resultType="BoardDto">
+		SELECT *
+		FROM Board
+		WHERE id = #{id}
+	</select>
+	
 	<select id="findAll_p" resultMap="resultMap_BoardDto">
 		SELECT b.*, c.club_name
-		FROM
-		Board b
+		FROM Board b
 		LEFT JOIN Club c ON b.club_id = c.id
 		WHERE board_name_id = '1'
 	</select>
 
 	<select id="findAll_r" resultMap="resultMap_BoardDto">
 		SELECT b.*, c.club_name
-		FROM
-		Board b
+		FROM Board b
 		LEFT JOIN Club c ON b.club_id = c.id
 		WHERE board_name_id = '2'
 	</select>
-	
+
 	<select id="findAll_n" resultType="BoardDto">
-		SELECT b.*
-		FROM
-		Board b
-		LEFT JOIN Club c ON b.club_id = c.id
+		SELECT *
+		FROM Board
 		WHERE board_name_id = '3' AND club_id = '1'
 	</select>
-	
+
 	<select id="findAll_m" resultType="BoardDto">
-		SELECT b.*
-		FROM
-		Board b
-		LEFT JOIN Club c ON b.club_id = c.id
+		SELECT *
+		FROM Board
 		WHERE board_name_id = '4' AND club_id = '1'
 	</select>
+
+	<delete id="delete">
+		DELETE FROM Board WHERE id = #{id}
+	</delete>
 	
 	<resultMap id="resultMap_BoardDto" type="BoardDto">
 		<id property="id" column="id" />

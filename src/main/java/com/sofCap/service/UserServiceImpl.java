@@ -48,4 +48,14 @@ public class UserServiceImpl implements UserService {
 		return userDao.findAll();
 	}
 
+	public UserDto createEntity(UserDto userModel) {
+        UserDto user = new UserDto();
+//        user.setLogin_id(login_id);(userModel.getLogin_id());
+        user.setPassword(userModel.getPassword());
+        user.setName(userModel.getName());
+        user.setEmail(userModel.getEmail());
+        user.setPhone(userModel.getPhone());
+        return user;
+    }
+
 }

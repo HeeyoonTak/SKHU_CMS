@@ -35,6 +35,7 @@
 										class="form-control" value="${user.email}"
 										name="email" placeholder="abcg1234@gmail.com"
 										required>
+										<form:errors path="email" class="error" />
 								</div>
 
 								<hr class="mb-4">

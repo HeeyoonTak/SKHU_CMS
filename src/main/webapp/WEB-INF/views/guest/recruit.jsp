@@ -46,7 +46,7 @@
                                           </tr>
                                            <c:forEach var="board" items="${boards}">
                                           <tr> 
-                                             <td><a href="#">${board.title}</a></td> 
+                                             <td><a href="r_content?id=${board.id}">${board.title}</a></td> 
                                              <td style="text-align: center">${board.club.club_name}</td>
                                              <td style="text-align: center"><fmt:formatDate pattern="yyyy-MM-dd" value="${ board.start_date }" /></td>
                                              <td style="text-align: center"><fmt:formatDate pattern="yyyy-MM-dd" value="${ board.end_date }" /></td> 

@@ -5,10 +5,12 @@ import java.io.PrintWriter;
 import java.security.Principal;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -46,18 +48,23 @@ public class MainController {
 	}
 
 	@PostMapping("myPage")
-	public String myPage(UserDto user1, Model model, Principal principal, HttpServletResponse response) throws IOException{
+	public String myPage(@Valid UserDto user1, BindingResult bindingResult, Model model, Principal principal, HttpServletResponse response) throws IOException{
 		UserDto user = userService.findByLoginId(principal.getName());
 		user.setEmail(user1.getEmail());
 		user.setPhone(user1.getPhone());
 		user.setPassword(user1.getPassword());
 		userService.updateMypage(user);
+		if (bindingResult.hasErrors()) {
+            model.addAttribute("user", userService.findAll());
+            return "guest/register";
+        }
+
 
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		out.println("<script>alert('마이페이지 수정 완료.'); history.go(-1);</script>");
 		out.flush();
-		return "redirect:guest/myPage";
+		return "redirect:myPage";
 	}
 
 	@RequestMapping("apply_q_form")
