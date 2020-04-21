@@ -19,19 +19,22 @@
 	<select id="findOne" resultType="BoardDto">
 		SELECT *
 		FROM Board
-		WHERE id = #{id}
+		WHERE id =
+		#{id}
 	</select>
-	
+
 	<select id="findAll_p" resultMap="resultMap_BoardDto">
 		SELECT b.*, c.club_name
-		FROM Board b
+		FROM
+		Board b
 		LEFT JOIN Club c ON b.club_id = c.id
 		WHERE board_name_id = '1'
 	</select>
 
 	<select id="findAll_r" resultMap="resultMap_BoardDto">
 		SELECT b.*, c.club_name
-		FROM Board b
+		FROM
+		Board b
 		LEFT JOIN Club c ON b.club_id = c.id
 		WHERE board_name_id = '2'
 	</select>
@@ -39,19 +42,39 @@
 	<select id="findAll_n" resultType="BoardDto">
 		SELECT *
 		FROM Board
-		WHERE board_name_id = '3' AND club_id = '1'
+		WHERE
+		board_name_id = '3' AND club_id = '1'
 	</select>
 
 	<select id="findAll_m" resultType="BoardDto">
 		SELECT *
 		FROM Board
-		WHERE board_name_id = '4' AND club_id = '1'
+		WHERE
+		board_name_id = '4' AND club_id = '1'
+	</select>
+
+	<select id="listFive_p" resultType="BoardDto">
+		SELECT *
+		FROM board
+		WHERE board_name_id = 1
+		ORDER BY
+		title
+		DESC LIMIT 5;
+	</select>
+
+	<select id="listFive_r" resultType="BoardDto">
+		SELECT *
+		FROM board
+		WHERE board_name_id = 2
+		ORDER BY
+		title
+		DESC LIMIT 5;
 	</select>
 
 	<delete id="delete">
 		DELETE FROM Board WHERE id = #{id}
 	</delete>
-	
+
 	<resultMap id="resultMap_BoardDto" type="BoardDto">
 		<id property="id" column="id" />
 		<result property="title" column="title" />
