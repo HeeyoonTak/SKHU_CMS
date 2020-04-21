@@ -45,7 +45,6 @@
 				</ul>
 
 				<c:forEach var="club" items="${ clubs }">
-
 					<div class="resp-tabs-container hor_1">
 						<div>
 							<div class="row">
@@ -145,7 +144,7 @@
 														onchange="fileChange(this);"> <label
 														for="uploadImage" class="fileName" style="display: none"></label>
 													</td>
-													<td><a onclick="return delete_row(this);">x</a></td>
+													<td><a onclick="return delete_row(this);"></a></td>
 												</tr>
 
 												<tr>
@@ -170,7 +169,6 @@
 							</div>
 						</div>
 					</div>
-
 				</c:forEach>
 			</div>
 		</div>

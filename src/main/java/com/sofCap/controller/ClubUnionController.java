@@ -1,6 +1,7 @@
 package com.sofCap.controller;
 
 import java.sql.Date;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,24 +77,23 @@ public class ClubUnionController {
 
 	// (club_id, price, total, remark, file_id, account_type, date
 	@RequestMapping(value="account_save", method=RequestMethod.POST)
-	public String account_save(Model model, @RequestParam("club_id") int[] club_id,
+	public String account_save(Model model, @RequestParam("club_id") int club_id,
 			@RequestParam("price") int[] price, @RequestParam("remark") String[] remark,
 			@RequestBody MultipartFile[] file, @RequestParam("account_type") int[] account_type,
 			@RequestParam("date") @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Date[] date, SemDate semdate) {
 		String sem_name = semdate.getSem_name();
-		System.out.println(club_id.length);
 		save(club_id, price, remark, file, account_type, date, sem_name);
-		return "redirect:account#fh5co-tab-feature-center"+club_id[0];
+		return "redirect:account#fh5co-tab-feature-center"+club_id;
 	}
 
 	@Transactional
-	private void save(int[] club_id, int[] price, String[] remark, MultipartFile[] file,
+	private void save(int club_id, int[] price, String[] remark, MultipartFile[] file,
 			int[] account_type, Date[] date, String sem_name)
 	{
 		System.out.println("실행시작");
-		for (int i = 0 ; i < club_id.length ; ++i) {
+		for (int i = 0 ; i < price.length ; ++i) {
 			AccountDto account = new AccountDto();
-			account.setClub_id((int)club_id[i]);
+			account.setClub_id(club_id);
 			account.setPrice((int)price[i]);
 //			int total = accountService.getTotalByClubId(sem_name, club_id[i]);
 			account.setTotal(0); //total clumn 사용안함

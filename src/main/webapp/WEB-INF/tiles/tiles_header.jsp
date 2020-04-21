@@ -84,7 +84,6 @@
 <script>
         function attachAddr(obj) {
             const str = `<tr id="default">
-							<input type="hidden" name="club_id" value="${club.id}">
 							<td><input type="date" name="date"
 								class="form-control input-lg"></td>
 							<td><select class="form-control input-lg"
@@ -128,7 +127,9 @@
 			        }
 			     });
 			 return isValid; */
-			 console.log($('input[type=file]').length);
+			 var titleElement = $(this).('input[type=file]');
+			 
+			 console.log(titleElement.length);
 			 if($('input[type=file]').val()=="") {
 		            alert("영수증을 첨부해주세요");
 		            return false;		        
