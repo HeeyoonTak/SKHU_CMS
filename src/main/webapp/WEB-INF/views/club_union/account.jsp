@@ -38,13 +38,13 @@
 		<div class="row animate-box">
 			<div class="fh5co-spacer fh5co-spacer-md"></div>
 			<div id="fh5co-tab-feature-center" class="fh5co-tab text-center">
-				<ul class="resp-tabs-list hor_1">
-					<c:forEach var="club" items="${ clubs }">
+						<ul class="resp-tabs-list hor_1">					
+						<c:forEach var="club" items="${ clubs }">
 						<li><i class="fh5co-tab-menu-icon"></i>${ club.club_name }</li>
-					</c:forEach>
-				</ul>
+						</c:forEach>
+						</ul>				
 
-				<c:forEach var="club" items="${ clubs }">
+				<c:forEach var="club" items="${ clubs }" varStatus="ci">
 					<div class="resp-tabs-container hor_1">
 						<div>
 							<div class="row">
@@ -71,8 +71,8 @@
 							</div>
 							<div class="row">
 								<div class="panel panel-default">
-									<form action="account_save" method="post" enctype="multipart/form-data" onsubmit="return check();" name="account_submit" id="account_submit">
-										<table class="table text-center l_account_table">
+									<form action="account_save" method="post" enctype="multipart/form-data" onsubmit="return check(${ci.count});" name="account_submit" id="account_submit">
+										<table class="table text-center l_account_table table_${ci.count}">
 											<thead>
 												<tr>
 													<th>날짜</th>

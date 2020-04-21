@@ -117,23 +117,25 @@
     </script>
 
 	<script>
-		 function check(){
-				/* var isValid=true;
-				console.log($(obj).value);
-				$('#uploadImage').each(function(i,e){
+		 function check(ci_count){
+				var isValid=true;
+				$('.table_'+ci_count).find('input[type=file]').each(function(i,e){
 					if($(e).val()=="") {
 			            alert("영수증을 첨부해주세요");
+			            $(e).focus();
 			            isValid=false;
 			        }
 			     });
-			 return isValid; */
-			 var titleElement = $(this).('input[type=file]');
+			 return isValid; 
+			 
+			/*  var titleElement = $('.table_'+ci_count).find('input[type=file]');
 			 
 			 console.log(titleElement.length);
-			 if($('input[type=file]').val()=="") {
+			 
+			 if($('.table_'+ci_count).find('input[type=file]').val()=="") {
 		            alert("영수증을 첨부해주세요");
 		            return false;		        
-		       		}
+		       		} */
 		    } 
 	</script>
 
