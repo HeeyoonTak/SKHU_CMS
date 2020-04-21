@@ -13,61 +13,55 @@
 			<div class="fh5co-hero-wrap">
 				<div class="fh5co-hero-intro">
 					<h1 class="to-animate hero-animate-1">동아리 연합회</h1>
-					<h2 class="to-animate hero-animate-2">동아리 연합회의 세부사항을 확인해 보세요!</h2>
+					<h2 class="to-animate hero-animate-2">모든 동아리의 행사와 복지를 관리, 지원하는
+						학생 자치기구</h2>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-
 <div id="fh5co-main">
 	<div class="container">
 		<div class="row">
-			<div class="col-md-12 animate-box">
-				<div id="fh5co-tab-feature-vertical" class="fh5co-tab">
-					<ul class="resp-tabs-list hor_1">
-						<li><i class="fh5co-tab-menu-icon ti-announcement"></i>동아리 관리</li>
-						<li><i class="fh5co-tab-menu-icon ti-comment"></i>회계 관리</li>
-						<li><i class="fh5co-tab-menu-icon ti-write"></i>공지 사항</li>
-						<li><i class="fh5co-tab-menu-icon ti-announcement"></i>출석 체크</li>
-						<li><i class="fh5co-tab-menu-icon ti-comment"></i>회의록</li>
-					</ul>
-					<div class="resp-tabs-container hor_1">
-						<div>
-							<div class="row">
-								<div class="col-xs-12" style="margin-bottom: 0px">
-									<h2 class="h3" style="margin-bottom: 0px">동아리 관리</h2>
-									<ul class="pagination" style="margin-bottom: 0px">
-										<li><a href="list" class="btn btn-primary btn-lg"
-											id="l_search_term_btn">목록</a></li>
-										<li><a href="create" class="btn btn-primary btn-lg"
-											id="l_search_term_btn">개설</a></li>
-									</ul>
-								</div>
-								<div class="col-xs-12">
-									<table class="table table-striped " style="width: 550px">
-										<tr class="text-center">
-											<th colspan="3" style="text-align: center">목록</th>
+			<div class="content-box animate-box">
+				<div class="col-md-9 col-md-push-3" id="fh5co-content">
+					<div class="row">
+						<div class="row">
+							<div class="col-xs-12" style="margin-bottom: 0px">
+								<h2 class="h3" style="margin-bottom: 0px">동아리 관리</h2>
+								<ul class="pagination" style="margin-bottom: 0px">
+									<li><a href="list" class="btn btn-primary btn-lg"
+										id="l_search_term_btn">목록</a></li>
+									<li><a href="create" class="btn btn-primary btn-lg"
+										id="l_search_term_btn">개설</a></li>
+								</ul>
+							</div>
+							<div class="col-xs-12">
+								<table class="table table-striped " style="width: 550px">
+									<tr class="text-center">
+										<th colspan="3" style="text-align: center">목록</th>
+									</tr>
+									<c:forEach var="user" items="${users}">
+										<tr style="text-align: center">
+											<td style="text-align: left"><a>${user.name}</a></td>
+											<td><a href="delete?id=${user.id}" data-confirm-delete
+												style="color: #ff0000">삭제</a>
 										</tr>
-										<c:forEach var="board" items="${boards}">
-											<tr style="text-align: center">
-												<td style="text-align: left"><a>${board.name}</a></td>
-												<!-- <td><a data-url="${R}edit?id=${user.id}"
-													style="color: #1e00ff">비밀번호 수정</a></td> -->
-												<td><c:choose>
-														<c:when test="${user.id > 1}">
-															<a href="delete?id=${user.id}" data-confirm-delete
-																style="color: #ff0000">삭제</a>
-														</c:when>
-													</c:choose>
-											</tr>
-										</c:forEach>
-									</table>
-								</div>
+									</c:forEach>
+								</table>
 							</div>
 						</div>
 					</div>
 				</div>
+			</div>
+			<div class="col-md-3 col-md-pull-9" id="fh5co-sidebar">
+				<ul class="attendance_check-list hor_1">
+					<li><a href="${R}notice">공지사항</a></li>
+					<li><a href="${R}account">회계 관리</a></li>
+					<li><a href="${R}club_list">동아리 관리</a></li>
+					<li><a href="${R}attendance">출석체크</a></li>
+					<li><a href="${R}minutes">회의록</a></li>
+				</ul>
 			</div>
 		</div>
 	</div>

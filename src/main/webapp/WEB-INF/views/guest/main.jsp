@@ -38,7 +38,8 @@
 						</tr>
 					</c:forEach>
 					<tr>
-						<th colspan="2" style="text-align: right"><a href="publicity">더 보기</a></th>
+						<th colspan="2" style="text-align: right"><a href="publicity">더
+								보기</a></th>
 					</tr>
 				</table>
 			</div>
@@ -60,7 +61,7 @@
 								pattern="yyyyMMddHHmm" var="closeDate" />
 							<%-- 마감날짜 --%>
 							<c:if test="${openDate < nowDate && closeDate < nowDate}">
-								<td style="text-align: left"><a
+								<td style="text-align: left; width: 70%"><a
 									href="c_p_content?id=${board_r.id}">${board_r.title}</a></td>
 								<td style="text-align: left">모집 마감</td>
 							</c:if>
@@ -77,7 +78,8 @@
 						</tr>
 					</c:forEach>
 					<tr>
-						<th colspan="2" style="text-align: right"><a href="recurit">더 보기</a></th>
+						<th colspan="2" style="text-align: right"><a href="recurit">더
+								보기</a></th>
 					</tr>
 				</table>
 			</div>

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sofCap.dto.AccountDto;
@@ -153,5 +154,44 @@ public class ClubUnionController {
 		model.addAttribute("sems", semdateService.findAll());
 		model.addAttribute("semdate", semdate);
 		return "club_union/account";
+	}
+
+	@RequestMapping("club_list")
+	public String list(Model model) {
+		List<UserDto> users = userMapper.findAll();
+		model.addAttribute("users", users);
+		return "club_union/club_manage";
+	}
+
+	@RequestMapping(value = "club_create", method = RequestMethod.GET)
+	public String create(Model model) {
+		UserDto user = new UserDto();
+		model.addAttribute("user", user);
+		return "club_union/club_create";
+	}
+
+	@RequestMapping(value = "club_create", method = RequestMethod.POST)
+	public String create(Model model, UserDto user) {
+		userMapper.insert(user);
+		return "redirect:club_list";
+	}
+
+	@RequestMapping(value = "club_edit", method = RequestMethod.GET)
+	public String edit(Model model, @RequestParam("id") int id) {
+		UserDto user = userMapper.findOne(id);
+		model.addAttribute("user", user);
+		return "club_union/club_update";
+	}
+
+	@RequestMapping(value = "club_edit", method = RequestMethod.POST)
+	public String edit(Model model, UserDto user) {
+		userMapper.update(user);
+		return "redirect:club_list";
+	}
+
+	@RequestMapping("club_delete")
+	public String delete(Model model, @RequestParam("id") int id) {
+		userMapper.delete(id);
+		return "redirect:club_list";
 	}
 }

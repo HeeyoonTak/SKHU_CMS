@@ -17,13 +17,13 @@
 	</select>
 
 	<select id="findAll" resultType="UserDto">
-		SELECT * FROM User
+		SELECT * FROM User WHERE user_type="동아리관리자"
 	</select>
 
 	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
 		INSERT
 		User (name, login_id, password, user_type)
-		VALUES(#{name},#{login_id},#{password},"동아리 관리자")
+		VALUES(#{name},#{login_id},#{password},"동아리관리자")
 	</insert>
 
 	<update id="update">

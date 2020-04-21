@@ -85,7 +85,7 @@
 				<ul class="attendance_check-list hor_1">
                     <li><a href="${R}notice">공지사항</a></li>
 					<li><a href="${R}account">회계 관리</a></li>
-					<li>동아리 관리</li>
+					<li><a href="${R}club_list">동아리 관리</a></li>
 					<li><a href="${R}attendance">출석체크</a></li>
 					<li><a href="${R}minutes">회의록</a></li>
 				</ul>

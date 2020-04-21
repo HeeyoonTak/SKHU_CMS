@@ -61,7 +61,7 @@
 		FROM board
 		WHERE board_name_id = 1
 		ORDER BY
-		title
+		date
 		DESC LIMIT 5;
 	</select>
 
@@ -70,7 +70,7 @@
 		FROM board
 		WHERE board_name_id = 2
 		ORDER BY
-		title
+		date
 		DESC LIMIT 5;
 	</select>
 
