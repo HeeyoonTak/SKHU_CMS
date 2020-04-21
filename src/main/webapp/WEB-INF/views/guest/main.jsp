@@ -26,28 +26,59 @@
 <div id="fh5co-main">
 	<div class="container">
 		<div class="col-md-12 animate-box">
-			<div class="row" id="fh5co-features" style= "float:left">
+			<div class="row" id="fh5co-features" style="float: left">
 				<table class="table table-striped " style="width: 430px">
 					<tr class="text-center">
 						<th colspan="3" style="text-align: center">일반 홍보 게시판</th>
 					</tr>
 					<c:forEach var="board_p" items="${boards_p}">
 						<tr style="text-align: center">
-							<td style="text-align: left"><a href="c_p_content?id=${board_p.id}">${board_p.title}</a></td>
+							<td style="text-align: left"><a
+								href="c_p_content?id=${board_p.id}">${board_p.title}</a></td>
 						</tr>
 					</c:forEach>
+					<tr>
+						<th colspan="2" style="text-align: right"><a href="publicity">더 보기</a></th>
+					</tr>
 				</table>
 			</div>
-			<div class="row" id="fh5co-features" style="float:right">
+			<div class="row" id="fh5co-features" style="float: right">
 				<table class="table table-striped " style="width: 430px">
 					<tr class="text-center">
-						<th colspan="3" style="text-align: center">모집 게시판</th>
+						<th colspan="2" style="text-align: center">모집 게시판</th>
 					</tr>
 					<c:forEach var="board_r" items="${boards_r}">
 						<tr style="text-align: center">
-							<td style="text-align: left"><a href="c_p_content?id=${board_r.id}">${board_r.title}</a></td>
+							<jsp:useBean id="now" class="java.util.Date" />
+							<fmt:formatDate value="${now}" pattern="yyyyMMddhhmm"
+								var="nowDate" />
+							<%-- 오늘날짜 --%>
+							<fmt:formatDate value="${board_r.start_date}"
+								pattern="yyyyMMddHHmm" var="openDate" />
+							<%-- 시작날짜 --%>
+							<fmt:formatDate value="${board_r.end_date}"
+								pattern="yyyyMMddHHmm" var="closeDate" />
+							<%-- 마감날짜 --%>
+							<c:if test="${openDate < nowDate && closeDate < nowDate}">
+								<td style="text-align: left"><a
+									href="c_p_content?id=${board_r.id}">${board_r.title}</a></td>
+								<td style="text-align: left">모집 마감</td>
+							</c:if>
+							<c:if test="${openDate < nowDate && closeDate > nowDate}">
+								<td style="text-align: left"><a
+									href="c_p_content?id=${board_r.id}">${board_r.title}</a></td>
+								<td style="text-align: left">모집 진행중</td>
+							</c:if>
+							<c:if test="${openDate > nowDate && closeDate > nowDate}">
+								<td style="text-align: left"><a
+									href="c_p_content?id=${board_r.id}">${board_r.title}</a></td>
+								<td style="text-align: left">모집 예정</td>
+							</c:if>
 						</tr>
 					</c:forEach>
+					<tr>
+						<th colspan="2" style="text-align: right"><a href="recurit">더 보기</a></th>
+					</tr>
 				</table>
 			</div>
 		</div>
