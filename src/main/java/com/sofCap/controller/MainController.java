@@ -29,10 +29,10 @@ public class MainController {
 
 	@RequestMapping("")
 	public String main(Model model) {
-		List<BoardDto> boards = boardMapper.listFive_p();
-//		List<BoardDto> boardsr = boardMapper.listFive_r();
-		model.addAttribute("boards", boards);
-//		model.addAttribute("boardsr", boardsr);
+		List<BoardDto> boards_p = boardMapper.listFive_p();
+		List<BoardDto> boards_r = boardMapper.listFive_r();
+		model.addAttribute("boards_p", boards_p);
+		model.addAttribute("boards_r", boards_r);
 		return "guest/main";
 	}
 

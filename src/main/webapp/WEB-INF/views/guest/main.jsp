@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:url var="R" value="/" />
 
 <div id="fh5co-hero">
@@ -28,11 +29,11 @@
 			<div class="row" id="fh5co-features" style= "float:left">
 				<table class="table table-striped " style="width: 430px">
 					<tr class="text-center">
-						<th colspan="3" style="text-align: center">공지사항</th>
+						<th colspan="3" style="text-align: center">일반 홍보 게시판</th>
 					</tr>
-					<c:forEach var="board" items="${board}">
+					<c:forEach var="board_p" items="${boards_p}">
 						<tr style="text-align: center">
-							<td style="text-align: left"><a>${board.name}</a></td>
+							<td style="text-align: left"><a href="c_p_content?id=${board_p.id}">${board_p.title}</a></td>
 						</tr>
 					</c:forEach>
 				</table>
@@ -40,17 +41,15 @@
 			<div class="row" id="fh5co-features" style="float:right">
 				<table class="table table-striped " style="width: 430px">
 					<tr class="text-center">
-						<th colspan="3" style="text-align: center">공지사항</th>
+						<th colspan="3" style="text-align: center">모집 게시판</th>
 					</tr>
-					<c:forEach var="board" items="${board}">
+					<c:forEach var="board_r" items="${boards_r}">
 						<tr style="text-align: center">
-							<td style="text-align: left"><a>${board.name}</a></td>
+							<td style="text-align: left"><a href="c_p_content?id=${board_r.id}">${board_r.title}</a></td>
 						</tr>
 					</c:forEach>
 				</table>
 			</div>
 		</div>
 	</div>
-</div>
-
 </div>

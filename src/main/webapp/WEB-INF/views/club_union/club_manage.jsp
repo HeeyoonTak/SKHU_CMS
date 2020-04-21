@@ -49,9 +49,9 @@
 										<tr class="text-center">
 											<th colspan="3" style="text-align: center">목록</th>
 										</tr>
-										<c:forEach var="user" items="${users}">
+										<c:forEach var="board" items="${boards}">
 											<tr style="text-align: center">
-												<td style="text-align: left"><a>${user.name}</a></td>
+												<td style="text-align: left"><a>${board.name}</a></td>
 												<!-- <td><a data-url="${R}edit?id=${user.id}"
 													style="color: #1e00ff">비밀번호 수정</a></td> -->
 												<td><c:choose>
