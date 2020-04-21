@@ -83,7 +83,7 @@
 
 <script>
         function attachAddr(obj) {
-            const str = `<tr>
+            const str = `<tr id="default">
 							<input type="hidden" name="club_id" value="${club.id}">
 							<td><input type="date" name="date"
 								class="form-control input-lg"></td>
@@ -99,9 +99,10 @@
 							<td><input type="text" name="remark"
 								class="form-control input-lg" placeholder="사용내용 및 비고"></td>
 							<!-- <td></td> -->
-							<td>
-								<input type="file" name="file" class="btn btn-primary" id="uploadImage" onchange="fileChange(this);">
-								<label for="uploadImage" class="fileName" style="display:none"></label>													
+							<td><input type="file" name="file"
+								class="btn btn-primary" id="uploadImage"
+								onchange="fileChange(this);"> <label
+								for="uploadImage" class="fileName" style="display: none"></label>
 							</td>
 							<td><a onclick="return delete_row(this);">x</a></td>
 						</tr>`;
@@ -117,16 +118,22 @@
     </script>
 
 	<script>
-		function check(){	
-			var isValid=true;
+		 function check(){
+				/* var isValid=true;
+				console.log($(obj).value);
 				$('#uploadImage').each(function(i,e){
-					if($(e).val()=="") { 
+					if($(e).val()=="") {
 			            alert("영수증을 첨부해주세요");
 			            isValid=false;
 			        }
 			     });
-			 return isValid;
-		}
+			 return isValid; */
+			 console.log($('input[type=file]').length);
+			 if($('input[type=file]').val()=="") {
+		            alert("영수증을 첨부해주세요");
+		            return false;		        
+		       		}
+		    } 
 	</script>
 
 <script>

@@ -34,8 +34,7 @@
 	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
 		INSERT
 		account(club_id, price, total, remark, file_id, account_type, date)
-		VALUES (#{club_id}, #{price}, #{total}, #{remark}, #{file_id,
-		jdbcType=INTEGER}, #{account_type}, #{date})
+		VALUES (#{club_id}, #{price}, #{total}, #{remark}, #{file_id}, #{account_type}, #{date})
 	</insert>
 
 	<select id="getTotalByClubId" resultType="AccountDto">

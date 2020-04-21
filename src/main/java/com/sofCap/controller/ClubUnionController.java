@@ -90,19 +90,20 @@ public class ClubUnionController {
 	private void save(int[] club_id, int[] price, String[] remark, MultipartFile[] file,
 			int[] account_type, Date[] date, String sem_name)
 	{
-		for (int i = 0 ; i < club_id.length ; i++) {
+		System.out.println("실행시작");
+		for (int i = 0 ; i < club_id.length ; ++i) {
 			AccountDto account = new AccountDto();
-			account.setClub_id(club_id[i]);
-			account.setPrice(price[i]);
+			account.setClub_id((int)club_id[i]);
+			account.setPrice((int)price[i]);
 //			int total = accountService.getTotalByClubId(sem_name, club_id[i]);
-			account.setTotal(0);
+			account.setTotal(0); //total clumn 사용안함
 			System.out.println("total:"+account.getTotal());
 			account.setRemark(remark[i]);
 			if(!file[i].isEmpty()) {
 				int f_id = fileService.accountFileUpload(file[i]);
-				account.setFile_id(f_id);
+				account.setFile_id((int)f_id);
 			}
-			account.setAccount_type(account_type[i]);
+			account.setAccount_type((int)account_type[i]);
 			account.setDate(date[i]);
 			accountService.insert(account);
 		}
