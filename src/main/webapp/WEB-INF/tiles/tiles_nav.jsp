@@ -31,7 +31,7 @@
 					</ul></li>
 				<li><a href="${R}publicity">홍보</a></li>
 				<li><a href="${R}recruit">모집</a></li>
-				<li><a href="${R}" class="fh5co-sub-ddown">내 동아리</a>
+				<li><sec:authorize access="hasAnyRole('ROLE_ClubAdmin','ROLE_Member')"><a href="${R}" class="fh5co-sub-ddown">내 동아리</a></sec:authorize>
 					<ul class="fh5co-sub-menu">
 						<li><a href="${R}left-sidebar.html">멋쟁이 사자처럼</a></li>
 						<li><a href="${R}right-sidebar.html">개발자들</a></li>
