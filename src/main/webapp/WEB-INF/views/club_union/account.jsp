@@ -72,7 +72,9 @@
 							</div>
 							<div class="row">
 								<div class="panel panel-default">
-									<form action="account_save" method="post"  enctype="multipart/form-data" onsubmit="return check();" name="account_submit">
+									<form action="account_save" method="post"
+										enctype="multipart/form-data" onsubmit="return check();"
+										name="account_submit">
 										<table class="table text-center l_account_table">
 											<thead>
 												<tr>
@@ -86,8 +88,8 @@
 												</tr>
 											</thead>
 											<tbody>
-											<c:forEach var="account" items="${ accounts }">
-												<c:if test="${club.id eq account.club_id }">
+												<c:forEach var="account" items="${ accounts }">
+													<c:if test="${club.id eq account.club_id }">
 														<tr>
 															<td>${ account.date }</td>
 															<c:choose>
@@ -112,19 +114,19 @@
 															<td><a href="#" class="btn btn-primary">영수증</a></td>
 															<td><a href="#">x</a></td>
 														</tr>
-												</c:if>
-											</c:forEach>
-											<c:forEach var="total" items="${ totals }">
-												<c:if test="${ club.id eq total.club_id }"> 
+													</c:if>
+												</c:forEach>
+												<c:forEach var="total" items="${ totals }">
+													<c:if test="${ club.id eq total.club_id }">
 														<tr class="total-row">
-															<td colspan=4>잔액 : </td>
+															<td colspan=4>잔액 :</td>
 															<td colspan=2>${ total.total }</td>
 														</tr>
-												</c:if>
-											</c:forEach>
+													</c:if>
+												</c:forEach>
 											</tbody>
 											<tbody>
-												<tr>
+												<tr id="default">
 													<input type="hidden" name="club_id" value="${club.id}">
 													<td><input type="date" name="date"
 														class="form-control input-lg"></td>
@@ -140,17 +142,17 @@
 													<td><input type="text" name="remark"
 														class="form-control input-lg" placeholder="사용내용 및 비고"></td>
 													<!-- <td></td> -->
-													<td>
-														<input type="file" name="file" class="btn btn-primary" id="uploadImage" onchange="fileChange(this);">
-														<label for="uploadImage" class="fileName" style="display:none"></label>													
+													<td><input type="file" name="file"
+														class="btn btn-primary" id="uploadImage"
+														onchange="fileChange(this);"> <label
+														for="uploadImage" class="fileName" style="display: none"></label>
 													</td>
 													<td><a onclick="return delete_row(this);">x</a></td>
 												</tr>
-											</tbody>
-											<tbody id="addTd"></tbody>
-											<tbody>
+
 												<tr>
-													<td colspan="6"><button onclick="return attachAddr(this);"
+													<td colspan="6"><button
+															onclick="return attachAddr(this);"
 															class="btn btn-primary col-md" id="pls-btn">+</button></td>
 												</tr>
 											</tbody>

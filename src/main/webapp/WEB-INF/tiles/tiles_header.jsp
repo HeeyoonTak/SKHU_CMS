@@ -84,28 +84,28 @@
 <script>
         function attachAddr(obj) {
             const str = `<tr>
-				<input type="hidden" name="club_id" value="${club.id}">
-				<td><input type="date" name="date"
-					class="form-control input-lg"></td>
-				<td><select class="form-control input-lg"
-					name="account_type">
-						<c:forEach var="at" items="${ account_type }"
-							varStatus="i">
-							<option value="${i.index}">${ at }</option>
-						</c:forEach>
-				</select></td>
-				<td><input type="number" name="price"
-					class="form-control input-lg" placeholder="사용금액"></td>
-				<td><input type="text" name="remark"
-					class="form-control input-lg" placeholder="사용내용 및 비고"></td>
-				<!-- <td></td> -->
-				<td>
-					<input type="file" name="file" class="btn btn-primary" id="uploadImage" onchange="fileChange(this);">
-					<label for="uploadImage" class="fileName" style="display:none"></label>													
-				</td>
-				<td><a onclick="return delete_row(this);">x</a></td>
-			</tr>`;
-            $(obj).parents('tbody').prev('#addTd').append(str);
+							<input type="hidden" name="club_id" value="${club.id}">
+							<td><input type="date" name="date"
+								class="form-control input-lg"></td>
+							<td><select class="form-control input-lg"
+								name="account_type">
+									<c:forEach var="at" items="${ account_type }"
+										varStatus="i">
+										<option value="${i.index}">${ at }</option>
+									</c:forEach>
+							</select></td>
+							<td><input type="number" name="price"
+								class="form-control input-lg" placeholder="사용금액"></td>
+							<td><input type="text" name="remark"
+								class="form-control input-lg" placeholder="사용내용 및 비고"></td>
+							<!-- <td></td> -->
+							<td>
+								<input type="file" name="file" class="btn btn-primary" id="uploadImage" onchange="fileChange(this);">
+								<label for="uploadImage" class="fileName" style="display:none"></label>													
+							</td>
+							<td><a onclick="return delete_row(this);">x</a></td>
+						</tr>`;
+            $(obj).parents('tr').before(str);
             return false;
         }
     </script>
@@ -116,13 +116,16 @@
         }
     </script>
 
-<script>
-		function check(){
-		        if($(this).closet('#uploadImage').val()=="") 
-		        { 
-		            alert("영수증을 첨부해주세요");
-		            return false; 
-		        }
+	<script>
+		function check(){	
+			var isValid=true;
+				$('#uploadImage').each(function(i,e){
+					if($(e).val()=="") { 
+			            alert("영수증을 첨부해주세요");
+			            isValid=false;
+			        }
+			     });
+			 return isValid;
 		}
 	</script>
 

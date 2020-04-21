@@ -83,7 +83,7 @@ public class ClubUnionController {
 		String sem_name = semdate.getSem_name();
 		System.out.println(club_id.length);
 		save(club_id, price, remark, file, account_type, date, sem_name);
-		return "redirect:account";
+		return "redirect:account#fh5co-tab-feature-center"+club_id[0];
 	}
 
 	@Transactional
