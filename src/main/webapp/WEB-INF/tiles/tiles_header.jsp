@@ -94,17 +94,3 @@
             $(obj).parents('tbody').prev('#addTd').append(str);
         }
 </script>
-
-<script>
-        function attachAddrAtt(obj) {
-            const str = `<tr>
-		<td><input type="date" class="form-control input-md"
-			style="width: 160px"></td>
-		<c:forEach var="adminUser" items="${ adminUser }">
-			<td><input type="checkbox" class="form-control input-sm"></td>
-		</c:forEach>
-		<td><a href="#">x</a></td>
-	</tr>`;
-    $(obj).parents('tbody').prev('#addTd').append(str);
-    }
-</script>

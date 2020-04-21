@@ -3,23 +3,35 @@ package com.sofCap.service;
 import java.sql.Date;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.sofCap.dto.AttendanceDto;
 
 public interface AttendanceService {
+
+	List<String> findAdmin(int semId);
+
+	List<Integer> findAdminId(int semId);
 
 	List<String> findDate(int semId);
 
 	List<AttendanceDto> findBySemDate(int semId);
 
-	List<String> findAdmin(int semId);
-
-	List<String> findByDateModal(Date date);
-
 	List<AttendanceDto> findByDate(Date date);
 
+	int findBySemId(Date date);
+
+	int findLastSem();
+
+	void dateNow(Date date, int semId);
+
+	void dateNew(Date date);
+
+	void insert(@Param("club_id") int club_id,@Param("check") int check,@Param("date") Date date,@Param("user_id") int user_id);
+
+	void allUpdate(String date);
+
+	void update(int id);
+
 	void delete(Date date);
-
-	void insert(AttendanceDto attendance);
-
-	void update(AttendanceDto attendance);
 }

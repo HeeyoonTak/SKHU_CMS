@@ -3,8 +3,10 @@ package com.sofCap.service;
 import java.sql.Date;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sofCap.dao.AttendanceDao;
 import com.sofCap.dto.AttendanceDto;
@@ -13,6 +15,16 @@ import com.sofCap.dto.AttendanceDto;
 public class AttendanceServiceImpl implements AttendanceService {
 	@Autowired
 	AttendanceDao attendanceDao;
+
+	@Override
+	public List<String> findAdmin(int semId) {
+		return attendanceDao.findAdmin(semId);
+	}
+
+	@Override
+	public List<Integer> findAdminId(int semId) {
+		return attendanceDao.findAdminId(semId);
+	}
 
 	@Override
 	public List<String> findDate(int semId) {
@@ -25,32 +37,51 @@ public class AttendanceServiceImpl implements AttendanceService {
 	}
 
 	@Override
-	public List<String> findAdmin(int semId) {
-		return attendanceDao.findAdmin(semId);
-	}
-
-	@Override
-	public List<String> findByDateModal(Date date) {
-		return attendanceDao.findByDateModal(date);
-	}
-
-	@Override
 	public List<AttendanceDto> findByDate(Date date) {
 		return attendanceDao.findByDate(date);
 	}
 
 	@Override
+	public int findBySemId(Date date) {
+		return attendanceDao.findBySemId(date);
+	}
+
+	@Override
+	public int findLastSem() {
+		return attendanceDao.findLastSem();
+	}
+
+	@Transactional
+	@Override
+	public void dateNow(Date date, int semId) {
+		attendanceDao.dateNow(date, semId);
+		return;
+	}
+
+	@Transactional
+	@Override
+	public void dateNew(Date date) {
+		attendanceDao.dateNew(date);
+		return;
+	}
+
+	@Override
+	public void insert(@Param("club_id") int club_id,@Param("check") int check,@Param("date") Date date,@Param("user_id") int user_id) {
+		attendanceDao.insert(club_id,check,date,user_id);
+	}
+
+	@Override
+	public void allUpdate(String date) {
+		attendanceDao.allUpdate(date);
+	}
+
+	@Override
+	public void update(int id) {
+		attendanceDao.update(id);
+	}
+
+	@Override
 	public void delete(Date date) {
 		attendanceDao.delete(date);
-	}
-
-	@Override
-	public void insert(AttendanceDto attendance) {
-		attendanceDao.insert(attendance);
-	}
-
-	@Override
-	public void update(AttendanceDto attendance) {
-		attendanceDao.update(attendance);
 	}
 }

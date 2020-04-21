@@ -10,7 +10,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -40,6 +39,9 @@ public class ClubUnionController {
 	@Autowired
 	AttendanceService attendanceService;
 
+	/*
+	 * 작성일 : 2020-04-18 코멘트 : 화면 조회 기능 구현
+	 */
 	@RequestMapping("attendance")
 	public String attendance(Model model, @RequestParam(value = "semId", defaultValue = "0") int semId) {
 
@@ -64,32 +66,13 @@ public class ClubUnionController {
 		return "club_union/attendance";
 	}
 
-	@RequestMapping("attendance_delete")
-	public String delete(Model model, @RequestParam("date") Date date) {
-		attendanceService.delete(date);
-		return "redirect:attendance";
-	}
-
-	@RequestMapping(value = "attendance_modal", method = RequestMethod.GET)
-	public String edit(@RequestParam("date") Date date, Model model) {
-		model.addAttribute("findByDate", attendanceService.findByDate(date));
-		return "club_union/attendance_modal";
-	}
-
+	/*
+	 * 작성일 : 2020-04-20 코멘트 : 출석체크 값 불러오는 모달 데이터 구현 설 명 : json 형식으로 데이터 생성하여 화면에 전달.
+	 * 모달 내 input checkbox 값으로 사용.
+	 */
 	@ResponseBody
-	@Transactional
-	@RequestMapping(value = "attendance_modal", method = RequestMethod.POST)
-	public String edit(AttendanceDto attendance, Model model) {
-		attendanceService.update(attendance);
-		return "redirect:attendance";
-	}
-
-	@ResponseBody
-	@RequestMapping(value = "/test", method = RequestMethod.POST, produces = "application/json; charset=utf8")
-	public String attendanceModal(@RequestParam("find") Date date, Model model) throws Exception {
-
-		// 출석체크 삽입 모달창 사용하기 위한 데이터 가공
-		model.addAttribute("modalUser", attendanceService.findByDateModal(date));
+	@RequestMapping(value = "/update", method = RequestMethod.POST, produces = "application/json; charset=utf8")
+	public String updateModal(@RequestParam("find") Date date, Model model) throws Exception {
 
 		// 출석체크 수정 모달창 사용하기 위한 데이터 가공
 		List<AttendanceDto> check = attendanceService.findByDate(date);
@@ -100,27 +83,90 @@ public class ClubUnionController {
 			JSONObject item = new JSONObject();
 			item.put("name", "" + check.get(i).getName());
 			item.put("check", "" + check.get(i).getCheck());
+			item.put("id", "" + check.get(i).getId());
 			jlist.put(item);
 		}
 		robj.put("testlist", jlist);
 
 		return robj.toString();
 	}
+
 	/*
-	 * @RequestMapping("attendance_update") public String update(Model
-	 * model, @RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date
-	 * date) { model.addAttribute("findByDateUser",
-	 * attendanceService.findByDateModal(date)); return "club_union/attendance"; }
+	 * 작성일 : 2020-04-21 코멘트 : 출석체크 값 수정 로직 구현 설 명 : 출석 체크 수정을 위해 해당 날짜값을 전달받아
+	 * allUpdate 처리. 체크한 해당 id값을 가져와 update.
 	 */
+	@RequestMapping(value = "attendance", method = RequestMethod.POST)
+	public String attendanceUpdate(Model model, @RequestParam(value = "updateck", defaultValue = "0") int[] updateck,
+			@RequestParam("date") String date) {
+
+		// 날짜의 모든 동아리의 체크 값을-> check = 0
+		attendanceService.allUpdate(date);
+
+		// for문 안에 key만 update -> check = 1
+		if (updateck[0] != 0) {
+			for (int i = 0; i < updateck.length; i++) {
+				attendanceService.update(updateck[i]);
+			}
+		}
+		return "redirect:/club_union/attendance";
+	}
+
+	@RequestMapping(value = "/create", method = RequestMethod.POST)
+	public String createModal(@RequestParam("date") Date date, Model model) {
+
+		// 마지막 학기 id값
+		int lastSem = attendanceService.findLastSem();
+
+		attendanceService.dateNow(date, lastSem);
+
+		return "redirect:/club_union/attendance";
+	}
 	/*
-	 * @RequestMapping(value = "attendance", method = RequestMethod.POST) public
-	 * String update(AttendanceDto attendance, Model model) {
-	 * attendanceService.update(attendance); return "redirect:attendance"; }
+	 * @ResponseBody
+	 *
+	 * @RequestMapping(value = "/create", method = { RequestMethod.POST,
+	 * RequestMethod.GET }) public String attendanceCreate(Model
+	 * model, @RequestParam(value = "semId", defaultValue = "0") int semId,
+	 *
+	 * @RequestParam("date") Date date) { System.out.println("dddd");
+	 * System.out.println(date);
+	 *
+	 * // 마지막 학기 id값 int lastSem = attendanceService.findLastSem();
+	 * System.out.println(lastSem); model.addAttribute("findUser",
+	 * attendanceService.findAdmin(lastSem));
+	 *
+	 * // attendanceService.dateNow(date, sem); //
+	 * attendanceService.insertByNew(date);
+	 *
+	 * return "redirect:/club_union/attendance"; }
+	 */
+
+	@RequestMapping("attendance_delete")
+	public String delete(Model model, @RequestParam("date") Date date) {
+		attendanceService.delete(date);
+		return "redirect:attendance";
+	}
+	/*
+	 * @RequestMapping("attendance") public String
+	 * attendanceCreate(@RequestParam("date") String date, Model model) {
+	 * model.addAttribute("semId", attendanceService.findBySemId(date)); return
+	 * "redirect:/club_union/attendance"; }
 	 */
 
 	/*
-	 * @PutMapping("/attendance") public void update(AttendanceDto attendance) {
-	 * attendanceService.update(attendance); }
+	 * @RequestMapping(value = "/attendanceCreate", method = RequestMethod.POST)
+	 * public String attendanceCreate(Model model, @RequestParam(value = "semId",
+	 * defaultValue = "0") int semId,
+	 *
+	 * @RequestParam("date") String date) {
+	 *
+	 * // 날짜 선택시 해당 학기 값 알아내기 model.addAttribute("semId",
+	 * attendanceService.findBySemId(date));
+	 *
+	 * attendanceService.insertByNow(date, semId);
+	 * attendanceService.insertByNew(date);
+	 *
+	 * return "redirect:/club_union/attendance"; }
 	 */
 
 	@Autowired
@@ -140,7 +186,7 @@ public class ClubUnionController {
 	@RequestMapping("n_content")
 	public String n_content(Model model, @RequestParam("id") int id) {
 		BoardDto board = boardMapper.findOne(id);
-		model.addAttribute("board",board);
+		model.addAttribute("board", board);
 		return "club_union/n_content";
 	}
 
@@ -156,13 +202,13 @@ public class ClubUnionController {
 		List<BoardDto> boards = boardMapper.findAll_m();
 		model.addAttribute("user", user);
 		model.addAttribute("boards", boards);
-		return "club_union/union_minutes";
+		return "cunion_minutes";
 	}
 
 	@RequestMapping("m_content")
 	public String m_content(Model model, @RequestParam("id") int id) {
 		BoardDto board = boardMapper.findOne(id);
-		model.addAttribute("board",board);
+		model.addAttribute("board", board);
 		return "club_union/m_content";
 	}
 

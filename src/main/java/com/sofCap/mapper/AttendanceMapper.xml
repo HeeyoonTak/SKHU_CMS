@@ -4,9 +4,20 @@
 
 <mapper namespace="com.sofCap.mapper.AttendanceMapper">
 
-	<select id="findAdmin" resultType="String"> <!--학기별 출석체크 회원 리스트 -->
+	<select id="findAdmin" resultType="String"> <!--학기별 출석체크 회원 name 리스트 -->
 		SELECT DISTINCT u.name
-		FROM attendance a JOIN sem_date s ON a.date BETWEEN s.start_date AND s.end_date
+		FROM attendance a JOIN sem_date s ON a.date
+		BETWEEN s.start_date AND s.end_date
+		JOIN user u ON a.user_id = u.id
+		WHERE s.id = #{s.id}
+		AND a.club_id = 1
+		ORDER BY u.id
+	</select>
+	
+	<select id="findAdminId" resultType="Integer"> <!--학기별 출석체크 회원 id 리스트 -->
+		SELECT DISTINCT a.user_id
+		FROM attendance a JOIN sem_date s ON a.date
+		BETWEEN s.start_date AND s.end_date
 		JOIN user u ON a.user_id = u.id
 		WHERE s.id = #{s.id}
 		AND a.club_id = 1
@@ -15,8 +26,10 @@
 
 	<select id="findDate" resultType="String"> <!--학기별 출석체크 날짜 리스트 -->
 		SELECT DISTINCT DATE_FORMAT(a.date,'%Y-%m-%d') date
-		FROM attendance a JOIN sem_date s ON a.date BETWEEN s.start_date AND s.end_date
-		WHERE s.id = #{s.id}
+		FROM attendance a
+		JOIN sem_date s ON a.date BETWEEN s.start_date AND s.end_date
+		WHERE
+		s.id = #{s.id}
 		AND club_id = 1
 		ORDER BY date
 	</select>
@@ -29,27 +42,16 @@
 		,a.user_id
 		,s.sem_name
 		,u.name
-		FROM attendance a JOIN sem_date s ON a.date BETWEEN s.start_date AND s.end_date
+		FROM
+		attendance a JOIN sem_date s ON a.date BETWEEN s.start_date AND
+		s.end_date
 		JOIN user u ON a.user_id = u.id
 		WHERE s.id = #{semId}
-		AND a.club_id = 1
+		AND
+		a.club_id = 1
 		ORDER BY a.date, a.user_id
 	</select>
-	
-	<select id="findByDateModal" resultType="String"> <!--모달창에서 날짜 선택시 해당 학기별 회원 리스트-->
-		<![CDATA[
-		SET @date:=#{date};
-		SELECT @semId:=id FROM sem_date WHERE @date >= start_date AND @date < end_date;
-		
-		SELECT DISTINCT u.name
-		FROM attendance a JOIN sem_date s ON a.date BETWEEN s.start_date AND s.end_date
-		JOIN user u ON a.user_id = u.id
-		WHERE s.id = @semId
-		AND a.club_id = 1
-		ORDER BY u.id
-		]]> <!-- '<'기호 사용하기 위해 선언 -->
-	</select>
-	
+
 	<select id="findByDate" resultType="AttendanceDto"> <!-- 날짜별 출석 현황 - 수정 페이지 -->
 		SELECT a.id
 		,a.club_id
@@ -59,10 +61,74 @@
 		,u.name
 		FROM attendance a JOIN user u ON a.user_id = u.id
 		WHERE club_id = 1
-        AND a.date = #{date}
+		AND a.date = #{date}
 		ORDER BY a.user_id
 	</select>
 
+	<select id="findBySemId" resultType="Integer"> <!-- 날짜 선택시 해당 학기 출력 -->
+		SELECT DISTINCT id
+		FROM sem_date
+		where #{date} BETWEEN start_date AND end_date
+	</select>
+	
+	<select id="findLastSem" resultType="Integer"> <!-- 마지막 학기 출력 -->
+		SELECT id
+		FROM sem_date
+		ORDER BY end_date DESC
+		LIMIT 1
+	</select>
+	
+	<update id="dateNow"> <!-- 존재하는 학기에 출석체크 insert -->
+		INSERT INTO attendance(club_id,`check`,date,user_id)
+		SELECT  1          as club_id
+		       ,0          as `check`
+		       ,#{date}    as date
+		       ,t1.u_id    as user_id
+		FROM 
+		(
+			SELECT DISTINCT u.id AS u_id
+			FROM attendance a JOIN sem_date s ON a.date BETWEEN s.start_date AND s.end_date
+			JOIN user u ON a.user_id = u.id
+			WHERE s.id = #{semId}
+			AND a.club_id = 1
+			ORDER BY u.id
+		) t1
+	</update>
+	
+	<insert id="dateNew" useGeneratedKeys="true" keyProperty="id"> <!-- 새로운 학기에 출석체크 insert -->
+		INSERT INTO attendance(club_id,`check`,date,user_id)
+		SELECT  1          as club_id
+		       ,0          as `check`
+		       ,#{date}    as date
+		       ,t1.u_id    as user_id
+		FROM 
+		(
+			SELECT DISTINCT u.id AS u_id
+			FROM attendance a JOIN user u ON a.user_id = u.id
+			WHERE a.club_id = 1
+			and user_type ="동아리관리자"
+			ORDER BY u.id
+		) t1
+	</insert>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		INSERT INTO attendance(club_id,`check`,date,user_id)
+	    VALUES (#{club_id},#{check},#{date},#{user_id})
+	</insert>
+
+	<update id="allUpdate">
+		UPDATE attendance
+		SET `check` = 0
+		WHERE date = #{date}
+		AND club_id = 1
+	</update>
+
+	<update id="update">
+		UPDATE attendance
+		SET `check` = 1
+		WHERE id = #{id}
+	</update>
+	
 	<delete id="delete">
 		set sql_safe_updates = 0;
 		DELETE a
@@ -70,16 +136,5 @@
 		WHERE a.date = #{date}
 		AND a.club_id = 1
 	</delete>
-
-	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
-		INSERT attendance(club_id, `check`, date, user_id)
-		VALUES (1, #{check}, #{date}, #{user_id})
-	</insert>
-
-	<update id="update">
-		UPDATE attendance
-		SET `check` = #{check}, club_id = 1, date = #{date}, user_id = #{user_id}
-        WHERE id = #{id}
-	</update>
 
 </mapper>

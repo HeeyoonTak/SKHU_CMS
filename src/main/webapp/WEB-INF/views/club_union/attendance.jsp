@@ -57,6 +57,7 @@
 						<tbody>
 							<c:forEach var="findDate" items="${ findDate }">
 								<tr>
+									<!-- 날짜 클릭시 해당 날짜에 따른 출석체크 수정 모달  -->
 									<td id="attendanceUpdate" find="${findDate}">${ findDate }</td>
 									<c:forEach var="attendance" items="${ attendance }"
 										varStatus="status">
@@ -87,34 +88,68 @@
 						</tbody>
 					</table>
 
-					<!-- Modal -->
-					<div class="modal fade" id="attendanceModal" role="dialog">
-						<div class="modal-dialog modal-md">
-
-							<!-- Modal content-->
-							<div class="modal-content">
-								<div class="modal-header">
-									<h4 id="modal-title" class="modal-title"></h4>
-								</div>
-								<div class="modal-body">
-									<table class="table attendance_check_table" id="modalTable">
-										<tr>
-											<td>출석 날짜</td>
-											<td><input type="date" class="form-control input-md"
-												style="width: 200px" name="date" id="date" readonly></td>
-										</tr>
-									</table>
-								</div>
-								<div class="modal-footer">
-									<button id="modalSubmit" type="button"
-										class="btn btn-primary col-md">저장</button>
-									<button id="closeModal" type="button"
-										class="btn btn-primary col-md" data-dismiss="modal">Close</button>
+					<!-- createModal -->
+					<form:form method="post" action="create">
+						<div class="modal fade" id="createModal" role="dialog">
+							<div class="modal-dialog modal-md">
+								<!-- Modal content-->
+								<div class="modal-content">
+									<div class="modal-header">
+										<h4 id="modal-title" class="modal-title">출석체크</h4>
+									</div>
+									<div class="modal-body">
+										<table class="table attendance_check_table"
+											id="createModalTable">
+											<tr>
+												<td>출석 날짜</td>
+												<td><input type="date" class="form-control input-md"
+													style="width: 200px" name="date" id="chdate"></td>
+											</tr>
+										</table>
+									</div>
+									<div class="modal-footer">
+										<button id="modalSubmit" type="submit"
+											class="btn btn-primary col-md">저장</button>
+										<button id="closeModal" type="button"
+											class="btn btn-primary col-md" data-dismiss="modal">Close</button>
+									</div>
 								</div>
 							</div>
 						</div>
+					</form:form>
+					<!-- 끝 -->
 
-					</div>
+					<!-- updateModal -->
+					<form:form method="post" action="attendance">
+						<div class="modal fade" id="updateModal" role="dialog">
+							<div class="modal-dialog modal-md">
+
+								<!-- Modal content-->
+								<div class="modal-content">
+									<div class="modal-header">
+										<h4 id="modal-title" class="modal-title">출석체크 수정</h4>
+									</div>
+									<div class="modal-body">
+										<table class="table attendance_check_table"
+											id="updateModalTable">
+											<tr>
+												<td>출석 날짜</td>
+												<td><input type="date" class="form-control input-md"
+													style="width: 200px" name="date" id="date" readonly></td>
+											</tr>
+										</table>
+									</div>
+									<div class="modal-footer">
+										<button id="ModalSubmit" type="submit"
+											class="btn btn-primary col-md">저장</button>
+										<button id="closeModal" type="button"
+											class="btn btn-primary col-md" data-dismiss="modal">Close</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form:form>
+					<!-- 끝 -->
 				</div>
 			</div>
 
@@ -137,29 +172,54 @@
 		};
 
 		//출석체크 생성 모달
-	    $('#createBtn').on('click', function(){
-	    	$('#attendanceModal').find('tr:gt(0)').remove();
-	    	$('#date').val('default');
-		    $('#attendanceModal').modal('show');
-		    $('#modal-title').text("출석체크");
-		    if($('#date').on('change', function() {
-					var date = $('#date').val();
-					console.log(date);
-			    }));
-	    });
+	    $('#createBtn').on('click', function() {
+	    	console.log("ssss");
+	    	$('#createModal').find('tr:gt(0)').remove();
+	    	$('#chdate').val('default');
+		    $('#createModal').modal('show');
+		    if($('#chdate').on('change', function() {
+				var date = $('#chdate').val();
+				console.log(date);
+				/* console.log(date);
+				var obj;
+				jQuery.ajax({
+			    	   type:"POST", 
+			    	   url : "/club_union/create?date="+date,
+			    	   dataType:"json",
+			    	   success : function(data) { 
+			    	      obj = data;
+			    	      console.log("Ddd");
+			    	      if(obj.testlist.length>0){
+			    	    	  $("#chdate").val(date);
+			    	    	  for(var i=0; i<obj.testlist.length; i++) {
+			    	    		  var ck;
+			    	    		  var id = obj.testlist[i].id;
+			    	    		  if(obj.testlist[i].check == 0){
+			    	    		  ck="<td><input type='checkbox' class='form-control input-sm' name='createck' value='"+id+"'></td>";
+			    	    		      }
+			    	    		  else{
+			    	    		  ck="<td><input type='checkbox' class='form-control input-sm' name='createck' value='"+id+"' checked></td>";
+			    	    		      }
+			    	    		  $("#createModalTable").append("<tr> <td>"+ obj.testlist[i].name +"</td>"+ ck +"</tr>");
+			    	    		  }
+			    	         }
+			    	     },
+			    	     complete : function(data) { },
+			    	     error : function(xhr, status , error) {console.log("ajax ERROR!!! : " );}
+			    		}) */
+					}));
+			   });
 
 	    //출석체크 수정 모달
 	    $("[id=attendanceUpdate]").each(function(){
 	    		$(this).click(function(){
-	    			/* $('#modalTable').html(""); */
-	    			$('#attendanceModal').find('tr:gt(0)').remove();
-				    $('#attendanceModal').modal('show');
-				    $('#modal-title').text('출석체크 수정');
+	    			$('#updateModal').find('tr:gt(0)').remove();
+	    			$('#updateModal').modal('show');
 				    var find = $(this).attr("find");
 			    	var obj;
 		    	    jQuery.ajax({
 			    	   type:"POST", 
-			    	   url : "/club_union/test?find="+find,
+			    	   url : "/club_union/update?find="+find,
 			    	   dataType:"json",
 			    	   success : function(data) { 
 			    	      obj = data;
@@ -167,13 +227,14 @@
 			    	    	  $("#date").val(find);
 			    	    	  for(var i=0; i<obj.testlist.length; i++) {
 			    	    		  var ck;
+			    	    		  var id = obj.testlist[i].id;
 			    	    		  if(obj.testlist[i].check == 0){
-			    	    		  ck="<td><input type='checkbox' class='form-control input-sm'></td>";
+			    	    		  ck="<td><input type='checkbox' class='form-control input-sm' name='updateck' value='"+id+"'></td>";
 			    	    		      }
 			    	    		  else{
-			    	    		  ck="<td><input type='checkbox' class='form-control input-sm' checked></td>";
+			    	    		  ck="<td><input type='checkbox' class='form-control input-sm' name='updateck' value='"+id+"' checked></td>";
 			    	    		      }
-			    	    		  $("#modalTable").append("<tr> <td>"+ obj.testlist[i].name +"</td>"+ ck +"</tr>");
+			    	    		  $("#updateModalTable").append("<tr> <td>"+ obj.testlist[i].name +"</td>"+ ck +"</tr>");
 			    	    		  }
 			    	         }
 			    	     },
@@ -182,9 +243,4 @@
 			    		})
 					})
 			   });
-
-	    $('#modalSubmit').on('click', function(){
-	 		$('#attendanceModal').modal('hideen.bs.modal');
-	 	});
-	 	
 </script>
