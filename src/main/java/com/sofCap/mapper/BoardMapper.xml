@@ -29,6 +29,9 @@
 		Board b
 		LEFT JOIN Club c ON b.club_id = c.id
 		WHERE board_name_id = '1'
+		ORDER BY
+		date
+		DESC
 	</select>
 
 	<select id="findAll_r" resultMap="resultMap_BoardDto">
