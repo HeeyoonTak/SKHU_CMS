@@ -3,6 +3,7 @@ package com.sofCap.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.Principal;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -16,23 +17,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sofCap.dto.UserDto;
 import com.sofCap.service.UserService;
+import com.sofCap.dto.BoardDto;
+import com.sofCap.mapper.BoardMapper;
 
 @Controller
 @RequestMapping("/")
 public class MainController {
 
-	@Autowired UserService userService;
-
+	@Autowired
+	UserService userService;
+	@Autowired
+	BoardMapper boardMapper;
 
 	@RequestMapping("")
-	public String main() {
+	public String main(Model model) {
+		List<BoardDto> boards_p = boardMapper.listFive_p();
+		List<BoardDto> boards_r = boardMapper.listFive_r();
+		model.addAttribute("boards_p", boards_p);
+		model.addAttribute("boards_r", boards_r);
 		return "guest/main";
 	}
-
-//	@RequestMapping("list-content")
-//	public String listcontent(){
-//		return "guest/list-content";
-//	}
 
 	@RequestMapping("login")
 	public String login() {
@@ -43,7 +47,6 @@ public class MainController {
 	public String myPage(Model model, Principal principal) {
 		UserDto user = userService.findByLoginId(principal.getName());
 		model.addAttribute("user", user);
-
 		return "guest/myPage";
 	}
 
@@ -82,8 +85,4 @@ public class MainController {
 		return "club_union/account";
 	}
 
-//	@RequestMapping("account")
-//	public String account() {
-//		return "club_union/account";
-//	}
 }

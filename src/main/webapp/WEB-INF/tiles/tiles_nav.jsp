@@ -31,13 +31,13 @@
 					</ul></li>
 				<li><a href="${R}publicity">홍보</a></li>
 				<li><a href="${R}recruit">모집</a></li>
-				<li><a href="${R}" class="fh5co-sub-ddown">내 동아리</a>
+				<li><sec:authorize access="hasAnyRole('ROLE_ClubAdmin','ROLE_Member')"><a href="${R}" class="fh5co-sub-ddown">내 동아리</a></sec:authorize>
 					<ul class="fh5co-sub-menu">
 						<li><a href="${R}left-sidebar.html">멋쟁이 사자처럼</a></li>
 						<li><a href="${R}right-sidebar.html">개발자들</a></li>
 					</ul></li>
 
-				<li><sec:authorize access="authenticated"><a href="${R}myPage">마이페이지</a></sec:authorize></li>
+				<li><sec:authorize access="authenticated"><a href="${R}myPage"><i class="el-icon-user-solid">마이페이지</i></a></sec:authorize></li>
 
 				<li class="fh5co-special" style="padding-left: 20px">
 					<sec:authorize access="not authenticated">
