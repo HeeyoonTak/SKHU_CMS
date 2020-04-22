@@ -119,13 +119,56 @@
 	<script>
 		 function check(ci_count){
 				var isValid=true;
-				$('.table_'+ci_count).find('input[type=file]').each(function(i,e){
+				var str="";
+
+				$('.table_'+ci_count).find('input[type=date]').each(function(i,e){
 					if($(e).val()=="") {
-			            alert("영수증을 첨부해주세요");
+						if(str!="" && !str.includes("날짜")) str +="날짜";
+						else if(str=="") str+="날짜";
+						
+			           // alert("날짜를 입력해주세요");
 			            $(e).focus();
 			            isValid=false;
 			        }
 			     });
+
+				$('.table_'+ci_count).find('input[name=price]').each(function(i,e){
+					if($(e).val()=="") {
+						if(str!="" && !str.includes("사용 금액")){
+						str +=",사용 금액";}
+						else if(str=="") str+="사용 금액";
+						
+			           // alert("사용 금액을 입력해주세요");
+			            $(e).focus();
+			            isValid=false;
+			        }
+			     });
+
+				$('.table_'+ci_count).find('input[type=text]').each(function(i,e){
+					if($(e).val()=="") {
+						if(str!="" && !str.includes("사용 내역")){
+							str +=",사용 내역";}
+						else if(str=="") str+="사용 내역";
+						
+			           // alert("사용 내역을 입력해주세요");
+			            $(e).focus();
+			            isValid=false;
+			        }
+			     });
+
+				$('.table_'+ci_count).find('input[type=file]').each(function(i,e){
+					if($(e).val()=="") {
+						if(str!="" && !str.includes("영수증")){
+							str +=",영수증";}
+						else if(str=="") str+="영수증";
+			            //alert("영수증을 첨부해주세요");
+			            $(e).focus();
+			            isValid=false;
+			        }
+			     });
+			    if(!isValid && str=="날짜") alert(str+"를 입력해주세요");
+			    else if(!isValid) alert(str+"을 입력해주세요");
+
 			 return isValid; 
 			 
 			/*  var titleElement = $('.table_'+ci_count).find('input[type=file]');
