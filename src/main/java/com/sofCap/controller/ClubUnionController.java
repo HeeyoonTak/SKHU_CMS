@@ -47,6 +47,7 @@ public class ClubUnionController {
 
 		// 화면 select box 사용하기 위한 데이터 가공
 		List<SemDateDto> semDate = semdateService.findAll();
+		System.out.println(semDate.get(semDate.size()-1).getId());
 		Map<String, String> sems = new HashMap<>();
 		for (int i = 0; i < semDate.size(); i++) {
 			sems.put(Integer.toString(semDate.get(i).getId()), semDate.get(i).getSem_name());
@@ -58,6 +59,7 @@ public class ClubUnionController {
 			semId = semDate.get(semDate.size() - 1).getId();
 		}
 
+		model.addAttribute("semDate", semDate);
 		model.addAttribute("selectSemId", semId);
 		model.addAttribute("findDate", attendanceService.findDate(semId));
 		model.addAttribute("attendance", attendanceService.findBySemDate(semId));
@@ -121,53 +123,12 @@ public class ClubUnionController {
 
 		return "redirect:/club_union/attendance";
 	}
-	/*
-	 * @ResponseBody
-	 *
-	 * @RequestMapping(value = "/create", method = { RequestMethod.POST,
-	 * RequestMethod.GET }) public String attendanceCreate(Model
-	 * model, @RequestParam(value = "semId", defaultValue = "0") int semId,
-	 *
-	 * @RequestParam("date") Date date) { System.out.println("dddd");
-	 * System.out.println(date);
-	 *
-	 * // 마지막 학기 id값 int lastSem = attendanceService.findLastSem();
-	 * System.out.println(lastSem); model.addAttribute("findUser",
-	 * attendanceService.findAdmin(lastSem));
-	 *
-	 * // attendanceService.dateNow(date, sem); //
-	 * attendanceService.insertByNew(date);
-	 *
-	 * return "redirect:/club_union/attendance"; }
-	 */
 
 	@RequestMapping("attendance_delete")
 	public String delete(Model model, @RequestParam("date") Date date) {
 		attendanceService.delete(date);
 		return "redirect:attendance";
 	}
-	/*
-	 * @RequestMapping("attendance") public String
-	 * attendanceCreate(@RequestParam("date") String date, Model model) {
-	 * model.addAttribute("semId", attendanceService.findBySemId(date)); return
-	 * "redirect:/club_union/attendance"; }
-	 */
-
-	/*
-	 * @RequestMapping(value = "/attendanceCreate", method = RequestMethod.POST)
-	 * public String attendanceCreate(Model model, @RequestParam(value = "semId",
-	 * defaultValue = "0") int semId,
-	 *
-	 * @RequestParam("date") String date) {
-	 *
-	 * // 날짜 선택시 해당 학기 값 알아내기 model.addAttribute("semId",
-	 * attendanceService.findBySemId(date));
-	 *
-	 * attendanceService.insertByNow(date, semId);
-	 * attendanceService.insertByNew(date);
-	 *
-	 * return "redirect:/club_union/attendance"; }
-	 */
 
 	@Autowired
 	BoardMapper boardMapper;

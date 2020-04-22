@@ -37,7 +37,7 @@
 						<div class="col-md-3">
 							<div class="form-group">
 								<form:select class="form-control input-lg autosubmit"
-									path="sems" items="${ sems }" name="semId" id="selectSemId" />
+									path="sems" items="${ sems }" name="semId" id="selectSemId"/>
 							</div>
 						</div>
 					</form>
@@ -78,14 +78,16 @@
 								</tr>
 							</c:forEach>
 						</tbody>
-						<tbody>
-							<tr>
-								<!--출석체크 삽입 모달-->
-								<td colspan="${fn:length(adminUser) + 2}">
-									<button id="createBtn" class="btn btn-primary col-md">+</button>
-								</td>
-							</tr>
-						</tbody>
+						<c:if test="${selectSemId eq semDate.get(semDate.size() - 1).getId()}">
+							<tbody>
+								<tr>
+									<!--출석체크 삽입 모달-->
+									<td colspan="${fn:length(adminUser) + 2}">
+										<button id="createBtn" class="btn btn-primary col-md">+</button>
+									</td>
+								</tr>
+							</tbody>
+						</c:if>
 					</table>
 
 					<!-- createModal -->
@@ -173,42 +175,13 @@
 
 		//출석체크 생성 모달
 	    $('#createBtn').on('click', function() {
-	    	console.log("ssss");
 	    	$('#createModal').find('tr:gt(0)').remove();
 	    	$('#chdate').val('default');
 		    $('#createModal').modal('show');
 		    if($('#chdate').on('change', function() {
 				var date = $('#chdate').val();
-				console.log(date);
-				/* console.log(date);
-				var obj;
-				jQuery.ajax({
-			    	   type:"POST", 
-			    	   url : "/club_union/create?date="+date,
-			    	   dataType:"json",
-			    	   success : function(data) { 
-			    	      obj = data;
-			    	      console.log("Ddd");
-			    	      if(obj.testlist.length>0){
-			    	    	  $("#chdate").val(date);
-			    	    	  for(var i=0; i<obj.testlist.length; i++) {
-			    	    		  var ck;
-			    	    		  var id = obj.testlist[i].id;
-			    	    		  if(obj.testlist[i].check == 0){
-			    	    		  ck="<td><input type='checkbox' class='form-control input-sm' name='createck' value='"+id+"'></td>";
-			    	    		      }
-			    	    		  else{
-			    	    		  ck="<td><input type='checkbox' class='form-control input-sm' name='createck' value='"+id+"' checked></td>";
-			    	    		      }
-			    	    		  $("#createModalTable").append("<tr> <td>"+ obj.testlist[i].name +"</td>"+ ck +"</tr>");
-			    	    		  }
-			    	         }
-			    	     },
-			    	     complete : function(data) { },
-			    	     error : function(xhr, status , error) {console.log("ajax ERROR!!! : " );}
-			    		}) */
-					}));
-			   });
+			   }));
+	    });
 
 	    //출석체크 수정 모달
 	    $("[id=attendanceUpdate]").each(function(){
