@@ -37,7 +37,7 @@
 						<div class="col-md-3">
 							<div class="form-group">
 								<form:select class="form-control input-lg autosubmit"
-									path="sems" items="${ sems }" name="semId" id="selectSemId"/>
+									path="sems" items="${ sems }" name="semId" id="selectSemId" />
 							</div>
 						</div>
 					</form>
@@ -51,14 +51,25 @@
 								<c:forEach var="adminUser" items="${adminUser}">
 									<th>${adminUser}</th>
 								</c:forEach>
-								<th></th>
+								<c:if
+									test="${selectSemId eq semDate.get(semDate.size() - 1).getId()}">
+									<th></th>
+								</c:if>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach var="findDate" items="${ findDate }">
 								<tr>
-									<!-- 날짜 클릭시 해당 날짜에 따른 출석체크 수정 모달  -->
-									<td id="attendanceUpdate" find="${findDate}">${ findDate }</td>
+									<c:choose>
+										<c:when
+											test="${selectSemId eq semDate.get(semDate.size() - 1).getId()}">
+											<!-- 날짜 클릭시 해당 날짜에 따른 출석체크 수정 모달  -->
+											<td id="attendanceUpdate" find="${findDate}">${ findDate }</td>
+										</c:when>
+										<c:otherwise>
+											<td>${ findDate }</td>
+										</c:otherwise>
+									</c:choose>
 									<c:forEach var="attendance" items="${ attendance }"
 										varStatus="status">
 										<c:if test="${attendance.date eq findDate}">
@@ -70,15 +81,20 @@
 													<td>O</td>
 												</c:otherwise>
 											</c:choose>
-											<c:if test="${status.count % fn:length(adminUser) eq 0}">
-												<td><a href="attendance_delete?date=${attendance.date}">x</a></td>
+											<c:if
+												test="${selectSemId eq semDate.get(semDate.size() - 1).getId()}">
+												<c:if test="${status.count % fn:length(adminUser) eq 0}">
+													<td><a
+														href="attendance_delete?date=${attendance.date}">x</a></td>
+												</c:if>
 											</c:if>
 										</c:if>
 									</c:forEach>
 								</tr>
 							</c:forEach>
 						</tbody>
-						<c:if test="${selectSemId eq semDate.get(semDate.size() - 1).getId()}">
+						<c:if
+							test="${selectSemId eq semDate.get(semDate.size() - 1).getId()}">
 							<tbody>
 								<tr>
 									<!--출석체크 삽입 모달-->

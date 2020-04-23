@@ -47,7 +47,6 @@ public class ClubUnionController {
 
 		// 화면 select box 사용하기 위한 데이터 가공
 		List<SemDateDto> semDate = semdateService.findAll();
-		System.out.println(semDate.get(semDate.size()-1).getId());
 		Map<String, String> sems = new HashMap<>();
 		for (int i = 0; i < semDate.size(); i++) {
 			sems.put(Integer.toString(semDate.get(i).getId()), semDate.get(i).getSem_name());
