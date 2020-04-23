@@ -194,10 +194,16 @@
 	    	$('#createModal').find('tr:gt(0)').remove();
 	    	$('#chdate').val('default');
 		    $('#createModal').modal('show');
-		    if($('#chdate').on('change', function() {
-				var date = $('#chdate').val();
+		    if($('#chdate').on('change', function() {	
+		    	var date = $('#chdate').val();
 			   }));
 	    });
+
+	    //기존에 존재하는 날짜일 때 에러 메시지 출력
+		var result = '${result}';
+		if(result == 'registerOK'){
+			alert('기존 출석체크 목록에 존재하는 날짜는 삽입할 수 없습니다. \n출석체크 목록 확인 후 다시 시도해 주세요.');
+		}
 
 	    //출석체크 수정 모달
 	    $("[id=attendanceUpdate]").each(function(){

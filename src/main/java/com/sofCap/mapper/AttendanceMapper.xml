@@ -110,11 +110,6 @@
 			ORDER BY u.id
 		) t1
 	</insert>
-	
-	<insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-		INSERT INTO attendance(club_id,`check`,date,user_id)
-	    VALUES (#{club_id},#{check},#{date},#{user_id})
-	</insert>
 
 	<update id="allUpdate">
 		UPDATE attendance

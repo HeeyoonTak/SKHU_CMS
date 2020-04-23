@@ -2,6 +2,7 @@ package com.sofCap.controller;
 
 import java.security.Principal;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sofCap.dto.AccountDto;
 import com.sofCap.dto.AttendanceDto;
@@ -113,13 +115,22 @@ public class ClubUnionController {
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public String createModal(@RequestParam("date") Date date, Model model) {
+	public String createModal(@RequestParam("date") Date date, Model model, RedirectAttributes rttr) {
 
 		// 마지막 학기 id값
 		int lastSem = attendanceService.findLastSem();
 
-		attendanceService.dateNow(date, lastSem);
+		List<String> findDate = attendanceService.findDate(lastSem);
 
+		// 삽입하는 날짜가 기존에 존재하는지 확인 후 삽입 or 에러 메시지
+		Date from = date;
+		SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd");
+		String to = fm.format(from);
+		if (!findDate.contains(to)) {
+			attendanceService.dateNow(date, lastSem);
+		} else {
+			rttr.addFlashAttribute("result", "registerOK");
+		}
 		return "redirect:/club_union/attendance";
 	}
 
