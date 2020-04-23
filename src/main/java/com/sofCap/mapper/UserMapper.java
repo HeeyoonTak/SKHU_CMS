@@ -14,5 +14,6 @@ public interface UserMapper {
 	void insert(UserDto user);
 	void update(UserDto user);
 	void updateMypage(UserDto user);
+	void updateRole(UserDto user);
 	void delete(int id);
 }

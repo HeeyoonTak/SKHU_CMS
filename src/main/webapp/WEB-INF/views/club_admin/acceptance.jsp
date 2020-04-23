@@ -13,7 +13,7 @@
 						<div class="my-3 p-3 bg-white rounded shadow-sm">
 							<label style="color: black">지원자 목록</label>
 							<hr class="mb-4">
-							<c:forEach var="<%-- lecture --%>" items="<%-- ${taNoLecture} --%>">
+							<c:forEach var="<%-- lecture --%>" items="<%-- ${acceptanceNo} --%>">
 								<div class="media text-muted pt-3">
 									<div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
 										<div class="d-flex justify-content-between align-items-center w-100">
@@ -34,7 +34,7 @@
 						<div class="my-3 p-3 bg-white rounded shadow-sm">
 							<label style="color: black">합격자 목록</label>
 							<hr class="mb-4">
-							<c:forEach var="<%-- lecture --%>" items="<%-- ${taYesLecture} --%>">
+							<c:forEach var="<%-- lecture --%>" items="<%-- ${acceptanceYes} --%>">
 								<div class="media text-muted pt-3">
 									<div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
 										<div class="d-flex justify-content-between align-items-center w-100">

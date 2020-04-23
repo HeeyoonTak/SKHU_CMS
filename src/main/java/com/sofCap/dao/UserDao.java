@@ -10,4 +10,5 @@ public interface UserDao {
 	List<UserDto> findAll();
 	UserDto findOne(int id);
 	void updateMypage(UserDto user);
+	void updateRole(UserDto user);
 }

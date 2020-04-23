@@ -35,4 +35,10 @@ public class UserDaoImpl implements UserDao {
 		userMapper.updateMypage(user);
 	}
 
+	@Override
+	public void updateRole(UserDto user) {
+		// TODO Auto-generated method stub
+		userMapper.updateRole(user);
+	}
+
 }
