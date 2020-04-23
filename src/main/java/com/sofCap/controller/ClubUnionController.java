@@ -1,11 +1,25 @@
 package com.sofCap.controller;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Date;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -16,6 +30,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sofCap.dto.AccountDto;
+import com.sofCap.dto.FilesDto;
+import com.sofCap.mapper.FileMapper;
 import com.sofCap.model.SemDate;
 import com.sofCap.service.AccountService;
 import com.sofCap.service.ClubService;
@@ -33,6 +49,8 @@ public class ClubUnionController {
 	SemDateService semdateService;
 	@Autowired
 	FileService fileService;
+	@Autowired
+	FileMapper fileMapper;
 
 	String[] account_type = {"중앙지원금", "동아리회비"};
 
@@ -90,14 +108,12 @@ public class ClubUnionController {
 	private void save(int club_id, int[] price, String[] remark, MultipartFile[] file,
 			int[] account_type, Date[] date, String sem_name)
 	{
-		System.out.println("실행시작");
 		for (int i = 0 ; i < price.length ; ++i) {
 			AccountDto account = new AccountDto();
 			account.setClub_id(club_id);
 			account.setPrice((int)price[i]);
 //			int total = accountService.getTotalByClubId(sem_name, club_id[i]);
-			account.setTotal(0); //total clumn 사용안함
-			System.out.println("total:"+account.getTotal());
+			account.setTotal(0); //total culmn 사용안함
 			account.setRemark(remark[i]);
 			if(!file[i].isEmpty()) {
 				int f_id = fileService.accountFileUpload(file[i]);
@@ -107,5 +123,14 @@ public class ClubUnionController {
 			account.setDate(date[i]);
 			accountService.insert(account);
 		}
+	}
+	
+	@RequestMapping(value = "getImage")
+	public void getImage(HttpServletRequest req, HttpServletResponse res, @RequestParam("id") int id) throws IOException {
+		res.setContentType("image/jpeg");
+		FilesDto file = fileMapper.getReceiptImage(id);
+		byte[] imagefile = file.getData();
+		InputStream in1 = new ByteArrayInputStream(imagefile);
+		IOUtils.copy(in1, res.getOutputStream());
 	}
 }

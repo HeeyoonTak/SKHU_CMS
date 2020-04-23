@@ -6,4 +6,11 @@
 		INSERT files (file_name, size, data)
 		VALUES (#{file_name}, #{size}, #{data})
 	</insert>
+	
+	<select id="getReceiptImage" resultType="FilesDto">
+		SELECT f.* FROM files f
+		RIGHT JOIN account a
+		ON a.file_id = f.id
+		WHERE a.id=#{id}
+	</select>
 </mapper>

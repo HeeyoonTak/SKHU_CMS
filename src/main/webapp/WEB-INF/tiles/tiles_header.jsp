@@ -81,7 +81,7 @@
 <script src="https://unpkg.com/element-ui/lib/index.js"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 
-<script>
+	<script>
         function attachAddr(obj) {
             const str = `<tr id="default">
 							<td><input type="date" name="date"
@@ -109,7 +109,7 @@
             return false;
         }
     </script>
-    <script>
+	<script>
         function delete_row(obj) {
             $(obj).parents('tbody tr').remove();
             return false;
@@ -182,12 +182,24 @@
 		    } 
 	</script>
 
-<script>
-    function fileChange(obj){
+	<script>
+    	function fileChange(obj){
             var fileName = obj.files[0].name;
             $(obj).siblings('.fileName').css("display","inline-block");
             $(obj).siblings('.fileName').text(fileName);   
             return false;         
         };
     
+	</script>
+
+	<script>
+		function showReceipt(str){
+			var imgurl="${R}club_union/getImage?id="+str;
+			$('#receiptImg').attr("src",imgurl);
+	   		 $('#createModal').modal('show');
+	   			console.log("click open");
+		 };
+		/* $('#closeModal').on('click', function(){
+			$('#modalBox').modal('hide');
+			}); */
 	</script>

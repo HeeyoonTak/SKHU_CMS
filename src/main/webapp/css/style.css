@@ -1202,6 +1202,8 @@ Components
 .btn-warning,
 .btn-danger {
   border-color: transparent;
+  border: 1px solid !important;
+  
 }
 
 .btn-default:hover, .btn-default:active, .btn-default:focus,

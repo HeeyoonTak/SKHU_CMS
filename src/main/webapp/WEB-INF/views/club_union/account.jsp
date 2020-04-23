@@ -38,11 +38,11 @@
 		<div class="row animate-box">
 			<div class="fh5co-spacer fh5co-spacer-md"></div>
 			<div id="fh5co-tab-feature-center" class="fh5co-tab text-center">
-						<ul class="resp-tabs-list hor_1">					
-						<c:forEach var="club" items="${ clubs }">
+				<ul class="resp-tabs-list hor_1">
+					<c:forEach var="club" items="${ clubs }">
 						<li><i class="fh5co-tab-menu-icon"></i>${ club.club_name }</li>
-						</c:forEach>
-						</ul>				
+					</c:forEach>
+				</ul>
 
 				<c:forEach var="club" items="${ clubs }" varStatus="ci">
 					<div class="resp-tabs-container hor_1">
@@ -71,8 +71,12 @@
 							</div>
 							<div class="row">
 								<div class="panel panel-default">
-									<form action="account_save" method="post" enctype="multipart/form-data" onsubmit="return check(${ci.count});" name="account_submit" id="account_submit">
-										<table class="table text-center l_account_table table_${ci.count}">
+									<form action="account_save" method="post"
+										enctype="multipart/form-data"
+										onsubmit="return check(${ci.count});" name="account_submit"
+										id="account_submit">
+										<table
+											class="table text-center l_account_table table_${ci.count}">
 											<thead>
 												<tr>
 													<th>날짜</th>
@@ -108,7 +112,9 @@
 																</c:otherwise>
 															</c:choose>
 															<%-- <td>${ account.total }</td> --%>
-															<td><a href="#" class="btn btn-primary">영수증</a></td>
+															<td><a class="btn btn-primary" id="showReceipt" data-target="#createModal" onclick="return showReceipt('${account.id}');">영수증</a>
+																<%-- <img src ="${R}club_union/getImage?id=${account.id}" width="100" height="100"></img> --%>
+															</td>
 															<td><a href="#">x</a></td>
 														</tr>
 													</c:if>
@@ -156,7 +162,6 @@
 
 										</table>
 								</div>
-
 								<div class="row">
 									<div class="col-md-8"></div>
 									<div class="col-md-4">
@@ -181,5 +186,23 @@
 	</div>
 	<!-- // END container -->
 
+</div>
 
+<!-- showReceipt modal -->
+<div class="modal fade" id="createModal" role="dialog" tabindex="-1">
+	<div class="modal-dialog modal-md">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 id="modal-title" class="modal-title">영수증</h4>
+			</div>
+			<div class="modal-body" style="overflow:scroll">
+				<img src ="${R}club_union/getImage?id=${account.id}" id="receiptImg" />		
+			</div>
+			<div class="modal-footer">
+				<button id="closeModal" type="button" class="btn btn-primary col-md"
+					data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
 </div>

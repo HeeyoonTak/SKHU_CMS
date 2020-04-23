@@ -7,5 +7,5 @@ import com.sofCap.dto.FilesDto;
 @Mapper
 public interface FileMapper {
 	void accountFileUpload(FilesDto file);
-
+	FilesDto getReceiptImage(int id);
 }
