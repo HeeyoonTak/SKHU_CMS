@@ -64,4 +64,13 @@ public class BoardDaoImpl implements BoardDao {
 		boardMapper.delete(id);
 	}
 
+	@Override
+	public void insert(BoardDto board) {
+		boardMapper.insert(board);
+	}
+
+	@Override
+	public void update(BoardDto board) {
+		boardMapper.update(board);
+	}
 }

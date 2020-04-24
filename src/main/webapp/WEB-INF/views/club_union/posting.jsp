@@ -40,7 +40,7 @@
 											<th style="text-align: center;"><form:input
 													placeholder="제목" path="title" class="form-control input-md" /></th>
 										</tr>
-										<tr style="text-align: center">
+										<tr>
 											<td>
 												<textarea id="summernote" name="content">${board.content }</textarea> 
 												<input type="hidden" name="content" />

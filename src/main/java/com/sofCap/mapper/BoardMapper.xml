@@ -59,7 +59,8 @@
 	<select id="listFive_p" resultType="BoardDto">
 		SELECT *
 		FROM board
-		WHERE board_name_id = 1
+		WHERE
+		board_name_id = 1
 		ORDER BY
 		title
 		DESC LIMIT 5;
@@ -68,7 +69,8 @@
 	<select id="listFive_r" resultType="BoardDto">
 		SELECT *
 		FROM board
-		WHERE board_name_id = 2
+		WHERE
+		board_name_id = 2
 		ORDER BY
 		title
 		DESC LIMIT 5;
@@ -78,6 +80,22 @@
 		DELETE FROM Board WHERE id = #{id}
 	</delete>
 
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT Board(board_name_id, title, content, date, club_id, start_date,
+		end_date)
+		VALUES (#{board_name_id}, #{title}, #{content}, date_format(now(), '%Y-%m-%d'), #{club_id}, #{start_date}, #{end_date})
+	</insert>
+
+	<update id="update" useGeneratedKeys="true" keyProperty="id">
+		UPDATE Board SET
+		title = #{title},
+		content = #{content},
+		date = date_format(now(), '%Y-%m-%d'),
+		start_date = #{start_date},
+		end_date = #{end_date}
+		WHERE id = #{id}
+	</update>
+	
 	<resultMap id="resultMap_BoardDto" type="BoardDto">
 		<id property="id" column="id" />
 		<result property="title" column="title" />
