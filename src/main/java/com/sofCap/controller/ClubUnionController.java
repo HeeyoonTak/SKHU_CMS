@@ -2,6 +2,7 @@ package com.sofCap.controller;
 
 import java.security.Principal;
 import java.sql.Date;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -32,12 +33,8 @@ import com.sofCap.dto.UserDto;
 import com.sofCap.mapper.BoardMapper;
 import com.sofCap.mapper.UserMapper;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.sofCap.dto.AccountDto;
 import com.sofCap.dto.FilesDto;
 import com.sofCap.mapper.AccountMapper;
 import com.sofCap.mapper.FileMapper;
@@ -370,8 +367,14 @@ public class ClubUnionController {
 	public String account_save(Model model, @RequestParam("club_id") int club_id, @RequestParam("price") int[] price,
 			@RequestParam("remark") String[] remark, @RequestBody MultipartFile[] file,
 			@RequestParam("account_type") int[] account_type,
-			@RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date[] date, SemDate semdate) {
+			@RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date[] date, SemDate semdate) throws IOException {
 		String sem_name = semdate.getSem_name();
+//		System.out.println(club_id);
+//		System.out.println(Arrays.toString(price));
+//		System.out.println(Arrays.toString(remark));
+//		System.out.println(Arrays.toString(account_type));
+//		System.out.println(Arrays.toString(file));
+//		System.out.println(Arrays.toString(date));
 		save(club_id, price, remark, file, account_type, date, sem_name);
 		return "redirect:account#fh5co-tab-feature-center" + club_id;
 	}
@@ -379,7 +382,8 @@ public class ClubUnionController {
 	/* 입력한 회계 내역 저장 트랜잭션 */
 	@Transactional
 	private void save(int club_id, int[] price, String[] remark, MultipartFile[] file, int[] account_type, Date[] date,
-			String sem_name) {
+			String sem_name) throws IOException {
+		System.out.println("실행시작");
 		for (int i = 0; i < price.length; ++i) {
 			AccountDto account = new AccountDto();
 			account.setClub_id(club_id);
@@ -387,13 +391,19 @@ public class ClubUnionController {
 //			int total = accountService.getTotalByClubId(sem_name, club_id[i]);
 			account.setTotal(0); // total culmn 사용안함
 			account.setRemark(remark[i]);
-			if (!file[i].isEmpty()) {
-				int f_id = fileService.accountFileUpload(file[i]);
-				account.setFile_id((int) f_id);
-			}
 			account.setAccount_type((int) account_type[i]);
 			account.setDate(date[i]);
+			System.out.println(account.getClub_id());
+			System.out.println(account.getPrice());
+			System.out.println(account.getRemark());
+			System.out.println(account.getDate());
+
+			int f_id = fileService.accountFileUpload(file[i]);
+			account.setFile_id((int) f_id);
+			System.out.println(f_id);
 			accountService.insert(account);
+			System.out.println("insert");
+
 		}
 	}
 
