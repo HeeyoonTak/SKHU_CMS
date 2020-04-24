@@ -26,35 +26,32 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12 animate-box">
-				<div>
-					<div class="row">
-						<div class="col-md-12" style="margin-bottom: 20px">
-							<h2 class="h3"></h2>
-						</div>
-						<div class="col-md-12">
-							<div style="margin-left: 50px">
-								<form:form method="post" modelAttribute="board">
-									<table class="table table-striped ">
+				<div class="row">
+					<div class="col-md-12" style="margin-bottom: 20px">
+						<h2 class="h3"></h2>
+					</div>
+					<div class="col-md-12">
+						<div style="margin-left: 50px">
+							<form:form method="post" modelAttribute="board">
+								<table class="table table-striped ">
 
-										<tr style="text-align: center">
-											<th style="text-align: center;"><form:input
-													placeholder="제목" path="title" class="form-control input-md" /></th>
-										</tr>
-										<tr>
-											<td>
-												<textarea id="summernote" name="content">${board.content }</textarea> 
-												<input type="hidden" name="content" />
-											</td>
-										</tr>
-										<tr style="text-align: center">
-											<td>지원 기간: <form:input type="date" path="start_date"
-													class="form-control input-sm"
-													style="width: 130px; display :inline" autocomplete="off" />
-												~ <form:input type="date" path="end_date"
-													class="form-control input-sm"
-													style="width: 130px; display :inline" autocomplete="off" /></td>
-										</tr>
-										<tr>
+									<tr style="text-align: center">
+										<th style="text-align: center;"><form:input
+												placeholder="제목" path="title" class="form-control input-md" /></th>
+									</tr>
+									<tr>
+										<td><textarea id="summernote" name="content">${board.content }</textarea>
+											<input type="hidden" name="content" /></td>
+									</tr>
+									<tr style="text-align: center">
+										<td>신청 기간: <form:input type="date" path="start_date"
+												class="form-control input-sm"
+												style="width: 130px; display :inline" autocomplete="off" />
+											~ <form:input type="date" path="end_date"
+												class="form-control input-sm"
+												style="width: 130px; display :inline" autocomplete="off" /></td>
+									</tr>
+									<%-- 										<tr>
 											<td style="padding-left: 270px">
 												<form action="http://localhost/upload.php" method="post"
 													enctype="multipart/form-data">
@@ -63,23 +60,20 @@
 														style="width: 50px;">
 												</form>
 											</td>
-										</tr>
-
-									</table>
-									<div class="row">
-										<div class="col-md-12">
-										<form:hidden path="board_name_id" class="form-control input-md" />
+										</tr> --%>
+								</table>
+								<div class="row">
+									<div class="col-md-12">
+										<form:hidden path="board_name_id"
+											class="form-control input-md" />
 										<form:hidden path="club_id" class="form-control input-md" />
-											<%-- <input type="hidden" name="board_name_id" value="${ bid}" />
-											<input type="hidden" name="club_id" value="${ cid }" />  --%><a
-												class="btn btn-primary btn-lg" id="l_search_term_btn"
-												style="float: right;" href="javascript:history.back();">목록</a>
-												<button class="btn btn-lg btn-primary" type="submit" style="float: right;" onclick="goWrite(this.form)">저장</button>
-											
-										</div>
+										<a class="btn btn-primary btn-lg" id="l_search_term_btn"
+											style="float: right;" href="javascript:history.back();">목록</a>
+										<button class="btn btn-lg btn-primary" type="submit"
+											style="float: right;" onclick="goWrite(this.form)">저장</button>
 									</div>
-								</form:form>
-							</div>
+								</div>
+							</form:form>
 						</div>
 					</div>
 				</div>
