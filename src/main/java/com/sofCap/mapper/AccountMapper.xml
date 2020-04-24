@@ -51,4 +51,14 @@
 			as c order by c.date DESC LIMIT 1; -->
 
 	</select>
+	
+	<delete id="delete">
+		DELETE FROM account WHERE id=#{id}
+	</delete>
+	
+	<select id="findFileId" resultType="Int">
+		SELECT file_id 
+		FROM account
+		WHERE id=#{id}
+	</select>
 </mapper>

@@ -8,4 +8,5 @@ import com.sofCap.dto.FilesDto;
 public interface FileMapper {
 	void accountFileUpload(FilesDto file);
 	FilesDto getReceiptImage(int id);
+	void delete(int id);
 }

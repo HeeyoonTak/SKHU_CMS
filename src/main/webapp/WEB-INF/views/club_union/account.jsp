@@ -115,7 +115,7 @@
 															<td><a class="btn btn-primary" id="showReceipt" data-target="#createModal" onclick="return showReceipt('${account.id}');">영수증</a>
 																<%-- <img src ="${R}club_union/getImage?id=${account.id}" width="100" height="100"></img> --%>
 															</td>
-															<td><a href="#">x</a></td>
+															<td><a href="${R}club_union/delete?id=${account.id}&club_id=${club.id}" onclick="return deleteAlert();">x</a></td>
 														</tr>
 													</c:if>
 												</c:forEach>
