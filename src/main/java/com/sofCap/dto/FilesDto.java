@@ -7,8 +7,8 @@ import lombok.Setter;
 @Setter
 public class FilesDto {
 	int id;
-	
+
 	String file_name;
-	int size;
+	long size;
 	byte[] data;
 }

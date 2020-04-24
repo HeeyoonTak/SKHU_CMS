@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sofCap.mapper.FileMapper">
+	<insert id="accountFileUpload" useGeneratedKeys="true" keyProperty="id">
+		INSERT files (file_name, size, data)
+		VALUES (#{file_name}, #{size}, #{data})
+	</insert>
+	
+	<select id="getReceiptImage" resultType="FilesDto">
+		SELECT f.* FROM files f
+		RIGHT JOIN account a
+		ON a.file_id = f.id
+		WHERE a.id=#{id}
+	</select>
+	
+	<delete id="delete">
+		DELETE FROM files 
+		WHERE id=#{id}
+	</delete>
+</mapper>

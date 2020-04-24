@@ -3,6 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
 <c:url var="R" value="/" />
 <div id="fh5co-hero">
 	<a href="#fh5co-main"
@@ -56,7 +58,14 @@
 								</table>
 								<div class="row">
 									<div class="col-md-12">
-										<a class="btn btn-primary btn-lg" id="l_search_term_btn" style="float:right;" href="minutes">목록</a>
+										<form:form method="post" modelAttribute="board">
+									<form:hidden path="id" class="form-control input-md" />
+									</form:form>
+									<a class="btn btn-primary btn-lg" id="l_search_term_btn" style="float:right;" href="minutes">목록</a>
+									<sec:authorize access="authenticated">
+										<a href="m_edit?id=${board.id}" class="btn btn-primary btn-lg"
+										id="l_search_term_btn" style="float: right;">편집</a>
+									</sec:authorize>
 									</div>
 								</div>
 							</div>

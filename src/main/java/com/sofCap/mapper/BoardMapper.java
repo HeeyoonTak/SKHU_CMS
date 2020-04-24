@@ -28,4 +28,8 @@ public interface BoardMapper {
 	List<BoardDto> listFive_r();
 
 	void delete(int id);
+
+	void insert(BoardDto board);
+
+	void update(BoardDto board);
 }

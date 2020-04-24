@@ -1,5 +1,8 @@
 package com.sofCap.controller;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.security.Principal;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
@@ -7,28 +10,43 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+//import org.json.JSONArray;
+//import org.json.JSONObject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sofCap.dto.AccountDto;
 import com.sofCap.dto.AttendanceDto;
 import com.sofCap.dto.BoardDto;
+import com.sofCap.dto.FilesDto;
 import com.sofCap.dto.SemDateDto;
 import com.sofCap.dto.UserDto;
+import com.sofCap.mapper.AccountMapper;
 import com.sofCap.mapper.BoardMapper;
+import com.sofCap.mapper.FileMapper;
 import com.sofCap.mapper.UserMapper;
 import com.sofCap.model.SemDate;
 import com.sofCap.service.AccountService;
 import com.sofCap.service.AttendanceService;
+import com.sofCap.service.BoardService;
 import com.sofCap.service.ClubService;
+import com.sofCap.service.FileService;
 import com.sofCap.service.SemDateService;
 import com.sofCap.service.UserService;
 
@@ -40,6 +58,24 @@ public class ClubUnionController {
 	UserService userService;
 	@Autowired
 	AttendanceService attendanceService;
+	@Autowired
+	BoardMapper boardMapper;
+	@Autowired
+	BoardService boardService;
+	@Autowired
+	AccountService accountService;
+	@Autowired
+	ClubService clubService;
+	@Autowired
+	SemDateService semdateService;
+	@Autowired
+	UserMapper userMapper;
+	@Autowired
+	FileMapper fileMapper;
+	@Autowired
+	AccountMapper accountMapper;
+	FileService fileService;
+
 
 	/*
 	 * 작성일 : 2020-04-18 코멘트 : 화면 조회 기능 구현
@@ -140,15 +176,11 @@ public class ClubUnionController {
 		return "redirect:attendance";
 	}
 
-	@Autowired
-	BoardMapper boardMapper;
-	@Autowired
-	UserMapper userMapper;
 
 	@RequestMapping("notice")
 	public String union_notice(Model model, Principal principal) {
-		UserDto user = userMapper.findByLoginId(principal.getName());
-		List<BoardDto> boards = boardMapper.findAll_n();
+		UserDto user = userService.findByLoginId(principal.getName());
+		List<BoardDto> boards = boardService.findAll_n();
 		model.addAttribute("user", user);
 		model.addAttribute("boards", boards);
 		return "club_union/union_notice";
@@ -156,82 +188,108 @@ public class ClubUnionController {
 
 	@RequestMapping("n_content")
 	public String n_content(Model model, @RequestParam("id") int id) {
-		BoardDto board = boardMapper.findOne(id);
+		BoardDto board = boardService.findOne(id);
 		model.addAttribute("board", board);
 		return "club_union/n_content";
 	}
 
 	@RequestMapping("n_delete")
 	public String n_delete(Model model, @RequestParam("id") int id) {
-		boardMapper.delete(id);
+		boardService.delete(id);
 		return "redirect:notice";
 	}
 
+	@RequestMapping(value="n_edit", method=RequestMethod.GET)
+    public String n_edit(@RequestParam("id") int id, Model model, BoardDto board) {
+        board.setBoard_name_id(3);
+        board.setClub_id(1);
+        board = boardService.findById(id);
+        model.addAttribute("board", board);
+        return "club_union/posting";
+    }
+
+    @Transactional
+    @RequestMapping(value="n_edit", method=RequestMethod.POST)
+    public String n_edit(BoardDto board, Model model) {
+        boardService.update(board);
+        return "redirect:n_content?id=" + board.getId();
+    }
+
+    @RequestMapping(value="n_create", method=RequestMethod.GET)
+    public String n_create(Model model, BoardDto board) {
+    	board.setBoard_name_id(3);
+        board.setClub_id(1);
+		board = new BoardDto();
+		model.addAttribute("board", board);
+        return "club_union/posting";
+    }
+
+    @Transactional
+    @RequestMapping(value="n_create", method=RequestMethod.POST)
+    public String n_create(BoardDto board, Model model) {
+    	board.setBoard_name_id(3);
+        board.setClub_id(1);
+    	boardService.insert(board);
+        return "redirect:n_content?id=" + board.getId();
+    }
+
 	@RequestMapping("minutes")
 	public String union_minutes(Model model, Principal principal) {
-		UserDto user = userMapper.findByLoginId(principal.getName());
-		List<BoardDto> boards = boardMapper.findAll_m();
+		UserDto user = userService.findByLoginId(principal.getName());
+		List<BoardDto> boards = boardService.findAll_m();
 		model.addAttribute("user", user);
 		model.addAttribute("boards", boards);
-		return "cunion_minutes";
+		return "club_union/union_minutes";
 	}
 
 	@RequestMapping("m_content")
 	public String m_content(Model model, @RequestParam("id") int id) {
-		BoardDto board = boardMapper.findOne(id);
+		BoardDto board = boardService.findOne(id);
 		model.addAttribute("board", board);
 		return "club_union/m_content";
 	}
 
 	@RequestMapping("m_delete")
 	public String m_delete(Model model, @RequestParam("id") int id) {
-		boardMapper.delete(id);
+		boardService.delete(id);
 		return "redirect:minutes";
 	}
 
-	@Autowired
-	AccountService accountService;
-	@Autowired
-	ClubService clubService;
-	@Autowired
-	SemDateService semdateService;
+	@RequestMapping(value="m_edit", method=RequestMethod.GET)
+    public String m_edit(@RequestParam("id") int id, Model model, BoardDto board) {
+        board.setBoard_name_id(4);
+        board.setClub_id(1);
+        board = boardService.findById(id);
+        model.addAttribute("board", board);
+        return "club_union/posting";
+    }
 
-//	@RequestMapping("account")
-//	public List<AccountDto> account() {
-//		return accountService.findAll();
-//	}
+    @Transactional
+    @RequestMapping(value="m_edit", method=RequestMethod.POST)
+    public String m_edit(BoardDto board, Model model) {
+        boardService.update(board);
+        return "redirect:m_content?id=" + board.getId();
+    }
 
-	// 버전 1
-//	@RequestMapping("account")
-//	public String account(Model model, @RequestParam(name="club_id",defaultValue="1") int club_id) {
-//		List<AccountDto> accounts = accountService.findByClubId(club_id);
-//		model.addAttribute("accounts", accounts);
-//		model.addAttribute("clubs",clubService.findAll());
-//		return "club_union/account";
-//	}
+    @RequestMapping(value="m_create", method=RequestMethod.GET)
+    public String m_create(Model model, BoardDto board) {
+    	board.setBoard_name_id(4);
+        board.setClub_id(1);
+		board = new BoardDto();
+		model.addAttribute("board", board);
+        return "club_union/posting";
+    }
 
-	// 버전 2
-//	@RequestMapping("account")
-//	public String account(Model model) {
-//		List<AccountDto> accounts = accountService.findAll();
-//		model.addAttribute("accounts", accounts);
-//		model.addAttribute("clubs",clubService.findAll());
-//		return "club_union/account";
-//	}
+    @Transactional
+    @RequestMapping(value="m_create", method=RequestMethod.POST)
+    public String m_create(BoardDto board, Model model) {
+    	board.setBoard_name_id(4);
+        board.setClub_id(1);
+    	boardService.insert(board);
+        return "redirect:m_content?id=" + board.getId();
+    }
 
-	// 버전 3
-	@RequestMapping("account")
-	public String account(Model model, SemDate semdate) {
-		System.out.print(semdate.getSem_name());
-		List<AccountDto> accounts = accountService.findBySem(semdate);
-		model.addAttribute("accounts", accounts);
-		model.addAttribute("clubs", clubService.findAll());
-		model.addAttribute("sems", semdateService.findAll());
-		model.addAttribute("semdate", semdate);
-		return "club_union/account";
-	}
-
-	@RequestMapping("club_list")
+    @RequestMapping("club_list")
 	public String list(Model model) {
 		List<UserDto> users = userMapper.findAll();
 		model.addAttribute("users", users);
@@ -268,5 +326,102 @@ public class ClubUnionController {
 	public String delete(Model model, @RequestParam("id") int id) {
 		userMapper.delete(id);
 		return "redirect:club_list";
+	}
+
+   /* LHM_account
+    * 동아리 연합회 회계 */
+	String[] account_type = { "중앙지원금", "동아리회비" };
+
+
+//	@RequestMapping("account")
+//	public List<AccountDto> account() {
+//		return accountService.findAll();
+//	}
+
+	// 버전 1
+//	@RequestMapping("account")
+//	public String account(Model model, @RequestParam(name="club_id",defaultValue="1") int club_id) {
+//		List<AccountDto> accounts = accountService.findByClubId(club_id);
+//		model.addAttribute("accounts", accounts);
+//		model.addAttribute("clubs",clubService.findAll());
+//		return "club_union/account";
+//	}
+
+	// 버전 2
+//	@RequestMapping("account")
+//	public String account(Model model) {
+//		List<AccountDto> accounts = accountService.findAll();
+//		model.addAttribute("accounts", accounts);
+//		model.addAttribute("clubs",clubService.findAll());
+//		return "club_union/account";
+//	}
+
+	// 버전 3
+	/* 학기에 따른 회계 리스트 조회 */
+	@RequestMapping(value = "account")
+	public String account(Model model, SemDate semdate) {
+//		System.out.println(semdate.getSem_name());
+		String sem_name = semdate.getSem_name();
+		List<AccountDto> accounts = accountService.findBySem(semdate);
+		List<AccountDto> totals = accountService.getTotalByClubId(sem_name);
+		model.addAttribute("accounts", accounts);
+		model.addAttribute("clubs", clubService.findAll());
+		model.addAttribute("sems", semdateService.findAll());
+		model.addAttribute("semdate", semdate);
+		model.addAttribute("account_type", account_type);
+		model.addAttribute("totals", totals);
+		return "club_union/account";
+	}
+
+	/* 회계 내역 입력 */
+	@RequestMapping(value = "account_save", method = RequestMethod.POST)
+	public String account_save(Model model, @RequestParam("club_id") int club_id, @RequestParam("price") int[] price,
+			@RequestParam("remark") String[] remark, @RequestBody MultipartFile[] file,
+			@RequestParam("account_type") int[] account_type,
+			@RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date[] date, SemDate semdate) {
+		String sem_name = semdate.getSem_name();
+		save(club_id, price, remark, file, account_type, date, sem_name);
+		return "redirect:account#fh5co-tab-feature-center" + club_id;
+	}
+
+	/* 입력한 회계 내역 저장 트랜잭션 */
+	@Transactional
+	private void save(int club_id, int[] price, String[] remark, MultipartFile[] file, int[] account_type, Date[] date,
+			String sem_name) {
+		for (int i = 0; i < price.length; ++i) {
+			AccountDto account = new AccountDto();
+			account.setClub_id(club_id);
+			account.setPrice(price[i]);
+//			int total = accountService.getTotalByClubId(sem_name, club_id[i]);
+			account.setTotal(0); // total culmn 사용안함
+			account.setRemark(remark[i]);
+			if (!file[i].isEmpty()) {
+				int f_id = fileService.accountFileUpload(file[i]);
+				account.setFile_id(f_id);
+			}
+			account.setAccount_type(account_type[i]);
+			account.setDate(date[i]);
+			accountService.insert(account);
+		}
+	}
+
+	/* 첨부된 영수증 이미지 가져오기 */
+	@RequestMapping(value = "getImage")
+	public void getImage(HttpServletRequest req, HttpServletResponse res, @RequestParam("id") int id)
+			throws IOException {
+		res.setContentType("image/jpeg");
+		FilesDto file = fileMapper.getReceiptImage(id);
+		byte[] imagefile = file.getData();
+		InputStream in1 = new ByteArrayInputStream(imagefile);
+		IOUtils.copy(in1, res.getOutputStream());
+	}
+
+	/* 선택한 회계 내역 삭제 */
+	@RequestMapping("delete")
+	public String delete(Model model, @RequestParam("id") int id, @RequestParam("club_id") int club_id) {
+		int f_id = accountMapper.findFileId(id);
+		accountMapper.delete(id);
+		fileMapper.delete(f_id);
+		return "redirect:account#fh5co-tab-feature-center" + club_id;
 	}
 }

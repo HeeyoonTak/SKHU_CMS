@@ -23,10 +23,8 @@
 </div>
 
 <div id="fh5co-main">
-
 	<div class="container">
 		<div class="row">
-
 			<div class="content-box animate-box">
 				<div class="col-md-9 col-md-push-3" id="fh5co-content">
 					<div class="row">
@@ -66,10 +64,10 @@
 								</div>
 								<div class="row">
 									<div class="col-md-12">
-<!-- 									<a class="btn btn-primary btn-lg" id="l_search_term_btn" style="float:right;" href="n_content">목록</a> -->
 									<sec:authorize access="authenticated">
 									<%-- <c:if test = "${user.user_type == '동연'}"> --%>
-								        <a class="btn btn-primary btn-lg" id="l_search_term_btn" style="float:right;">작성</a>
+								        <a href="m_create" class="btn btn-primary btn-lg"
+												id="l_search_term_btn" style="float: right;">작성</a>
 								    <%-- </c:if> --%>
 								    </sec:authorize>	
 									</div>
