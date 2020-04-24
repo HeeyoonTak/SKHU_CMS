@@ -29,4 +29,25 @@ public class AccountDaoImpl implements AccountDao {
 		return accountMapper.findBySem(sem_name);
 	}
 
+	@Override
+	public void update(AccountDto account) {
+		accountMapper.update(account);
+		return;
+	}
+
+	@Override
+	public void insert(AccountDto account) {
+		accountMapper.insert(account);
+		return;
+	}
+
+	@Override
+	public void delete(int id) {
+		accountMapper.delete(id);
+	}
+
+	@Override
+	public List<AccountDto> getTotalByClubId(String sem_name) {
+		return accountMapper.getTotalByClubId(sem_name);
+	}
 }

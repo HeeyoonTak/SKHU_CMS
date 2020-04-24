@@ -22,7 +22,7 @@ public class ClubDaoImpl implements ClubDao {
 	public ClubDto findById(int id) {
 		return clubMapper.findById(id);
 	}
-
+	
 	@Override
 	public List<ClubDto> findAll(){
 		return clubMapper.findAll();

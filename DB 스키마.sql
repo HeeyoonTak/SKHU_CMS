@@ -281,7 +281,7 @@ DROP TABLE IF EXISTS `sem_date`;
 CREATE TABLE `sem_date` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `start_date` date NOT NULL,
-  `ent_date` date NOT NULL,
+  `end_date` date NOT NULL,
   `sem_name` varchar(45) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
