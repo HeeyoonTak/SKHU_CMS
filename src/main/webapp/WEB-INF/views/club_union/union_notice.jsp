@@ -37,23 +37,19 @@
 									<tr class="text-center">
 										<th style="text-align: center">제목</th>
 										<th style="text-align: center">등록일</th>
-										<%-- <c:if test = "${user.user_type == '동연'}"> --%>
 										<sec:authorize access="authenticated">
 											<th></th>
 										</sec:authorize>
-										<%-- </c:if> --%>
 									</tr>
 									<c:forEach var="board" items="${boards}">
 										<tr>
 											<td><a href="n_content?id=${board.id}">${board.title}</a></td>
 											<td style="text-align: center"><fmt:formatDate
 													pattern="yyyy-MM-dd" value="${ board.date }" /></td>
-											<%-- <c:if test = "${user.user_type == '동연'}"> --%>
 											<sec:authorize access="authenticated">
 												<td><a href="n_delete?id=${board.id}"
 													style="color: #ff0000">x</a></td>
 											</sec:authorize>
-											<%-- </c:if> --%>
 										</tr>
 									</c:forEach>
 								</table>
@@ -67,10 +63,8 @@
 								<div class="row">
 									<div class="col-md-12">
 										<sec:authorize access="authenticated">
-											<%-- <c:if test = "${user.user_type == '동연'}"> --%>
 											<a href="n_create" class="btn btn-primary btn-lg"
 												id="l_search_term_btn" style="float: right;">작성</a>
-											<%-- </c:if> --%>
 										</sec:authorize>
 									</div>
 								</div>
