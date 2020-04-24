@@ -68,8 +68,8 @@
 									<div class="col-md-12">
 										<sec:authorize access="authenticated">
 											<%-- <c:if test = "${user.user_type == '동연'}"> --%>
-											<a class="btn btn-primary btn-lg" id="l_search_term_btn"
-												style="float: right;">작성</a>
+											<a href="n_create" class="btn btn-primary btn-lg"
+												id="l_search_term_btn" style="float: right;">작성</a>
 											<%-- </c:if> --%>
 										</sec:authorize>
 									</div>

@@ -66,8 +66,22 @@
 <link rel="stylesheet" href="${R}css/hm_style.css">
 
 <link rel="stylesheet" href="${R}css/yj_style.css">
+<!-- summernote 서식 -->
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+<!-- <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+ -->
+ <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+   <!-- include summernote css/js-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>
+    <!-- include summernote-ko-KR -->
+    <script src="${R}res/summernote/lang/summernote-ko-KR.js"></script>
+    
 
 <!-- Modernizr JS -->
 <script src="${R}js/modernizr-2.6.2.min.js"></script>
@@ -93,4 +107,18 @@
                                 <td><a href="#">x</a></td>                            </tr>`;
             $(obj).parents('tbody').prev('#addTd').append(str);
         }
+
 </script>
+
+    <script>
+    $(document).ready(function() {
+          $('#summernote').summernote({
+                 placeholder: 'content',
+                minHeight: 370,
+                maxHeight: null,
+                focus: true, 
+                lang : 'ko-KR'
+          });
+        });
+    </script>
+
