@@ -73,7 +73,7 @@
 											<%-- <input type="hidden" name="board_name_id" value="${ bid}" />
 											<input type="hidden" name="club_id" value="${ cid }" />  --%><a
 												class="btn btn-primary btn-lg" id="l_search_term_btn"
-												style="float: right;" href="notice">목록</a>
+												style="float: right;" href="javascript:history.back();">목록</a>
 												<button class="btn btn-lg btn-primary" type="submit" style="float: right;" onclick="goWrite(this.form)">저장</button>
 											
 										</div>

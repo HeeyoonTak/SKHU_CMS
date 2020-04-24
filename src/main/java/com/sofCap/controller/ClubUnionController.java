@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+//import org.json.JSONArray;
+//import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,10 +15,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sofCap.dto.AccountDto;
-import com.sofCap.dto.AttendanceDto;
 import com.sofCap.dto.BoardDto;
 import com.sofCap.dto.SemDateDto;
 import com.sofCap.dto.UserDto;
@@ -74,26 +72,26 @@ public class ClubUnionController {
 	 * 작성일 : 2020-04-20 코멘트 : 출석체크 값 불러오는 모달 데이터 구현 설 명 : json 형식으로 데이터 생성하여 화면에 전달.
 	 * 모달 내 input checkbox 값으로 사용.
 	 */
-	@ResponseBody
-	@RequestMapping(value = "/update", method = RequestMethod.POST, produces = "application/json; charset=utf8")
-	public String updateModal(@RequestParam("find") Date date, Model model) throws Exception {
-
-		// 출석체크 수정 모달창 사용하기 위한 데이터 가공
-		List<AttendanceDto> check = attendanceService.findByDate(date);
-
-		JSONObject robj = new JSONObject();
-		JSONArray jlist = new JSONArray();
-		for (int i = 0; i < check.size(); i++) {
-			JSONObject item = new JSONObject();
-			item.put("name", "" + check.get(i).getName());
-			item.put("check", "" + check.get(i).getCheck());
-			item.put("id", "" + check.get(i).getId());
-			jlist.put(item);
-		}
-		robj.put("testlist", jlist);
-
-		return robj.toString();
-	}
+//	@ResponseBody
+//	@RequestMapping(value = "/update", method = RequestMethod.POST, produces = "application/json; charset=utf8")
+//	public String updateModal(@RequestParam("find") Date date, Model model) throws Exception {
+//
+//		// 출석체크 수정 모달창 사용하기 위한 데이터 가공
+//		List<AttendanceDto> check = attendanceService.findByDate(date);
+//
+//		JSONObject robj = new JSONObject();
+//		JSONArray jlist = new JSONArray();
+//		for (int i = 0; i < check.size(); i++) {
+//			JSONObject item = new JSONObject();
+//			item.put("name", "" + check.get(i).getName());
+//			item.put("check", "" + check.get(i).getCheck());
+//			item.put("id", "" + check.get(i).getId());
+//			jlist.put(item);
+//		}
+//		robj.put("testlist", jlist);
+//
+//		return robj.toString();
+//	}
 
 	/*
 	 * 작성일 : 2020-04-21 코멘트 : 출석체크 값 수정 로직 구현 설 명 : 출석 체크 수정을 위해 해당 날짜값을 전달받아
@@ -157,31 +155,6 @@ public class ClubUnionController {
 		return "redirect:notice";
 	}
 
-	@RequestMapping("minutes")
-	public String union_minutes(Model model, Principal principal) {
-		UserDto user = userService.findByLoginId(principal.getName());
-		List<BoardDto> boards = boardService.findAll_m();
-		model.addAttribute("user", user);
-		model.addAttribute("boards", boards);
-		return "cunion_minutes";
-	}
-
-	@RequestMapping("m_content")
-	public String m_content(Model model, @RequestParam("id") int id) {
-		BoardDto board = boardService.findOne(id);
-		model.addAttribute("board", board);
-		return "club_union/m_content";
-	}
-
-	@RequestMapping("m_delete")
-	public String m_delete(Model model, @RequestParam("id") int id) {
-		boardService.delete(id);
-		return "redirect:minutes";
-	}
-
-	@Autowired
-	BoardMapper boardMapper;
-
 	@RequestMapping(value="n_edit", method=RequestMethod.GET)
     public String n_edit(@RequestParam("id") int id, Model model, BoardDto board) {
         board.setBoard_name_id(3);
@@ -215,6 +188,66 @@ public class ClubUnionController {
     	boardService.insert(board);
         return "redirect:n_content?id=" + board.getId();
     }
+
+	@RequestMapping("minutes")
+	public String union_minutes(Model model, Principal principal) {
+		UserDto user = userService.findByLoginId(principal.getName());
+		List<BoardDto> boards = boardService.findAll_m();
+		model.addAttribute("user", user);
+		model.addAttribute("boards", boards);
+		return "club_union/union_minutes";
+	}
+
+	@RequestMapping("m_content")
+	public String m_content(Model model, @RequestParam("id") int id) {
+		BoardDto board = boardService.findOne(id);
+		model.addAttribute("board", board);
+		return "club_union/m_content";
+	}
+
+	@RequestMapping("m_delete")
+	public String m_delete(Model model, @RequestParam("id") int id) {
+		boardService.delete(id);
+		return "redirect:minutes";
+	}
+
+	@RequestMapping(value="m_edit", method=RequestMethod.GET)
+    public String m_edit(@RequestParam("id") int id, Model model, BoardDto board) {
+        board.setBoard_name_id(4);
+        board.setClub_id(1);
+        board = boardService.findById(id);
+        model.addAttribute("board", board);
+        return "club_union/posting";
+    }
+
+    @Transactional
+    @RequestMapping(value="m_edit", method=RequestMethod.POST)
+    public String m_edit(BoardDto board, Model model) {
+        boardService.update(board);
+        return "redirect:m_content?id=" + board.getId();
+    }
+
+    @RequestMapping(value="m_create", method=RequestMethod.GET)
+    public String m_create(Model model, BoardDto board) {
+    	board.setBoard_name_id(4);
+        board.setClub_id(1);
+		board = new BoardDto();
+		model.addAttribute("board", board);
+        return "club_union/posting";
+    }
+
+    @Transactional
+    @RequestMapping(value="m_create", method=RequestMethod.POST)
+    public String m_create(BoardDto board, Model model) {
+    	board.setBoard_name_id(4);
+        board.setClub_id(1);
+    	boardService.insert(board);
+        return "redirect:m_content?id=" + board.getId();
+    }
+
+	@Autowired
+	BoardMapper boardMapper;
+
 
 
 	@Autowired
