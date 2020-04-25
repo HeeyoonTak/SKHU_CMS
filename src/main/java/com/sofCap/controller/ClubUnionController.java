@@ -76,9 +76,8 @@ public class ClubUnionController {
 	AccountMapper accountMapper;
 	FileService fileService;
 
-
 	/*
-	 * 작성일 : 2020-04-18 코멘트 : 화면 조회 기능 구현
+	 * jyj_attendance 동아리 연합회 출석체크
 	 */
 	@RequestMapping("attendance")
 	public String attendance(Model model, @RequestParam(value = "semId", defaultValue = "0") int semId) {
@@ -96,10 +95,8 @@ public class ClubUnionController {
 			semId = semDate.get(semDate.size() - 1).getId();
 		}
 
-		Date start = attendanceService.findLastSem().getStart_date();
-		Date end = attendanceService.findLastSem().getEnd_date();
-		model.addAttribute("start",start);
-		model.addAttribute("end",end);
+		model.addAttribute("start", attendanceService.findLastSem().getStart_date());
+		model.addAttribute("end", attendanceService.findLastSem().getEnd_date());
 		model.addAttribute("semDate", semDate);
 		model.addAttribute("selectSemId", semId);
 		model.addAttribute("findDate", attendanceService.findDate(semId));
@@ -110,8 +107,7 @@ public class ClubUnionController {
 	}
 
 	/*
-	 * 작성일 : 2020-04-20 코멘트 : 출석체크 값 불러오는 모달 데이터 구현 설 명 : json 형식으로 데이터 생성하여 화면에 전달.
-	 * 모달 내 input checkbox 값으로 사용.
+	 * 출석체크 값 불러오는 모달 데이터 구현 json 형식으로 데이터 생성하여 화면에 전달 모달 내 input checkbox 값으로 사용
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/update", method = RequestMethod.POST, produces = "application/json; charset=utf8")
@@ -135,8 +131,7 @@ public class ClubUnionController {
 	}
 
 	/*
-	 * 작성일 : 2020-04-21 코멘트 : 출석체크 값 수정 로직 구현 설 명 : 출석 체크 수정을 위해 해당 날짜값을 전달받아
-	 * allUpdate 처리. 체크한 해당 id값을 가져와 update.
+	 * 출석체크 값 수정 로직 구현 출석 체크 수정을 위해 해당 날짜값을 전달받아 allUpdate 처리 -> 체크한 해당 id값을 가져와 update
 	 */
 	@RequestMapping(value = "attendance", method = RequestMethod.POST)
 	public String attendanceUpdate(Model model, @RequestParam(value = "updateck", defaultValue = "0") int[] updateck,
@@ -154,6 +149,9 @@ public class ClubUnionController {
 		return "redirect:/club_union/attendance";
 	}
 
+	/*
+	 * 출석체크 값 삽입 로직 구현
+	 */
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public String createModal(@RequestParam("date") Date date, Model model, RedirectAttributes rttr) {
 
@@ -163,23 +161,25 @@ public class ClubUnionController {
 		List<String> findDate = attendanceService.findDate(lastSem);
 
 		// 삽입하는 날짜가 기존에 존재하는지 확인 후 삽입 or 에러 메시지
-		Date from = date;
+/*		Date from = date;
 		SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd");
 		String to = fm.format(from);
 		if (!findDate.contains(to)) {
 			attendanceService.dateNow(date, lastSem);
 		} else {
 			rttr.addFlashAttribute("result", "registerOK");
-		}
+		}*/
 		return "redirect:/club_union/attendance";
 	}
 
+	/*
+	 * 출석체크 값 삭제 로직 구현
+	 */
 	@RequestMapping("attendance_delete")
 	public String delete(Model model, @RequestParam("date") Date date) {
 		attendanceService.delete(date);
 		return "redirect:attendance";
 	}
-
 
 	@RequestMapping("notice")
 	public String union_notice(Model model, Principal principal) {
@@ -203,39 +203,39 @@ public class ClubUnionController {
 		return "redirect:notice";
 	}
 
-	@RequestMapping(value="n_edit", method=RequestMethod.GET)
-    public String n_edit(@RequestParam("id") int id, Model model, BoardDto board) {
-        board.setBoard_name_id(3);
-        board.setClub_id(1);
-        board = boardService.findById(id);
-        model.addAttribute("board", board);
-        return "club_union/posting";
-    }
+	@RequestMapping(value = "n_edit", method = RequestMethod.GET)
+	public String n_edit(@RequestParam("id") int id, Model model, BoardDto board) {
+		board.setBoard_name_id(3);
+		board.setClub_id(1);
+		board = boardService.findById(id);
+		model.addAttribute("board", board);
+		return "club_union/posting";
+	}
 
-    @Transactional
-    @RequestMapping(value="n_edit", method=RequestMethod.POST)
-    public String n_edit(BoardDto board, Model model) {
-        boardService.update(board);
-        return "redirect:n_content?id=" + board.getId();
-    }
+	@Transactional
+	@RequestMapping(value = "n_edit", method = RequestMethod.POST)
+	public String n_edit(BoardDto board, Model model) {
+		boardService.update(board);
+		return "redirect:n_content?id=" + board.getId();
+	}
 
-    @RequestMapping(value="n_create", method=RequestMethod.GET)
-    public String n_create(Model model, BoardDto board) {
-    	board.setBoard_name_id(3);
-        board.setClub_id(1);
+	@RequestMapping(value = "n_create", method = RequestMethod.GET)
+	public String n_create(Model model, BoardDto board) {
+		board.setBoard_name_id(3);
+		board.setClub_id(1);
 		board = new BoardDto();
 		model.addAttribute("board", board);
-        return "club_union/posting";
-    }
+		return "club_union/posting";
+	}
 
-    @Transactional
-    @RequestMapping(value="n_create", method=RequestMethod.POST)
-    public String n_create(BoardDto board, Model model) {
-    	board.setBoard_name_id(3);
-        board.setClub_id(1);
-    	boardService.insert(board);
-        return "redirect:n_content?id=" + board.getId();
-    }
+	@Transactional
+	@RequestMapping(value = "n_create", method = RequestMethod.POST)
+	public String n_create(BoardDto board, Model model) {
+		board.setBoard_name_id(3);
+		board.setClub_id(1);
+		boardService.insert(board);
+		return "redirect:n_content?id=" + board.getId();
+	}
 
 	@RequestMapping("minutes")
 	public String union_minutes(Model model, Principal principal) {
@@ -259,41 +259,41 @@ public class ClubUnionController {
 		return "redirect:minutes";
 	}
 
-	@RequestMapping(value="m_edit", method=RequestMethod.GET)
-    public String m_edit(@RequestParam("id") int id, Model model, BoardDto board) {
-        board.setBoard_name_id(4);
-        board.setClub_id(1);
-        board = boardService.findById(id);
-        model.addAttribute("board", board);
-        return "club_union/posting";
-    }
+	@RequestMapping(value = "m_edit", method = RequestMethod.GET)
+	public String m_edit(@RequestParam("id") int id, Model model, BoardDto board) {
+		board.setBoard_name_id(4);
+		board.setClub_id(1);
+		board = boardService.findById(id);
+		model.addAttribute("board", board);
+		return "club_union/posting";
+	}
 
-    @Transactional
-    @RequestMapping(value="m_edit", method=RequestMethod.POST)
-    public String m_edit(BoardDto board, Model model) {
-        boardService.update(board);
-        return "redirect:m_content?id=" + board.getId();
-    }
+	@Transactional
+	@RequestMapping(value = "m_edit", method = RequestMethod.POST)
+	public String m_edit(BoardDto board, Model model) {
+		boardService.update(board);
+		return "redirect:m_content?id=" + board.getId();
+	}
 
-    @RequestMapping(value="m_create", method=RequestMethod.GET)
-    public String m_create(Model model, BoardDto board) {
-    	board.setBoard_name_id(4);
-        board.setClub_id(1);
+	@RequestMapping(value = "m_create", method = RequestMethod.GET)
+	public String m_create(Model model, BoardDto board) {
+		board.setBoard_name_id(4);
+		board.setClub_id(1);
 		board = new BoardDto();
 		model.addAttribute("board", board);
-        return "club_union/posting";
-    }
+		return "club_union/posting";
+	}
 
-    @Transactional
-    @RequestMapping(value="m_create", method=RequestMethod.POST)
-    public String m_create(BoardDto board, Model model) {
-    	board.setBoard_name_id(4);
-        board.setClub_id(1);
-    	boardService.insert(board);
-        return "redirect:m_content?id=" + board.getId();
-    }
+	@Transactional
+	@RequestMapping(value = "m_create", method = RequestMethod.POST)
+	public String m_create(BoardDto board, Model model) {
+		board.setBoard_name_id(4);
+		board.setClub_id(1);
+		boardService.insert(board);
+		return "redirect:m_content?id=" + board.getId();
+	}
 
-    @RequestMapping("club_list")
+	@RequestMapping("club_list")
 	public String list(Model model) {
 		List<UserDto> users = userMapper.findAll();
 		model.addAttribute("users", users);
@@ -332,10 +332,10 @@ public class ClubUnionController {
 		return "redirect:club_list";
 	}
 
-   /* LHM_account
-    * 동아리 연합회 회계 */
+	/*
+	 * LHM_account 동아리 연합회 회계
+	 */
 	String[] account_type = { "중앙지원금", "동아리회비" };
-
 
 //	@RequestMapping("account")
 //	public List<AccountDto> account() {
