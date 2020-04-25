@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.Principal;
 import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -131,7 +130,8 @@ public class ClubUnionController {
 	}
 
 	/*
-	 * 출석체크 값 수정 로직 구현 출석 체크 수정을 위해 해당 날짜값을 전달받아 allUpdate 처리 -> 체크한 해당 id값을 가져와 update
+	 * 출석체크 값 수정 로직 구현
+	 * 출석 체크 수정을 위해 해당 날짜값을 전달받아 allUpdate 처리 -> 체크한 해당 id값을 가져와 update
 	 */
 	@RequestMapping(value = "attendance", method = RequestMethod.POST)
 	public String attendanceUpdate(Model model, @RequestParam(value = "updateck", defaultValue = "0") int[] updateck,
@@ -158,17 +158,8 @@ public class ClubUnionController {
 		// 마지막 학기 id값
 		int lastSem = attendanceService.findLastSem().getId();
 
-		List<String> findDate = attendanceService.findDate(lastSem);
+		attendanceService.dateNow(date, lastSem);
 
-		// 삽입하는 날짜가 기존에 존재하는지 확인 후 삽입 or 에러 메시지
-/*		Date from = date;
-		SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd");
-		String to = fm.format(from);
-		if (!findDate.contains(to)) {
-			attendanceService.dateNow(date, lastSem);
-		} else {
-			rttr.addFlashAttribute("result", "registerOK");
-		}*/
 		return "redirect:/club_union/attendance";
 	}
 
