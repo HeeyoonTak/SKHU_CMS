@@ -3,7 +3,6 @@ package com.sofCap.dao;
 import java.sql.Date;
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -59,11 +58,6 @@ public class AttendanceDaoImpl implements AttendanceDao {
 	@Override
 	public void dateNew(Date date) {
 		attendanceMapper.dateNew(date);
-	}
-
-	@Override
-	public void insert(@Param("club_id") int club_id,@Param("check") int check,@Param("date") Date date,@Param("user_id") int user_id) {
-		attendanceMapper.insert(club_id, check, date, user_id);
 	}
 
 	@Override

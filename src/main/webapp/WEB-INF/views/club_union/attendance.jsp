@@ -139,14 +139,14 @@
 					<!-- 끝 -->
 
 					<!-- updateModal -->
-					<form:form method="post" action="attendance">
+					<form:form method="post" action="attendance" id="modal">
 						<div class="modal fade" id="updateModal" role="dialog">
 							<div class="modal-dialog modal-md">
 
 								<!-- Modal content-->
 								<div class="modal-content">
 									<div class="modal-header">
-										<h4 id="modal-title" class="modal-title">출석체크 수정</h4>
+										<h4 id="modal-title" class="modal-title"></h4>
 									</div>
 									<div class="modal-body">
 										<table class="table attendance_check_table"
@@ -154,8 +154,16 @@
 											<tr>
 												<td>출석 날짜</td>
 												<td><input type="date" class="form-control input-md"
-													style="width: 200px" name="date" id="date" readonly></td>
+													style="width: 200px" name="date" id="date"></td>
 											</tr>
+											<c:forEach var="lastSemUser" items="${lastSemUser}"
+												varStatus="status">
+												<tr>
+													<td>${lastSemUser}</td>
+													<td><input type='checkbox'
+														class='form-control input-sm' name='checkk' value='${id}'></td>
+												</tr>
+											</c:forEach>
 										</table>
 									</div>
 									<div class="modal-footer">
@@ -189,18 +197,34 @@
 		$("#selectSemId").val(${selectSemId}).prop("selected", true);
 		};
 
-		//출석체크 생성 모달
+		/* //출석체크 생성 모달 - 수정 전
 	    $('#createBtn').on('click', function() {
-	    	$('#createModal').find('tr:gt(0)').remove();
-	    	$('#chdate').val('default');
-		    $('#createModal').modal('show');
+	    	$('#updateModal').find('tr:gt(0)').remove();
+	    	$('#date').val('default');
+	    	$('#updateModal #modal-title').text('출석체크');
+	    	$('#date').attr('readonly', false);
+	    	$('#modal').attr('action', 'create');
+	    	$('#modal').attr('onsubmit','return checkForm();');
+		    $('#updateModal').modal('show');
+	    }); */
+
+	  //출석체크 생성 모달 - 수정 후
+	    $('#createBtn').on('click', function() {
+	    	//$('#updateModal').find('tr:gt(0)').remove();
+	    	$('#date').val('default');
+	    	$('#updateModal #modal-title').text('출석체크');
+	    	$('#date').attr('readonly', false);
+	    	$('#modal').attr('action', 'create');
+	    	$('#modal').attr('onsubmit','return checkForm();');
+		    $('#updateModal').modal('show');
 	    });
   
 	    //출석체크 생성 - 기존에 존재하는 날짜일 때 에러 메시지 출력
 		//출석체크 생성 - 현재 학기에 해당하는 날짜일때만 삽입 가능  !에러 메시지 출력
 		function checkForm() {
-
-	    	var date = $('#chdate').val();
+			//var check = $("input[name='checkk']").prop("checked");
+			console.log(check);
+	    	var date = $('#date').val();
 	    	var overlap = '';
 	    	if ("${findDate}".indexOf(date) != -1) {
 				overlap = 'O';
@@ -225,6 +249,10 @@
 	    		$(this).click(function(){
 	    			$('#updateModal').find('tr:gt(0)').remove();
 	    			$('#updateModal').modal('show');
+	    			$('#updateModal #modal-title').text('출석체크 수정');
+	    			$('#date').attr('readonly', true);
+	    			$('#modal').attr('action', 'attendance');
+	    			$('#modal').attr('onsubmit','');
 				    var find = $(this).attr("find");
 			    	var obj;
 		    	    jQuery.ajax({

@@ -3,7 +3,6 @@ package com.sofCap.service;
 import java.sql.Date;
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -64,11 +63,6 @@ public class AttendanceServiceImpl implements AttendanceService {
 	public void dateNew(Date date) {
 		attendanceDao.dateNew(date);
 		return;
-	}
-
-	@Override
-	public void insert(@Param("club_id") int club_id,@Param("check") int check,@Param("date") Date date,@Param("user_id") int user_id) {
-		attendanceDao.insert(club_id,check,date,user_id);
 	}
 
 	@Override

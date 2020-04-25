@@ -28,7 +28,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sofCap.dto.AccountDto;
 import com.sofCap.dto.AttendanceDto;
@@ -93,7 +92,7 @@ public class ClubUnionController {
 		if (semId == 0) {
 			semId = semDate.get(semDate.size() - 1).getId();
 		}
-
+		model.addAttribute("lastSemUser", attendanceService.findAdmin(attendanceService.findLastSem().getId()));
 		model.addAttribute("start", attendanceService.findLastSem().getStart_date());
 		model.addAttribute("end", attendanceService.findLastSem().getEnd_date());
 		model.addAttribute("semDate", semDate);
@@ -130,8 +129,8 @@ public class ClubUnionController {
 	}
 
 	/*
-	 * 출석체크 값 수정 로직 구현
-	 * 출석 체크 수정을 위해 해당 날짜값을 전달받아 allUpdate 처리 -> 체크한 해당 id값을 가져와 update
+	 * 출석체크 값 수정 로직 구현 출석 체크 수정을 위해 해당 날짜값을 전달받아 allUpdate 처리 -> 체크한 해당 id값을 가져와
+	 * update
 	 */
 	@RequestMapping(value = "attendance", method = RequestMethod.POST)
 	public String attendanceUpdate(Model model, @RequestParam(value = "updateck", defaultValue = "0") int[] updateck,
@@ -144,6 +143,7 @@ public class ClubUnionController {
 		if (updateck[0] != 0) {
 			for (int i = 0; i < updateck.length; i++) {
 				attendanceService.update(updateck[i]);
+				System.out.println("이거" + (updateck[i]));
 			}
 		}
 		return "redirect:/club_union/attendance";
@@ -153,12 +153,20 @@ public class ClubUnionController {
 	 * 출석체크 값 삽입 로직 구현
 	 */
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public String createModal(@RequestParam("date") Date date, Model model, RedirectAttributes rttr) {
+	public String createModal(Model model, @RequestParam("date") Date date) {
 
+		System.out.println("date: " + date);
 		// 마지막 학기 id값
 		int lastSem = attendanceService.findLastSem().getId();
 
 		attendanceService.dateNow(date, lastSem);
+
+		List<AttendanceDto> check = attendanceService.findByDate(date);
+
+		for (int i = 0; i < check.size(); i++) {
+			attendanceService.update(check.get(i).getId());
+			System.out.println(attendanceService.findByDate(date).get(i).getId());
+		}
 
 		return "redirect:/club_union/attendance";
 	}

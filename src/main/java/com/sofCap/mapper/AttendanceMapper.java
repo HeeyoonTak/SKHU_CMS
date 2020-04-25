@@ -4,7 +4,6 @@ import java.sql.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import com.sofCap.dto.AttendanceDto;
 import com.sofCap.dto.SemDateDto;
@@ -29,8 +28,6 @@ public interface AttendanceMapper {
 	void dateNow(Date date, int semId);
 
 	void dateNew(Date date);
-
-	void insert(@Param("club_id") int club_id,@Param("check") int check,@Param("date") Date date,@Param("user_id") int user_id);
 
 	void allUpdate(String date);
 
