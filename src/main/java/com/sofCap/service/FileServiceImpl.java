@@ -8,14 +8,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.sofCap.dao.FileDao;
 import com.sofCap.dto.FilesDto;
-import com.sofCap.mapper.FileMapper;
 
 @Service
 public class FileServiceImpl implements FileService {
 	@Autowired
 	FileDao fileDao;
-	@Autowired
-	FileMapper fileMapper;
 	FilesDto afd = new FilesDto();
 
 	@Override
@@ -28,9 +25,9 @@ public class FileServiceImpl implements FileService {
 	public int accountFileUpload(MultipartFile uploadFile) throws IOException {
 		String fileName = System.currentTimeMillis() + "_" + uploadFile.getOriginalFilename();
 		byte[] data = null;
-		long size = uploadFile.getSize();
+		int size = (int) uploadFile.getSize();
 		data = uploadFile.getBytes();
-		
+
 		afd.setFile_name(fileName);
 		afd.setData(data);
 		afd.setSize(size);

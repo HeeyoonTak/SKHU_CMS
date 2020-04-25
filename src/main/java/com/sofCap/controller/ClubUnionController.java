@@ -1,13 +1,11 @@
 package com.sofCap.controller;
 
-import java.security.Principal;
-import java.sql.Date;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.Principal;
 import java.sql.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,22 +20,21 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.sofCap.dto.AccountDto;
 import com.sofCap.dto.BoardDto;
+import com.sofCap.dto.FilesDto;
 import com.sofCap.dto.SemDateDto;
 import com.sofCap.dto.UserDto;
-import com.sofCap.mapper.BoardMapper;
-import com.sofCap.mapper.UserMapper;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.multipart.MultipartFile;
-
-import com.sofCap.dto.FilesDto;
 import com.sofCap.mapper.AccountMapper;
+import com.sofCap.mapper.BoardMapper;
 import com.sofCap.mapper.FileMapper;
+import com.sofCap.mapper.UserMapper;
 import com.sofCap.model.SemDate;
 import com.sofCap.service.AccountService;
 import com.sofCap.service.AttendanceService;
@@ -71,6 +68,7 @@ public class ClubUnionController {
 	FileMapper fileMapper;
 	@Autowired
 	AccountMapper accountMapper;
+	@Autowired
 	FileService fileService;
 
 
@@ -277,7 +275,7 @@ public class ClubUnionController {
     	boardService.insert(board);
         return "redirect:m_content?id=" + board.getId();
     }
-    
+
     @RequestMapping("club_list")
 	public String list(Model model) {
 		List<UserDto> users = userMapper.findAll();
@@ -317,11 +315,11 @@ public class ClubUnionController {
 		return "redirect:club_list";
 	}
 
-   /* LHM_account 
+   /* LHM_account
     * 동아리 연합회 회계 */
 	String[] account_type = { "중앙지원금", "동아리회비" };
 
-	
+
 //	@RequestMapping("account")
 //	public List<AccountDto> account() {
 //		return accountService.findAll();
@@ -369,12 +367,6 @@ public class ClubUnionController {
 			@RequestParam("account_type") int[] account_type,
 			@RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date[] date, SemDate semdate) throws IOException {
 		String sem_name = semdate.getSem_name();
-//		System.out.println(club_id);
-//		System.out.println(Arrays.toString(price));
-//		System.out.println(Arrays.toString(remark));
-//		System.out.println(Arrays.toString(account_type));
-//		System.out.println(Arrays.toString(file));
-//		System.out.println(Arrays.toString(date));
 		save(club_id, price, remark, file, account_type, date, sem_name);
 		return "redirect:account#fh5co-tab-feature-center" + club_id;
 	}
@@ -387,23 +379,17 @@ public class ClubUnionController {
 		for (int i = 0; i < price.length; ++i) {
 			AccountDto account = new AccountDto();
 			account.setClub_id(club_id);
-			account.setPrice((int) price[i]);
+			account.setPrice(price[i]);
 //			int total = accountService.getTotalByClubId(sem_name, club_id[i]);
 			account.setTotal(0); // total culmn 사용안함
 			account.setRemark(remark[i]);
-			account.setAccount_type((int) account_type[i]);
+			account.setAccount_type(account_type[i]);
 			account.setDate(date[i]);
-			System.out.println(account.getClub_id());
-			System.out.println(account.getPrice());
-			System.out.println(account.getRemark());
-			System.out.println(account.getDate());
-
-			int f_id = fileService.accountFileUpload(file[i]);
-			account.setFile_id((int) f_id);
-			System.out.println(f_id);
+			if(!file[i].isEmpty()) {
+				int f_id = fileService.accountFileUpload(file[i]);
+				account.setFile_id(f_id);
+			}
 			accountService.insert(account);
-			System.out.println("insert");
-
 		}
 	}
 
