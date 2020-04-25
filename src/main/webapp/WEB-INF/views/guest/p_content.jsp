@@ -27,68 +27,34 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12 animate-box">
-				<!-- <div id="fh5co-tab-feature-vertical" class="fh5co-tab">
-							<ul class="resp-tabs-list hor_1">
-								<li><i class="fh5co-tab-menu-icon ti-comment"></i>소개글</li>
-								<li><i class="fh5co-tab-menu-icon ti-announcement"></i> 공지사항</li>
-								<li><i class="fh5co-tab-menu-icon ti-write"></i> 모집</li>
-							</ul> -->
-				<!-- <div class="resp-tabs-container hor_1"> -->
-
-				<div>
-					<div class="row">
-						<div class="col-md-12" style="margin-bottom: 20px">
-							<h2 class="h3">홍보 게시판</h2>
-						</div>
-						<div class="col-md-12">
-							<div style="margin-left: 50px">
-								<table class="table table-striped " >
-						
-									<tr style="text-align: center">
-										<!-- <th style="text-align: center; width: 120px">제목</th> -->
-										<th style="text-align: center;">${board.title}</th>
-									</tr>
-									<tr style="text-align: center">
-										<!-- <td style="vertical-align: middle;">내용</td> -->
-										<td style="height: 300px">${board.content}</td>
-									</tr>
-									<tr style="text-align: center">
-										<!-- <td>작성일</td> -->
-										<td><fmt:formatDate pattern="yyyy-MM-dd" value="${ board.date }" /></td>
-									</tr>
-									<tr style="text-align: center">
-										<!-- <td>파일</td> -->
-										<td>파일</td>
-									</tr>
-									
-								</table>
-								<div class="row">
-									<div class="col-md-12">
-										<a class="btn btn-primary btn-lg" id="l_search_term_btn" style="float:right;" href="publicity">목록</a>
-									</div>
+				<div class="row">
+					<div class="col-md-12" style="margin-bottom: 20px">
+						<h2 class="h3">홍보 게시판</h2>
+					</div>
+					<div class="col-md-12">
+						<div style="margin-left: 50px">
+							<table class="table table-striped ">
+								<tr style="text-align: center">
+									<th style="text-align: center;">${board.title}</th>
+								</tr>
+								<tr style="text-align: center">
+									<td style="height: 300px">${board.content}</td>
+								</tr>
+								<tr style="text-align: center">
+									<td><fmt:formatDate pattern="yyyy-MM-dd"
+											value="${ board.date }" /></td>
+								</tr>
+							</table>
+							<div class="row">
+								<div class="col-md-12">
+									<a class="btn btn-primary btn-lg" id="l_search_term_btn"
+										style="float: right;" href="publicity">목록</a>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<!-- 								<div>
-									<div class="row">
-										<div class="col-md-12">
-											<h2 class="h3">모집 게시판</h2>
-										</div>
-										<div class="col-md-6">
-											<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda quis deserunt dolorem, debitis cupiditate nihil velit dolores, inventore voluptatem delectus quos atque similique natus eaque qui, nisi repudiandae dolore sit! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum aut maxime eius magnam.</p>
-										</div>
-										<div class="col-md-6">
-											<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio voluptatem, vitae nesciunt ad hic quam quisquam sit possimus officia ratione. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias, ex. Lorem ipsum dolor sit amet.</p>
-										</div>
-									</div>
-								</div> -->
-				<!-- 	</div> -->
-				<!-- 	</div> -->
 			</div>
 		</div>
 	</div>
-
-
 </div>

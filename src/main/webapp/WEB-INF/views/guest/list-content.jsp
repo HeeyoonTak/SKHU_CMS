@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
 <div id="fh5co-hero">
 	<a href="#fh5co-main"
 		class="smoothscroll fh5co-arrow to-animate hero-animate-4"><i
@@ -21,9 +20,7 @@
 		</div>
 	</div>
 </div>
-
 <div id="fh5co-main">
-
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12 animate-box">
@@ -61,9 +58,7 @@
 											<table class="table table-striped " style="width: 700px">
 												<tr class="text-center">
 													<th style="text-align: center">제목</th>
-													<!-- <th>작성자</th>  -->
 													<th style="text-align: center">등록일</th>
-													<!-- <th>조회</th>  -->
 												</tr>
 												<c:forEach var="board" items="${boards}">
 													<tr>
@@ -71,7 +66,6 @@
 														<!-- <td>아노미7</td>  -->
 														<td style="text-align: center"><fmt:formatDate
 																pattern="yyyy-MM-dd" value="${ board.date }" /></td>
-														<!-- <td class="col-sm-1">10</td>  -->
 													</tr>
 												</c:forEach>
 											</table>
@@ -146,6 +140,4 @@
 			</div>
 		</div>
 	</div>
-
-
 </div>
