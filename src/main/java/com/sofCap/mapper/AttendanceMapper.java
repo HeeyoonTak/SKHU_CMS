@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.sofCap.dto.AttendanceDto;
+import com.sofCap.dto.SemDateDto;
 
 @Mapper
 public interface AttendanceMapper {
@@ -23,7 +24,7 @@ public interface AttendanceMapper {
 
 	int findBySemId(Date date);
 
-	int findLastSem();
+	SemDateDto findLastSem();
 
 	void dateNow(Date date, int semId);
 

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.sofCap.dto.AttendanceDto;
+import com.sofCap.dto.SemDateDto;
 import com.sofCap.mapper.AttendanceMapper;
 
 @Repository
@@ -46,7 +47,7 @@ public class AttendanceDaoImpl implements AttendanceDao {
 	}
 
 	@Override
-	public int findLastSem() {
+	public SemDateDto findLastSem() {
 		return attendanceMapper.findLastSem();
 	}
 

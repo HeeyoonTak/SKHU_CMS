@@ -107,7 +107,8 @@
 					</table>
 
 					<!-- createModal -->
-					<form:form method="post" action="create">
+					<form:form method="post" action="create"
+						onsubmit="return checkForm();">
 						<div class="modal fade" id="createModal" role="dialog">
 							<div class="modal-dialog modal-md">
 								<!-- Modal content-->
@@ -200,10 +201,28 @@
 	    });
 
 	    //기존에 존재하는 날짜일 때 에러 메시지 출력
-		var result = '${result}';
+	    var result = '${result}';
 		if(result == 'registerOK'){
 			alert('기존 출석체크 목록에 존재하는 날짜는 삽입할 수 없습니다. \n출석체크 목록 확인 후 다시 시도해 주세요.');
 		}
+		
+		function checkForm() {
+
+			var date = $('#chdate').val();
+			var start = "${start}";
+			var end = "${end}";
+			var result = "${result}";
+			console.log(start);
+			console.log(result);
+			console.log(end);
+			if(start < date && date < end){
+				return true;
+			}
+			else {
+				alert('해당 학기 날짜를 선택해주세요.');
+				return false;
+			};
+		};
 
 	    //출석체크 수정 모달
 	    $("[id=attendanceUpdate]").each(function(){

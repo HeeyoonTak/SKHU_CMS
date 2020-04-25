@@ -96,6 +96,10 @@ public class ClubUnionController {
 			semId = semDate.get(semDate.size() - 1).getId();
 		}
 
+		Date start = attendanceService.findLastSem().getStart_date();
+		Date end = attendanceService.findLastSem().getEnd_date();
+		model.addAttribute("start",start);
+		model.addAttribute("end",end);
 		model.addAttribute("semDate", semDate);
 		model.addAttribute("selectSemId", semId);
 		model.addAttribute("findDate", attendanceService.findDate(semId));
@@ -154,7 +158,7 @@ public class ClubUnionController {
 	public String createModal(@RequestParam("date") Date date, Model model, RedirectAttributes rttr) {
 
 		// 마지막 학기 id값
-		int lastSem = attendanceService.findLastSem();
+		int lastSem = attendanceService.findLastSem().getId();
 
 		List<String> findDate = attendanceService.findDate(lastSem);
 

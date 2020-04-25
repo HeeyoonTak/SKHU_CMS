@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.sofCap.dto.AttendanceDto;
+import com.sofCap.dto.SemDateDto;
 
 public interface AttendanceService {
 
@@ -21,7 +22,7 @@ public interface AttendanceService {
 
 	int findBySemId(Date date);
 
-	int findLastSem();
+	SemDateDto findLastSem();
 
 	void dateNow(Date date, int semId);
 

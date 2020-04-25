@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sofCap.dao.AttendanceDao;
 import com.sofCap.dto.AttendanceDto;
+import com.sofCap.dto.SemDateDto;
 
 @Service
 public class AttendanceServiceImpl implements AttendanceService {
@@ -47,7 +48,7 @@ public class AttendanceServiceImpl implements AttendanceService {
 	}
 
 	@Override
-	public int findLastSem() {
+	public SemDateDto findLastSem() {
 		return attendanceDao.findLastSem();
 	}
 

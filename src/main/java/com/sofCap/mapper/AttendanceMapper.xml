@@ -71,8 +71,8 @@
 		where #{date} BETWEEN start_date AND end_date
 	</select>
 	
-	<select id="findLastSem" resultType="Integer"> <!-- 마지막 학기 출력 -->
-		SELECT id
+	<select id="findLastSem" resultType="SemDateDto"> <!-- 마지막 학기 출력 -->
+		SELECT *
 		FROM sem_date
 		ORDER BY end_date DESC
 		LIMIT 1
