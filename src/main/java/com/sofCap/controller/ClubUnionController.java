@@ -9,8 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-//import org.json.JSONArray;
-//import org.json.JSONObject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -144,7 +142,6 @@ public class ClubUnionController {
 		if (updateck[0] != 0) {
 			for (int i = 0; i < updateck.length; i++) {
 				attendanceService.update(updateck[i]);
-				System.out.println("이거" + (updateck[i]));
 			}
 		}
 		return "redirect:/club_union/attendance";
@@ -156,19 +153,11 @@ public class ClubUnionController {
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public String createModal(Model model, @RequestParam("date") Date date) {
 
-		System.out.println("date: " + date);
 		// 마지막 학기 id값
 		int lastSem = attendanceService.findLastSem().getId();
 
+		// 현재 학기에 해당하는 경우 - 삽입
 		attendanceService.dateNow(date, lastSem);
-
-		List<AttendanceDto> check = attendanceService.findByDate(date);
-
-		for (int i = 0; i < check.size(); i++) {
-			attendanceService.update(check.get(i).getId());
-			System.out.println(attendanceService.findByDate(date).get(i).getId());
-		}
-
 		return "redirect:/club_union/attendance";
 	}
 
@@ -282,19 +271,19 @@ public class ClubUnionController {
 		board = new BoardDto();
 		model.addAttribute("board", board);
 
-        return "club_union/posting";
-    }
+		return "club_union/posting";
+	}
 
-    @Transactional
-    @RequestMapping(value="m_create", method=RequestMethod.POST)
-    public String m_create(BoardDto board, Model model) {
-    	board.setBoard_name_id(4);
-        board.setClub_id(1);
-    	boardService.insert(board);
-        return "redirect:m_content?id=" + board.getId();
-    }
+	@Transactional
+	@RequestMapping(value = "m_create", method = RequestMethod.POST)
+	public String m_create(BoardDto board, Model model) {
+		board.setBoard_name_id(4);
+		board.setClub_id(1);
+		boardService.insert(board);
+		return "redirect:m_content?id=" + board.getId();
+	}
 
-    @RequestMapping("club_list")
+	@RequestMapping("club_list")
 	public String list(Model model) {
 		List<UserDto> users = userMapper.findAll();
 		model.addAttribute("users", users);
@@ -333,11 +322,10 @@ public class ClubUnionController {
 		return "redirect:club_list";
 	}
 
-
-   /* LHM_account
-    * 동아리 연합회 회계 */
+	/*
+	 * LHM_account 동아리 연합회 회계
+	 */
 	String[] account_type = { "중앙지원금", "동아리회비" };
-
 
 //	@RequestMapping("account")
 //	public List<AccountDto> account() {
@@ -384,7 +372,8 @@ public class ClubUnionController {
 	public String account_save(Model model, @RequestParam("club_id") int club_id, @RequestParam("price") int[] price,
 			@RequestParam("remark") String[] remark, @RequestBody MultipartFile[] file,
 			@RequestParam("account_type") int[] account_type,
-			@RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date[] date, SemDate semdate) throws IOException {
+			@RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date[] date, SemDate semdate)
+			throws IOException {
 		String sem_name = semdate.getSem_name();
 		save(club_id, price, remark, file, account_type, date, sem_name);
 		return "redirect:account#fh5co-tab-feature-center" + club_id;
@@ -404,7 +393,7 @@ public class ClubUnionController {
 			account.setRemark(remark[i]);
 			account.setAccount_type(account_type[i]);
 			account.setDate(date[i]);
-			if(!file[i].isEmpty()) {
+			if (!file[i].isEmpty()) {
 				int f_id = fileService.accountFileUpload(file[i]);
 				account.setFile_id(f_id);
 			}

@@ -84,6 +84,7 @@
 											<c:if
 												test="${selectSemId eq semDate.get(semDate.size() - 1).getId()}">
 												<c:if test="${status.count % fn:length(adminUser) eq 0}">
+													<!--출석체크 삭제-->
 													<td><a
 														href="attendance_delete?date=${attendance.date}">x</a></td>
 												</c:if>
@@ -106,41 +107,9 @@
 						</c:if>
 					</table>
 
-					<!-- createModal -->
-					<form:form method="post" action="create"
-						onsubmit="return checkForm();">
-						<div class="modal fade" id="createModal" role="dialog">
-							<div class="modal-dialog modal-md">
-								<!-- Modal content-->
-								<div class="modal-content">
-									<div class="modal-header">
-										<h4 id="modal-title" class="modal-title">출석체크</h4>
-									</div>
-									<div class="modal-body">
-										<table class="table attendance_check_table"
-											id="createModalTable">
-											<tr>
-												<td>출석 날짜</td>
-												<td><input type="date" class="form-control input-md"
-													style="width: 200px" name="date" id="chdate"></td>
-											</tr>
-										</table>
-									</div>
-									<div class="modal-footer">
-										<button id="modalSubmit" type="submit"
-											class="btn btn-primary col-md">저장</button>
-										<button id="closeModal" type="button"
-											class="btn btn-primary col-md" data-dismiss="modal">Close</button>
-									</div>
-								</div>
-							</div>
-						</div>
-					</form:form>
-					<!-- 끝 -->
-
-					<!-- updateModal -->
-					<form:form method="post" action="attendance" id="modal">
-						<div class="modal fade" id="updateModal" role="dialog">
+					<!-- Modal -->
+					<form:form method="post" action="" id="modalForm">
+						<div class="modal fade" id="modal" role="dialog">
 							<div class="modal-dialog modal-md">
 
 								<!-- Modal content-->
@@ -156,14 +125,6 @@
 												<td><input type="date" class="form-control input-md"
 													style="width: 200px" name="date" id="date"></td>
 											</tr>
-											<c:forEach var="lastSemUser" items="${lastSemUser}"
-												varStatus="status">
-												<tr>
-													<td>${lastSemUser}</td>
-													<td><input type='checkbox'
-														class='form-control input-sm' name='checkk' value='${id}'></td>
-												</tr>
-											</c:forEach>
 										</table>
 									</div>
 									<div class="modal-footer">
@@ -197,33 +158,20 @@
 		$("#selectSemId").val(${selectSemId}).prop("selected", true);
 		};
 
-		/* //출석체크 생성 모달 - 수정 전
+		//출석체크 생성 모달
 	    $('#createBtn').on('click', function() {
-	    	$('#updateModal').find('tr:gt(0)').remove();
+	    	$('#modal').find('tr:gt(0)').remove();
+	    	$('#modal #modal-title').text('출석체크');
 	    	$('#date').val('default');
-	    	$('#updateModal #modal-title').text('출석체크');
 	    	$('#date').attr('readonly', false);
-	    	$('#modal').attr('action', 'create');
-	    	$('#modal').attr('onsubmit','return checkForm();');
-		    $('#updateModal').modal('show');
-	    }); */
-
-	  //출석체크 생성 모달 - 수정 후
-	    $('#createBtn').on('click', function() {
-	    	//$('#updateModal').find('tr:gt(0)').remove();
-	    	$('#date').val('default');
-	    	$('#updateModal #modal-title').text('출석체크');
-	    	$('#date').attr('readonly', false);
-	    	$('#modal').attr('action', 'create');
-	    	$('#modal').attr('onsubmit','return checkForm();');
-		    $('#updateModal').modal('show');
+	    	$('#modalForm').attr('action', 'create');
+	    	$('#modalForm').attr('onsubmit','return checkForm();');
+		    $('#modal').modal('show');
 	    });
   
 	    //출석체크 생성 - 기존에 존재하는 날짜일 때 에러 메시지 출력
 		//출석체크 생성 - 현재 학기에 해당하는 날짜일때만 삽입 가능  !에러 메시지 출력
 		function checkForm() {
-			//var check = $("input[name='checkk']").prop("checked");
-			console.log(check);
 	    	var date = $('#date').val();
 	    	var overlap = '';
 	    	if ("${findDate}".indexOf(date) != -1) {
@@ -247,12 +195,12 @@
 	    //출석체크 수정 모달
 	    $("[id=attendanceUpdate]").each(function(){
 	    		$(this).click(function(){
-	    			$('#updateModal').find('tr:gt(0)').remove();
-	    			$('#updateModal').modal('show');
-	    			$('#updateModal #modal-title').text('출석체크 수정');
+	    			$('#modal').find('tr:gt(0)').remove();
+	    			$('#modal #modal-title').text('출석체크 수정');
 	    			$('#date').attr('readonly', true);
-	    			$('#modal').attr('action', 'attendance');
-	    			$('#modal').attr('onsubmit','');
+	    			$('#modalForm').attr('action', 'attendance');
+	    			$('#modalForm').attr('onsubmit','');
+	    			$('#modal').modal('show');
 				    var find = $(this).attr("find");
 			    	var obj;
 		    	    jQuery.ajax({
