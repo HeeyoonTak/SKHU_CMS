@@ -72,6 +72,7 @@ public class ClubUnionController {
 	FileMapper fileMapper;
 	@Autowired
 	AccountMapper accountMapper;
+	@Autowired
 	FileService fileService;
 
 	/*
@@ -280,19 +281,20 @@ public class ClubUnionController {
 		board.setClub_id(1);
 		board = new BoardDto();
 		model.addAttribute("board", board);
-		return "club_union/posting";
-	}
 
-	@Transactional
-	@RequestMapping(value = "m_create", method = RequestMethod.POST)
-	public String m_create(BoardDto board, Model model) {
-		board.setBoard_name_id(4);
-		board.setClub_id(1);
-		boardService.insert(board);
-		return "redirect:m_content?id=" + board.getId();
-	}
+        return "club_union/posting";
+    }
 
-	@RequestMapping("club_list")
+    @Transactional
+    @RequestMapping(value="m_create", method=RequestMethod.POST)
+    public String m_create(BoardDto board, Model model) {
+    	board.setBoard_name_id(4);
+        board.setClub_id(1);
+    	boardService.insert(board);
+        return "redirect:m_content?id=" + board.getId();
+    }
+
+    @RequestMapping("club_list")
 	public String list(Model model) {
 		List<UserDto> users = userMapper.findAll();
 		model.addAttribute("users", users);
@@ -331,10 +333,11 @@ public class ClubUnionController {
 		return "redirect:club_list";
 	}
 
-	/*
-	 * LHM_account 동아리 연합회 회계
-	 */
+
+   /* LHM_account
+    * 동아리 연합회 회계 */
 	String[] account_type = { "중앙지원금", "동아리회비" };
+
 
 //	@RequestMapping("account")
 //	public List<AccountDto> account() {
@@ -381,7 +384,7 @@ public class ClubUnionController {
 	public String account_save(Model model, @RequestParam("club_id") int club_id, @RequestParam("price") int[] price,
 			@RequestParam("remark") String[] remark, @RequestBody MultipartFile[] file,
 			@RequestParam("account_type") int[] account_type,
-			@RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date[] date, SemDate semdate) {
+			@RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date[] date, SemDate semdate) throws IOException {
 		String sem_name = semdate.getSem_name();
 		save(club_id, price, remark, file, account_type, date, sem_name);
 		return "redirect:account#fh5co-tab-feature-center" + club_id;
@@ -390,7 +393,8 @@ public class ClubUnionController {
 	/* 입력한 회계 내역 저장 트랜잭션 */
 	@Transactional
 	private void save(int club_id, int[] price, String[] remark, MultipartFile[] file, int[] account_type, Date[] date,
-			String sem_name) {
+			String sem_name) throws IOException {
+		System.out.println("실행시작");
 		for (int i = 0; i < price.length; ++i) {
 			AccountDto account = new AccountDto();
 			account.setClub_id(club_id);
@@ -398,12 +402,12 @@ public class ClubUnionController {
 //			int total = accountService.getTotalByClubId(sem_name, club_id[i]);
 			account.setTotal(0); // total culmn 사용안함
 			account.setRemark(remark[i]);
-			if (!file[i].isEmpty()) {
+			account.setAccount_type(account_type[i]);
+			account.setDate(date[i]);
+			if(!file[i].isEmpty()) {
 				int f_id = fileService.accountFileUpload(file[i]);
 				account.setFile_id(f_id);
 			}
-			account.setAccount_type(account_type[i]);
-			account.setDate(date[i]);
 			accountService.insert(account);
 		}
 	}

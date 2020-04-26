@@ -9,6 +9,6 @@ public class FilesDto {
 	int id;
 
 	String file_name;
-	long size;
+	int size;
 	byte[] data;
 }
