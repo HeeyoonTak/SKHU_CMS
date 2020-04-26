@@ -19,6 +19,14 @@
 	<select id="findAll" resultType="UserDto">
 		SELECT * FROM User WHERE user_type="동아리관리자"
 	</select>
+	
+	<select id="findByMember" resultType="ClubDto">
+		
+	</select>
+
+	<select id="findByNotMember" resultType="ClubDto">
+		
+	</select>
 
 	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
 		INSERT
