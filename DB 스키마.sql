@@ -361,4 +361,25 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
+ALTER TABLE `softwarecapstion`.`apply_a` 
+ADD COLUMN `club_id` INT NOT NULL AFTER `user_id`,
+ADD INDEX `FK_applyA_clubId_idx` (`club_id` ASC) VISIBLE;
+;
+ALTER TABLE `softwarecapstion`.`apply_a` 
+ADD CONSTRAINT `FK_applyA_clubId`
+  FOREIGN KEY (`club_id`)
+  REFERENCES `softwarecapstion`.`club` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+ALTER TABLE `softwarecapstion`.`apply_q` 
+ADD COLUMN `club_id` INT NOT NULL AFTER `board_id`,
+ADD INDEX `FK_applyQ_clubId_idx` (`club_id` ASC) VISIBLE;
+;
+ALTER TABLE `softwarecapstion`.`apply_q` 
+ADD CONSTRAINT `FK_applyQ_clubId`
+  FOREIGN KEY (`club_id`)
+  REFERENCES `softwarecapstion`.`club` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
 -- Dump completed on 2020-04-07 15:33:46
