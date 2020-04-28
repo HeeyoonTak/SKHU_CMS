@@ -81,6 +81,7 @@
 		</div>
 	</div>
 </div>
+
 <script>
 	$('#summernote').summernote({
 		height : 500
