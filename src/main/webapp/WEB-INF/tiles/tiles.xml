@@ -13,11 +13,24 @@
 		<put-attribute name="body" value="" />
 		<put-attribute name="footer"
 			value="/WEB-INF/tiles/tiles_footer.jsp" />
-		<put-attribute name="account_header"
-			value="/WEB-INF/tiles/account_header.jsp" />
-			
 	</definition>
 
+	<definition name="layout_board_tiles"
+		template="/WEB-INF/tiles/tiles_board_layout.jsp">
+		<put-attribute name="board_header"
+			value="/WEB-INF/tiles/tiles_board_header.jsp" />
+		<put-attribute name="nav"
+			value="/WEB-INF/tiles/tiles_nav.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer"
+			value="/WEB-INF/tiles/tiles_footer.jsp" />
+	</definition>
+
+	<definition name="club_union/posting" extends="layout_board_tiles">
+		<put-attribute name="body"
+			value="/WEB-INF/views/club_union/posting.jsp" />
+	</definition>
+	
 	<definition name="*/*" extends="layout_tiles">
 		<put-attribute name="body"
 			value="/WEB-INF/views/{1}.jsp" />
@@ -27,6 +40,5 @@
 		<put-attribute name="body"
 			value="/WEB-INF/views/{1}/{2}.jsp" />
 	</definition>
-
 
 </tiles-definitions>
