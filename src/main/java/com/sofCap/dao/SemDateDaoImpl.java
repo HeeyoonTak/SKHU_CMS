@@ -23,5 +23,10 @@ public class SemDateDaoImpl implements SemDateDao{
 		return semdateMapper.findByDate(date);
 	}
 	
+	@Override
+	public SemDateDto findStartAndEndDate(String sem_name){
+		return semdateMapper.findStartAndEndDate(sem_name);
+	}
+	
 }
 

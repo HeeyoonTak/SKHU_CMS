@@ -11,4 +11,5 @@ import com.sofCap.dto.SemDateDto;
 public interface SemDateMapper {
 	List<SemDateDto> findAll();
 	String findByDate(Date date);
+	SemDateDto findStartAndEndDate(String sem_name);
 }
