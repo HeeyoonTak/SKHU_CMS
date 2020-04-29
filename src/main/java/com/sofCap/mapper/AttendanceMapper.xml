@@ -13,16 +13,6 @@
 		AND a.club_id = 1
 		ORDER BY u.id
 	</select>
-	
-	<select id="findAdminId" resultType="Integer"> <!--학기별 출석체크 회원 id 리스트 -->
-		SELECT DISTINCT a.user_id
-		FROM attendance a JOIN sem_date s ON a.date
-		BETWEEN s.start_date AND s.end_date
-		JOIN user u ON a.user_id = u.id
-		WHERE s.id = #{s.id}
-		AND a.club_id = 1
-		ORDER BY u.id
-	</select>
 
 	<select id="findDate" resultType="String"> <!--학기별 출석체크 날짜 리스트 -->
 		SELECT DISTINCT DATE_FORMAT(a.date,'%Y-%m-%d') date
@@ -65,10 +55,10 @@
 		ORDER BY a.user_id
 	</select>
 
-	<select id="findBySemId" resultType="Integer"> <!-- 날짜 선택시 해당 학기 출력 -->
-		SELECT DISTINCT id
+	<select id="findBySemId" resultType="SemDateDto"> <!-- 날짜 선택시 해당 학기 출력 -->
+		SELECT *
 		FROM sem_date
-		where #{date} BETWEEN start_date AND end_date
+		WHERE #{date} BETWEEN start_date AND end_date
 	</select>
 	
 	<select id="findLastSem" resultType="SemDateDto"> <!-- 마지막 학기 출력 -->
@@ -95,7 +85,7 @@
 		) t1
 	</update>
 	
-	<insert id="dateNew" useGeneratedKeys="true" keyProperty="id"> <!-- 새로운 학기에 출석체크 insert -->
+<!-- 	<insert id="dateNew" useGeneratedKeys="true" keyProperty="id"> 새로운 학기에 출석체크 insert
 		INSERT INTO attendance(club_id,`check`,date,user_id)
 		SELECT  1          as club_id
 		       ,0          as `check`
@@ -109,7 +99,7 @@
 			and user_type ="동아리관리자"
 			ORDER BY u.id
 		) t1
-	</insert>
+	</insert> -->
 
 	<update id="allUpdate">
 		UPDATE attendance

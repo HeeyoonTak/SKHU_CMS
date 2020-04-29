@@ -73,39 +73,38 @@ public class ClubUnionController {
 	AccountMapper accountMapper;
 	@Autowired
 	FileService fileService;
-	@Autowired SemDateMapper semdateMapper;
+	@Autowired
+	SemDateMapper semdateMapper;
 
 	/*
 	 * jyj_attendance 동아리 연합회 출석체크
 	 */
 	@RequestMapping("attendance")
-//	public String attendance(Model model, @RequestParam(value = "semId", defaultValue = "0") int semId) {
 	public String attendance(Model model, SemDate semdate) {
-//
-//		// 화면 select box 사용하기 위한 데이터 가공
-//		List<SemDateDto> semDate = semdateService.findAll();
-//		Map<String, String> sems = new HashMap<>();
-//		for (int i = 0; i < semDate.size(); i++) {
-//			sems.put(Integer.toString(semDate.get(i).getId()), semDate.get(i).getSem_name());
-//		}
-//		model.addAttribute("sems", sems);
-//
-//		// 처음 화면 실행시 최근 학기 데이터 불러오기
+
+		// 현재 날짜에 맞는 현재 학기 추출
+		Date now = Date.valueOf(LocalDate.now());
+		int sem = attendanceService.findBySemId(now).getId();
+		model.addAttribute("sem", sem);
+
+		// 학기 리스트 추출 - 현재 학기 이후 값들은 제외
+		List<SemDateDto> sems = semdateService.findAll();
+		for(int i=0;i<sems.size();i++) {
+			if(sems.get(i).getStart_date().compareTo(now) == 1)
+				sems.remove(i);
+		}
+		model.addAttribute("sems", sems);
+
+		// 처음 화면 실행시 최근 학기 데이터 불러오기
 		int semId = semdate.getId();
 		if (semId == 0) {
-			semId = attendanceService.findLastSem().getId();
+			semId = sem;
 		}
-		String semName = semdate.getSem_name();
-		System.out.println("semName : " + semName);
-		//int semId = semdate.getId();
-		System.out.println("semId : " + semId);
-//		model.addAttribute("lastSemUser", attendanceService.findAdmin(attendanceService.findLastSem().getId()));
 		model.addAttribute("lastSemUser", attendanceService.findAdmin(semId));
-		model.addAttribute("start", attendanceService.findLastSem().getStart_date());
-		model.addAttribute("end", attendanceService.findLastSem().getEnd_date());
+		model.addAttribute("start", attendanceService.findBySemId(now).getStart_date());
+		model.addAttribute("end", attendanceService.findBySemId(now).getEnd_date());
 		model.addAttribute("semdate", semdate);
 		model.addAttribute("semDate", semdateService.findAll());
-		model.addAttribute("sems", semdateService.findAll());
 		model.addAttribute("selectSemId", semId);
 		model.addAttribute("findDate", attendanceService.findDate(semId));
 		model.addAttribute("attendance", attendanceService.findBySemDate(semId));
@@ -164,11 +163,12 @@ public class ClubUnionController {
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public String createModal(Model model, @RequestParam("date") Date date) {
 
-		// 마지막 학기 id값
-		int lastSem = attendanceService.findLastSem().getId();
+		// 현재 학기 id값
+		Date now = Date.valueOf(LocalDate.now());
+		int sem = attendanceService.findBySemId(now).getId();
 
 		// 현재 학기에 해당하는 경우 - 삽입
-		attendanceService.dateNow(date, lastSem);
+		attendanceService.dateNow(date, sem);
 		return "redirect:/club_union/attendance";
 	}
 
@@ -366,7 +366,7 @@ public class ClubUnionController {
 	@RequestMapping(value = "account")
 	public String account(Model model, SemDate semdate) {
 		System.out.println(semdate.getSem_name());
-		if(semdate.getSem_name()==null) {
+		if (semdate.getSem_name() == null) {
 			Date now = Date.valueOf(LocalDate.now());
 			String sem_name = semdateMapper.findByDate(now);
 			System.out.println(sem_name);

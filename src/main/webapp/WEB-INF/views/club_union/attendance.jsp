@@ -36,15 +36,12 @@
 						<div class="col-md-9"></div>
 						<div class="col-md-3">
 							<div class="form-group">
-								<%-- <form:select class="form-control input-lg autosubmit"
-									path="sems" items="${ sems }" name="semId" id="selectSemId" /> --%>
 								<form:form method="get" modelAttribute="semdate">
-									<form:select path="id"
-										class="form-control input-lg autosubmit" id="l_search_term">
+									<form:select path="id" class="form-control input-lg autosubmit"
+										id="l_search_term">
 										<form:options value="${ id }" itemValue="id"
-											itemLabel="sem_name" items="${ sems }" />
+											itemLabel="sem_name" items="${ sems }" id="selectSemId" />
 									</form:select>
-
 								</form:form>
 							</div>
 						</div>
@@ -59,8 +56,7 @@
 								<c:forEach var="adminUser" items="${adminUser}">
 									<th>${adminUser}</th>
 								</c:forEach>
-								<c:if
-									test="${selectSemId eq sems.get(sems.size() - 1).getId()}">
+								<c:if test="${selectSemId eq sem}">
 									<th></th>
 								</c:if>
 							</tr>
@@ -69,8 +65,7 @@
 							<c:forEach var="findDate" items="${ findDate }">
 								<tr>
 									<c:choose>
-										<c:when
-											test="${selectSemId eq sems.get(sems.size() - 1).getId()}">
+										<c:when test="${selectSemId eq sem}">
 											<!-- 날짜 클릭시 해당 날짜에 따른 출석체크 수정 모달  -->
 											<td id="attendanceUpdate" find="${findDate}">${ findDate }</td>
 										</c:when>
@@ -89,8 +84,7 @@
 													<td>O</td>
 												</c:otherwise>
 											</c:choose>
-											<c:if
-												test="${selectSemId eq sems.get(sems.size() - 1).getId()}">
+											<c:if test="${selectSemId eq sem}">
 												<c:if test="${status.count % fn:length(adminUser) eq 0}">
 													<!--출석체크 삭제-->
 													<td><a
@@ -102,8 +96,7 @@
 								</tr>
 							</c:forEach>
 						</tbody>
-						<c:if
-							test="${selectSemId eq sems.get(sems.size() - 1).getId()}">
+						<c:if test="${selectSemId eq sem}">
 							<tbody>
 								<tr>
 									<!--출석체크 삽입 모달-->
@@ -163,7 +156,7 @@
 
 <script type="text/javascript">
 		window.onload = function() {
-		$("#selectSemId").val(${selectSemId}).prop("selected", true);
+		$("#l_search_term").val(${selectSemId}).prop("selected", true);
 		};
 
 		//출석체크 생성 모달

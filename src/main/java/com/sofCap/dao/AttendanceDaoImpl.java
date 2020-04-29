@@ -21,11 +21,6 @@ public class AttendanceDaoImpl implements AttendanceDao {
 	}
 
 	@Override
-	public List<Integer> findAdminId(int semId) {
-		return attendanceMapper.findAdminId(semId);
-	}
-
-	@Override
 	public List<String> findDate(int semId) {
 		return attendanceMapper.findDate(semId);
 	}
@@ -41,7 +36,7 @@ public class AttendanceDaoImpl implements AttendanceDao {
 	}
 
 	@Override
-	public int findBySemId(Date date) {
+	public SemDateDto findBySemId(Date date) {
 		return attendanceMapper.findBySemId(date);
 	}
 
@@ -55,10 +50,9 @@ public class AttendanceDaoImpl implements AttendanceDao {
 		attendanceMapper.dateNow(date, semId);
 	}
 
-	@Override
-	public void dateNew(Date date) {
-		attendanceMapper.dateNew(date);
-	}
+	/*
+	 * @Override public void dateNew(Date date) { attendanceMapper.dateNew(date); }
+	 */
 
 	@Override
 	public void allUpdate(String date) {

@@ -22,11 +22,6 @@ public class AttendanceServiceImpl implements AttendanceService {
 	}
 
 	@Override
-	public List<Integer> findAdminId(int semId) {
-		return attendanceDao.findAdminId(semId);
-	}
-
-	@Override
 	public List<String> findDate(int semId) {
 		return attendanceDao.findDate(semId);
 	}
@@ -42,7 +37,7 @@ public class AttendanceServiceImpl implements AttendanceService {
 	}
 
 	@Override
-	public int findBySemId(Date date) {
+	public SemDateDto findBySemId(Date date) {
 		return attendanceDao.findBySemId(date);
 	}
 
@@ -58,12 +53,12 @@ public class AttendanceServiceImpl implements AttendanceService {
 		return;
 	}
 
-	@Transactional
-	@Override
-	public void dateNew(Date date) {
-		attendanceDao.dateNew(date);
-		return;
-	}
+	/*
+	 * @Transactional
+	 *
+	 * @Override public void dateNew(Date date) { attendanceDao.dateNew(date);
+	 * return; }
+	 */
 
 	@Override
 	public void allUpdate(String date) {
