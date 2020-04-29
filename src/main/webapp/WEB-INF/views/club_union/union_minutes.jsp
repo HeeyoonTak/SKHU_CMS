@@ -33,7 +33,7 @@
 						</div>
 						<div>
 							<div style="margin-left: 50px">
-								<table class="table table-striped " style="width: 700px">
+								<table class="table table-striped " style="width: 650px">
 									<tr class="text-center">
 										<th style="text-align: center">제목</th>
 										<th style="text-align: center">등록일</th>
@@ -44,10 +44,10 @@
 									<c:forEach var="board" items="${boards}">
 										<tr>
 											<td><a href="m_content?id=${board.id}">${board.title}</a></td>
-											<td style="text-align: center"><fmt:formatDate
+											<td style="text-align: center; width: 200px;"><fmt:formatDate
 													pattern="yyyy-MM-dd" value="${ board.date }" /></td>
 											<sec:authorize access="authenticated">
-												<td><a href="m_delete?id=${board.id}"
+												<td style="width: 50px"><a href="m_delete?id=${board.id}"
 													style="color: #ff0000">x</a></td>
 											</sec:authorize>
 										</tr>
