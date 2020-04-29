@@ -5,7 +5,8 @@
 	<select id="findAll" resultType="SemDateDto">
 		SELECT *
 		FROM sem_date
-		ORDER BY start_date
+		ORDER BY
+		start_date
 	</select>
 
 	<select id="findByDate" resultType="String">

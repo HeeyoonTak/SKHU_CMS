@@ -21,7 +21,7 @@ public class SemDateDaoImpl implements SemDateDao {
 
 	@Override
 	public String findByDate(Date date) {
-		return SemDateMapper.findByDate(date);
+		return semdateMapper.findByDate(date);
 	}
 
 	@Override
