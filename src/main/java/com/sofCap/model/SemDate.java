@@ -11,13 +11,13 @@ import lombok.Data;
 
 @Data
 public class SemDate implements Serializable {
+
+//	@Autowired SemDateMapper semdateMapper;
+//
 	Date now = Date.valueOf(LocalDate.now());
-	String sem_name = SemDateMapper.findByDate(now);
+//	String sem_name= semdateMapper.findByDate(now);
+	String sem_name = "2020-1학기";
+
 	int id = SemDateMapper.findIdByDate(now);
 
-//	String sem_name = "2020-1학기";
-//	public String getQueryString() {
-//		return String.format("semdate=%s", sem_name);
-//	}
 }
-

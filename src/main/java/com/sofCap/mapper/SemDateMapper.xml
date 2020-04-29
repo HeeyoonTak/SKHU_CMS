@@ -3,20 +3,27 @@
 
 <mapper namespace="com.sofCap.mapper.SemDateMapper">
 	<select id="findAll" resultType="SemDateDto">
-		SELECT * 
+		SELECT *
 		FROM sem_date
 		ORDER BY start_date
 	</select>
 
 	<select id="findByDate" resultType="String">
-		SELECT s.sem_name 
+		SELECT s.sem_name
 		FROM sem_date s
 		WHERE #{date} between s.start_date and s.end_date
 	</select>
-	
+
 	<select id="findIdByDate" resultType="Integer">
 		SELECT s.id
 		FROM sem_date s
 		WHERE #{date} between s.start_date and s.end_date
+	</select>
+
+	<select id="findStartAndEndDate" resultType="SemDateDto">
+		SELECT *
+		FROM
+		sem_date
+		WHERE sem_name = #{sem_name}
 	</select>
 </mapper>

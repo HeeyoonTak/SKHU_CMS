@@ -39,7 +39,7 @@
 								<tr style="text-align: center">
 									<th style="text-align: center;">${board.title}</th>
 								</tr>
-								<tr style="text-align: center">
+								<tr>
 									<td style="height: 300px">${board.content}</td>
 								</tr>
 								<tr style="text-align: center">

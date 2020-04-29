@@ -27,7 +27,7 @@
 <!-- START fhtco-main -->
 <div id="fh5co-main">
 	<!-- START container -->
-	<div class="container">
+	<div class="col-md-8 col-md-push-3 container">
 
 		<div class="row animate-box">
 			<h2 class="fh5co-uppercase-heading-sm text-center">회계 관리</h2>
@@ -132,7 +132,7 @@
 												<tr id="default">
 													<input type="hidden" name="club_id" value="${club.id}">
 													<td><input type="date" name="date"
-														class="form-control input-lg"></td>
+														class="form-control input-lg" max="${end_date}" min="${start_date}"></td>
 													<td><select class="form-control input-lg"
 														name="account_type">
 															<c:forEach var="at" items="${ account_type }"
@@ -177,6 +177,7 @@
 				</c:forEach>
 			</div>
 		</div>
+		
 		<div class="fh5co-spacer fh5co-spacer-md"></div>
 
 		<div class="row"></div>
@@ -185,6 +186,17 @@
 
 	</div>
 	<!-- // END container -->
+	<!-- sidebar -->
+			<div class="col-md-2 col-md-pull-7" id="fh5co-sidebar">
+				<ul class="attendance_check-list hor_1">
+					<li><a href="${R}club_union/notice">공지사항</a></li>
+					<li><a href="${R}club_union/account">회계 관리</a></li>
+					<li><a href="${R}club_union/club_list">동아리 관리</a></li>
+					<li><a href="${R}club_union/attendance">출석체크</a></li>
+					<li><a href="${R}club_union/minutes">회의록</a></li>
+				</ul>
+			</div>
+			<!-- sidebar 끝 -->
 
 </div>
 

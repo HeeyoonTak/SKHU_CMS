@@ -10,11 +10,12 @@ import com.sofCap.dto.SemDateDto;
 import com.sofCap.mapper.SemDateMapper;
 
 @Repository
-public class SemDateDaoImpl implements SemDateDao{
-	@Autowired SemDateMapper semdateMapper;
+public class SemDateDaoImpl implements SemDateDao {
+	@Autowired
+	SemDateMapper semdateMapper;
 
 	@Override
-	public List<SemDateDto> findAll(){
+	public List<SemDateDto> findAll() {
 		return semdateMapper.findAll();
 	}
 
@@ -23,5 +24,9 @@ public class SemDateDaoImpl implements SemDateDao{
 		return SemDateMapper.findByDate(date);
 	}
 
-}
+	@Override
+	public SemDateDto findStartAndEndDate(String sem_name) {
+		return semdateMapper.findStartAndEndDate(sem_name);
+	}
 
+}

@@ -29,14 +29,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception{
 		http.authorizeRequests()
 			.antMatchers("/club_admin/**").hasRole("ClubAdmin")
-//			.antMatchers("/club_union/**").hasRole("ClubUnion")
+			.antMatchers("/club_union/**").hasRole("ClubUnion")
 			.antMatchers("/club_manage/**").hasRole("ClubUnion")
 			.antMatchers("/member/**").hasRole("Member")
 			.antMatchers("/**").permitAll()
 			.antMatchers("/tiles/**").permitAll()
 			.antMatchers("/").permitAll()
 			.antMatchers("/member/**").authenticated()
-//			.antMatchers("/club_union/**").authenticated()
+			.antMatchers("/club_union/**").authenticated()
 			.antMatchers("/club_admin/**").authenticated()
 			.antMatchers("/club_manage/**").authenticated();
 
