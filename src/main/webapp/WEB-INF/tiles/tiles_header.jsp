@@ -94,7 +94,7 @@
 	href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
 <!-- import JavaScript -->
 <script src="https://unpkg.com/element-ui/lib/index.js"></script>
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script> -->
 
 <!--  회계 입력 tr 삽입 -->
 	<script>

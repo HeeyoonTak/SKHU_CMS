@@ -36,8 +36,16 @@
 						<div class="col-md-9"></div>
 						<div class="col-md-3">
 							<div class="form-group">
-								<form:select class="form-control input-lg autosubmit"
-									path="sems" items="${ sems }" name="semId" id="selectSemId" />
+								<%-- <form:select class="form-control input-lg autosubmit"
+									path="sems" items="${ sems }" name="semId" id="selectSemId" /> --%>
+								<form:form method="get" modelAttribute="semdate">
+									<form:select path="id"
+										class="form-control input-lg autosubmit" id="l_search_term">
+										<form:options value="${ id }" itemValue="id"
+											itemLabel="sem_name" items="${ sems }" />
+									</form:select>
+
+								</form:form>
 							</div>
 						</div>
 					</form>
@@ -52,7 +60,7 @@
 									<th>${adminUser}</th>
 								</c:forEach>
 								<c:if
-									test="${selectSemId eq semDate.get(semDate.size() - 1).getId()}">
+									test="${selectSemId eq sems.get(sems.size() - 1).getId()}">
 									<th></th>
 								</c:if>
 							</tr>
@@ -62,7 +70,7 @@
 								<tr>
 									<c:choose>
 										<c:when
-											test="${selectSemId eq semDate.get(semDate.size() - 1).getId()}">
+											test="${selectSemId eq sems.get(sems.size() - 1).getId()}">
 											<!-- 날짜 클릭시 해당 날짜에 따른 출석체크 수정 모달  -->
 											<td id="attendanceUpdate" find="${findDate}">${ findDate }</td>
 										</c:when>
@@ -82,7 +90,7 @@
 												</c:otherwise>
 											</c:choose>
 											<c:if
-												test="${selectSemId eq semDate.get(semDate.size() - 1).getId()}">
+												test="${selectSemId eq sems.get(sems.size() - 1).getId()}">
 												<c:if test="${status.count % fn:length(adminUser) eq 0}">
 													<!--출석체크 삭제-->
 													<td><a
@@ -95,7 +103,7 @@
 							</c:forEach>
 						</tbody>
 						<c:if
-							test="${selectSemId eq semDate.get(semDate.size() - 1).getId()}">
+							test="${selectSemId eq sems.get(sems.size() - 1).getId()}">
 							<tbody>
 								<tr>
 									<!--출석체크 삽입 모달-->
@@ -142,11 +150,11 @@
 			</div>
 			<div class="col-md-3 col-md-pull-9" id="fh5co-sidebar">
 				<ul class="attendance_check-list hor_1">
-					<li><a href="notice">공지사항</a></li>
-					<li><a href="account">회계 관리</a></li>
-					<li><a href="club_list">동아리 관리</a></li>
-					<li><a href="attendance">출석체크</a></li>
-					<li><a href="minutes">회의록</a></li>
+					<li><a href="${R}club_union/notice">공지사항</a></li>
+					<li><a href="${R}club_union/account">회계 관리</a></li>
+					<li><a href="${R}club_union/club_list">동아리 관리</a></li>
+					<li><a href="${R}club_union/attendance">출석체크</a></li>
+					<li><a href="${R}club_union/minutes">회의록</a></li>
 				</ul>
 			</div>
 		</div>

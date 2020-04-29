@@ -12,16 +12,16 @@ import com.sofCap.mapper.SemDateMapper;
 @Repository
 public class SemDateDaoImpl implements SemDateDao{
 	@Autowired SemDateMapper semdateMapper;
-	
+
 	@Override
 	public List<SemDateDto> findAll(){
 		return semdateMapper.findAll();
 	}
-	
+
 	@Override
 	public String findByDate(Date date) {
-		return semdateMapper.findByDate(date);
+		return SemDateMapper.findByDate(date);
 	}
-	
+
 }
 

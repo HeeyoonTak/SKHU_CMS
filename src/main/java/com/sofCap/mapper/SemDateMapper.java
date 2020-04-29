@@ -10,5 +10,12 @@ import com.sofCap.dto.SemDateDto;
 @Mapper
 public interface SemDateMapper {
 	List<SemDateDto> findAll();
-	String findByDate(Date date);
+	static String findByDate(Date date) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	static int findIdByDate(Date date) {
+		return 0;
+	}
 }

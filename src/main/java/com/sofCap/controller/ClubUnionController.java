@@ -5,9 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.Principal;
 import java.sql.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,7 +29,6 @@ import com.sofCap.dto.AccountDto;
 import com.sofCap.dto.AttendanceDto;
 import com.sofCap.dto.BoardDto;
 import com.sofCap.dto.FilesDto;
-import com.sofCap.dto.SemDateDto;
 import com.sofCap.dto.UserDto;
 import com.sofCap.mapper.AccountMapper;
 import com.sofCap.mapper.BoardMapper;
@@ -77,24 +74,33 @@ public class ClubUnionController {
 	 * jyj_attendance 동아리 연합회 출석체크
 	 */
 	@RequestMapping("attendance")
-	public String attendance(Model model, @RequestParam(value = "semId", defaultValue = "0") int semId) {
-
-		// 화면 select box 사용하기 위한 데이터 가공
-		List<SemDateDto> semDate = semdateService.findAll();
-		Map<String, String> sems = new HashMap<>();
-		for (int i = 0; i < semDate.size(); i++) {
-			sems.put(Integer.toString(semDate.get(i).getId()), semDate.get(i).getSem_name());
-		}
-		model.addAttribute("sems", sems);
-
-		// 처음 화면 실행시 최근 학기 데이터 불러오기
+//	public String attendance(Model model, @RequestParam(value = "semId", defaultValue = "0") int semId) {
+	public String attendance(Model model, SemDate semdate) {
+//
+//		// 화면 select box 사용하기 위한 데이터 가공
+//		List<SemDateDto> semDate = semdateService.findAll();
+//		Map<String, String> sems = new HashMap<>();
+//		for (int i = 0; i < semDate.size(); i++) {
+//			sems.put(Integer.toString(semDate.get(i).getId()), semDate.get(i).getSem_name());
+//		}
+//		model.addAttribute("sems", sems);
+//
+//		// 처음 화면 실행시 최근 학기 데이터 불러오기
+		int semId = semdate.getId();
 		if (semId == 0) {
-			semId = semDate.get(semDate.size() - 1).getId();
+			semId = attendanceService.findLastSem().getId();
 		}
-		model.addAttribute("lastSemUser", attendanceService.findAdmin(attendanceService.findLastSem().getId()));
+		String semName = semdate.getSem_name();
+		System.out.println("semName : " + semName);
+		//int semId = semdate.getId();
+		System.out.println("semId : " + semId);
+//		model.addAttribute("lastSemUser", attendanceService.findAdmin(attendanceService.findLastSem().getId()));
+		model.addAttribute("lastSemUser", attendanceService.findAdmin(semId));
 		model.addAttribute("start", attendanceService.findLastSem().getStart_date());
 		model.addAttribute("end", attendanceService.findLastSem().getEnd_date());
-		model.addAttribute("semDate", semDate);
+		model.addAttribute("semdate", semdate);
+		model.addAttribute("semDate", semdateService.findAll());
+		model.addAttribute("sems", semdateService.findAll());
 		model.addAttribute("selectSemId", semId);
 		model.addAttribute("findDate", attendanceService.findDate(semId));
 		model.addAttribute("attendance", attendanceService.findBySemDate(semId));

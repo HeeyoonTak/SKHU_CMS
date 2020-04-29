@@ -29,7 +29,7 @@
 		FROM attendance a
 		JOIN sem_date s ON a.date BETWEEN s.start_date AND s.end_date
 		WHERE
-		s.id = #{s.id}
+		s.id = #{semId}
 		AND club_id = 1
 		ORDER BY date
 	</select>
