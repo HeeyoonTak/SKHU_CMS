@@ -8,4 +8,5 @@ import com.sofCap.dto.SemDateDto;
 public interface SemDateDao {
 	List<SemDateDto> findAll();
 	String findByDate(Date date);
+	SemDateDto findStartAndEndDate(String sem_name);
 }

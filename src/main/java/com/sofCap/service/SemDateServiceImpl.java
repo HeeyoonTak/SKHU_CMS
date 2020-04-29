@@ -22,4 +22,9 @@ public class SemDateServiceImpl implements SemDateService {
 	public String findByDate(Date date) {
 		return semdateDao.findByDate(date);
 	}
+	
+	@Override
+	public SemDateDto findStartAndEndDate(String sem_name){
+		return semdateDao.findStartAndEndDate(sem_name);
+	}
 }

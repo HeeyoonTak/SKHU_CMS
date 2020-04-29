@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.Principal;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +39,7 @@ import com.sofCap.dto.UserDto;
 import com.sofCap.mapper.AccountMapper;
 import com.sofCap.mapper.BoardMapper;
 import com.sofCap.mapper.FileMapper;
+import com.sofCap.mapper.SemDateMapper;
 import com.sofCap.mapper.UserMapper;
 import com.sofCap.model.SemDate;
 import com.sofCap.service.AccountService;
@@ -72,6 +76,7 @@ public class ClubUnionController {
 	AccountMapper accountMapper;
 	@Autowired
 	FileService fileService;
+	@Autowired SemDateMapper semdateMapper;
 
 	/*
 	 * jyj_attendance 동아리 연합회 출석체크
@@ -354,16 +359,29 @@ public class ClubUnionController {
 	/* 학기에 따른 회계 리스트 조회 */
 	@RequestMapping(value = "account")
 	public String account(Model model, SemDate semdate) {
-//		System.out.println(semdate.getSem_name());
+		System.out.println(semdate.getSem_name());
+		if(semdate.getSem_name()==null) {
+			Date now = Date.valueOf(LocalDate.now());
+			String sem_name = semdateMapper.findByDate(now);
+			System.out.println(sem_name);
+		}
 		String sem_name = semdate.getSem_name();
 		List<AccountDto> accounts = accountService.findBySem(semdate);
 		List<AccountDto> totals = accountService.getTotalByClubId(sem_name);
+		SemDateDto startenddate = semdateService.findStartAndEndDate(sem_name);
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		String start_date = format.format(startenddate.getStart_date());
+		String end_date = format.format(startenddate.getEnd_date());
+//		System.out.println(format.format(startenddate.getStart_date()));
+//		System.out.println(format.format(startenddate.getEnd_date()));
 		model.addAttribute("accounts", accounts);
 		model.addAttribute("clubs", clubService.findAll());
 		model.addAttribute("sems", semdateService.findAll());
 		model.addAttribute("semdate", semdate);
 		model.addAttribute("account_type", account_type);
 		model.addAttribute("totals", totals);
+		model.addAttribute("start_date", start_date);
+		model.addAttribute("end_date", end_date);
 		return "club_union/account";
 	}
 

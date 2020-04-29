@@ -80,9 +80,4 @@ public class MainController {
 		return "club_union/attendance";
 	}
 
-	@RequestMapping("account")
-	public String account() {
-		return "club_union/account";
-	}
-
 }
