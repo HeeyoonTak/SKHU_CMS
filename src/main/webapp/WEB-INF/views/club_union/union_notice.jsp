@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
+<c:url var="R" value="/" />
 <div id="fh5co-hero">
 	<a href="#fh5co-main"
 		class="smoothscroll fh5co-arrow to-animate hero-animate-4"><i
@@ -75,11 +76,11 @@
 			</div>
 			<div class="col-md-3 col-md-pull-9" id="fh5co-sidebar">
 				<ul class="attendance_check-list hor_1">
-					<li><a href="${R}notice">공지사항</a></li>
-					<li><a href="${R}account">회계 관리</a></li>
-					<li><a href="${R}club_list">동아리 관리</a></li>
-					<li><a href="${R}attendance">출석체크</a></li>
-					<li><a href="${R}minutes">회의록</a></li>
+					<li><a href="${R}club_union/notice">공지사항</a></li>
+					<li><a href="${R}club_union/account">회계 관리</a></li>
+					<li><a href="${R}club_union/club_list">동아리 관리</a></li>
+					<li><a href="${R}club_union/attendance">출석체크</a></li>
+					<li><a href="${R}club_union/minutes">회의록</a></li>
 				</ul>
 			</div>
 		</div>

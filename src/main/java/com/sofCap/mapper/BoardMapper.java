@@ -6,10 +6,13 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.sofCap.dto.BoardDto;
+import com.sofCap.model.SemDate;
 
 @Mapper
 public interface BoardMapper {
 	BoardDto findById(int id);
+
+	List<BoardDto> findBySem_m(SemDate sem_name);
 
 	List<BoardDto> findByClubId_p(@Param("id") int club_id);
 
