@@ -37,7 +37,7 @@
 									<tr class="text-center">
 										<th style="text-align: center">제목</th>
 										<th style="text-align: center">등록일</th>
-										<sec:authorize access="authenticated">
+										<sec:authorize access="hasRole('ROLE_ClubUnion')">
 											<th></th>
 										</sec:authorize>
 									</tr>
@@ -46,7 +46,7 @@
 											<td><a href="m_content?id=${board.id}">${board.title}</a></td>
 											<td style="text-align: center; width: 200px;"><fmt:formatDate
 													pattern="yyyy-MM-dd" value="${ board.date }" /></td>
-											<sec:authorize access="authenticated">
+											<sec:authorize access="hasRole('ROLE_ClubUnion')">
 												<td style="width: 50px"><a href="m_delete?id=${board.id}"
 													style="color: #ff0000">x</a></td>
 											</sec:authorize>
@@ -62,7 +62,7 @@
 								</div>
 								<div class="row">
 									<div class="col-md-12">
-										<sec:authorize access="authenticated">
+										<sec:authorize access="hasRole('ROLE_ClubUnion')">
 											<a href="m_create" class="btn btn-primary btn-lg"
 												id="l_search_term_btn" style="float: right;">작성</a>
 										</sec:authorize>
