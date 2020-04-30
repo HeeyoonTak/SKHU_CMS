@@ -30,18 +30,18 @@ import org.springframework.web.multipart.MultipartFile;
 import com.sofCap.dto.AccountDto;
 import com.sofCap.dto.AttendanceDto;
 import com.sofCap.dto.BoardDto;
+import com.sofCap.dto.ClubDto;
 import com.sofCap.dto.FilesDto;
 import com.sofCap.dto.SemDateDto;
-import com.sofCap.dto.ClubDto;
-import com.sofCap.dto.UserDto;
 import com.sofCap.dto.UserClubDto;
+import com.sofCap.dto.UserDto;
 import com.sofCap.mapper.AccountMapper;
 import com.sofCap.mapper.BoardMapper;
+import com.sofCap.mapper.ClubMapper;
 import com.sofCap.mapper.FileMapper;
 import com.sofCap.mapper.SemDateMapper;
-import com.sofCap.mapper.ClubMapper;
-import com.sofCap.mapper.UserMapper;
 import com.sofCap.mapper.UserClubMapper;
+import com.sofCap.mapper.UserMapper;
 import com.sofCap.model.SemDate;
 import com.sofCap.service.AccountService;
 import com.sofCap.service.AttendanceService;
@@ -189,6 +189,9 @@ public class ClubUnionController {
 		return "redirect:attendance";
 	}
 
+	/*
+	 * ASY_board 동아리 연합회 공지사항
+	 */
 	@RequestMapping("notice")
 	public String union_notice(Model model, Principal principal) {
 		UserDto user = userService.findByLoginId(principal.getName());
@@ -198,6 +201,7 @@ public class ClubUnionController {
 		return "club_union/union_notice";
 	}
 
+	/* 해당 게시글로 이동  */
 	@RequestMapping("n_content")
 	public String n_content(Model model, @RequestParam("id") int id) {
 		BoardDto board = boardService.findOne(id);
@@ -205,12 +209,14 @@ public class ClubUnionController {
 		return "club_union/n_content";
 	}
 
+	/* 게시글 삭제 로직 구현  */
 	@RequestMapping("n_delete")
 	public String n_delete(Model model, @RequestParam("id") int id) {
 		boardService.delete(id);
 		return "redirect:notice";
 	}
 
+	/* 게시글 수정 로직 구현  */
 	@RequestMapping(value = "n_edit", method = RequestMethod.GET)
 	public String n_edit(@RequestParam("id") int id, Model model, BoardDto board) {
 		board.setBoard_name_id(3);
@@ -227,6 +233,7 @@ public class ClubUnionController {
 		return "redirect:n_content?id=" + board.getId();
 	}
 
+	/* 게시글 삽입 로직 구현  */
 	@RequestMapping(value = "n_create", method = RequestMethod.GET)
 	public String n_create(Model model, BoardDto board) {
 		board.setBoard_name_id(3);
@@ -245,15 +252,33 @@ public class ClubUnionController {
 		return "redirect:n_content?id=" + board.getId();
 	}
 
+	/*
+	 * ASY_board 동아리 연합회 회의록
+	 */
 	@RequestMapping("minutes")
-	public String union_minutes(Model model, Principal principal) {
+	public String union_minutes(Model model, Principal principal, SemDate semdate) {
+		if (semdate.getSem_name() == null) {
+			Date now = Date.valueOf(LocalDate.now());
+			String sem_name = semdateMapper.findByDate(now);
+			System.out.println(sem_name);
+		}
+		String sem_name = semdate.getSem_name();
+		List<BoardDto> boards = boardService.findBySem_m(semdate);
+		SemDateDto startenddate = semdateService.findStartAndEndDate(sem_name);
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		String start_date = format.format(startenddate.getStart_date());
+		String end_date = format.format(startenddate.getEnd_date());
+		model.addAttribute("sems", semdateService.findAll());
+		model.addAttribute("semdate", semdate);
+		model.addAttribute("start_date", start_date);
+		model.addAttribute("end_date", end_date);
 		UserDto user = userService.findByLoginId(principal.getName());
-		List<BoardDto> boards = boardService.findAll_m();
 		model.addAttribute("user", user);
 		model.addAttribute("boards", boards);
 		return "club_union/union_minutes";
 	}
 
+	/*  해당 게시글로 이동 */
 	@RequestMapping("m_content")
 	public String m_content(Model model, @RequestParam("id") int id) {
 		BoardDto board = boardService.findOne(id);
@@ -261,12 +286,14 @@ public class ClubUnionController {
 		return "club_union/m_content";
 	}
 
+	/* 게시글 삭제 로직 구현 */
 	@RequestMapping("m_delete")
 	public String m_delete(Model model, @RequestParam("id") int id) {
 		boardService.delete(id);
 		return "redirect:minutes";
 	}
 
+	/* 게시글 수정 로직 구현 */
 	@RequestMapping(value = "m_edit", method = RequestMethod.GET)
 	public String m_edit(@RequestParam("id") int id, Model model, BoardDto board) {
 		board.setBoard_name_id(4);
@@ -283,6 +310,7 @@ public class ClubUnionController {
 		return "redirect:m_content?id=" + board.getId();
 	}
 
+	/* 게시글 삽입 로직 구현 */
 	@RequestMapping(value = "m_create", method = RequestMethod.GET)
 	public String m_create(Model model, BoardDto board) {
 		board.setBoard_name_id(4);

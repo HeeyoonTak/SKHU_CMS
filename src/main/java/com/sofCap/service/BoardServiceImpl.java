@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.sofCap.dao.BoardDao;
 import com.sofCap.dto.BoardDto;
+import com.sofCap.model.SemDate;
 
 @Service
 public class BoardServiceImpl implements BoardService{
@@ -17,6 +18,11 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public BoardDto findById(int id) {
 		return boardDao.findById(id);
+	}
+
+	@Override
+	public List<BoardDto> findBySem_m(SemDate sem_name) {
+		return boardDao.findBySem_m(sem_name);
 	}
 
 	@Override
