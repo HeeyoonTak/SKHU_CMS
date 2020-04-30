@@ -10,4 +10,5 @@ public interface ClubService {
 	ClubDto findById(int id);
 
 	List<ClubDto> findAll();
+	
 }

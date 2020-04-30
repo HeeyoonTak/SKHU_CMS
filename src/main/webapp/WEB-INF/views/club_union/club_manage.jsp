@@ -29,9 +29,9 @@
 							<div class="col-xs-12" style="margin-bottom: 0px">
 								<h2 class="h3" style="margin-bottom: 0px">동아리 관리</h2>
 								<ul class="pagination" style="margin-bottom: 0px">
-									<li><a href="list" class="btn btn-primary btn-lg"
+									<li><a href="${R}club_list" class="btn btn-primary btn-lg"
 										id="l_search_term_btn">목록</a></li>
-									<li><a href="create" class="btn btn-primary btn-lg"
+									<li><a href="club_create" class="btn btn-primary btn-lg"
 										id="l_search_term_btn">개설</a></li>
 								</ul>
 							</div>
@@ -43,7 +43,7 @@
 									<c:forEach var="user" items="${users}">
 										<tr style="text-align: center">
 											<td style="text-align: left"><a>${user.name}</a></td>
-											<td><a href="delete?id=${user.id}" data-confirm-delete
+											<td><a href="club_delete?id=${user.id}" data-confirm-delete
 												style="color: #ff0000">삭제</a>
 										</tr>
 									</c:forEach>

@@ -32,11 +32,15 @@ import com.sofCap.dto.AttendanceDto;
 import com.sofCap.dto.BoardDto;
 import com.sofCap.dto.FilesDto;
 import com.sofCap.dto.SemDateDto;
+import com.sofCap.dto.ClubDto;
 import com.sofCap.dto.UserDto;
+import com.sofCap.dto.UserClubDto;
 import com.sofCap.mapper.AccountMapper;
 import com.sofCap.mapper.BoardMapper;
 import com.sofCap.mapper.FileMapper;
+import com.sofCap.mapper.ClubMapper;
 import com.sofCap.mapper.UserMapper;
+import com.sofCap.mapper.UserClubMapper;
 import com.sofCap.model.SemDate;
 import com.sofCap.service.AccountService;
 import com.sofCap.service.AttendanceService;
@@ -52,6 +56,10 @@ public class ClubUnionController {
 
 	@Autowired
 	UserService userService;
+	@Autowired
+	UserClubMapper userclubMapper;
+	@Autowired
+	ClubMapper clubMapper;
 	@Autowired
 	AttendanceService attendanceService;
 	@Autowired
@@ -299,7 +307,19 @@ public class ClubUnionController {
 
 	@RequestMapping(value = "club_create", method = RequestMethod.POST)
 	public String create(Model model, UserDto user) {
+		// 1. 클럽 생성
+		ClubDto club = new ClubDto();
+		club.setClub_name(user.getName());
+		club.setClub_type(1);
+		clubMapper.insert(club);
+		// 2. 유저 생성
 		userMapper.insert(user);
+		// 3. 유저 클럽 이어주기
+		UserClubDto user_club = new UserClubDto();
+		club = clubMapper.findByName(user.getName());
+		user_club.setUser_id(user.getId());
+		user_club.setClub_id(club.getId());
+		userclubMapper.insert(user_club);
 		return "redirect:club_list";
 	}
 
@@ -318,6 +338,10 @@ public class ClubUnionController {
 
 	@RequestMapping("club_delete")
 	public String delete(Model model, @RequestParam("id") int id) {
+		int club_id = userclubMapper.findByUserId(id).getClub_id();
+		String name = clubMapper.findById(club_id).getClub_name();
+		userclubMapper.delete(id);
+		clubMapper.delete(name);
 		userMapper.delete(id);
 		return "redirect:club_list";
 	}
