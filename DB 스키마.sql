@@ -381,5 +381,16 @@ ADD CONSTRAINT `FK_applyQ_clubId`
   REFERENCES `softwarecapstion`.`club` (`id`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
+ALTER TABLE `softwarecapstion`.`apply_q` 
+ADD COLUMN `semDate_id` INT NOT NULL AFTER `club_id`,
+ADD INDEX `FK_applyQ_sem_dateId_idx` (`semDate_id` ASC) VISIBLE;
+;
+
+ALTER TABLE `softwarecapstion`.`apply_q` 
+ADD CONSTRAINT `FK_applyQ_sem_dateId`
+  FOREIGN KEY (`semDate_id`)
+  REFERENCES `softwarecapstion`.`sem_date` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
 
 -- Dump completed on 2020-04-07 15:33:46
