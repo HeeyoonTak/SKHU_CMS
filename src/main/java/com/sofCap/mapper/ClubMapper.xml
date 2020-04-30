@@ -24,4 +24,22 @@
 		FROM Club c
 	</select>
 
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT
+		Club (club_name, club_type)
+		VALUES (#{club_name}, #{club_type})
+	</insert>
+
+	<select id="findByName" resultType="ClubDto">
+		SELECT *
+		From Club
+		WHERE
+		club_name = #{name};
+	</select>
+	<delete id="delete">
+		DELETE
+		FROM Club
+		WHERE club_name = #{name};
+	</delete>
+
 </mapper>

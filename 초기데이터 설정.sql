@@ -11,6 +11,8 @@ truncate table board_name;
 truncate table sem_date;
 truncate table files;
 truncate table user_club;
+truncate table apply_q;
+truncate table apply_a;
 SET FOREIGN_KEY_CHECKS = 1; -- Enable foreign key checking.
 
 ALTER TABLE `softwarecapstion`.`apply_a` 
@@ -178,3 +180,9 @@ INSERT INTO board_name (id,board_name) VALUES
   (2, '2020-09-01', '2021-02-28', '2020-2학기'),
   (3, '2019-03-04', '2019-08-25', '2019-1학기'),
   (4, '2019-08-26', '2020-02-29', '2019-2학기');
+  
+  INSERT INTO `softwarecapstion`.`apply_q` (`id`, `content`, `board_id`, `club_id`, `semDate_id`) VALUES ('1', '왜 지원하셨나요?', '2', '2', '1');
+  INSERT INTO `softwarecapstion`.`apply_q` (`id`, `content`, `board_id`, `club_id`, `semDate_id`) VALUES ('2', '나이가 어떻게 되세요?', '2', '2', '1');
+  INSERT INTO `softwarecapstion`.`apply_q` (`id`, `content`, `board_id`, `club_id`, `semDate_id`) VALUES ('3', '인생이 재밌나요?', '2', '2', '1');
+  INSERT INTO `softwarecapstion`.`apply_q` (`id`, `content`, `board_id`, `club_id`, `semDate_id`) VALUES ('4', '이름이 뭐예요?( 4minute)', '2', '3', '1');
+

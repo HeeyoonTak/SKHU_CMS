@@ -27,4 +27,5 @@ public class ClubServiceImpl implements ClubService {
 	public List<ClubDto> findAll(){
 		return clubDao.findAll();
 	}
+	
 }
