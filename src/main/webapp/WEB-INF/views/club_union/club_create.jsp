@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<c:url var="R" value="/" />
 <div id="fh5co-hero">
 	<a href="#fh5co-main"
 		class="smoothscroll fh5co-arrow to-animate hero-animate-4"><i
@@ -31,7 +30,7 @@
 							<ul class="pagination" style="margin-bottom: 0px">
 								<li><a href="${R}club_list" class="btn btn-primary btn-lg"
 									id="l_search_term_btn">목록</a></li>
-								<li><a href="create" class="btn btn-primary btn-lg"
+								<li><a href="club_create" class="btn btn-primary btn-lg"
 									id="l_search_term_btn">개설</a></li>
 							</ul>
 						</div>
