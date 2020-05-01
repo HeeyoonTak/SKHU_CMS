@@ -47,6 +47,14 @@
 									<td><fmt:formatDate pattern="yyyy-MM-dd"
 											value="${ board.date }" /></td>
 								</tr>
+<%-- 								<tr>
+								   <td>${files.file_name }
+								   <form method="post" enctype="multipart/form-data">
+             	                      <button type="submit" name="cmd" value="download" class="btn btn-primary">다운로드</button>
+								      <input type="hidden" name="file_id" value="${board.file_id}">
+								   </form>
+								  </td>
+								</tr> --%>
 								</table>
 							<div class="row">
 								<div class="col-md-12">

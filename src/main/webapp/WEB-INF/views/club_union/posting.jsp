@@ -22,7 +22,7 @@
 		</div>
 	</div>
 </div>
-<div id="fh5co-main">
+<div id="fh5co-main" style="padding-top: 0px">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12 animate-box">
@@ -37,7 +37,7 @@
 
 									<tr style="text-align: center">
 										<th style="text-align: center;"><form:input
-												placeholder="제목" path="title" class="form-control input-md" /></th>
+												placeholder="제목" path="title" class="form-control input-md"/></th>
 									</tr>
 									<tr>
 										<td><textarea id="summernote" name="content">${board.content }</textarea>
@@ -51,16 +51,16 @@
 												class="form-control input-sm"
 												style="width: 130px; display :inline" autocomplete="off" /></td>
 									</tr>
-									<%-- 										<tr>
-											<td style="padding-left: 270px">
-												<form action="http://localhost/upload.php" method="post"
-													enctype="multipart/form-data">
-													<input type="file" name="profile" style="float: left;">
-													<input type="submit" class="form-control input-sm"
-														style="width: 50px;">
-												</form>
-											</td>
-										</tr> --%>
+<%-- 									<tr>
+										<td style="padding-left: 270px">
+										<form method="post" enctype="multipart/form-data">
+											<input type="file" name="upload" style="float: left;" multiple>
+											<input type="hidden" name="id" value="${files.id}">
+											<input type="hidden" name="file_id" value="${board.file_id}">
+											<button type="submit" name="cmd" value="upload" class="form-control input-sm" style="width: 60px">업로드</button>
+										</form>
+										</td>
+									</tr> --%>
 								</table>
 								<div class="row">
 									<div class="col-md-12">
@@ -84,7 +84,7 @@
 
 <script>
 	$('#summernote').summernote({
-		height : 500
+		height : 300
 	});
 
 	function save() {
