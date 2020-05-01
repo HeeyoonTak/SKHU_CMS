@@ -48,7 +48,7 @@
 							<div class="row">
 								<div class="col-md-12">
 									<a class="btn btn-primary btn-lg" id="l_search_term_btn"
-										style="float: right;" href="publicity">목록</a>
+										style="float: right;" href="javascript:history.back();">목록</a>
 								</div>
 							</div>
 						</div>

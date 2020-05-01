@@ -30,13 +30,6 @@ public class BoardController {
 		return "guest/list-content";
 	}
 
-	@RequestMapping("c_p_content")
-	public String c_p_content(Model model, @RequestParam("id") int id) {
-		BoardDto board = boardService.findOne(id);
-		model.addAttribute("board",board);
-		return "guest/c_p_content";
-	}
-
 	@RequestMapping("p_content")
 	public String p_content(Model model, @RequestParam("id") int id) {
 		BoardDto board = boardService.findOne(id);

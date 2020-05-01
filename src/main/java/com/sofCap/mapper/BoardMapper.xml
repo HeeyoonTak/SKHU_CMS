@@ -13,7 +13,7 @@
 		FROM Board b RIGHT JOIN sem_date s
 		ON b.date BETWEEN s.start_date AND s.end_date
 		WHERE s.sem_name=#{sem_name} AND board_name_id = '4' AND club_id = '1'
-		ORDER BY date ASC
+		ORDER BY date DESC
 	</select>
 	
 	<select id="findByClubId_p" resultType="BoardDto">
@@ -48,6 +48,7 @@
 		Board b
 		LEFT JOIN Club c ON b.club_id = c.id
 		WHERE board_name_id = '2'
+		ORDER BY date DESC
 	</select>
 
 	<select id="findAll_n" resultType="BoardDto">
@@ -55,6 +56,7 @@
 		FROM Board
 		WHERE
 		board_name_id = '3' AND club_id = '1'
+		ORDER BY date DESC
 	</select>
 
 	<select id="findAll_m" resultType="BoardDto">
@@ -91,14 +93,14 @@
 	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
 		INSERT Board(board_name_id, title, content, date, club_id, start_date,
 		end_date)
-		VALUES (#{board_name_id}, #{title}, #{content}, date_format(now(), '%Y-%m-%d'), #{club_id}, #{start_date}, #{end_date})
+		VALUES (#{board_name_id}, #{title}, #{content}, date_format(now(), '%Y-%m-%d %h:%m:%s'), #{club_id}, #{start_date}, #{end_date})
 	</insert>
 
 	<update id="update" useGeneratedKeys="true" keyProperty="id">
 		UPDATE Board SET
 		title = #{title},
 		content = #{content},
-		date = date_format(now(), '%Y-%m-%d'),
+		date = date_format(now(), '%Y-%m-%d %h:%m:%s'),
 		start_date = #{start_date},
 		end_date = #{end_date}
 		WHERE id = #{id}

@@ -3,7 +3,6 @@ package com.sofCap.controller;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.security.Principal;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -193,10 +192,8 @@ public class ClubUnionController {
 	 * ASY_board 동아리 연합회 공지사항
 	 */
 	@RequestMapping("notice")
-	public String union_notice(Model model, Principal principal) {
-		UserDto user = userService.findByLoginId(principal.getName());
+	public String union_notice(Model model) {
 		List<BoardDto> boards = boardService.findAll_n();
-		model.addAttribute("user", user);
 		model.addAttribute("boards", boards);
 		return "club_union/union_notice";
 	}
@@ -256,7 +253,7 @@ public class ClubUnionController {
 	 * ASY_board 동아리 연합회 회의록
 	 */
 	@RequestMapping("minutes")
-	public String union_minutes(Model model, Principal principal, SemDate semdate) {
+	public String union_minutes(Model model, SemDate semdate) {
 		if (semdate.getSem_name() == null) {
 			Date now = Date.valueOf(LocalDate.now());
 			String sem_name = semdateMapper.findByDate(now);
@@ -272,8 +269,6 @@ public class ClubUnionController {
 		model.addAttribute("semdate", semdate);
 		model.addAttribute("start_date", start_date);
 		model.addAttribute("end_date", end_date);
-		UserDto user = userService.findByLoginId(principal.getName());
-		model.addAttribute("user", user);
 		model.addAttribute("boards", boards);
 		return "club_union/union_minutes";
 	}
