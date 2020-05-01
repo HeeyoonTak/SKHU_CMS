@@ -391,5 +391,52 @@ ADD CONSTRAINT `FK_applyQ_sem_dateId`
   REFERENCES `softwarecapstion`.`sem_date` (`id`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
+  
+ALTER TABLE `softwarecapstion`.`board` 
+DROP FOREIGN KEY `FK_board_club_id`;
+ALTER TABLE `softwarecapstion`.`board` 
+ADD CONSTRAINT `FK_board_club_id`
+  FOREIGN KEY (`club_id`)
+  REFERENCES `softwarecapstion`.`club` (`id`)
+  ON DELETE CASCADE;
 
+ALTER TABLE `softwarecapstion`.`attendance` 
+DROP FOREIGN KEY `FK_attendance_clubId`;
+ALTER TABLE `softwarecapstion`.`attendance` 
+ADD CONSTRAINT `FK_attendance_clubId`
+  FOREIGN KEY (`club_id`)
+  REFERENCES `softwarecapstion`.`club` (`id`)
+  ON DELETE CASCADE;
+
+ALTER TABLE `softwarecapstion`.`apply_q` 
+DROP FOREIGN KEY `FK_applyQ_clubId`;
+ALTER TABLE `softwarecapstion`.`apply_q` 
+ADD CONSTRAINT `FK_applyQ_clubId`
+  FOREIGN KEY (`club_id`)
+  REFERENCES `softwarecapstion`.`club` (`id`)
+  ON DELETE CASCADE;
+
+ALTER TABLE `softwarecapstion`.`apply_a` 
+DROP FOREIGN KEY `FK_applyA_clubId`;
+ALTER TABLE `softwarecapstion`.`apply_a` 
+ADD CONSTRAINT `FK_applyA_clubId`
+  FOREIGN KEY (`club_id`)
+  REFERENCES `softwarecapstion`.`club` (`id`)
+  ON DELETE CASCADE;
+
+ALTER TABLE `softwarecapstion`.`account` 
+DROP FOREIGN KEY `FK_account_clubId`;
+ALTER TABLE `softwarecapstion`.`account` 
+ADD CONSTRAINT `FK_account_clubId`
+  FOREIGN KEY (`club_id`)
+  REFERENCES `softwarecapstion`.`club` (`id`)
+  ON DELETE CASCADE;
+
+ALTER TABLE `softwarecapstion`.`apply_q` 
+DROP FOREIGN KEY `FK_applyQ_boardId`;
+ALTER TABLE `softwarecapstion`.`apply_q` 
+ADD CONSTRAINT `FK_applyQ_boardId`
+  FOREIGN KEY (`board_id`)
+  REFERENCES `softwarecapstion`.`board` (`id`)
+  ON DELETE CASCADE;
 -- Dump completed on 2020-04-07 15:33:46
