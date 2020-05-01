@@ -107,38 +107,6 @@
 							</tbody>
 						</c:if>
 					</table>
-
-					<!-- Modal -->
-					<form:form method="post" action="" id="modalForm">
-						<div class="modal fade" id="modal" role="dialog">
-							<div class="modal-dialog modal-md">
-
-								<!-- Modal content-->
-								<div class="modal-content">
-									<div class="modal-header">
-										<h4 id="modal-title" class="modal-title"></h4>
-									</div>
-									<div class="modal-body">
-										<table class="table attendance_check_table"
-											id="updateModalTable">
-											<tr>
-												<td>출석 날짜</td>
-												<td><input type="date" class="form-control input-md"
-													style="width: 200px" name="date" id="date"></td>
-											</tr>
-										</table>
-									</div>
-									<div class="modal-footer">
-										<button id="ModalSubmit" type="submit"
-											class="btn btn-primary col-md">저장</button>
-										<button id="closeModal" type="button"
-											class="btn btn-primary col-md" data-dismiss="modal">Close</button>
-									</div>
-								</div>
-							</div>
-						</div>
-					</form:form>
-					<!-- 끝 -->
 				</div>
 			</div>
 			<div class="col-md-3 col-md-pull-9" id="fh5co-sidebar">
@@ -153,6 +121,37 @@
 		</div>
 	</div>
 </div>
+
+<!-- Modal -->
+<form:form method="post" action="" id="modalForm">
+	<div class="modal fade" id="modal" role="dialog">
+		<div class="modal-dialog modal-md">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 id="modal-title" class="modal-title"></h4>
+				</div>
+				<div class="modal-body">
+					<table class="table attendance_check_table" id="updateModalTable">
+						<tr>
+							<td>출석 날짜</td>
+							<td><input type="date" class="form-control input-md"
+								style="width: 200px" name="date" id="date"></td>
+						</tr>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<button id="ModalSubmit" type="submit"
+						class="btn btn-primary col-md">저장</button>
+					<button id="closeModal" type="button"
+						class="btn btn-primary col-md" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form:form>
+<!-- 끝 -->
 
 <script type="text/javascript">
 		window.onload = function() {
@@ -180,7 +179,7 @@
 				};
 			var start = "${start}";
 			var end = "${end}";
-			if(start < date && date < end) {
+			if(start <= date && date <= end) {
 				if(overlap == 'O') {
 					alert('기존 출석체크 목록에 존재하는 날짜는 삽입할 수 없습니다.');
 					return false;
