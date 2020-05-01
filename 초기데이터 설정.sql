@@ -77,7 +77,7 @@ INSERT INTO club (id,club_name, club_type, content) VALUES
   
 LOCK TABLES `user_club` WRITE;
 /*!40000 ALTER TABLE `user_club` DISABLE KEYS */;
-INSERT INTO `user_club` VALUES (1,1,1),(2,2,2),(3,3,3),(4,4,4),(5,5,5),(6,6,4),(7,6,3),(8,7,2),(9,8,2),(10,8,6),(11,9,5),(12,10,7);
+INSERT INTO `user_club` VALUES (1,1,1),(2,2,2),(3,3,3),(4,4,4),(5,5,5),(6,6,4),(7,6,3),(8,7,2),(9,8,2),(10,8,6),(11,9,5),(12,10,7),(13, 11, 6),(14, 12, 7);
 /*!40000 ALTER TABLE `user_club` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -181,8 +181,8 @@ INSERT INTO board_name (id,board_name) VALUES
   (3, '2019-03-04', '2019-08-25', '2019-1학기'),
   (4, '2019-08-26', '2020-02-29', '2019-2학기');
   
-  INSERT INTO `softwarecapstion`.`apply_q` (`id`, `content`, `board_id`, `club_id`, `semDate_id`) VALUES ('1', '왜 지원하셨나요?', '2', '2', '1');
-  INSERT INTO `softwarecapstion`.`apply_q` (`id`, `content`, `board_id`, `club_id`, `semDate_id`) VALUES ('2', '나이가 어떻게 되세요?', '2', '2', '1');
-  INSERT INTO `softwarecapstion`.`apply_q` (`id`, `content`, `board_id`, `club_id`, `semDate_id`) VALUES ('3', '인생이 재밌나요?', '2', '2', '1');
-  INSERT INTO `softwarecapstion`.`apply_q` (`id`, `content`, `board_id`, `club_id`, `semDate_id`) VALUES ('4', '이름이 뭐예요?( 4minute)', '2', '3', '1');
-
+  INSERT INTO `softwarecapstion`.`apply_q` (`id`, `content`, `board_id`, `club_id`, `semDate_id`)   VALUES 
+  ('1', '왜 지원하셨나요?', '2', '2', '1'),
+  ('2', '나이가 어떻게 되세요?', '2', '2', '1'),
+  ('3', '인생이 재밌나요?', '2', '2', '1'),
+  ('4', '이름이 뭐예요?( 4minute)', '2', '3', '1');

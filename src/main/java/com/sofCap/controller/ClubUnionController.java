@@ -371,12 +371,12 @@ public class ClubUnionController {
 	}
 
 	@RequestMapping("club_delete")
-	public String delete(Model model, @RequestParam("id") int id) {
-		int club_id = userclubMapper.findByUserId(id).getClub_id();
+	public String delete(Model model, @RequestParam("user_id") int user_id) {
+		int club_id = userclubMapper.findByUserId(user_id).getClub_id();
 		String name = clubMapper.findById(club_id).getClub_name();
-		userclubMapper.delete(id);
+		userclubMapper.delete(club_id);
 		clubMapper.delete(name);
-		userMapper.delete(id);
+		userMapper.delete(user_id);
 		return "redirect:club_list";
 	}
 

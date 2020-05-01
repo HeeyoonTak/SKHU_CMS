@@ -31,13 +31,12 @@
 							<div class="col-xs-12" style="margin-bottom: 0px">
 								<h2 class="h3" style="margin-bottom: 0px">동아리 관리</h2>
 								<ul class="pagination" style="margin-bottom: 0px">
-									<li><a href="${R}club_list" class="btn btn-primary btn-lg"
-										id="l_search_term_btn">목록</a></li>
 									<li><sec:authorize access="hasRole('ROLE_ClubUnion')"><a href="club_create" class="btn btn-primary btn-lg"
 										id="l_search_term_btn">개설</a></sec:authorize></li>
+
 								</ul>
 							</div>
-							<div class="col-xs-12" style="margin-left: 50px">
+							<div class="col-xs-12" style="margin-left: 0px">
 								<table class="table table-striped " style="width: 650px">
 									<tr class="text-center">
 										<th colspan="3" style="text-align: center">목록</th>
