@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -87,8 +89,8 @@
 											<c:if test="${selectSemId eq sem}">
 												<c:if test="${status.count % fn:length(adminUser) eq 0}">
 													<!--출석체크 삭제-->
-													<td><a
-														href="attendance_delete?date=${attendance.date}">x</a></td>
+													<td><sec:authorize access="hasRole('ROLE_ClubUnion')"><a
+														href="attendance_delete?date=${attendance.date}">x</a></sec:authorize></td>
 												</c:if>
 											</c:if>
 										</c:if>
@@ -101,7 +103,7 @@
 								<tr>
 									<!--출석체크 삽입 모달-->
 									<td colspan="${fn:length(adminUser) + 2}">
-										<button id="createBtn" class="btn btn-primary col-md">+</button>
+										<sec:authorize access="hasRole('ROLE_ClubUnion')"><button id="createBtn" class="btn btn-primary col-md">+</button></sec:authorize>
 									</td>
 								</tr>
 							</tbody>

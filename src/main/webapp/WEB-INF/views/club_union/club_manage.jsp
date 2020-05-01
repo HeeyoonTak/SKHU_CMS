@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <div id="fh5co-hero">
@@ -31,8 +33,8 @@
 								<ul class="pagination" style="margin-bottom: 0px">
 									<li><a href="${R}club_list" class="btn btn-primary btn-lg"
 										id="l_search_term_btn">목록</a></li>
-									<li><a href="club_create" class="btn btn-primary btn-lg"
-										id="l_search_term_btn">개설</a></li>
+									<li><sec:authorize access="hasRole('ROLE_ClubUnion')"><a href="club_create" class="btn btn-primary btn-lg"
+										id="l_search_term_btn">개설</a></sec:authorize></li>
 								</ul>
 							</div>
 							<div class="col-xs-12" style="margin-left: 50px">
@@ -43,8 +45,8 @@
 									<c:forEach var="user" items="${users}">
 										<tr style="text-align: center">
 											<td style="text-align: left"><a>${user.name}</a></td>
-											<td><a href="club_delete?id=${user.id}" data-confirm-delete
-												style="color: #ff0000">삭제</a>
+											<td><sec:authorize access="hasRole('ROLE_ClubUnion')"><a href="club_delete?id=${user.id}" data-confirm-delete
+												style="color: #ff0000">삭제</a></sec:authorize>
 										</tr>
 									</c:forEach>
 								</table>
