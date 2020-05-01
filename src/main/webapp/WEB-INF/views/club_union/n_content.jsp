@@ -53,7 +53,7 @@
 										<form:hidden path="id" class="form-control input-md" />
 									</form:form>
 									<a class="btn btn-primary btn-lg" id="l_search_term_btn"
-										style="float: right;" href="javascript:history.back();">목록</a>
+										style="float: right;" href="notice">목록</a>
 									<sec:authorize access="hasRole('ROLE_ClubUnion')">
 										<a href="n_edit?id=${board.id}" class="btn btn-primary btn-lg"
 											id="l_search_term_btn" style="float: right;">편집</a>
