@@ -29,21 +29,19 @@
 							<div class="col-xs-12" style="margin-bottom: 0px">
 								<h2 class="h3" style="margin-bottom: 0px">동아리 관리</h2>
 								<ul class="pagination" style="margin-bottom: 0px">
-									<li><a href="${R}club_list" class="btn btn-primary btn-lg"
-										id="l_search_term_btn">목록</a></li>
 									<li><a href="club_create" class="btn btn-primary btn-lg"
 										id="l_search_term_btn">개설</a></li>
 								</ul>
 							</div>
-							<div class="col-xs-12" style="margin-left: 50px">
+							<div class="col-xs-12" style="margin-left: 0px">
 								<table class="table table-striped " style="width: 650px">
 									<tr class="text-center">
 										<th colspan="3" style="text-align: center">목록</th>
 									</tr>
 									<c:forEach var="user" items="${users}">
 										<tr style="text-align: center">
-											<td style="text-align: left"><a>${user.name}</a></td>
-											<td><a href="club_delete?id=${user.id}" data-confirm-delete
+											<td style="text-align: left">${user.name}</td>
+											<td><a href="club_delete?user_id=${user.id}" data-confirm-delete
 												style="color: #ff0000">삭제</a>
 										</tr>
 									</c:forEach>

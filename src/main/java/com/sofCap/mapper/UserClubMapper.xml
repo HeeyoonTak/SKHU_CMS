@@ -10,7 +10,7 @@
 	</select>
 
 	<delete id="delete">
-		DELETE FROM User_Club WHERE user_id=#{user_id}
+		DELETE FROM User_Club WHERE club_id=#{club_id}
 	</delete>
 
 	<insert id="insert" useGeneratedKeys="true" keyProperty="id">

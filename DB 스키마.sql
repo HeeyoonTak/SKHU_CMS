@@ -374,7 +374,6 @@ ADD CONSTRAINT `FK_applyA_clubId`
 ALTER TABLE `softwarecapstion`.`apply_q` 
 ADD COLUMN `club_id` INT NOT NULL AFTER `board_id`,
 ADD INDEX `FK_applyQ_clubId_idx` (`club_id` ASC) VISIBLE;
-;
 ALTER TABLE `softwarecapstion`.`apply_q` 
 ADD CONSTRAINT `FK_applyQ_clubId`
   FOREIGN KEY (`club_id`)
