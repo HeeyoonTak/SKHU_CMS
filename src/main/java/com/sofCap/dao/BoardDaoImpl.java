@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.sofCap.dto.BoardDto;
 import com.sofCap.mapper.BoardMapper;
+import com.sofCap.model.SemDate;
 
 @Repository
 public class BoardDaoImpl implements BoardDao {
@@ -17,6 +18,11 @@ public class BoardDaoImpl implements BoardDao {
 	@Override
 	public BoardDto findById(int id) {
 		return boardMapper.findById(id);
+	}
+
+	@Override
+	public List<BoardDto> findBySem_m(SemDate sem_name) {
+		return boardMapper.findBySem_m(sem_name);
 	}
 
 	@Override

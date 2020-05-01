@@ -4,6 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<c:url var="R" value="/" />
 <div id="fh5co-hero">
 	<a href="#fh5co-main"
 		class="smoothscroll fh5co-arrow to-animate hero-animate-4"><i
@@ -32,12 +34,29 @@
 							<h3>회의록</h3>
 						</div>
 						<div>
+ 							<div class="row">
+								<form action="#" method="post">
+									<div class="col-md-9"></div>
+									<div class="col-md-3">
+										<div class="form-group">
+											<label for="search_term" class="sr-only">학기</label>
+											<form:form method="get" modelAttribute="semdate">
+												<form:select path="sem_name"
+													class="form-control input-md autosubmit" id="l_search_term">
+													<form:options value="${ sem_name }" itemValue="sem_name"
+														itemLabel="sem_name" items="${ sems }" />
+												</form:select>
+											</form:form>
+										</div>
+									</div>
+								</form>
+							</div>
 							<div style="margin-left: 50px">
 								<table class="table table-striped " style="width: 650px">
 									<tr class="text-center">
 										<th style="text-align: center">제목</th>
 										<th style="text-align: center">등록일</th>
-										<sec:authorize access="authenticated">
+										<sec:authorize access="hasRole('ROLE_ClubUnion')">
 											<th></th>
 										</sec:authorize>
 									</tr>
@@ -46,7 +65,7 @@
 											<td><a href="m_content?id=${board.id}">${board.title}</a></td>
 											<td style="text-align: center; width: 200px;"><fmt:formatDate
 													pattern="yyyy-MM-dd" value="${ board.date }" /></td>
-											<sec:authorize access="authenticated">
+											<sec:authorize access="hasRole('ROLE_ClubUnion')">
 												<td style="width: 50px"><a href="m_delete?id=${board.id}"
 													style="color: #ff0000">x</a></td>
 											</sec:authorize>
@@ -62,7 +81,7 @@
 								</div>
 								<div class="row">
 									<div class="col-md-12">
-										<sec:authorize access="authenticated">
+										<sec:authorize access="hasRole('ROLE_ClubUnion')">
 											<a href="m_create" class="btn btn-primary btn-lg"
 												id="l_search_term_btn" style="float: right;">작성</a>
 										</sec:authorize>
@@ -75,11 +94,11 @@
 			</div>
 			<div class="col-md-3 col-md-pull-9" id="fh5co-sidebar">
 				<ul class="attendance_check-list hor_1">
-					<li><a href="${R}notice">공지사항</a></li>
-					<li><a href="${R}account">회계 관리</a></li>
-					<li><a href="${R}club_list">동아리 관리</a></li>
-					<li><a href="${R}attendance">출석체크</a></li>
-					<li><a href="${R}minutes">회의록</a></li>
+					<li><a href="${R}club_union/notice">공지사항</a></li>
+					<li><a href="${R}club_union/account">회계 관리</a></li>
+					<li><a href="${R}club_union/club_list">동아리 관리</a></li>
+					<li><a href="${R}club_union/attendance">출석체크</a></li>
+					<li><a href="${R}club_union/minutes">회의록</a></li>
 				</ul>
 			</div>
 		</div>

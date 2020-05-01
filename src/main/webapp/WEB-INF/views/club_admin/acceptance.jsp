@@ -28,43 +28,40 @@
 								<div style="margin-bottom: 20px">
 									<h3>회원 관리</h3>
 								</div>
-								    <form>
 									<div class="col-md-5">
 										<table class="table table-striped ">
 											
 											<tr class="text-center">
 												<th style="text-align: center">비회원</th>
 											</tr>
-											<tr>
-												<td><input type="checkbox" style="margin-right: 10px; width: 18px; height: 18px;" value="" >탁희윤</td>
-											</tr>
-											<tr>
-												<td><input type="checkbox" style="margin-right: 10px; width: 18px; height: 18px;" value="">안세연</td>
-											</tr>
-											<tr>
-												<td><input type="checkbox" style="margin-right: 10px; width: 18px; height: 18px;" value="">장예지</td>
-											</tr>
+												<c:forEach var="<%-- lecture --%>" items="<%-- ${acceptanceNo} --%>">
+													<tr>
+														<td><input type="checkbox" style="margin-right: 10px; width: 18px; height: 18px;" value="">지원자 학번/이름</td>
+													</tr>
+												</c:forEach>
 										</table>
 									</div>
 									<div class="col-md-2">
-										<button class="btn btn-lg btn-primary" type="submit"
-											onclick="">&gt;</input>
-										<button class="btn btn-lg btn-primary" type="submit"
-											onclick="">&lt;</button>
+										<form method="post">
+											<input type="hidden" name="user_id" value="${userClub.user_id}"/>
+											<input type="hidden" name="club_id" value="${userClub.club_id}"/>
+											<button class="btn btn-lg btn-primary" type="submit"
+													name="cmd" value="yes">&gt;</button>
+											<button class="btn btn-lg btn-primary" type="submit"
+													name="cmd" value="no">&lt;</button>
+										</form>
 									</div>
-								</form>
 									<div class="col-md-5">
 										<table class="table table-striped ">
 											
 											<tr class="text-center">
 												<th style="text-align: center">회원</th>
 											</tr>
-											<tr>
-												<td>이혜민</td>
-											</tr>
-											<tr>
-												<td>김명석</td>
-											</tr>
+												<c:forEach var="<%-- lecture --%>" items="<%-- ${acceptanceYes} --%>">
+													<tr>
+														<td><input type="checkbox" style="margin-right: 10px; width: 18px; height: 18px;" value="">회원 학번/이름</td>
+													</tr>
+												</c:forEach>
 										</table>
 									</div>
 								    
