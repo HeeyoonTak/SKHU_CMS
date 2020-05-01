@@ -22,7 +22,7 @@
 		<nav id="fh5co-menu-wrap" role="navigation">
 
 			<ul class="sf-menu" id="fh5co-primary-menu">
-				<li class="active"><sec:authorize access="hasRole('ROLE_ClubUnion')"><a href="${R}club_union/notice">동아리 연합회</a></sec:authorize></li>
+				<li class="active"><sec:authorize access="authenticated"><a href="${R}club_union/notice">동아리 연합회</a></sec:authorize></li>
 				<li><a href="${R}" class="fh5co-sub-ddown">동아리</a>
 					<ul class="fh5co-sub-menu">
 						<li><a href="${R}left-sidebar.html">멋쟁이 사자처럼</a></li>
