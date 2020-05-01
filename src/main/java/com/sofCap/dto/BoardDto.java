@@ -14,7 +14,7 @@ public class BoardDto {
 	int board_name_id;
 	String title;
 	String content;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
 	Date date;
 	int file_id;
 	int club_id;

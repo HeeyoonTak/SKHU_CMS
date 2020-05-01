@@ -29,12 +29,12 @@
 			<div class="row" id="fh5co-features" style="float: left">
 				<table class="table table-striped " style="width: 430px">
 					<tr class="text-center">
-						<th colspan="3" style="text-align: center">일반 홍보 게시판</th>
+						<th colspan="3" style="text-align: center">홍보 게시판</th>
 					</tr>
 					<c:forEach var="board_p" items="${boards_p}">
 						<tr style="text-align: center">
 							<td style="text-align: left"><a
-								href="c_p_content?id=${board_p.id}">${board_p.title}</a></td>
+								href="p_content?id=${board_p.id}">${board_p.title}</a></td>
 						</tr>
 					</c:forEach>
 					<tr>
@@ -62,23 +62,23 @@
 							<%-- 마감날짜 --%>
 							<c:if test="${openDate < nowDate && closeDate < nowDate}">
 								<td style="text-align: left; width: 70%"><a
-									href="c_p_content?id=${board_r.id}">${board_r.title}</a></td>
+									href="r_content?id=${board_r.id}">${board_r.title}</a></td>
 								<td style="text-align: left">모집 마감</td>
 							</c:if>
 							<c:if test="${openDate < nowDate && closeDate > nowDate}">
 								<td style="text-align: left"><a
-									href="c_p_content?id=${board_r.id}">${board_r.title}</a></td>
+									href="r_content?id=${board_r.id}">${board_r.title}</a></td>
 								<td style="text-align: left">모집 진행중</td>
 							</c:if>
 							<c:if test="${openDate > nowDate && closeDate > nowDate}">
 								<td style="text-align: left"><a
-									href="c_p_content?id=${board_r.id}">${board_r.title}</a></td>
+									href="r_content?id=${board_r.id}">${board_r.title}</a></td>
 								<td style="text-align: left">모집 예정</td>
 							</c:if>
 						</tr>
 					</c:forEach>
 					<tr>
-						<th colspan="2" style="text-align: right"><a href="recurit">더
+						<th colspan="2" style="text-align: right"><a href="recruit">더
 								보기</a></th>
 					</tr>
 				</table>
