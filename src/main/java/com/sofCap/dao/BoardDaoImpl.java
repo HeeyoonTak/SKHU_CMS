@@ -31,6 +31,11 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
+	public List<BoardDto> findByClubId_n(@Param("id") int club_id) {
+		return boardMapper.findByClubId_n(club_id);
+	}
+
+	@Override
 	public List<BoardDto> findAll_p() {
 		return boardMapper.findAll_p();
 	}

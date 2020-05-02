@@ -11,6 +11,7 @@ public interface BoardDao {
 	BoardDto findById(int id);
 	List<BoardDto> findBySem_m(SemDate sem_name);
 	List<BoardDto> findByClubId_p(@Param("id") int club_id);
+	List<BoardDto> findByClubId_n(@Param("id") int club_id);
 	List<BoardDto> findAll_p();
 	List<BoardDto> findAll_r();
 	List<BoardDto> findAll_n();

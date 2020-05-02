@@ -3,16 +3,52 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.sofCap.mapper.BoardMapper">
-	<select id="findById" resultType="BoardDto">  <!-- -->
+
+	<select id="findById" resultType="BoardDto">
 		SELECT * FROM Board WHERE id =
 		#{id}
 	</select>
-
+	
+	<select id="findOne" resultType="BoardDto">
+		SELECT *
+		FROM Board
+		WHERE id =
+		#{id}
+	</select>
+	
+	 <!-- 
+	   동연 mapper 
+	 -->
 	<select id="findBySem_m" resultType="BoardDto">   <!-- 학기별 회의록 리스트 조회 -->
 		SELECT b.*, s.sem_name
 		FROM Board b RIGHT JOIN sem_date s
 		ON b.date BETWEEN s.start_date AND s.end_date
 		WHERE s.sem_name=#{sem_name} AND board_name_id = '4' AND club_id = '1'
+		ORDER BY date DESC
+	</select>
+	
+	<select id="findAll_n" resultType="BoardDto">  <!-- 동연  공지사항 전체 리스트 조회 -->
+		SELECT *
+		FROM Board
+		WHERE
+		board_name_id = '3' AND club_id = '1'
+		ORDER BY date DESC
+	</select>
+
+	<select id="findAll_m" resultType="BoardDto">  <!-- 동연  회의록 전체 리스트 조회 -->
+		SELECT *
+		FROM Board
+		WHERE
+		board_name_id = '4' AND club_id = '1'
+	</select>
+	
+	<!-- 
+	각 동아리 mapper
+	 -->
+	<select id="findByClubId_n" resultType="BoardDto">  <!-- 각 동아리 공지사항 리스트 조회 -->
+		SELECT *
+		FROM Board
+		WHERE club_id = #{id} AND board_name_id = '3'
 		ORDER BY date DESC
 	</select>
 	
@@ -22,13 +58,6 @@
 		LEFT JOIN Club c ON b.club_id = c.id
 		WHERE club_id = #{id} AND
 		board_name_id = '1'
-	</select>
-
-	<select id="findOne" resultType="BoardDto">
-		SELECT *
-		FROM Board
-		WHERE id =
-		#{id}
 	</select>
 
 	<select id="findAll_p" resultMap="resultMap_BoardDto">  <!-- 홍보게시판 전체 리스트 조회 -->
@@ -51,20 +80,6 @@
 		ORDER BY date DESC
 	</select>
 
-	<select id="findAll_n" resultType="BoardDto">  <!-- 동연  공지사항 전체 리스트 조회 -->
-		SELECT *
-		FROM Board
-		WHERE
-		board_name_id = '3' AND club_id = '1'
-		ORDER BY date DESC
-	</select>
-
-	<select id="findAll_m" resultType="BoardDto">  <!-- 동연  회의록 전체 리스트 조회 -->
-		SELECT *
-		FROM Board
-		WHERE
-		board_name_id = '4' AND club_id = '1'
-	</select>
 
 	<select id="listFive_p" resultType="BoardDto">
 		SELECT *

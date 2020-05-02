@@ -1,6 +1,7 @@
 package com.sofCap.controller;
 
 import java.security.Principal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,8 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.sofCap.dto.BoardDto;
 import com.sofCap.dto.UserClubDto;
 import com.sofCap.dto.UserDto;
+import com.sofCap.service.BoardService;
 import com.sofCap.service.UserClubService;
 import com.sofCap.service.UserService;
 
@@ -21,11 +24,7 @@ public class ClubAdminController {
 
 	@Autowired UserService userService;
 	@Autowired UserClubService userClubService;
-
-	@RequestMapping("notice")
-	public String club_notice(Model model, Principal principal) {
-		return "club_admin/club_notice";
-	}
+	@Autowired BoardService boardService;
 
 	/*
 	 * 지원자 합불 구현하기
@@ -59,5 +58,12 @@ public class ClubAdminController {
 		userService.updateRole(user);
 		userClubService.delete(user_id);
 		return "redirect:acceptance";
+	}
+
+	@RequestMapping("notice")
+	public String club_notice(Model model, @RequestParam("club_id") int club_id) {
+		List<BoardDto> boards = boardService.findByClubId_n(club_id);
+		model.addAttribute("boards", boards);
+		return "club_admin/club_notice";
 	}
 }
