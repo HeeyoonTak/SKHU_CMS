@@ -51,16 +51,6 @@
 												class="form-control input-sm"
 												style="width: 130px; display :inline" autocomplete="off" /></td>
 									</tr>
-<%-- 									<tr>
-										<td style="padding-left: 270px">
-										<form method="post" enctype="multipart/form-data">
-											<input type="file" name="upload" style="float: left;" multiple>
-											<input type="hidden" name="id" value="${files.id}">
-											<input type="hidden" name="file_id" value="${board.file_id}">
-											<button type="submit" name="cmd" value="upload" class="form-control input-sm" style="width: 60px">업로드</button>
-										</form>
-										</td>
-									</tr> --%>
 								</table>
 								<div class="row">
 									<div class="col-md-12">
