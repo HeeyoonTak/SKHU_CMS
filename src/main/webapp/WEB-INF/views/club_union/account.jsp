@@ -115,7 +115,11 @@
 															<td><a class="btn btn-primary" id="showReceipt" data-target="#createModal" onclick="return showReceipt('${account.id}');">영수증</a>
 																<%-- <img src ="${R}club_union/getImage?id=${account.id}" width="100" height="100"></img> --%>
 															</td>
-															<td><a href="${R}club_union/delete?id=${account.id}&club_id=${club.id}" onclick="return deleteAlert();">x</a></td>
+															<td>
+															<c:if test="${club.id eq myClub.id}">
+															<a href="${R}club_union/delete?id=${account.id}&club_id=${club.id}" onclick="return deleteAlert();">x</a>
+															</c:if>
+															</td>
 														</tr>
 													</c:if>
 												</c:forEach>
@@ -128,6 +132,7 @@
 													</c:if>
 												</c:forEach>
 											</tbody>
+											<c:if test="${club.id eq myClub.id}">
 											<tbody>
 												<tr id="default">
 													<input type="hidden" name="club_id" value="${club.id}">
@@ -159,6 +164,7 @@
 															class="btn btn-primary col-md" id="pls-btn">+</button></td>
 												</tr>
 											</tbody>
+											</c:if>
 
 										</table>
 								</div>

@@ -30,18 +30,18 @@ import org.springframework.web.multipart.MultipartFile;
 import com.sofCap.dto.AccountDto;
 import com.sofCap.dto.AttendanceDto;
 import com.sofCap.dto.BoardDto;
+import com.sofCap.dto.ClubDto;
 import com.sofCap.dto.FilesDto;
 import com.sofCap.dto.SemDateDto;
-import com.sofCap.dto.ClubDto;
-import com.sofCap.dto.UserDto;
 import com.sofCap.dto.UserClubDto;
+import com.sofCap.dto.UserDto;
 import com.sofCap.mapper.AccountMapper;
 import com.sofCap.mapper.BoardMapper;
+import com.sofCap.mapper.ClubMapper;
 import com.sofCap.mapper.FileMapper;
 import com.sofCap.mapper.SemDateMapper;
-import com.sofCap.mapper.ClubMapper;
-import com.sofCap.mapper.UserMapper;
 import com.sofCap.mapper.UserClubMapper;
+import com.sofCap.mapper.UserMapper;
 import com.sofCap.model.SemDate;
 import com.sofCap.service.AccountService;
 import com.sofCap.service.AttendanceService;
@@ -49,6 +49,7 @@ import com.sofCap.service.BoardService;
 import com.sofCap.service.ClubService;
 import com.sofCap.service.FileService;
 import com.sofCap.service.SemDateService;
+import com.sofCap.service.UserClubService;
 import com.sofCap.service.UserService;
 
 @Controller
@@ -83,6 +84,8 @@ public class ClubUnionController {
 	FileService fileService;
 	@Autowired
 	SemDateMapper semdateMapper;
+	@Autowired
+	UserClubService userClubService;
 
 	/*
 	 * jyj_attendance 동아리 연합회 출석체크
@@ -388,7 +391,11 @@ public class ClubUnionController {
 	// 버전 3
 	/* 학기에 따른 회계 리스트 조회 */
 	@RequestMapping(value = "account")
-	public String account(Model model, SemDate semdate) {
+	public String account(Model model, SemDate semdate, Principal principal) {
+		UserDto user = userService.findByLoginId(principal.getName());
+		UserClubDto user_club = userClubService.findByUserId(user.getId());
+		int user_club_id = user_club.getClub_id();
+		ClubDto myClub = clubService.findById(user_club_id);
 		System.out.println(semdate.getSem_name());
 		if (semdate.getSem_name() == null) {
 			Date now = Date.valueOf(LocalDate.now());
@@ -404,6 +411,7 @@ public class ClubUnionController {
 		String end_date = format.format(startenddate.getEnd_date());
 //		System.out.println(format.format(startenddate.getStart_date()));
 //		System.out.println(format.format(startenddate.getEnd_date()));
+		model.addAttribute("myClub", myClub);
 		model.addAttribute("accounts", accounts);
 		model.addAttribute("clubs", clubService.findAll());
 		model.addAttribute("sems", semdateService.findAll());
