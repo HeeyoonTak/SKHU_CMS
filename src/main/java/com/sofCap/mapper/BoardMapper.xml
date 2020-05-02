@@ -3,12 +3,12 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.sofCap.mapper.BoardMapper">
-	<select id="findById" resultType="BoardDto">
+	<select id="findById" resultType="BoardDto">  <!-- -->
 		SELECT * FROM Board WHERE id =
 		#{id}
 	</select>
 
-	<select id="findBySem_m" resultType="BoardDto">
+	<select id="findBySem_m" resultType="BoardDto">   <!-- 학기별 회의록 리스트 조회 -->
 		SELECT b.*, s.sem_name
 		FROM Board b RIGHT JOIN sem_date s
 		ON b.date BETWEEN s.start_date AND s.end_date
@@ -16,7 +16,7 @@
 		ORDER BY date DESC
 	</select>
 	
-	<select id="findByClubId_p" resultType="BoardDto">
+	<select id="findByClubId_p" resultType="BoardDto">  <!-- 각 동아리 홍보게시판 리스트 조회 -->
 		SELECT b.*
 		FROM Board b
 		LEFT JOIN Club c ON b.club_id = c.id
@@ -31,7 +31,7 @@
 		#{id}
 	</select>
 
-	<select id="findAll_p" resultMap="resultMap_BoardDto">
+	<select id="findAll_p" resultMap="resultMap_BoardDto">  <!-- 홍보게시판 전체 리스트 조회 -->
 		SELECT b.*, c.club_name
 		FROM
 		Board b
@@ -42,7 +42,7 @@
 		DESC
 	</select>
 
-	<select id="findAll_r" resultMap="resultMap_BoardDto">
+	<select id="findAll_r" resultMap="resultMap_BoardDto">  <!-- 모집게시판 전체 리스트 조회 -->
 		SELECT b.*, c.club_name
 		FROM
 		Board b
@@ -51,7 +51,7 @@
 		ORDER BY date DESC
 	</select>
 
-	<select id="findAll_n" resultType="BoardDto">
+	<select id="findAll_n" resultType="BoardDto">  <!-- 동연  공지사항 전체 리스트 조회 -->
 		SELECT *
 		FROM Board
 		WHERE
@@ -59,7 +59,7 @@
 		ORDER BY date DESC
 	</select>
 
-	<select id="findAll_m" resultType="BoardDto">
+	<select id="findAll_m" resultType="BoardDto">  <!-- 동연  회의록 전체 리스트 조회 -->
 		SELECT *
 		FROM Board
 		WHERE
@@ -86,17 +86,17 @@
 		DESC LIMIT 5;
 	</select>
 
-	<delete id="delete">
+	<delete id="delete">    <!-- 게시글 삭제 -->
 		DELETE FROM Board WHERE id = #{id}
 	</delete>
 
-	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">  <!-- 게시글 삽입 -->
 		INSERT Board(board_name_id, title, content, date, club_id, start_date,
 		end_date)
 		VALUES (#{board_name_id}, #{title}, #{content}, date_format(now(), '%Y-%m-%d %h:%m:%s'), #{club_id}, #{start_date}, #{end_date})
 	</insert>
 
-	<update id="update" useGeneratedKeys="true" keyProperty="id">
+	<update id="update" useGeneratedKeys="true" keyProperty="id">   <!-- 게시글 수정 -->
 		UPDATE Board SET
 		title = #{title},
 		content = #{content},
