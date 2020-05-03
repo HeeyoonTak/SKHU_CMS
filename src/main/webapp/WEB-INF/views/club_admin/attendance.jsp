@@ -205,10 +205,11 @@
 	    			$('#modalForm').attr('onsubmit','');
 	    			$('#modal').modal('show');
 				    var find = $(this).attr("find");
+				    var club_id = '${user_club_id}';
 			    	var obj;
 		    	    jQuery.ajax({
 			    	   type:"POST", 
-			    	   url : "/club_union/update?find="+find,
+			    	   url : "/club_admin/update?find="+find+"&club_id="+club_id,
 			    	   dataType:"json",
 			    	   success : function(data) { 
 			    	      obj = data;
