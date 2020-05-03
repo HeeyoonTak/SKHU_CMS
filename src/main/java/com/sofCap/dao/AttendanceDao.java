@@ -8,25 +8,25 @@ import com.sofCap.dto.SemDateDto;
 
 public interface AttendanceDao {
 
-	List<String> findAdmin(int semId);
+	List<String> findUser(int semId, int clubId);
 
-	List<String> findDate(int semId);
+	List<String> findDate(int semId, int clubId);
 
-	List<AttendanceDto> findBySemDate(int semId);
+	List<AttendanceDto> findBySemDate(int semId, int clubId);
 
-	List<AttendanceDto> findByDate(Date date);
+	List<AttendanceDto> findByDate(Date date, int clubId);
 
 	SemDateDto findBySemId(Date date);
 
 	SemDateDto findLastSem();
 
-	void dateNow(Date date, int semId);
+	void dateNow(Date date, int semId, int clubId);
 
 	/* void dateNew(Date date); */
 
-	void allUpdate(String date);
+	void allUpdate(String date, int clubId);
 
 	void update(int id);
 
-	void delete(Date date);
+	void delete(Date date, int clubId);
 }

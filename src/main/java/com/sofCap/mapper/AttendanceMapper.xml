@@ -4,13 +4,13 @@
 
 <mapper namespace="com.sofCap.mapper.AttendanceMapper">
 
-	<select id="findAdmin" resultType="String"> <!--학기별 출석체크 회원 name 리스트 -->
+	<select id="findUser" resultType="String"> <!--학기별 출석체크 회원 name 리스트 -->
 		SELECT DISTINCT u.name
 		FROM attendance a JOIN sem_date s ON a.date
 		BETWEEN s.start_date AND s.end_date
 		JOIN user u ON a.user_id = u.id
-		WHERE s.id = #{s.id}
-		AND a.club_id = 1
+		WHERE s.id = #{semId}
+		AND a.club_id = #{clubId}
 		ORDER BY u.id
 	</select>
 
@@ -20,7 +20,7 @@
 		JOIN sem_date s ON a.date BETWEEN s.start_date AND s.end_date
 		WHERE
 		s.id = #{semId}
-		AND club_id = 1
+		AND club_id = #{clubId}
 		ORDER BY date
 	</select>
 
@@ -38,7 +38,7 @@
 		JOIN user u ON a.user_id = u.id
 		WHERE s.id = #{semId}
 		AND
-		a.club_id = 1
+		a.club_id = #{clubId}
 		ORDER BY a.date, a.user_id
 	</select>
 
@@ -50,7 +50,7 @@
 		,a.user_id
 		,u.name
 		FROM attendance a JOIN user u ON a.user_id = u.id
-		WHERE club_id = 1
+		WHERE club_id = #{clubId}
 		AND a.date = #{date}
 		ORDER BY a.user_id
 	</select>
@@ -70,7 +70,7 @@
 	
 	<update id="dateNow"> <!-- 존재하는 학기에 출석체크 insert -->
 		INSERT INTO attendance(club_id,`check`,date,user_id)
-		SELECT  1          as club_id
+		SELECT  #{clubId}  as club_id
 		       ,0          as `check`
 		       ,#{date}    as date
 		       ,t1.u_id    as user_id
@@ -80,7 +80,7 @@
 			FROM attendance a JOIN sem_date s ON a.date BETWEEN s.start_date AND s.end_date
 			JOIN user u ON a.user_id = u.id
 			WHERE s.id = #{semId}
-			AND a.club_id = 1
+			AND a.club_id = #{clubId}
 			ORDER BY u.id
 		) t1
 	</update>
@@ -105,7 +105,7 @@
 		UPDATE attendance
 		SET `check` = 0
 		WHERE date = #{date}
-		AND club_id = 1
+		AND club_id = #{clubId}
 	</update>
 
 	<update id="update">
@@ -119,7 +119,7 @@
 		DELETE a
 		FROM attendance AS a
 		WHERE a.date = #{date}
-		AND a.club_id = 1
+		AND a.club_id = #{clubId}
 	</delete>
 
 </mapper>

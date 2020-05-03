@@ -1,20 +1,33 @@
 package com.sofCap.controller;
 
 import java.security.Principal;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.sofCap.dto.AttendanceDto;
 import com.sofCap.dto.BoardDto;
+import com.sofCap.dto.ClubDto;
+import com.sofCap.dto.SemDateDto;
 import com.sofCap.dto.UserClubDto;
 import com.sofCap.dto.UserDto;
+import com.sofCap.model.SemDate;
+import com.sofCap.service.AttendanceService;
 import com.sofCap.service.BoardService;
+import com.sofCap.service.ClubService;
+import com.sofCap.service.SemDateService;
 import com.sofCap.service.UserClubService;
 import com.sofCap.service.UserService;
 
@@ -22,23 +35,32 @@ import com.sofCap.service.UserService;
 @RequestMapping("club_admin")
 public class ClubAdminController {
 
-	@Autowired UserService userService;
-	@Autowired UserClubService userClubService;
-	@Autowired BoardService boardService;
+	@Autowired
+	UserService userService;
+	@Autowired
+	UserClubService userClubService;
+	@Autowired
+	BoardService boardService;
+	@Autowired
+	AttendanceService attendanceService;
+	@Autowired
+	SemDateService semdateService;
+	@Autowired
+	ClubService clubService;
 
 	/*
 	 * 지원자 합불 구현하기
-	*/
+	 */
 	@GetMapping("acceptance")
 	public String acceptane(Model model, Principal principal) {
 		UserDto user = userService.findByLoginId(principal.getName());
-		model.addAttribute("user",user);
+		model.addAttribute("user", user);
 		return "club_admin/acceptance";
 	}
 
-	@PostMapping(value="acceptance",params="cmd=yes") //id값은 지원자 id값
-	public String acceptanceYes(Model model, Principal principal,
-			@RequestParam("user_id") int user_id, @RequestParam("club_id") int club_id) {
+	@PostMapping(value = "acceptance", params = "cmd=yes") // id값은 지원자 id값
+	public String acceptanceYes(Model model, Principal principal, @RequestParam("user_id") int user_id,
+			@RequestParam("club_id") int club_id) {
 		UserDto user = userService.findByLoginId(principal.getName());
 		UserClubDto userClub = userClubService.findByUserId(user_id);
 		model.addAttribute("user", user);
@@ -48,9 +70,9 @@ public class ClubAdminController {
 		return "redirect:acceptance";
 	}
 
-	@PostMapping(value="acceptance",params="cmd=no")
-	public String acceptanceNo(Model model, Principal principal,
-			@RequestParam("user_id") int user_id, @RequestParam("club_id") int club_id) {
+	@PostMapping(value = "acceptance", params = "cmd=no")
+	public String acceptanceNo(Model model, Principal principal, @RequestParam("user_id") int user_id,
+			@RequestParam("club_id") int club_id) {
 		UserDto user = userService.findByLoginId(principal.getName());
 		UserClubDto userClub = userClubService.findByUserId(user_id);
 		model.addAttribute("user", user);
@@ -65,5 +87,119 @@ public class ClubAdminController {
 		List<BoardDto> boards = boardService.findByClubId_n(club_id);
 		model.addAttribute("boards", boards);
 		return "club_admin/club_notice";
+	}
+
+	/*
+	 * jyj_attendance 동아리 출석체크
+	 */
+	@RequestMapping("attendance")
+	public String attendance(Model model, SemDate semdate, Principal principal) {
+
+		// 로그인 한 유저 정보 추출
+		UserDto user = userService.findByLoginId(principal.getName());
+		UserClubDto user_club = userClubService.findByUserId(user.getId());
+		int user_club_id = user_club.getClub_id();
+		ClubDto myClub = clubService.findById(user_club_id);
+
+		// 현재 날짜에 맞는 현재 학기 추출
+		Date now = Date.valueOf(LocalDate.now());
+		int sem = attendanceService.findBySemId(now).getId();
+		model.addAttribute("sem", sem);
+
+		// 학기 리스트 추출 - 현재 학기 이후 값들은 제외
+		List<SemDateDto> sems = semdateService.findAll();
+		for (int i = 0; i < sems.size(); i++) {
+			if (sems.get(i).getStart_date().compareTo(now) == 1)
+				sems.remove(i);
+		}
+		model.addAttribute("sems", sems);
+
+		// 처음 화면 실행시 최근 학기 데이터 불러오기
+		int semId = semdate.getId();
+		if (semId == 0) {
+			semId = sem;
+		}
+
+		model.addAttribute("myClub", myClub);
+		model.addAttribute("user_club_id", user_club_id);
+		model.addAttribute("start", attendanceService.findBySemId(now).getStart_date());
+		model.addAttribute("end", attendanceService.findBySemId(now).getEnd_date());
+		model.addAttribute("semdate", semdate);
+		model.addAttribute("semDate", semdateService.findAll());
+		model.addAttribute("selectSemId", semId);
+		model.addAttribute("findDate", attendanceService.findDate(semId, user_club_id));
+		model.addAttribute("attendance", attendanceService.findBySemDate(semId, user_club_id));
+		model.addAttribute("adminUser", attendanceService.findUser(semId, user_club_id));
+
+		return "club_admin/attendance";
+	}
+
+	/*
+	 * 출석체크 값 불러오는 모달 데이터 구현 json 형식으로 데이터 생성하여 화면에 전달 모달 내 input checkbox 값으로 사용
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/update", method = RequestMethod.POST, produces = "application/json; charset=utf8")
+	public String updateModal(@RequestParam("find") Date date, Model model, @RequestParam("club_id") int club_id)
+			throws Exception {
+
+		// 출석체크 수정 모달창 사용하기 위한 데이터 가공
+		List<AttendanceDto> check = attendanceService.findByDate(date, club_id);
+
+		JSONObject robj = new JSONObject();
+		JSONArray jlist = new JSONArray();
+		for (int i = 0; i < check.size(); i++) {
+			JSONObject item = new JSONObject();
+			item.put("name", "" + check.get(i).getName());
+			item.put("check", "" + check.get(i).getCheck());
+			item.put("id", "" + check.get(i).getId());
+			jlist.put(item);
+		}
+		robj.put("testlist", jlist);
+
+		return robj.toString();
+	}
+
+	/*
+	 * 출석체크 값 수정 로직 구현 출석 체크 수정을 위해 해당 날짜값을 전달받아 allUpdate 처리 -> 체크한 해당 id값을 가져와
+	 * update
+	 */
+	@RequestMapping(value = "attendance", method = RequestMethod.POST)
+	public String attendanceUpdate(Model model, @RequestParam(value = "updateck", defaultValue = "0") int[] updateck,
+			@RequestParam("date") String date, @RequestParam("club_id") int club_id) {
+
+		// 날짜의 모든 동아리의 체크 값을-> check = 0
+		attendanceService.allUpdate(date, club_id);
+
+		// for문 안에 key만 update -> check = 1
+		if (updateck[0] != 0) {
+			for (int i = 0; i < updateck.length; i++) {
+				attendanceService.update(updateck[i]);
+			}
+		}
+		return "redirect:/club_admin/attendance";
+	}
+
+	/*
+	 * 출석체크 값 삽입 로직 구현
+	 */
+	@RequestMapping(value = "/create", method = RequestMethod.POST)
+	public String createModal(Model model, @RequestParam("date") Date date, @RequestParam("club_id") int club_id) {
+
+		// 현재 학기 id값
+		Date now = Date.valueOf(LocalDate.now());
+		int sem = attendanceService.findBySemId(now).getId();
+
+		// 현재 학기에 해당하는 경우 - 삽입
+		attendanceService.dateNow(date, sem, club_id);
+		return "redirect:/club_admin/attendance";
+	}
+
+	/*
+	 * 출석체크 값 삭제 로직 구현
+	 */
+	@RequestMapping("attendance_delete")
+	public String delete(Model model, @RequestParam("date") Date date, @RequestParam("club_id") int club_id) {
+		attendanceService.delete(date, club_id);
+		return "redirect:attendance";
 	}
 }
