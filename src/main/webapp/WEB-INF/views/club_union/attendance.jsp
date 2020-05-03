@@ -58,23 +58,31 @@
 								<c:forEach var="adminUser" items="${adminUser}">
 									<th>${adminUser}</th>
 								</c:forEach>
-								<c:if test="${selectSemId eq sem}">
-									<th></th>
-								</c:if>
+								<sec:authorize access="hasRole('ROLE_ClubUnion')">
+									<c:if test="${selectSemId eq sem}">
+										<th></th>
+									</c:if>
+								</sec:authorize>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach var="findDate" items="${ findDate }">
 								<tr>
-									<c:choose>
-										<c:when test="${selectSemId eq sem}">
-											<!-- 날짜 클릭시 해당 날짜에 따른 출석체크 수정 모달  -->
-											<td id="attendanceUpdate" find="${findDate}">${ findDate }</td>
-										</c:when>
-										<c:otherwise>
-											<td>${ findDate }</td>
-										</c:otherwise>
-									</c:choose>
+									<sec:authorize access="hasRole('ROLE_ClubUnion')">
+										<c:choose>
+											<c:when test="${selectSemId eq sem}">
+												<!-- 날짜 클릭시 해당 날짜에 따른 출석체크 수정 모달  -->
+												<td id="attendanceUpdate" find="${findDate}">${ findDate }</td>
+											</c:when>
+											<c:otherwise>
+												<td>${ findDate }</td>
+											</c:otherwise>
+										</c:choose>
+									</sec:authorize>
+									<sec:authorize
+										access="hasAnyRole('ROLE_ClubAdmin','ROLE_Member')">
+										<td>${ findDate }</td>
+									</sec:authorize>
 									<c:forEach var="attendance" items="${ attendance }"
 										varStatus="status">
 										<c:if test="${attendance.date eq findDate}">
@@ -86,28 +94,32 @@
 													<td>O</td>
 												</c:otherwise>
 											</c:choose>
-											<c:if test="${selectSemId eq sem}">
-												<c:if test="${status.count % fn:length(adminUser) eq 0}">
-													<!--출석체크 삭제-->
-													<td><sec:authorize access="hasRole('ROLE_ClubUnion')"><a
-														href="attendance_delete?date=${attendance.date}">x</a></sec:authorize></td>
+											<sec:authorize access="hasRole('ROLE_ClubUnion')">
+												<c:if test="${selectSemId eq sem}">
+													<c:if test="${status.count % fn:length(adminUser) eq 0}">
+														<!--출석체크 삭제-->
+														<td><a
+															href="attendance_delete?date=${attendance.date}">x</a></td>
+													</c:if>
 												</c:if>
-											</c:if>
+											</sec:authorize>
 										</c:if>
 									</c:forEach>
 								</tr>
 							</c:forEach>
 						</tbody>
-						<c:if test="${selectSemId eq sem}">
-							<tbody>
-								<tr>
-									<!--출석체크 삽입 모달-->
-									<td colspan="${fn:length(adminUser) + 2}">
-										<sec:authorize access="hasRole('ROLE_ClubUnion')"><button id="createBtn" class="btn btn-primary col-md">+</button></sec:authorize>
-									</td>
-								</tr>
-							</tbody>
-						</c:if>
+						<sec:authorize access="hasRole('ROLE_ClubUnion')">
+							<c:if test="${selectSemId eq sem}">
+								<tbody>
+									<tr>
+										<!--출석체크 삽입 모달-->
+										<td colspan="${fn:length(adminUser) + 2}">
+											<button id="createBtn" class="btn btn-primary col-md">+</button>
+										</td>
+									</tr>
+								</tbody>
+							</c:if>
+						</sec:authorize>
 					</table>
 				</div>
 			</div>
