@@ -89,7 +89,7 @@
 												<c:if test="${status.count % fn:length(adminUser) eq 0}">
 													<!--출석체크 삭제-->
 													<td><a
-														href="attendance_delete?date=${attendance.date}">x</a></td>
+														href="attendance_delete?date=${attendance.date}&club_id=${user_club_id}">x</a></td>
 												</c:if>
 											</c:if>
 										</c:if>
@@ -126,6 +126,7 @@
 
 <!-- Modal -->
 <form:form method="post" action="" id="modalForm">
+	<input type="hidden" name="club_id" value="${user_club_id}">
 	<div class="modal fade" id="modal" role="dialog">
 		<div class="modal-dialog modal-md">
 
