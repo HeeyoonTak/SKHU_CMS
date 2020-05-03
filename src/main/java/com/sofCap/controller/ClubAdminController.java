@@ -5,10 +5,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sofCap.dto.BoardDto;
@@ -65,5 +67,27 @@ public class ClubAdminController {
 		List<BoardDto> boards = boardService.findByClubId_n(club_id);
 		model.addAttribute("boards", boards);
 		return "club_admin/club_notice";
+	}
+
+	@RequestMapping("n_content")
+	public String n_content(Model model, @RequestParam("id") int id, @RequestParam("club_id") int club_id) {
+		BoardDto board = boardService.findOne(id);
+		model.addAttribute("board", board);
+		return "club_admin/n_content";
+	}
+
+	@RequestMapping(value = "n_edit", method = RequestMethod.GET)
+	public String n_edit(@RequestParam("id") int id, Model model, BoardDto board) {
+		board.setBoard_name_id(3);
+		board = boardService.findById(id);
+		model.addAttribute("board", board);
+		return "club_admin/posting";
+	}
+
+	@Transactional
+	@RequestMapping(value = "n_edit", method = RequestMethod.POST)
+	public String n_edit(BoardDto board, Model model) {
+		boardService.update(board);
+		return "redirect:n_content?club_id=" + board.getClub_id() + "&id=" + board.getId();
 	}
 }
