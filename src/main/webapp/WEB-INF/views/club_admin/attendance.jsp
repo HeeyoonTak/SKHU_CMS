@@ -102,7 +102,7 @@
 								<tr>
 									<!--출석체크 삽입 모달-->
 									<td colspan="${fn:length(adminUser) + 2}">
-										<button id="createBtn" class="btn btn-primary col-md">+</button>
+										<button id="createBtn" class="btn btn-primary col-md" onclick="return attendanceCreate();">+</button>
 									</td>
 								</tr>
 							</tbody>
@@ -113,7 +113,7 @@
 			<div class="col-md-3 col-md-pull-9" id="fh5co-sidebar">
 				<ul class="attendance_check-list hor_1">
 					<li><a href="">공지사항</a></li>
-					<li><a href="">회계 관리</a></li>
+					<li><a href="${R}club_admin/account">회계 관리</a></li>
 					<li><a href="${R}club_admin/acceptance">회원 관리</a></li>
 					<li><a href="">지원 폼</a></li>
 					<li><a href="${R}club_admin/attendance">출석체크</a></li>
@@ -159,40 +159,6 @@
 <script type="text/javascript">
 		window.onload = function() {
 		$("#l_search_term").val(${selectSemId}).prop("selected", true);
-		};
-
-		//출석체크 생성 모달
-	    $('#createBtn').on('click', function() {
-	    	$('#modal').find('tr:gt(0)').remove();
-	    	$('#modal #modal-title').text('출석체크');
-	    	$('#date').val('default');
-	    	$('#date').attr('readonly', false);
-	    	$('#modalForm').attr('action', 'create');
-	    	$('#modalForm').attr('onsubmit','return checkForm();');
-		    $('#modal').modal('show');
-	    });
-  
-	    //출석체크 생성 - 기존에 존재하는 날짜일 때 에러 메시지 출력
-		//출석체크 생성 - 현재 학기에 해당하는 날짜일때만 삽입 가능  !에러 메시지 출력
-		function checkForm() {
-	    	var date = $('#date').val();
-	    	var overlap = '';
-	    	if ("${findDate}".indexOf(date) != -1) {
-				overlap = 'O';
-				};
-			var start = "${start}";
-			var end = "${end}";
-			if(start <= date && date <= end) {
-				if(overlap == 'O') {
-					alert('기존 출석체크 목록에 존재하는 날짜는 삽입할 수 없습니다.');
-					return false;
-					}
-				else return true;
-			}
-			else {
-				alert('해당 학기 날짜를 선택해주세요.');
-				return false;
-			};
 		};
 
 	    //출석체크 수정 모달
