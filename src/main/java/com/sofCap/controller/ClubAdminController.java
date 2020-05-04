@@ -101,25 +101,6 @@ public class ClubAdminController {
 	 */
 	String[] account_type = { "중앙지원금", "동아리회비" };
 
-	// 버전 1
-//	@RequestMapping("account")
-//	public String account(Model model, @RequestParam(name="club_id",defaultValue="1") int club_id) {
-//		List<AccountDto> accounts = accountService.findByClubId(club_id);
-//		model.addAttribute("accounts", accounts);
-//		model.addAttribute("clubs",clubService.findAll());
-//		return "club_union/account";
-//	}
-
-	// 버전 2
-//	@RequestMapping("account")
-//	public String account(Model model) {
-//		List<AccountDto> accounts = accountService.findAll();
-//		model.addAttribute("accounts", accounts);
-//		model.addAttribute("clubs",clubService.findAll());
-//		return "club_union/account";
-//	}
-
-	// 버전 3
 	/* 학기에 따른 회계 리스트 조회 */
 	@RequestMapping(value = "account")
 	public String account(Model model, SemDate semdate, Principal principal) {
