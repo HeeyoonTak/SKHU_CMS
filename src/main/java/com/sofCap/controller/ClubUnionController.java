@@ -3,6 +3,7 @@ package com.sofCap.controller;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.Principal;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -48,6 +49,7 @@ import com.sofCap.service.BoardService;
 import com.sofCap.service.ClubService;
 import com.sofCap.service.FileService;
 import com.sofCap.service.SemDateService;
+import com.sofCap.service.UserClubService;
 import com.sofCap.service.UserService;
 
 @Controller
@@ -82,6 +84,8 @@ public class ClubUnionController {
 	FileService fileService;
 	@Autowired
 	SemDateMapper semdateMapper;
+	@Autowired
+	UserClubService userClubService;
 
 	/*
 	 * jyj_attendance 동아리 연합회 출석체크
@@ -411,7 +415,11 @@ public class ClubUnionController {
 	// 버전 3
 	/* 학기에 따른 회계 리스트 조회 */
 	@RequestMapping(value = "account")
-	public String account(Model model, SemDate semdate) {
+	public String account(Model model, SemDate semdate, Principal principal) {
+		UserDto user = userService.findByLoginId(principal.getName());
+		UserClubDto user_club = userClubService.findByUserId(user.getId());
+		int user_club_id = user_club.getClub_id();
+		ClubDto myClub = clubService.findById(user_club_id);
 		System.out.println(semdate.getSem_name());
 		if (semdate.getSem_name() == null) {
 			Date now = Date.valueOf(LocalDate.now());
@@ -427,6 +435,7 @@ public class ClubUnionController {
 		String end_date = format.format(startenddate.getEnd_date());
 //		System.out.println(format.format(startenddate.getStart_date()));
 //		System.out.println(format.format(startenddate.getEnd_date()));
+		model.addAttribute("myClub", myClub);
 		model.addAttribute("accounts", accounts);
 		model.addAttribute("clubs", clubService.findAll());
 		model.addAttribute("sems", semdateService.findAll());

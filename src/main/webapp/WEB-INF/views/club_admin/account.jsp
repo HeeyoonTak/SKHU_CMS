@@ -39,12 +39,9 @@
 			<div class="fh5co-spacer fh5co-spacer-md"></div>
 			<div id="fh5co-tab-feature-center" class="fh5co-tab text-center">
 				<ul class="resp-tabs-list hor_1">
-					<c:forEach var="club" items="${ clubs }">
-						<li><i class="fh5co-tab-menu-icon"></i>${ club.club_name }</li>
-					</c:forEach>
+						<li><i class="fh5co-tab-menu-icon"></i>${ myClub.club_name }</li>
 				</ul>
 
-				<c:forEach var="club" items="${ clubs }" varStatus="ci">
 					<div class="resp-tabs-container hor_1">
 						<div>
 							<div class="row">
@@ -73,10 +70,10 @@
 								<div class="panel panel-default">
 									<form action="account_save" method="post"
 										enctype="multipart/form-data"
-										onsubmit="return check(${ci.count});" name="account_submit"
+										onsubmit="return check(1);" name="account_submit"
 										id="account_submit">
 										<table
-											class="table text-center l_account_table table_${ci.count}">
+											class="table text-center l_account_table table_1">
 											<thead>
 												<tr>
 													<th>날짜</th>
@@ -90,7 +87,7 @@
 											</thead>
 											<tbody>
 												<c:forEach var="account" items="${ accounts }">
-													<c:if test="${club.id eq account.club_id }">
+													<c:if test="${user_club_id eq account.club_id }">
 														<tr>
 															<td>${ account.date }</td>
 															<c:choose>
@@ -115,16 +112,12 @@
 															<td><a class="btn btn-primary" id="showReceipt" data-target="#createModal" onclick="return showReceipt('${account.id}');">영수증</a>
 																<%-- <img src ="${R}club_union/getImage?id=${account.id}" width="100" height="100"></img> --%>
 															</td>
-															<td>
-															<c:if test="${club.id eq myClub.id}">
-															<a href="${R}club_union/delete?id=${account.id}&club_id=${club.id}" onclick="return deleteAlert();">x</a>
-															</c:if>
-															</td>
+															<td><a href="${R}club_admin/delete?id=${account.id}" onclick="return deleteAlert();">x</a></td>
 														</tr>
 													</c:if>
 												</c:forEach>
 												<c:forEach var="total" items="${ totals }">
-													<c:if test="${ club.id eq total.club_id }">
+													<c:if test="${ user_club_id eq total.club_id }">
 														<tr class="total-row">
 															<td colspan=4>잔액 :</td>
 															<td colspan=2>${ total.total }</td>
@@ -132,10 +125,9 @@
 													</c:if>
 												</c:forEach>
 											</tbody>
-											<c:if test="${club.id eq myClub.id}">
 											<tbody>
 												<tr id="default">
-													<input type="hidden" name="club_id" value="${club.id}">
+													<input type="hidden" name="club_id" value="${user_club_id}">
 													<td><input type="date" name="date"
 														class="form-control input-lg" max="${end_date}" min="${start_date}"></td>
 													<td><select class="form-control input-lg"
@@ -164,7 +156,6 @@
 															class="btn btn-primary col-md" id="pls-btn">+</button></td>
 												</tr>
 											</tbody>
-											</c:if>
 
 										</table>
 								</div>
@@ -180,7 +171,6 @@
 							</div>
 						</div>
 					</div>
-				</c:forEach>
 			</div>
 		</div>
 		
