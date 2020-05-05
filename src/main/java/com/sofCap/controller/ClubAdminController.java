@@ -118,6 +118,47 @@ public class ClubAdminController {
 		return "club_admin/club_notice";
 	}
 
+	@RequestMapping("n_content")
+	public String n_content(Model model, @RequestParam("id") int id, @RequestParam("club_id") int club_id) {
+		BoardDto board = boardService.findOne(id);
+		model.addAttribute("board", board);
+		return "club_admin/n_content";
+	}
+
+	@RequestMapping(value = "n_edit", method = RequestMethod.GET)
+	public String n_edit(@RequestParam("id") int id, Model model, BoardDto board) {
+		board.setBoard_name_id(3);
+		board = boardService.findById(id);
+		model.addAttribute("board", board);
+		return "club_admin/posting";
+	}
+
+	@Transactional
+	@RequestMapping(value = "n_edit", method = RequestMethod.POST)
+	public String n_edit(BoardDto board, Model model) {
+		boardService.update(board);
+		return "redirect:n_content?club_id=" + board.getClub_id() + "&id=" + board.getId();
+	}
+
+	@RequestMapping(value = "n_create", method = RequestMethod.GET)
+	public String n_create(Model model, BoardDto board, @RequestParam("club_id") int club_id) {
+		board.setBoard_name_id(3);
+		board.setClub_id(club_id);
+		System.out.println(board.getClub_id());
+		board = new BoardDto();
+		model.addAttribute("board", board);
+		return "club_admin/posting";
+	}
+
+	@Transactional
+	@RequestMapping(value = "n_create", method = RequestMethod.POST)
+	public String n_create(BoardDto board, Model model, @RequestParam("club_id") int club_id) {
+		board.setBoard_name_id(3);
+		board.setClub_id(club_id);
+		boardService.insert(board);
+		return "redirect:n_content?club_id=" + board.getClub_id() + "&id=" + board.getId();
+	}
+
 	/*
 	 * LHM_account 동아리 회계
 	 */
@@ -325,5 +366,6 @@ public class ClubAdminController {
 	public String delete(Model model, @RequestParam("date") Date date, @RequestParam("club_id") int club_id) {
 		attendanceService.delete(date, club_id);
 		return "redirect:attendance";
+
 	}
 }
