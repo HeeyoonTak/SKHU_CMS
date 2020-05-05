@@ -74,7 +74,8 @@ INSERT INTO club (id,club_name, club_type, content) VALUES
   (10, '장예지', 'JYJ', '1234', '일반회원', null, null),
   (11, 'All for RYU', 'RJY', '1234', '동아리관리자', null, null),
   (12, '행운', 'JSW', '1234', '동아리관리자', null, null);
-  
+  INSERT INTO `softwarecapstion`.`user` (`name`, `login_id`, `password`, `user_type`) VALUES ('최지원자', 'UNKNOWN', '1234', '비회원');
+
 LOCK TABLES `user_club` WRITE;
 /*!40000 ALTER TABLE `user_club` DISABLE KEYS */;
 INSERT INTO `user_club` VALUES (1,1,1),(2,2,2),(3,3,3),(4,4,4),(5,5,5),(6,6,4),(7,6,3),(8,7,2),(9,8,2),(10,8,6),(11,9,5),(12,10,7),(13, 11, 6),(14, 12, 7);
@@ -186,3 +187,7 @@ INSERT INTO board_name (id,board_name) VALUES
   ('2', '나이가 어떻게 되세요?', '2', '2', '1'),
   ('3', '인생이 재밌나요?', '2', '2', '1'),
   ('4', '이름이 뭐예요?( 4minute)', '2', '3', '1');
+
+  INSERT INTO `softwarecapstion`.`apply_a` (`apply_q_id`, `content`, `user_id`) VALUES ('1', '심심해서요', '13');
+  INSERT INTO `softwarecapstion`.`apply_a` (`apply_q_id`, `content`, `user_id`) VALUES ('2', '56', '13');
+  INSERT INTO `softwarecapstion`.`apply_a` (`apply_q_id`, `content`, `user_id`) VALUES ('3', '죽지못해 산다', '13');
