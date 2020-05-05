@@ -2,8 +2,10 @@
    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags"
    prefix="sec"%>
+ <c:url var="R" value="/" />
 <div id="fh5co-hero">
    <a href="#fh5co-main"
       class="smoothscroll fh5co-arrow to-animate hero-animate-4"><i
@@ -62,7 +64,7 @@
                         <div class="row">
                            <div class="col-md-12">
                            <sec:authorize access="hasRole('ROLE_ClubAdmin')">
-                                <a class="btn btn-primary btn-lg" id="l_search_term_btn" style="float:right;">작성</a>
+                                <a href="n_create?club_id=${board.club_id}" class="btn btn-primary btn-lg" id="l_search_term_btn" style="float:right;">작성</a>
                             </sec:authorize>   
                            </div>
                         </div>

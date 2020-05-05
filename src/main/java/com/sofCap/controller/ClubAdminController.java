@@ -90,4 +90,23 @@ public class ClubAdminController {
 		boardService.update(board);
 		return "redirect:n_content?club_id=" + board.getClub_id() + "&id=" + board.getId();
 	}
+
+	@RequestMapping(value = "n_create", method = RequestMethod.GET)
+	public String n_create(Model model, BoardDto board, @RequestParam("club_id") int club_id) {
+		board.setBoard_name_id(3);
+		board.setClub_id(club_id);
+		System.out.println(board.getClub_id());
+		board = new BoardDto();
+		model.addAttribute("board", board);
+		return "club_admin/posting";
+	}
+
+	@Transactional
+	@RequestMapping(value = "n_create", method = RequestMethod.POST)
+	public String n_create(BoardDto board, Model model, @RequestParam("club_id") int club_id) {
+		board.setBoard_name_id(3);
+		board.setClub_id(club_id);
+		boardService.insert(board);
+		return "redirect:n_content?club_id=" + board.getClub_id() + "&id=" + board.getId();
+	}
 }
