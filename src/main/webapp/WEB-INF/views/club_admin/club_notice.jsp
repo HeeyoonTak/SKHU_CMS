@@ -64,7 +64,7 @@
                         <div class="row">
                            <div class="col-md-12">
                            <sec:authorize access="hasRole('ROLE_ClubAdmin')">
-                                <a href="n_create?club_id=${board.club_id}" class="btn btn-primary btn-lg" id="l_search_term_btn" style="float:right;">작성</a>
+                                <a href="n_create?club_id=${club_id}" class="btn btn-primary btn-lg" id="l_search_term_btn" style="float:right;">작성</a>
                             </sec:authorize>   
                            </div>
                         </div>

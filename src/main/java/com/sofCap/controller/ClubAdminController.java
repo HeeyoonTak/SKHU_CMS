@@ -115,6 +115,7 @@ public class ClubAdminController {
 	public String club_notice(Model model, @RequestParam("club_id") int club_id) {
 		List<BoardDto> boards = boardService.findByClubId_n(club_id);
 		model.addAttribute("boards", boards);
+		model.addAttribute("club_id",club_id);
 		return "club_admin/club_notice";
 	}
 
@@ -157,6 +158,13 @@ public class ClubAdminController {
 		board.setClub_id(club_id);
 		boardService.insert(board);
 		return "redirect:n_content?club_id=" + board.getClub_id() + "&id=" + board.getId();
+	}
+
+	@RequestMapping("n_delete")
+	public String n_delete(Model model, @RequestParam("id") int id) {
+		BoardDto board = boardService.findById(id);
+		boardService.delete(id);
+		return "redirect:notice?club_id=" + board.getClub_id();
 	}
 
 	/*
