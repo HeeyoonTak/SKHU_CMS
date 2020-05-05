@@ -14,6 +14,8 @@ public interface BoardMapper {
 
 	List<BoardDto> findBySem_m(SemDate sem_name);
 
+	List<BoardDto> findBySem_a(SemDate sem_name, @Param("id") int club_id);
+
 	List<BoardDto> findByClubId_p(@Param("id") int club_id);
 
 	List<BoardDto> findByClubId_n(@Param("id") int club_id);
