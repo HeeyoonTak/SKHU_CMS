@@ -4,7 +4,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.Principal;
-
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -27,11 +26,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.sofCap.dto.BoardDto;
-import com.sofCap.dto.UserClubDto;
-import com.sofCap.dto.UserDto;
-import com.sofCap.service.BoardService;
 import com.sofCap.dto.AccountDto;
+import com.sofCap.dto.BoardDto;
 import com.sofCap.dto.ClubDto;
 import com.sofCap.dto.FilesDto;
 import com.sofCap.dto.SemDateDto;
@@ -42,6 +38,7 @@ import com.sofCap.mapper.FileMapper;
 import com.sofCap.mapper.SemDateMapper;
 import com.sofCap.model.SemDate;
 import com.sofCap.service.AccountService;
+import com.sofCap.service.BoardService;
 import com.sofCap.service.ClubService;
 import com.sofCap.service.FileService;
 import com.sofCap.service.SemDateService;
@@ -67,15 +64,22 @@ public class ClubAdminController {
 	 * 지원자 합불 구현하기
 	*/
 	@GetMapping("acceptance")
-	public String acceptane(Model model, Principal principal) {
+	public String acceptane(Model model, @RequestParam("club_id") int club_id, Principal principal) {
 		UserDto user = userService.findByLoginId(principal.getName());
+		ClubDto club = clubService.findById(club_id);
+		List<ClubDto> acceptanceYes = userService.findByMember(club_id);
+		System.out.println(club_id);
+		System.out.println(userService.findByMember(club_id).toString());
 		model.addAttribute("user",user);
+		model.addAttribute("club", club);
+		model.addAttribute("acceptanceYes",acceptanceYes);
 		return "club_admin/acceptance";
 	}
 
+	/* 지원자 합격 */
 	@PostMapping(value="acceptance",params="cmd=yes") //id값은 지원자 id값
 	public String acceptanceYes(Model model, Principal principal,
-			@RequestParam("user_id") int user_id, @RequestParam("club_id") int club_id) {
+			@RequestParam("user_id") int user_id, @RequestParam("club_id") int club_id, ClubDto club) {
 		UserDto user = userService.findByLoginId(principal.getName());
 		UserClubDto userClub = userClubService.findByUserId(user_id);
 		model.addAttribute("user", user);
@@ -85,9 +89,10 @@ public class ClubAdminController {
 		return "redirect:acceptance";
 	}
 
+	/* 합격자 취소 */
 	@PostMapping(value="acceptance",params="cmd=no")
 	public String acceptanceNo(Model model, Principal principal,
-			@RequestParam("user_id") int user_id, @RequestParam("club_id") int club_id) {
+			@RequestParam("user_id") int user_id, @RequestParam("club_id") int club_id, ClubDto club) {
 		UserDto user = userService.findByLoginId(principal.getName());
 		UserClubDto userClub = userClubService.findByUserId(user_id);
 		model.addAttribute("user", user);
