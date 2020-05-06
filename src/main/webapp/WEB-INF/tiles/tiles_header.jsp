@@ -245,3 +245,40 @@
 			alert("삭제되었습니다");
 		}
 	</script>
+
+<!-- 출석체크 추가 모달 생성 -->
+	<script>
+		function attendanceCreate(){
+	    	$('#modal').find('tr:gt(0)').remove();
+	    	$('#modal #modal-title').text('출석체크');
+	    	$('#date').val('default');
+	    	$('#date').attr('readonly', false);
+	    	$('#modalForm').attr('action', 'create');
+	    	$('#modalForm').attr('onsubmit','return checkForm();');
+		    $('#modal').modal('show');
+		}
+	</script>
+
+<!-- 출석체크 생성시 기존에 존재하는 날짜일 때 에러 메시지 출력, 현재 학기에 해당하는 날짜일때만 삽입 가능 !에러 메시지 출력 -->
+	<script>
+		function checkForm() {
+	    	var date = $('#date').val();
+	    	var overlap = '';
+	    	if ("${findDate}".indexOf(date) != -1) {
+				overlap = 'O';
+				};
+			var start = "${start}";
+			var end = "${end}";
+			if(start <= date && date <= end) {
+				if(overlap == 'O') {
+					alert('기존 출석체크 목록에 존재하는 날짜는 삽입할 수 없습니다.');
+					return false;
+					}
+				else return true;
+			}
+			else {
+				alert('해당 학기 날짜를 선택해주세요.');
+				return false;
+			};
+		};
+	</script>

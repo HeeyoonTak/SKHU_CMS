@@ -17,23 +17,23 @@ public class AttendanceServiceImpl implements AttendanceService {
 	AttendanceDao attendanceDao;
 
 	@Override
-	public List<String> findAdmin(int semId) {
-		return attendanceDao.findAdmin(semId);
+	public List<String> findUser(int semId, int clubId) {
+		return attendanceDao.findUser(semId, clubId);
 	}
 
 	@Override
-	public List<String> findDate(int semId) {
-		return attendanceDao.findDate(semId);
+	public List<String> findDate(int semId, int clubId) {
+		return attendanceDao.findDate(semId, clubId);
 	}
 
 	@Override
-	public List<AttendanceDto> findBySemDate(int semId) {
-		return attendanceDao.findBySemDate(semId);
+	public List<AttendanceDto> findBySemDate(int semId, int clubId) {
+		return attendanceDao.findBySemDate(semId, clubId);
 	}
 
 	@Override
-	public List<AttendanceDto> findByDate(Date date) {
-		return attendanceDao.findByDate(date);
+	public List<AttendanceDto> findByDate(Date date, int clubId) {
+		return attendanceDao.findByDate(date, clubId);
 	}
 
 	@Override
@@ -48,8 +48,8 @@ public class AttendanceServiceImpl implements AttendanceService {
 
 	@Transactional
 	@Override
-	public void dateNow(Date date, int semId) {
-		attendanceDao.dateNow(date, semId);
+	public void dateNow(Date date, int semId, int clubId) {
+		attendanceDao.dateNow(date, semId, clubId);
 		return;
 	}
 
@@ -61,8 +61,8 @@ public class AttendanceServiceImpl implements AttendanceService {
 	 */
 
 	@Override
-	public void allUpdate(String date) {
-		attendanceDao.allUpdate(date);
+	public void allUpdate(String date, int clubId) {
+		attendanceDao.allUpdate(date, clubId);
 	}
 
 	@Override
@@ -71,7 +71,7 @@ public class AttendanceServiceImpl implements AttendanceService {
 	}
 
 	@Override
-	public void delete(Date date) {
-		attendanceDao.delete(date);
+	public void delete(Date date, int clubId) {
+		attendanceDao.delete(date, clubId);
 	}
 }

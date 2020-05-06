@@ -91,7 +91,7 @@ public class ClubUnionController {
 	 * jyj_attendance 동아리 연합회 출석체크
 	 */
 	@RequestMapping("attendance")
-	public String attendance(Model model, SemDate semdate) {
+	public String attendance(Model model, SemDate semdate, Principal principal) {
 
 		// 현재 날짜에 맞는 현재 학기 추출
 		Date now = Date.valueOf(LocalDate.now());
@@ -100,8 +100,8 @@ public class ClubUnionController {
 
 		// 학기 리스트 추출 - 현재 학기 이후 값들은 제외
 		List<SemDateDto> sems = semdateService.findAll();
-		for(int i=0;i<sems.size();i++) {
-			if(sems.get(i).getStart_date().compareTo(now) == 1)
+		for (int i = 0; i < sems.size(); i++) {
+			if (sems.get(i).getStart_date().compareTo(now) == 1)
 				sems.remove(i);
 		}
 		model.addAttribute("sems", sems);
@@ -111,15 +111,14 @@ public class ClubUnionController {
 		if (semId == 0) {
 			semId = sem;
 		}
-		model.addAttribute("lastSemUser", attendanceService.findAdmin(semId));
 		model.addAttribute("start", attendanceService.findBySemId(now).getStart_date());
 		model.addAttribute("end", attendanceService.findBySemId(now).getEnd_date());
 		model.addAttribute("semdate", semdate);
 		model.addAttribute("semDate", semdateService.findAll());
 		model.addAttribute("selectSemId", semId);
-		model.addAttribute("findDate", attendanceService.findDate(semId));
-		model.addAttribute("attendance", attendanceService.findBySemDate(semId));
-		model.addAttribute("adminUser", attendanceService.findAdmin(semId));
+		model.addAttribute("findDate", attendanceService.findDate(semId, 1));
+		model.addAttribute("attendance", attendanceService.findBySemDate(semId, 1));
+		model.addAttribute("adminUser", attendanceService.findUser(semId, 1));
 
 		return "club_union/attendance";
 	}
@@ -132,7 +131,7 @@ public class ClubUnionController {
 	public String updateModal(@RequestParam("find") Date date, Model model) throws Exception {
 
 		// 출석체크 수정 모달창 사용하기 위한 데이터 가공
-		List<AttendanceDto> check = attendanceService.findByDate(date);
+		List<AttendanceDto> check = attendanceService.findByDate(date, 1);
 
 		JSONObject robj = new JSONObject();
 		JSONArray jlist = new JSONArray();
@@ -157,7 +156,7 @@ public class ClubUnionController {
 			@RequestParam("date") String date) {
 
 		// 날짜의 모든 동아리의 체크 값을-> check = 0
-		attendanceService.allUpdate(date);
+		attendanceService.allUpdate(date, 1);
 
 		// for문 안에 key만 update -> check = 1
 		if (updateck[0] != 0) {
@@ -172,14 +171,14 @@ public class ClubUnionController {
 	 * 출석체크 값 삽입 로직 구현
 	 */
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public String createModal(Model model, @RequestParam("date") Date date) {
+	public String createModal(Model model, @RequestParam("date") Date date, Principal principal) {
 
 		// 현재 학기 id값
 		Date now = Date.valueOf(LocalDate.now());
 		int sem = attendanceService.findBySemId(now).getId();
 
 		// 현재 학기에 해당하는 경우 - 삽입
-		attendanceService.dateNow(date, sem);
+		attendanceService.dateNow(date, sem, 1);
 		return "redirect:/club_union/attendance";
 	}
 
@@ -188,7 +187,7 @@ public class ClubUnionController {
 	 */
 	@RequestMapping("attendance_delete")
 	public String delete(Model model, @RequestParam("date") Date date) {
-		attendanceService.delete(date);
+		attendanceService.delete(date, 1);
 		return "redirect:attendance";
 	}
 
@@ -202,7 +201,7 @@ public class ClubUnionController {
 		return "club_union/union_notice";
 	}
 
-	/* 해당 게시글로 이동  */
+	/* 해당 게시글로 이동 */
 	@RequestMapping("n_content")
 	public String n_content(Model model, @RequestParam("id") int id) {
 		BoardDto board = boardService.findOne(id);
@@ -210,14 +209,14 @@ public class ClubUnionController {
 		return "club_union/n_content";
 	}
 
-	/* 게시글 삭제 로직 구현  */
+	/* 게시글 삭제 로직 구현 */
 	@RequestMapping("n_delete")
 	public String n_delete(Model model, @RequestParam("id") int id) {
 		boardService.delete(id);
 		return "redirect:notice";
 	}
 
-	/* 게시글 수정 로직 구현  */
+	/* 게시글 수정 로직 구현 */
 	@RequestMapping(value = "n_edit", method = RequestMethod.GET)
 	public String n_edit(@RequestParam("id") int id, Model model, BoardDto board) {
 		board.setBoard_name_id(3);
@@ -234,7 +233,7 @@ public class ClubUnionController {
 		return "redirect:n_content?id=" + board.getId();
 	}
 
-	/* 게시글 삽입 로직 구현  */
+	/* 게시글 삽입 로직 구현 */
 	@RequestMapping(value = "n_create", method = RequestMethod.GET)
 	public String n_create(Model model, BoardDto board) {
 		board.setBoard_name_id(3);
@@ -277,7 +276,7 @@ public class ClubUnionController {
 		return "club_union/union_minutes";
 	}
 
-	/*  해당 게시글로 이동 */
+	/* 해당 게시글로 이동 */
 	@RequestMapping("m_content")
 	public String m_content(Model model, @RequestParam("id") int id) {
 		BoardDto board = boardService.findOne(id);

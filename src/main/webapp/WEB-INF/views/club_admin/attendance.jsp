@@ -15,9 +15,8 @@
 		<div class="col-md-8 col-md-offset-2">
 			<div class="fh5co-hero-wrap">
 				<div class="fh5co-hero-intro">
-					<h1 class="to-animate hero-animate-1">동아리 연합회</h1>
-					<h2 class="to-animate hero-animate-2">모든 동아리의 행사와 복지를 관리, 지원하는
-						학생 자치기구</h2>
+					<h1 class="to-animate hero-animate-1">${myClub.club_name}</h1>
+					<h2 class="to-animate hero-animate-2">${myClub.content}</h2>
 				</div>
 			</div>
 		</div>
@@ -58,31 +57,23 @@
 								<c:forEach var="adminUser" items="${adminUser}">
 									<th>${adminUser}</th>
 								</c:forEach>
-								<sec:authorize access="hasRole('ROLE_ClubUnion')">
-									<c:if test="${selectSemId eq sem}">
-										<th></th>
-									</c:if>
-								</sec:authorize>
+								<c:if test="${selectSemId eq sem}">
+									<th></th>
+								</c:if>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach var="findDate" items="${ findDate }">
 								<tr>
-									<sec:authorize access="hasRole('ROLE_ClubUnion')">
-										<c:choose>
-											<c:when test="${selectSemId eq sem}">
-												<!-- 날짜 클릭시 해당 날짜에 따른 출석체크 수정 모달  -->
-												<td id="attendanceUpdate" find="${findDate}">${ findDate }</td>
-											</c:when>
-											<c:otherwise>
-												<td>${ findDate }</td>
-											</c:otherwise>
-										</c:choose>
-									</sec:authorize>
-									<sec:authorize
-										access="hasAnyRole('ROLE_ClubAdmin','ROLE_Member')">
-										<td>${ findDate }</td>
-									</sec:authorize>
+									<c:choose>
+										<c:when test="${selectSemId eq sem}">
+											<!-- 날짜 클릭시 해당 날짜에 따른 출석체크 수정 모달  -->
+											<td id="attendanceUpdate" find="${findDate}">${ findDate }</td>
+										</c:when>
+										<c:otherwise>
+											<td>${ findDate }</td>
+										</c:otherwise>
+									</c:choose>
 									<c:forEach var="attendance" items="${ attendance }"
 										varStatus="status">
 										<c:if test="${attendance.date eq findDate}">
@@ -94,42 +85,39 @@
 													<td>O</td>
 												</c:otherwise>
 											</c:choose>
-											<sec:authorize access="hasRole('ROLE_ClubUnion')">
-												<c:if test="${selectSemId eq sem}">
-													<c:if test="${status.count % fn:length(adminUser) eq 0}">
-														<!--출석체크 삭제-->
-														<td><a
-															href="attendance_delete?date=${attendance.date}">x</a></td>
-													</c:if>
+											<c:if test="${selectSemId eq sem}">
+												<c:if test="${status.count % fn:length(adminUser) eq 0}">
+													<!--출석체크 삭제-->
+													<td><a
+														href="attendance_delete?date=${attendance.date}&club_id=${user_club_id}">x</a></td>
 												</c:if>
-											</sec:authorize>
+											</c:if>
 										</c:if>
 									</c:forEach>
 								</tr>
 							</c:forEach>
 						</tbody>
-						<sec:authorize access="hasRole('ROLE_ClubUnion')">
-							<c:if test="${selectSemId eq sem}">
-								<tbody>
-									<tr>
-										<!--출석체크 삽입 모달-->
-										<td colspan="${fn:length(adminUser) + 2}">
-											<button id="createBtn" class="btn btn-primary col-md" onclick="return attendanceCreate();">+</button>
-										</td>
-									</tr>
-								</tbody>
-							</c:if>
-						</sec:authorize>
+						<c:if test="${selectSemId eq sem}">
+							<tbody>
+								<tr>
+									<!--출석체크 삽입 모달-->
+									<td colspan="${fn:length(adminUser) + 2}">
+										<button id="createBtn" class="btn btn-primary col-md" onclick="return attendanceCreate();">+</button>
+									</td>
+								</tr>
+							</tbody>
+						</c:if>
 					</table>
 				</div>
 			</div>
 			<div class="col-md-3 col-md-pull-9" id="fh5co-sidebar">
 				<ul class="attendance_check-list hor_1">
-					<li><a href="${R}club_union/notice">공지사항</a></li>
-					<li><a href="${R}club_union/account">회계 관리</a></li>
-					<li><a href="${R}club_union/club_list">동아리 관리</a></li>
-					<li><a href="${R}club_union/attendance">출석체크</a></li>
-					<li><a href="${R}club_union/minutes">회의록</a></li>
+					<li><a href="">공지사항</a></li>
+					<li><a href="${R}club_admin/account">회계 관리</a></li>
+					<li><a href="${R}club_admin/acceptance">회원 관리</a></li>
+					<li><a href="">지원 폼</a></li>
+					<li><a href="${R}club_admin/attendance">출석체크</a></li>
+					<li><a href="">회의록</a></li>
 				</ul>
 			</div>
 		</div>
@@ -138,6 +126,7 @@
 
 <!-- Modal -->
 <form:form method="post" action="" id="modalForm">
+	<input type="hidden" name="club_id" value="${user_club_id}">
 	<div class="modal fade" id="modal" role="dialog">
 		<div class="modal-dialog modal-md">
 
@@ -182,10 +171,11 @@
 	    			$('#modalForm').attr('onsubmit','');
 	    			$('#modal').modal('show');
 				    var find = $(this).attr("find");
+				    var club_id = '${user_club_id}';
 			    	var obj;
 		    	    jQuery.ajax({
 			    	   type:"POST", 
-			    	   url : "/club_union/update?find="+find,
+			    	   url : "/club_admin/update?find="+find+"&club_id="+club_id,
 			    	   dataType:"json",
 			    	   success : function(data) { 
 			    	      obj = data;

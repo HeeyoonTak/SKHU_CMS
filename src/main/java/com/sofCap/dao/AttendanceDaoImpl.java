@@ -16,23 +16,23 @@ public class AttendanceDaoImpl implements AttendanceDao {
 	AttendanceMapper attendanceMapper;
 
 	@Override
-	public List<String> findAdmin(int semId) {
-		return attendanceMapper.findAdmin(semId);
+	public List<String> findUser(int semId, int clubId) {
+		return attendanceMapper.findUser(semId, clubId);
 	}
 
 	@Override
-	public List<String> findDate(int semId) {
-		return attendanceMapper.findDate(semId);
+	public List<String> findDate(int semId, int clubId) {
+		return attendanceMapper.findDate(semId, clubId);
 	}
 
 	@Override
-	public List<AttendanceDto> findBySemDate(int semId) {
-		return attendanceMapper.findBySemDate(semId);
+	public List<AttendanceDto> findBySemDate(int semId, int clubId) {
+		return attendanceMapper.findBySemDate(semId, clubId);
 	}
 
 	@Override
-	public List<AttendanceDto> findByDate(Date date) {
-		return attendanceMapper.findByDate(date);
+	public List<AttendanceDto> findByDate(Date date, int clubId) {
+		return attendanceMapper.findByDate(date, clubId);
 	}
 
 	@Override
@@ -46,8 +46,8 @@ public class AttendanceDaoImpl implements AttendanceDao {
 	}
 
 	@Override
-	public void dateNow(Date date, int semId) {
-		attendanceMapper.dateNow(date, semId);
+	public void dateNow(Date date, int semId, int clubId) {
+		attendanceMapper.dateNow(date, semId, clubId);
 	}
 
 	/*
@@ -55,8 +55,8 @@ public class AttendanceDaoImpl implements AttendanceDao {
 	 */
 
 	@Override
-	public void allUpdate(String date) {
-		attendanceMapper.allUpdate(date);
+	public void allUpdate(String date, int clubId) {
+		attendanceMapper.allUpdate(date, clubId);
 	}
 
 	@Override
@@ -65,8 +65,8 @@ public class AttendanceDaoImpl implements AttendanceDao {
 	}
 
 	@Override
-	public void delete(Date date) {
-		attendanceMapper.delete(date);
+	public void delete(Date date, int clubId) {
+		attendanceMapper.delete(date, clubId);
 	}
 
 }
