@@ -36,7 +36,7 @@
 											</tr>
 												<c:forEach var="<%-- lecture --%>" items="<%-- ${acceptanceNo} --%>">
 													<tr>
-														<td><input type="checkbox" style="margin-right: 10px; width: 18px; height: 18px;" value="">지원자 학번/이름</td>
+														<td><label><input type="checkbox" style="margin-right: 10px; width: 18px; height: 18px;" value="">지원자 학번/이름</label></td>
 													</tr>
 												</c:forEach>
 										</table>
@@ -57,9 +57,9 @@
 											<tr class="text-center">
 												<th style="text-align: center">회원</th>
 											</tr>
-												<c:forEach var="<%-- lecture --%>" items="<%-- ${acceptanceYes} --%>">
+												<c:forEach var="club" items="${acceptanceYes}">
 													<tr>
-														<td><input type="checkbox" style="margin-right: 10px; width: 18px; height: 18px;" value="">회원 학번/이름</td>
+														<td><label><input type="checkbox" style="margin-right: 10px; width: 18px; height: 18px;" value="">${user.name}</label></td>
 													</tr>
 												</c:forEach>
 										</table>

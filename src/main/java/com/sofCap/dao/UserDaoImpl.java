@@ -43,9 +43,9 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public List<ClubDto> findByMember(String login_id) {
+	public List<ClubDto> findByMember(int club_id) {
 		// TODO Auto-generated method stub
-		return userMapper.findByMember(login_id);
+		return userMapper.findByMember(club_id);
 	}
 
 	@Override
