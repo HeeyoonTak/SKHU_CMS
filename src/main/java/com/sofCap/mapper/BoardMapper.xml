@@ -20,7 +20,7 @@
 	   동연 mapper 
 	 -->
 	<select id="findBySem_m" resultType="BoardDto">   <!-- 학기별 회의록 리스트 조회 -->
-		SELECT b.*, s.sem_name
+		SELECT b.*
 		FROM Board b RIGHT JOIN sem_date s
 		ON b.date BETWEEN s.start_date AND s.end_date
 		WHERE s.sem_name=#{sem_name} AND board_name_id = '4' AND club_id = '1'
@@ -46,12 +46,12 @@
 	각 동아리 mapper
 	 -->
 	<select id="findBySem_a" resultType="BoardDto">   <!-- 학기별 회의록 리스트 조회 -->
-		SELECT b.*, s.sem_name
+		SELECT b.*
 		FROM Board b RIGHT JOIN sem_date s
 		ON b.date
 		BETWEEN s.start_date AND s.end_date
-		WHERE s.sem_name=#{sem_name} AND
-		board_name_id = '4' AND club_id = #{id}
+		WHERE s.sem_name = #{sem_name} AND
+		b.board_name_id = '4' AND b.club_id = #{club_id}
 		ORDER BY date DESC
 	</select>
 	

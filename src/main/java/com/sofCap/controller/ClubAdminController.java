@@ -183,14 +183,14 @@ public class ClubAdminController {
 	}
 
 	@RequestMapping("minutes")
-	public String union_minutes(Model model, SemDate semdate, @RequestParam("club_id") int club_id) {
+	public String club_minutes(Model model, SemDate semdate, @RequestParam("club_id") int club_id) {
 		if (semdate.getSem_name() == null) {
 			Date now = Date.valueOf(LocalDate.now());
 			String sem_name = semdateMapper.findByDate(now);
 			System.out.println(sem_name);
 		}
 		String sem_name = semdate.getSem_name();
-		List<BoardDto> boards = boardService.findBySem_a(semdate, club_id);
+		List<BoardDto> boards = boardService.findBySem_a(sem_name, club_id);
 		SemDateDto startenddate = semdateService.findStartAndEndDate(sem_name);
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		String start_date = format.format(startenddate.getStart_date());
@@ -203,6 +203,15 @@ public class ClubAdminController {
 		model.addAttribute("club_id",club_id);
 		return "club_admin/club_minutes";
 	}
+
+	@RequestMapping("m_content")
+	public String m_content(Model model, @RequestParam("id") int id, @RequestParam("club_id") int club_id) {
+		BoardDto board = boardService.findOne(id);
+		model.addAttribute("board", board);
+		return "club_admin/m_content";
+	}
+
+
 	/*
 	 * LHM_account 동아리 회계
 	 */
