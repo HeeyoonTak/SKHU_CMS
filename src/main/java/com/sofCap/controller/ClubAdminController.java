@@ -159,7 +159,6 @@ public class ClubAdminController {
 	public String n_create(Model model, BoardDto board, @RequestParam("club_id") int club_id) {
 		board.setBoard_name_id(3);
 		board.setClub_id(club_id);
-		System.out.println(board.getClub_id());
 		board = new BoardDto();
 		model.addAttribute("board", board);
 		return "club_admin/posting";
@@ -225,6 +224,25 @@ public class ClubAdminController {
 		boardService.update(board);
 		return "redirect:m_content?club_id=" + board.getClub_id() + "&id=" + board.getId();
 	}
+
+	@RequestMapping(value = "m_create", method = RequestMethod.GET)
+	public String m_create(Model model, BoardDto board, @RequestParam("club_id") int club_id) {
+		board.setBoard_name_id(4);
+		board.setClub_id(club_id);
+		board = new BoardDto();
+		model.addAttribute("board", board);
+		return "club_admin/posting";
+	}
+
+	@Transactional
+	@RequestMapping(value = "m_create", method = RequestMethod.POST)
+	public String m_create(BoardDto board, Model model, @RequestParam("club_id") int club_id) {
+		board.setBoard_name_id(4);
+		board.setClub_id(club_id);
+		boardService.insert(board);
+		return "redirect:m_content?club_id=" + board.getClub_id() + "&id=" + board.getId();
+	}
+
 	/*
 	 * LHM_account 동아리 회계
 	 */
