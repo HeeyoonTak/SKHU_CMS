@@ -181,6 +181,9 @@ public class ClubAdminController {
 		return "redirect:notice?club_id=" + board.getClub_id();
 	}
 
+	/*
+	 * ASY_board 동아리 회의록
+	 */
 	@RequestMapping("minutes")
 	public String club_minutes(Model model, SemDate semdate, @RequestParam("club_id") int club_id) {
 		if (semdate.getSem_name() == null) {
@@ -203,6 +206,7 @@ public class ClubAdminController {
 		return "club_admin/club_minutes";
 	}
 
+	/* 해당 게시글로 이동 */
 	@RequestMapping("m_content")
 	public String m_content(Model model, @RequestParam("id") int id, @RequestParam("club_id") int club_id) {
 		BoardDto board = boardService.findOne(id);
@@ -210,6 +214,7 @@ public class ClubAdminController {
 		return "club_admin/m_content";
 	}
 
+	/* 게시글 수정 로직 구현 */
 	@RequestMapping(value = "m_edit", method = RequestMethod.GET)
 	public String m_edit(@RequestParam("id") int id, Model model, BoardDto board) {
 		board.setBoard_name_id(4);
@@ -225,6 +230,7 @@ public class ClubAdminController {
 		return "redirect:m_content?club_id=" + board.getClub_id() + "&id=" + board.getId();
 	}
 
+	/* 게시글 삽입 로직 구현 */
 	@RequestMapping(value = "m_create", method = RequestMethod.GET)
 	public String m_create(Model model, BoardDto board, @RequestParam("club_id") int club_id) {
 		board.setBoard_name_id(4);
@@ -243,6 +249,7 @@ public class ClubAdminController {
 		return "redirect:m_content?club_id=" + board.getClub_id() + "&id=" + board.getId();
 	}
 
+	/* 게시글 삭제 로직 구현 */
 	@RequestMapping("m_delete")
 	public String m_delete(Model model, @RequestParam("id") int id) {
 		BoardDto board = boardService.findById(id);
