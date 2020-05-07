@@ -85,8 +85,6 @@ public class ClubAdminController {
 		UserDto user = userService.findByLoginId(principal.getName());
 		ClubDto club = clubService.findById(club_id);
 		List<UserDto> acceptanceYes = userService.findByMember(club_id);
-		System.out.println(club_id);
-		System.out.println(userService.findByMember(club_id).toString());
 		model.addAttribute("user",user);
 		model.addAttribute("club", club);
 		model.addAttribute("acceptanceYes",acceptanceYes);
