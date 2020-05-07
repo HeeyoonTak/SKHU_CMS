@@ -57,7 +57,7 @@
 											<tr class="text-center">
 												<th style="text-align: center">회원</th>
 											</tr>
-												<c:forEach var="club" items="${acceptanceYes}">
+												<c:forEach var="user" items="${acceptanceYes}">
 													<tr>
 														<td><label><input type="checkbox" style="margin-right: 10px; width: 18px; height: 18px;" value="">${user.name}</label></td>
 													</tr>

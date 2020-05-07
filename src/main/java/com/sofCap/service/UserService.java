@@ -9,7 +9,7 @@ public interface UserService {
 
 	UserDto findOne(int id);
 	UserDto findByLoginId(String login_id);
-	List<ClubDto> findByMember(int club_id);
+	List<UserDto> findByMember(int club_id);
 	List<ClubDto> findByNotMember(String login_id);
 	void updateMypage(UserDto user);
 	void updateRole(UserDto user);
