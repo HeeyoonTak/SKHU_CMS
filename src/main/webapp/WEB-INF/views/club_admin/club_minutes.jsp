@@ -61,7 +61,7 @@
 									</tr>
 									<c:forEach var="board" items="${boards}">
 										<tr>
-											<td><a href="m_content?id=${board.id}">${board.title}</a></td>
+											<td><a href="m_content?club_id=${board.club_id}&id=${board.id}">${board.title}</a></td>
 											<td style="text-align: center; width: 200px;"><fmt:formatDate
 													pattern="yyyy-MM-dd" value="${ board.date }" /></td>
 											<sec:authorize access="hasRole('ROLE_ClubAdmin')">
