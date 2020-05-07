@@ -265,6 +265,13 @@ public class ClubAdminController {
 		return "club_admin/club_publicity";
 	}
 
+	@RequestMapping("p_content")
+	public String p_content(Model model, @RequestParam("id") int id, @RequestParam("club_id") int club_id) {
+		BoardDto board = boardService.findOne(id);
+		model.addAttribute("board", board);
+		return "club_admin/p_content";
+	}
+
 	/*
 	 * LHM_account 동아리 회계
 	 */
