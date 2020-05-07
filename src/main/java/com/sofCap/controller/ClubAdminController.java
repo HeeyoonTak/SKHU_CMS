@@ -211,7 +211,20 @@ public class ClubAdminController {
 		return "club_admin/m_content";
 	}
 
+	@RequestMapping(value = "m_edit", method = RequestMethod.GET)
+	public String m_edit(@RequestParam("id") int id, Model model, BoardDto board) {
+		board.setBoard_name_id(4);
+		board = boardService.findById(id);
+		model.addAttribute("board", board);
+		return "club_admin/posting";
+	}
 
+	@Transactional
+	@RequestMapping(value = "m_edit", method = RequestMethod.POST)
+	public String m_edit(BoardDto board, Model model) {
+		boardService.update(board);
+		return "redirect:m_content?club_id=" + board.getClub_id() + "&id=" + board.getId();
+	}
 	/*
 	 * LHM_account 동아리 회계
 	 */
