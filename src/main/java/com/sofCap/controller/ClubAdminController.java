@@ -257,6 +257,14 @@ public class ClubAdminController {
 		return "redirect:minutes?club_id=" + board.getClub_id();
 	}
 
+	@RequestMapping("publicity")
+	public String club_publicity(Model model, @RequestParam("club_id") int club_id) {
+		List<BoardDto> boards = boardService.findByClubId_p(club_id);
+		model.addAttribute("boards", boards);
+		model.addAttribute("club_id",club_id);
+		return "club_admin/club_publicity";
+	}
+
 	/*
 	 * LHM_account 동아리 회계
 	 */
