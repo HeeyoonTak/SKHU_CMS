@@ -57,6 +57,8 @@
                               <form:hidden path="board_name_id"
                                  class="form-control input-md" />
                               <form:hidden path="club_id" class="form-control input-md" />
+                              <a class="btn btn-primary btn-lg" id="l_search_term_btn"
+                                 style="float: right;" href="javascript:history.back();">목록</a>
                               <button class="btn btn-lg btn-primary" type="submit"
                                  style="float: right;" onclick="goWrite(this.form)">저장</button>
                            </div>

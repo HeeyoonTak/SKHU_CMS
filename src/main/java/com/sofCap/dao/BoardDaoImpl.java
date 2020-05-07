@@ -26,6 +26,11 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
+	public List<BoardDto> findBySem_a(SemDate sem_name, @Param("id") int club_id) {
+		return boardMapper.findBySem_a(sem_name, club_id);
+	}
+
+	@Override
 	public List<BoardDto> findByClubId_p(@Param("id") int club_id) {
 		return boardMapper.findByClubId_p(club_id);
 	}
