@@ -66,7 +66,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<ClubDto> findByMember(int club_id) {
+	public List<UserDto> findByMember(int club_id) {
 		// TODO Auto-generated method stub
 		return userDao.findByMember(club_id);
 	}

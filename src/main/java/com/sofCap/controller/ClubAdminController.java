@@ -30,9 +30,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sofCap.dto.AccountDto;
-
 import com.sofCap.dto.AttendanceDto;
-
 import com.sofCap.dto.BoardDto;
 import com.sofCap.dto.ClubDto;
 import com.sofCap.dto.FilesDto;
@@ -44,9 +42,7 @@ import com.sofCap.mapper.FileMapper;
 import com.sofCap.mapper.SemDateMapper;
 import com.sofCap.model.SemDate;
 import com.sofCap.service.AccountService;
-
 import com.sofCap.service.AttendanceService;
-
 import com.sofCap.service.BoardService;
 import com.sofCap.service.ClubService;
 import com.sofCap.service.FileService;
@@ -87,9 +83,8 @@ public class ClubAdminController {
 	@GetMapping("acceptance")
 	public String acceptane(Model model, @RequestParam("club_id") int club_id, Principal principal) {
 		UserDto user = userService.findByLoginId(principal.getName());
-
 		ClubDto club = clubService.findById(club_id);
-		List<ClubDto> acceptanceYes = userService.findByMember(club_id);
+		List<UserDto> acceptanceYes = userService.findByMember(club_id);
 		System.out.println(club_id);
 		System.out.println(userService.findByMember(club_id).toString());
 		model.addAttribute("user",user);
@@ -99,18 +94,9 @@ public class ClubAdminController {
 	}
 
 	/* 지원자 합격 */
-	@PostMapping(value="acceptance",params="cmd=yes") //id값은 지원자 id값
-	public String acceptanceYes(Model model, Principal principal,
-			@RequestParam("user_id") int user_id, @RequestParam("club_id") int club_id, ClubDto club) {
-
-		model.addAttribute("user", user);
-		return "club_admin/acceptance";
-	}
-
 	@PostMapping(value = "acceptance", params = "cmd=yes") // id값은 지원자 id값
 	public String acceptanceYes(Model model, Principal principal, @RequestParam("user_id") int user_id,
 			@RequestParam("club_id") int club_id) {
-
 		UserDto user = userService.findByLoginId(principal.getName());
 		UserClubDto userClub = userClubService.findByUserId(user_id);
 		model.addAttribute("user", user);
@@ -122,10 +108,6 @@ public class ClubAdminController {
 
 
 	/* 합격자 취소 */
-	@PostMapping(value="acceptance",params="cmd=no")
-	public String acceptanceNo(Model model, Principal principal,
-			@RequestParam("user_id") int user_id, @RequestParam("club_id") int club_id, ClubDto club) {
-
 	@PostMapping(value = "acceptance", params = "cmd=no")
 	public String acceptanceNo(Model model, Principal principal, @RequestParam("user_id") int user_id,
 			@RequestParam("club_id") int club_id) {
