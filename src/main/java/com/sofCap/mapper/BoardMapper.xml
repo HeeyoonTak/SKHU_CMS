@@ -71,7 +71,7 @@
 		ORDER BY date DESC
 	</select>
 
-	<select id="findByClubId_r" resultType="BoardDto">  <!-- 각 동아리 홍보게시판 리스트 조회 -->
+	<select id="findByClubId_r" resultType="BoardDto">  <!-- 각 동아리 모집게시판 리스트 조회 -->
 		SELECT b.*
 		FROM Board b
 		LEFT JOIN Club c ON b.club_id = c.id

@@ -267,6 +267,9 @@ public class ClubAdminController {
 		return "redirect:minutes?club_id=" + board.getClub_id();
 	}
 
+	/*
+	 * ASY_board 동아리 홍보게시판
+	 */
 	@RequestMapping("publicity")
 	public String club_publicity(Model model, @RequestParam("club_id") int club_id) {
 		List<BoardDto> boards = boardService.findByClubId_p(club_id);
@@ -275,6 +278,7 @@ public class ClubAdminController {
 		return "club_admin/club_publicity";
 	}
 
+	/* 해당 게시글로 이동 */
 	@RequestMapping("p_content")
 	public String p_content(Model model, @RequestParam("id") int id, @RequestParam("club_id") int club_id) {
 		BoardDto board = boardService.findOne(id);
@@ -282,6 +286,7 @@ public class ClubAdminController {
 		return "club_admin/p_content";
 	}
 
+	/* 게시글 수정 로직 구현 */
 	@RequestMapping(value = "p_edit", method = RequestMethod.GET)
 	public String p_edit(@RequestParam("id") int id, Model model, BoardDto board) {
 		board.setBoard_name_id(1);
@@ -297,6 +302,7 @@ public class ClubAdminController {
 		return "redirect:p_content?club_id=" + board.getClub_id() + "&id=" + board.getId();
 	}
 
+	/* 게시글 삽입 로직 구현 */
 	@RequestMapping(value = "p_create", method = RequestMethod.GET)
 	public String p_create(Model model, BoardDto board, @RequestParam("club_id") int club_id) {
 		board.setBoard_name_id(1);
@@ -315,6 +321,7 @@ public class ClubAdminController {
 		return "redirect:p_content?club_id=" + board.getClub_id() + "&id=" + board.getId();
 	}
 
+	/* 게시글 삭제 로직 구현 */
 	@RequestMapping("p_delete")
 	public String p_delete(Model model, @RequestParam("id") int id) {
 		BoardDto board = boardService.findById(id);
@@ -322,6 +329,9 @@ public class ClubAdminController {
 		return "redirect:publicity?club_id=" + board.getClub_id();
 	}
 
+	/*
+	 * ASY_board 동아리 모집게시판
+	 */
 	@RequestMapping("recruit")
 	public String club_recruit(Model model, @RequestParam("club_id") int club_id) {
 		List<BoardDto> boards = boardService.findByClubId_r(club_id);
@@ -330,6 +340,7 @@ public class ClubAdminController {
 		return "club_admin/club_recruit";
 	}
 
+	/* 해당 게시글로 이동 */
 	@RequestMapping("r_content")
 	public String r_content(Model model, @RequestParam("id") int id, @RequestParam("club_id") int club_id) {
 		BoardDto board = boardService.findOne(id);
@@ -337,6 +348,7 @@ public class ClubAdminController {
 		return "club_admin/r_content";
 	}
 
+	/* 게시글 수정 로직 구현 */
 	@RequestMapping(value = "r_edit", method = RequestMethod.GET)
 	public String r_edit(@RequestParam("id") int id, Model model, BoardDto board) {
 		board.setBoard_name_id(2);
@@ -352,6 +364,7 @@ public class ClubAdminController {
 		return "redirect:r_content?club_id=" + board.getClub_id() + "&id=" + board.getId();
 	}
 
+	/* 게시글 삽입 로직 구현 */
 	@RequestMapping(value = "r_create", method = RequestMethod.GET)
 	public String r_create(Model model, BoardDto board, @RequestParam("club_id") int club_id) {
 		board.setBoard_name_id(2);
@@ -370,6 +383,7 @@ public class ClubAdminController {
 		return "redirect:r_content?club_id=" + board.getClub_id() + "&id=" + board.getId();
 	}
 
+	/* 게시글 삭제 로직 구현 */
 	@RequestMapping("r_delete")
 	public String r_delete(Model model, @RequestParam("id") int id) {
 		BoardDto board = boardService.findById(id);
