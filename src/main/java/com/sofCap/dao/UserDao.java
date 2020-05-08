@@ -2,7 +2,6 @@ package com.sofCap.dao;
 
 import java.util.List;
 
-import com.sofCap.dto.ClubDto;
 import com.sofCap.dto.UserDto;
 
 public interface UserDao {
@@ -10,7 +9,7 @@ public interface UserDao {
 	List<UserDto> findAll();
 	UserDto findOne(int id);
 	List<UserDto> findByMember(int club_id);
-	List<ClubDto> findByNotMember(String login_id);
+	List<UserDto> findByNotMember(int club_id);
 	void updateMypage(UserDto user);
 	void updateRole(UserDto user);
 }

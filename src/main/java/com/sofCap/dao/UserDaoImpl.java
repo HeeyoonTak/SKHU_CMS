@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.sofCap.dto.ClubDto;
 import com.sofCap.dto.UserDto;
 import com.sofCap.mapper.UserMapper;
 
@@ -49,9 +48,9 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public List<ClubDto> findByNotMember(String login_id) {
+	public List<UserDto> findByNotMember(int club_id) {
 		// TODO Auto-generated method stub
-		return userMapper.findByNotMember(login_id);
+		return userMapper.findByNotMember(club_id);
 	}
 
 }

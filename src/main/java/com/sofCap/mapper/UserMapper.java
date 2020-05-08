@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.sofCap.dto.ClubDto;
 import com.sofCap.dto.UserDto;
 
 @Mapper
@@ -17,7 +16,7 @@ public interface UserMapper {
 
 	List<UserDto> findByMember(int club_id);
 
-	List<ClubDto> findByNotMember(String login_id);
+	List<UserDto> findByNotMember(int club_id);
 
 	void insert(UserDto user);
 

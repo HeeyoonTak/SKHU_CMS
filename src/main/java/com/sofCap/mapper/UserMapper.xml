@@ -25,8 +25,11 @@
 		JOIN User_Club uC on uC.user_id=u.id and uC.club_id=#{club_id} and u.user_type='일반회원'
 	</select>
 
-	<select id="findByNotMember" resultType="ClubDto">
-		
+	<select id="findByNotMember" resultType="UserDto">
+		SELECT u.* FROM User u
+		JOIN apply_a a on a.user_id=u.id 
+    	JOIN apply_q q on q.club_id=2
+    	GROUP BY u.name
 	</select>
 
 	<insert id="insert" useGeneratedKeys="true" keyProperty="id">

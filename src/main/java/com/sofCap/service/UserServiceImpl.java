@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sofCap.dao.UserDao;
-import com.sofCap.dto.ClubDto;
 import com.sofCap.dto.UserDto;
 
 @Service
@@ -72,9 +71,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<ClubDto> findByNotMember(String login_id) {
+	public List<UserDto> findByNotMember(int club_id) {
 		// TODO Auto-generated method stub
-		return userDao.findByNotMember(login_id);
+		return userDao.findByNotMember(club_id);
 	}
 
 }
