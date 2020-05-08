@@ -68,6 +68,7 @@
 		LEFT JOIN Club c ON b.club_id = c.id
 		WHERE club_id = #{id} AND
 		board_name_id = '1'
+		ORDER BY date DESC
 	</select>
 
 	<select id="findAll_p" resultMap="resultMap_BoardDto">  <!-- 홍보게시판 전체 리스트 조회 -->
