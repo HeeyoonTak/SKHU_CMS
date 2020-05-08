@@ -34,9 +34,9 @@
 											<tr class="text-center">
 												<th style="text-align: center">비회원</th>
 											</tr>
-												<c:forEach var="<%-- lecture --%>" items="<%-- ${acceptanceNo} --%>">
+												<c:forEach var="user" items="${acceptanceNo}">
 													<tr>
-														<td><label><input type="checkbox" style="margin-right: 10px; width: 18px; height: 18px;" value="">지원자 학번/이름</label></td>
+														<td><label><input type="checkbox" style="margin-right: 10px; width: 18px; height: 18px;" value="">${user.name}</label></td>
 													</tr>
 												</c:forEach>
 										</table>

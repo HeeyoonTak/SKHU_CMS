@@ -85,9 +85,11 @@ public class ClubAdminController {
 		UserDto user = userService.findByLoginId(principal.getName());
 		ClubDto club = clubService.findById(club_id);
 		List<UserDto> acceptanceYes = userService.findByMember(club_id);
+		List<UserDto> acceptanceNo = userService.findByNotMember(club_id);
 		model.addAttribute("user",user);
 		model.addAttribute("club", club);
 		model.addAttribute("acceptanceYes",acceptanceYes);
+		model.addAttribute("acceptanceNo",acceptanceNo);
 		return "club_admin/acceptance";
 	}
 
@@ -97,23 +99,31 @@ public class ClubAdminController {
 			@RequestParam("club_id") int club_id) {
 		UserDto user = userService.findByLoginId(principal.getName());
 		UserClubDto userClub = userClubService.findByUserId(user_id);
+		List<UserDto> acceptanceYes = userService.findByMember(club_id);
+		List<UserDto> acceptanceNo = userService.findByNotMember(club_id);
 		model.addAttribute("user", user);
 		model.addAttribute("userClub", userClub);
+		model.addAttribute("acceptanceYes",acceptanceYes);
+		model.addAttribute("acceptanceNo",acceptanceNo);
 		userService.updateRole(user);
 		userClubService.insert(userClub);
 		return "redirect:acceptance";
 	}
 
 
-	/* 합격자 취소 */
+	/* 합격자 취소 or 기존회원 제명 */
 	@PostMapping(value = "acceptance", params = "cmd=no")
 	public String acceptanceNo(Model model, Principal principal, @RequestParam("user_id") int user_id,
 			@RequestParam("club_id") int club_id) {
 
 		UserDto user = userService.findByLoginId(principal.getName());
 		UserClubDto userClub = userClubService.findByUserId(user_id);
+		List<UserDto> acceptanceYes = userService.findByMember(club_id);
+		List<UserDto> acceptanceNo = userService.findByNotMember(club_id);
 		model.addAttribute("user", user);
 		model.addAttribute("userClub", userClub);
+		model.addAttribute("acceptanceYes",acceptanceYes);
+		model.addAttribute("acceptanceNo",acceptanceNo);
 		userService.updateRole(user);
 		userClubService.delete(user_id);
 		return "redirect:acceptance";
