@@ -129,6 +129,12 @@ public class ClubAdminController {
 		return "redirect:acceptance";
 	}
 
+//	@RequestMapping(value = "getForm")
+//	public void getForm(HttpServletRequest req, HttpServletResponse res, @RequestParam("id") int id)
+//			throws IOException{
+//
+//	}
+
 	/*
 	 * ASY_board 동아리 공지사항
 	 */

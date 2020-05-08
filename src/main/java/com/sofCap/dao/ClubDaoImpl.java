@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.sofCap.dto.ApplyADto;
 import com.sofCap.dto.ClubDto;
 import com.sofCap.mapper.ClubMapper;
 
@@ -22,9 +23,15 @@ public class ClubDaoImpl implements ClubDao {
 	public ClubDto findById(int id) {
 		return clubMapper.findById(id);
 	}
-	
+
 	@Override
 	public List<ClubDto> findAll(){
 		return clubMapper.findAll();
+	}
+
+	@Override
+	public List<ApplyADto> findAnswer(int club_id) {
+		// TODO Auto-generated method stub
+		return clubMapper.findAnswer(club_id);
 	}
 }

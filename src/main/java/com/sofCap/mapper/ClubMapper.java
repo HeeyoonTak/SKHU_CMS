@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.sofCap.dto.ApplyADto;
 import com.sofCap.dto.ClubDto;
-import com.sofCap.dto.UserDto;
 
 @Mapper
 public interface ClubMapper {
@@ -17,6 +17,8 @@ public interface ClubMapper {
 	ClubDto findByName(String name);
 
 	List<ClubDto> findAll();
+
+	List<ApplyADto> findAnswer(int club_id);
 
 	void insert(ClubDto club);
 
