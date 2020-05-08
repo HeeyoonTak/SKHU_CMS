@@ -369,6 +369,14 @@ public class ClubAdminController {
 		boardService.insert(board);
 		return "redirect:r_content?club_id=" + board.getClub_id() + "&id=" + board.getId();
 	}
+
+	@RequestMapping("r_delete")
+	public String r_delete(Model model, @RequestParam("id") int id) {
+		BoardDto board = boardService.findById(id);
+		boardService.delete(id);
+		return "redirect:recruit?club_id=" + board.getClub_id();
+	}
+
 	/*
 	 * LHM_account 동아리 회계
 	 */
