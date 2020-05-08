@@ -3,6 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+   prefix="sec"%>
 <c:url var="R" value="/" />
 <div id="fh5co-hero">
    <a href="#fh5co-main"
@@ -59,8 +61,10 @@
                            </form:form>
                            <a class="btn btn-primary btn-lg" id="l_search_term_btn"
                               style="float: right;" href="publicity?club_id=${board.club_id}">목록</a>                           
+                              <sec:authorize access="hasRole('ROLE_ClubAdmin')">
                               <a href="p_edit?id=${board.id}" class="btn btn-primary btn-lg"
                                  id="l_search_term_btn" style="float: right;">편집</a>
+                              </sec:authorize>
                         </div>
                      </div>
                   </div>
