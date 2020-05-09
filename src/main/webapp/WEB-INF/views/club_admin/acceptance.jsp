@@ -36,7 +36,8 @@
 											</tr>
 												<c:forEach var="user" items="${acceptanceNo}">
 													<tr>
-														<td><label><input type="checkbox" style="margin-right: 10px; width: 18px; height: 18px;" value="">${user.name}</label></td>
+														<td><label><input type="checkbox" style="margin-right: 10px; width: 18px; height: 18px;" value="">${user.name}</label>
+														<i class="btn btn-primary el-icon-document" style="margin-left: 78.5px" <%-- id="showForm" data-target="#Modal" onclick="return showForm('${apply_q.id}')" --%> ></i></td>
 													</tr>
 												</c:forEach>
 										</table>
@@ -83,3 +84,28 @@
 				</div>
 			</div>
 		</div>
+
+
+<!-- 모달 띄우기 -->		
+<<%-- div class="modal fade" id="Modal" role="dialog" tabindex="-1">
+	<div class="modal-dialog modal-md">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 id="modal-title" class="modal-title">지원폼</h4>
+			</div>
+			<div class="modal-body" style="overflow:scroll">
+				<c:forEach var="apply_a" items="${answer}">
+													<tr>
+														<td style="margin-right: 10px; width: 18px; height: 18px;">${apply_q.content}</td>
+														<td style="margin-right: 10px; width: 18px; height: 18px;">${apply_a.content}</td>
+													</tr>
+												</c:forEach>
+			</div>
+			<div class="modal-footer">
+				<button id="closeModal" type="button" class="btn btn-primary col-md"
+					data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div> --%>
