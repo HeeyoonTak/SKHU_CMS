@@ -128,6 +128,10 @@ public class ClubAdminController {
 		userClubService.delete(user_id);
 		return "redirect:acceptance";
 	}
+	@RequestMapping("apply_q_make")
+	public String aplly_q_make() {
+		return "club_admin/apply_q_make";
+	}
 
 //	@RequestMapping(value = "getForm")
 //	public void getForm(HttpServletRequest req, HttpServletResponse res, @RequestParam("id") int id)
