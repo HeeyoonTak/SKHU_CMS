@@ -86,10 +86,10 @@ public class ClubAdminController {
 		ClubDto club = clubService.findById(club_id);
 		List<UserDto> acceptanceYes = userService.findByMember(club_id);
 		List<UserDto> acceptanceNo = userService.findByNotMember(club_id);
-		model.addAttribute("user",user);
+		model.addAttribute("user", user);
 		model.addAttribute("club", club);
-		model.addAttribute("acceptanceYes",acceptanceYes);
-		model.addAttribute("acceptanceNo",acceptanceNo);
+		model.addAttribute("acceptanceYes", acceptanceYes);
+		model.addAttribute("acceptanceNo", acceptanceNo);
 		return "club_admin/acceptance";
 	}
 
@@ -103,13 +103,12 @@ public class ClubAdminController {
 		List<UserDto> acceptanceNo = userService.findByNotMember(club_id);
 		model.addAttribute("user", user);
 		model.addAttribute("userClub", userClub);
-		model.addAttribute("acceptanceYes",acceptanceYes);
-		model.addAttribute("acceptanceNo",acceptanceNo);
+		model.addAttribute("acceptanceYes", acceptanceYes);
+		model.addAttribute("acceptanceNo", acceptanceNo);
 		userService.updateRole(user);
 		userClubService.insert(userClub);
 		return "redirect:acceptance";
 	}
-
 
 	/* 합격자 취소 or 기존회원 제명 */
 	@PostMapping(value = "acceptance", params = "cmd=no")
@@ -122,14 +121,18 @@ public class ClubAdminController {
 		List<UserDto> acceptanceNo = userService.findByNotMember(club_id);
 		model.addAttribute("user", user);
 		model.addAttribute("userClub", userClub);
-		model.addAttribute("acceptanceYes",acceptanceYes);
-		model.addAttribute("acceptanceNo",acceptanceNo);
+		model.addAttribute("acceptanceYes", acceptanceYes);
+		model.addAttribute("acceptanceNo", acceptanceNo);
 		userService.updateRole(user);
 		userClubService.delete(user_id);
 		return "redirect:acceptance";
 	}
+
+	// 동아리마다 모집 지원 만들기
 	@RequestMapping("apply_q_make")
-	public String aplly_q_make() {
+	public String aplly_q_make(Model model, Principal principal) {
+//		ClubDto club = clubService.findByName(principal.getName());
+//		model.addAttribute("club", club);
 		return "club_admin/apply_q_make";
 	}
 
@@ -146,7 +149,7 @@ public class ClubAdminController {
 	public String club_notice(Model model, @RequestParam("club_id") int club_id) {
 		List<BoardDto> boards = boardService.findByClubId_n(club_id);
 		model.addAttribute("boards", boards);
-		model.addAttribute("club_id",club_id);
+		model.addAttribute("club_id", club_id);
 		return "club_admin/club_notice";
 	}
 
@@ -222,7 +225,7 @@ public class ClubAdminController {
 		model.addAttribute("start_date", start_date);
 		model.addAttribute("end_date", end_date);
 		model.addAttribute("boards", boards);
-		model.addAttribute("club_id",club_id);
+		model.addAttribute("club_id", club_id);
 		return "club_admin/club_minutes";
 	}
 
@@ -284,7 +287,7 @@ public class ClubAdminController {
 	public String club_publicity(Model model, @RequestParam("club_id") int club_id) {
 		List<BoardDto> boards = boardService.findByClubId_p(club_id);
 		model.addAttribute("boards", boards);
-		model.addAttribute("club_id",club_id);
+		model.addAttribute("club_id", club_id);
 		return "club_admin/club_publicity";
 	}
 
@@ -346,7 +349,7 @@ public class ClubAdminController {
 	public String club_recruit(Model model, @RequestParam("club_id") int club_id) {
 		List<BoardDto> boards = boardService.findByClubId_r(club_id);
 		model.addAttribute("boards", boards);
-		model.addAttribute("club_id",club_id);
+		model.addAttribute("club_id", club_id);
 		return "club_admin/club_recruit";
 	}
 
