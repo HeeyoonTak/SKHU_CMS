@@ -10,8 +10,9 @@ import com.sofCap.model.SemDate;
 public interface BoardDao {
 	BoardDto findById(int id);
 	List<BoardDto> findBySem_m(SemDate sem_name);
-	List<BoardDto> findBySem_a(SemDate sem_name, @Param("id") int club_id);
+	List<BoardDto> findBySem_a(String sem_name, int club_id);
 	List<BoardDto> findByClubId_p(@Param("id") int club_id);
+	List<BoardDto> findByClubId_r(@Param("id") int club_id);
 	List<BoardDto> findByClubId_n(@Param("id") int club_id);
 	List<BoardDto> findAll_p();
 	List<BoardDto> findAll_r();

@@ -32,7 +32,7 @@
             <div class="col-md-9 col-md-push-3" id="fh5co-content">
                <div class="row">
                   <div style="margin-bottom: 20px">
-                     <h3>공지사항</h3>
+                     <h3>홍보 게시판</h3>
                   </div>
                   <div>
                      <div style="margin-left: 50px">
@@ -46,10 +46,10 @@
                            </tr>
                            <c:forEach var="board" items="${boards}">
                               <tr>
-                                 <td><a href="n_content?club_id=${board.club_id}&id=${board.id}">${board.title}</a></td>
+                                 <td><a href="p_content?club_id=${board.club_id}&id=${board.id}">${board.title}</a></td>
                                  <td style="text-align: center;  width: 200px;"><fmt:formatDate pattern="yyyy-MM-dd" value="${ board.date }" /></td>
                                   <sec:authorize access="hasRole('ROLE_ClubAdmin')">
-                                  <td style="width: 50px"><a href="n_delete?id=${board.id}" style="color: #ff0000">x</a></td>
+                                  <td style="width: 50px"><a href="p_delete?id=${board.id}" style="color: #ff0000">x</a></td>
                                   </sec:authorize>
                               </tr>
                            </c:forEach>
@@ -64,7 +64,7 @@
                         <div class="row">
                            <div class="col-md-12">
                            <sec:authorize access="hasRole('ROLE_ClubAdmin')">
-                                <a href="n_create?club_id=${club_id}" class="btn btn-primary btn-lg" id="l_search_term_btn" style="float:right;">작성</a>
+                                <a href="p_create?club_id=${club_id}" class="btn btn-primary btn-lg" id="l_search_term_btn" style="float:right;">작성</a>
                             </sec:authorize>   
                            </div>
                         </div>

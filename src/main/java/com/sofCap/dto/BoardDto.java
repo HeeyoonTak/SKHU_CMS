@@ -22,6 +22,5 @@ public class BoardDto {
 	Date start_date;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	Date end_date;
-
 	ClubDto club;
 }

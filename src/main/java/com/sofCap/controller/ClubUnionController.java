@@ -329,7 +329,10 @@ public class ClubUnionController {
 	}
 
 	@RequestMapping("club_list")
-	public String list(Model model) {
+	public String list(Model model,Principal principal) {
+		System.out.println(principal.getName());
+		if (!principal.getName().equals("clubAs"))
+			return "redirect:notice";
 		List<UserDto> users = userMapper.findAll();
 		model.addAttribute("users", users);
 		return "club_union/club_manage";
@@ -343,7 +346,9 @@ public class ClubUnionController {
 	}
 
 	@RequestMapping(value = "club_create", method = RequestMethod.POST)
-	public String create(Model model, UserDto user) {
+	public String create(Model model, UserDto user, Principal principal) {
+		if (!principal.getName().equals("clubAs"))
+			return "redirect:notice";
 		// 1. 클럽 생성
 		ClubDto club = new ClubDto();
 		club.setClub_name(user.getName());
@@ -374,7 +379,10 @@ public class ClubUnionController {
 	}
 
 	@RequestMapping("club_delete")
-	public String delete(Model model, @RequestParam("user_id") int user_id) {
+	public String delete(Model model, @RequestParam("user_id") int user_id, Principal principal) {
+		if (!principal.getName().equals("clubAs"))
+			return "redirect:notice";
+		System.out.println(user_id);
 		int club_id = userclubMapper.findByUserId(user_id).getClub_id();
 		String name = clubMapper.findById(club_id).getClub_name();
 		userclubMapper.delete(club_id);

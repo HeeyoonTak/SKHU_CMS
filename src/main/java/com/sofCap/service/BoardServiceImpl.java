@@ -26,13 +26,18 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public List<BoardDto> findBySem_a(SemDate sem_name, @Param("id") int club_id) {
+	public List<BoardDto> findBySem_a(String sem_name, int club_id) {
 		return boardDao.findBySem_a(sem_name, club_id);
 	}
 
 	@Override
 	public List<BoardDto> findByClubId_p(@Param("id") int club_id) {
 		return boardDao.findByClubId_p(club_id);
+	}
+
+	@Override
+	public List<BoardDto> findByClubId_r(@Param("id") int club_id) {
+		return boardDao.findByClubId_r(club_id);
 	}
 
 	@Override

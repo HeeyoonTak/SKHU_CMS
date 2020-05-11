@@ -112,14 +112,15 @@
 																</c:otherwise>
 															</c:choose>
 															<%-- <td>${ account.total }</td> --%>
-															<td><a class="btn btn-primary" id="showReceipt" data-target="#createModal" onclick="return showReceipt('${account.id}');">영수증</a>
-																<%-- <img src ="${R}club_union/getImage?id=${account.id}" width="100" height="100"></img> --%>
+															<td><a class="btn btn-primary" id="showReceipt"
+																data-target="#createModal"
+																onclick="return showReceipt('${account.id}');">영수증</a> <%-- <img src ="${R}club_union/getImage?id=${account.id}" width="100" height="100"></img> --%>
 															</td>
-															<td>
-															<c:if test="${club.id eq myClub.id}">
-															<a href="${R}club_union/delete?id=${account.id}&club_id=${club.id}" onclick="return deleteAlert();">x</a>
-															</c:if>
-															</td>
+															<td><c:if test="${club.id eq myClub.id}">
+																	<a
+																		href="${R}club_union/delete?id=${account.id}&club_id=${club.id}"
+																		onclick="return deleteAlert();">x</a>
+																</c:if></td>
 														</tr>
 													</c:if>
 												</c:forEach>
@@ -133,37 +134,38 @@
 												</c:forEach>
 											</tbody>
 											<c:if test="${club.id eq myClub.id}">
-											<tbody>
-												<tr id="default">
-													<input type="hidden" name="club_id" value="${club.id}">
-													<td><input type="date" name="date"
-														class="form-control input-lg" max="${end_date}" min="${start_date}"></td>
-													<td><select class="form-control input-lg"
-														name="account_type">
-															<c:forEach var="at" items="${ account_type }"
-																varStatus="i">
-																<option value="${i.index}">${ at }</option>
-															</c:forEach>
-													</select></td>
-													<td><input type="number" name="price"
-														class="form-control input-lg" placeholder="사용금액"></td>
-													<td><input type="text" name="remark"
-														class="form-control input-lg" placeholder="사용내용 및 비고"></td>
-													<!-- <td></td> -->
-													<td><input type="file" name="file"
-														class="btn btn-primary" id="uploadImage"
-														onchange="fileChange(this);"> <label
-														for="uploadImage" class="fileName" style="display: none"></label>
-													</td>
-													<td><a onclick="return delete_row(this);"></a></td>
-												</tr>
+												<tbody>
+													<tr id="default">
+														<input type="hidden" name="club_id" value="${club.id}">
+														<td><input type="date" name="date"
+															class="form-control input-lg" max="${end_date}"
+															min="${start_date}"></td>
+														<td><select class="form-control input-lg"
+															name="account_type">
+																<c:forEach var="at" items="${ account_type }"
+																	varStatus="i">
+																	<option value="${i.index}">${ at }</option>
+																</c:forEach>
+														</select></td>
+														<td><input type="number" name="price"
+															class="form-control input-lg" placeholder="사용금액"></td>
+														<td><input type="text" name="remark"
+															class="form-control input-lg" placeholder="사용내용 및 비고"></td>
+														<!-- <td></td> -->
+														<td><input type="file" name="file"
+															class="btn btn-primary" id="uploadImage"
+															onchange="fileChange(this);"> <label
+															for="uploadImage" class="fileName" style="display: none"></label>
+														</td>
+														<td><a onclick="return delete_row(this);"></a></td>
+													</tr>
 
-												<tr>
-													<td colspan="6"><button
-															onclick="return attachAddr(this);"
-															class="btn btn-primary col-md" id="pls-btn">+</button></td>
-												</tr>
-											</tbody>
+													<tr>
+														<td colspan="6"><button
+																onclick="return attachAddr(this);"
+																class="btn btn-primary col-md" id="pls-btn">+</button></td>
+													</tr>
+												</tbody>
 											</c:if>
 
 										</table>
@@ -183,7 +185,7 @@
 				</c:forEach>
 			</div>
 		</div>
-		
+
 		<div class="fh5co-spacer fh5co-spacer-md"></div>
 
 		<div class="row"></div>
@@ -193,16 +195,19 @@
 	</div>
 	<!-- // END container -->
 	<!-- sidebar -->
-			<div class="col-md-2 col-md-pull-7" id="fh5co-sidebar">
-				<ul class="attendance_check-list hor_1">
-					<li><a href="${R}club_union/notice">공지사항</a></li>
-					<li><a href="${R}club_union/account">회계 관리</a></li>
-					<li><a href="${R}club_union/club_list">동아리 관리</a></li>
-					<li><a href="${R}club_union/attendance">출석체크</a></li>
-					<li><a href="${R}club_union/minutes">회의록</a></li>
-				</ul>
-			</div>
-			<!-- sidebar 끝 -->
+	<div class="col-md-2 col-md-pull-7" id="fh5co-sidebar">
+		<ul class="attendance_check-list hor_1">
+			<li><a href="${R}club_union/notice">공지사항</a></li>
+			<li><a href="${R}club_union/account">회계 관리</a></li>
+
+			<li><sec:authorize access="hasRole('ROLE_ClubUnion')">
+					<a href="${R}club_union/club_list">동아리 관리</a>
+				</sec:authorize></li>
+			<li><a href="${R}club_union/attendance">출석체크</a></li>
+			<li><a href="${R}club_union/minutes">회의록</a></li>
+		</ul>
+	</div>
+	<!-- sidebar 끝 -->
 
 </div>
 
@@ -214,8 +219,8 @@
 			<div class="modal-header">
 				<h4 id="modal-title" class="modal-title">영수증</h4>
 			</div>
-			<div class="modal-body" style="overflow:scroll">
-				<img src ="${R}club_union/getImage?id=${account.id}" id="receiptImg" />		
+			<div class="modal-body" style="overflow: scroll">
+				<img src="${R}club_union/getImage?id=${account.id}" id="receiptImg" />
 			</div>
 			<div class="modal-footer">
 				<button id="closeModal" type="button" class="btn btn-primary col-md"
