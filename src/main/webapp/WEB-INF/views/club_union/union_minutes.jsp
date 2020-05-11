@@ -96,7 +96,9 @@
 				<ul class="attendance_check-list hor_1">
 					<li><a href="${R}club_union/notice">공지사항</a></li>
 					<li><a href="${R}club_union/account">회계 관리</a></li>
-					<li><a href="${R}club_union/club_list">동아리 관리</a></li>
+					<sec:authorize access="hasRole('ROLE_ClubUnion')">
+						<li><a href="${R}club_union/club_list">동아리 관리</a></li>
+					</sec:authorize>
 					<li><a href="${R}club_union/attendance">출석체크</a></li>
 					<li><a href="${R}club_union/minutes">회의록</a></li>
 				</ul>

@@ -13,7 +13,7 @@
 		<div class="col-md-8 col-md-offset-2">
 			<div class="fh5co-hero-wrap">
 				<div class="fh5co-hero-intro">
-					<h1 class="to-animate hero-animate-1">동아리 연합회</h1>
+					<h1 class="to-animate hero-animate-1">${club.name}</h1>
 					<h2 class="to-animate hero-animate-2">동아리 연합회의 세부사항을 확인해 보세요!</h2>
 				</div>
 			</div>
@@ -36,7 +36,7 @@
 									id="l_search_term_btn">개설</a></li>
 							</ul>
 						</div>
-						<div class="col-xs-12" style="margin-bottom: 0px">
+						<!-- <div class="col-xs-12" style="margin-bottom: 0px">
 							<div class="panel panel-info">
 								<div class="panel-heading">
 									<h3 class="panel-title">신규 동아리 개설</h3>
@@ -57,12 +57,12 @@
 											style="float: right; margin-top: 10px; margin-right: 0; margin-right: 0px; margin-bottom: 0px;">개설</button>
 									</div>
 								</form>
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col-md-3 col-md-pull-9" id="fh5co-sidebar">
+			<!--  <div class="col-md-3 col-md-pull-9" id="fh5co-sidebar">
 				<ul class="attendance_check-list hor_1">
 					<li><a href="${R}club_union/notice">공지사항</a></li>
 					<li><a href="${R}club_union/account">회계 관리</a></li>
@@ -72,7 +72,7 @@
 					<li><a href="${R}club_union/attendance">출석체크</a></li>
 					<li><a href="${R}club_union/minutes">회의록</a></li>
 				</ul>
-			</div>
+			</div> -->
 		</div>
 	</div>
 </div>
