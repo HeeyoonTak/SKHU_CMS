@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sofCap.dto.AccountDto;
+import com.sofCap.dto.ApplyADto;
 import com.sofCap.dto.AttendanceDto;
 import com.sofCap.dto.BoardDto;
 import com.sofCap.dto.ClubDto;
@@ -107,7 +108,7 @@ public class ClubAdminController {
 		model.addAttribute("acceptanceNo",acceptanceNo);
 		userService.updateRole(user);
 		userClubService.insert(userClub);
-		return "redirect:acceptance";
+		return "redirect:acceptance?club_id="+club_id;
 	}
 
 
@@ -129,11 +130,14 @@ public class ClubAdminController {
 		return "redirect:acceptance";
 	}
 
-//	@RequestMapping(value = "getForm")
-//	public void getForm(HttpServletRequest req, HttpServletResponse res, @RequestParam("id") int id)
-//			throws IOException{
-//
-//	}
+	//지원폼 모달 띄우기
+	@RequestMapping(value = "getForm")
+	public List<ApplyADto> getForm(@RequestParam("club_id") int club_id, Model model)
+			throws IOException{
+		List<ApplyADto> answerList = clubService.findAnswer(club_id);
+		model.addAttribute("answerList", answerList);
+		return clubService.findAnswer(club_id);
+	}
 
 	/*
 	 * ASY_board 동아리 공지사항

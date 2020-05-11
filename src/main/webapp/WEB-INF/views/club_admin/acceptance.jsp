@@ -2,6 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<c:url var="R" value="/" />
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
 
 <div id="fh5co-hero">
 	<a href="#fh5co-main"
@@ -19,7 +22,7 @@
 		</div>
 	</div>
 </div>
-		<div id="fh5co-main">
+		<div id="fh5co-main" id="app">
 			<div class="container">
 				<div class="row">
 					<div class="content-box animate-box">
@@ -32,12 +35,16 @@
 										<table class="table table-striped ">
 											
 											<tr class="text-center">
-												<th style="text-align: center">비회원</th>
+												<th style="text-align: center">지원자</th>
 											</tr>
 												<c:forEach var="user" items="${acceptanceNo}">
 													<tr>
-														<td><label><input type="checkbox" style="margin-right: 10px; width: 18px; height: 18px;" value="">${user.name}</label>
-														<i class="btn btn-primary el-icon-document" style="margin-left: 78.5px" <%-- id="showForm" data-target="#Modal" onclick="return showForm('${apply_q.id}')" --%> ></i></td>
+														<td>
+														<input type="hidden" name="user_id" value="${userClub.user_id}"/>
+														<input type="hidden" name="club_id" value="${userClub.club_id}"/>
+														<label><input type="checkbox" style="margin-right: 10px; width: 18px; height: 18px;" name="cmd" value="yes">${user.name}</label>
+														<i id="app" class="btn btn-primary el-icon-document" style="margin-left: 78.5px" data-toggle="modal" data-target="#formModal"></i>
+														</td>
 													</tr>
 												</c:forEach>
 										</table>
@@ -85,20 +92,30 @@
 
 
 <!-- 모달 띄우기 -->		
-<<%-- div class="modal fade" id="Modal" role="dialog" tabindex="-1">
+<div class="modal fade" id="formModal" role="dialog" tabindex="-1">
 	<div class="modal-dialog modal-md">
 		<!-- Modal content-->
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 id="modal-title" class="modal-title">지원폼</h4>
+				<h4 id="modal-title" class="modal-title">동아리 지원서</h4>
 			</div>
 			<div class="modal-body" style="overflow:scroll">
-				<c:forEach var="apply_a" items="${answer}">
-													<tr>
-														<td style="margin-right: 10px; width: 18px; height: 18px;">${apply_q.content}</td>
-														<td style="margin-right: 10px; width: 18px; height: 18px;">${apply_a.content}</td>
-													</tr>
-												</c:forEach>
+			<table class="table table-striped ">
+				<thead>
+					<tr>
+					  <th>질문</th>
+					  <th>답변</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="apply_a" items="${answerList}">
+					<tr>
+						<td style="margin-right: 10px; width: 18px; height: 18px;">${apply_q.content}</td>
+						<td style="margin-right: 10px; width: 18px; height: 18px;">${apply_a.content}</td>
+					</tr>
+					</c:forEach>
+				</tbody>
+			</table>
 			</div>
 			<div class="modal-footer">
 				<button id="closeModal" type="button" class="btn btn-primary col-md"
@@ -106,4 +123,4 @@
 			</div>
 		</div>
 	</div>
-</div> --%>
+</div>
