@@ -60,61 +60,81 @@
 		FROM sem_date
 		WHERE #{date} BETWEEN start_date AND end_date
 	</select>
-	
+
 	<select id="findLastSem" resultType="SemDateDto"> <!-- 마지막 학기 출력 -->
 		SELECT *
 		FROM sem_date
 		ORDER BY end_date DESC
 		LIMIT 1
 	</select>
-	
+
 	<update id="dateNow"> <!-- 존재하는 학기에 출석체크 insert -->
 		INSERT INTO attendance(club_id,`check`,date,user_id)
-		SELECT  #{clubId}  as club_id
-		       ,0          as `check`
-		       ,#{date}    as date
-		       ,t1.u_id    as user_id
-		FROM 
+		SELECT #{clubId}
+		as club_id
+		,0 as `check`
+		,#{date} as date
+		,t1.u_id as user_id
+		FROM
 		(
-			SELECT DISTINCT u.id AS u_id
-			FROM attendance a JOIN sem_date s ON a.date BETWEEN s.start_date AND s.end_date
-			JOIN user u ON a.user_id = u.id
-			WHERE s.id = #{semId}
-			AND a.club_id = #{clubId}
-			ORDER BY u.id
+		SELECT DISTINCT u.id AS u_id
+		FROM attendance a JOIN sem_date s ON a.date BETWEEN s.start_date AND
+		s.end_date
+		JOIN user u ON a.user_id = u.id
+		WHERE s.id = #{semId}
+		AND a.club_id = #{clubId}
+		ORDER BY u.id
+		) t1
+	</update>
+
+	<update id="dateNewUnion"> <!-- 동아리연합회 새로운 학기에 출석체크 insert -->
+		INSERT INTO attendance(club_id,`check`,date,user_id)
+		SELECT 1 as
+		club_id
+		,0 as `check`
+		,#{date} as date
+		,t1.u_id as user_id
+		FROM
+		(
+		SELECT DISTINCT u.id AS u_id
+		FROM attendance a JOIN user u ON a.user_id = u.id
+		WHERE a.club_id = 1
+		and user_type ="동아리관리자"
+		ORDER BY u.id
 		) t1
 	</update>
 	
-<!-- 	<insert id="dateNew" useGeneratedKeys="true" keyProperty="id"> 새로운 학기에 출석체크 insert
+	<update id="dateNewAdmin"> <!-- 각 동아리별 새로운 학기에 출석체크 insert -->
 		INSERT INTO attendance(club_id,`check`,date,user_id)
-		SELECT  1          as club_id
-		       ,0          as `check`
-		       ,#{date}    as date
-		       ,t1.u_id    as user_id
-		FROM 
+		SELECT #{clubId} as
+		club_id
+		,0 as `check`
+		,#{date} as date
+		,t1.u_id as user_id
+		FROM
 		(
-			SELECT DISTINCT u.id AS u_id
-			FROM attendance a JOIN user u ON a.user_id = u.id
-			WHERE a.club_id = 1
-			and user_type ="동아리관리자"
-			ORDER BY u.id
+		SELECT DISTINCT u.id AS u_id
+		FROM user_club c JOIN user u ON c.user_id = u.id
+		WHERE c.club_id = #{clubId}
+		and user_type ="일반회원"
+		ORDER BY u.id
 		) t1
-	</insert> -->
+	</update>
 
-	<update id="allUpdate">
+	<update id="allUpdate"> <!-- 출석체크 수정시 모든 출석정보 F로 변경 -->
 		UPDATE attendance
 		SET `check` = 0
 		WHERE date = #{date}
 		AND club_id = #{clubId}
 	</update>
 
-	<update id="update">
+	<update id="update"> <!-- 출석체크 수정시 T인 항목 변경  -->
 		UPDATE attendance
 		SET `check` = 1
 		WHERE id = #{id}
 	</update>
-	
-	<delete id="delete">
+
+	<delete id="delete"> <!-- 해당하는 날짜 출석체크 삭제 -->
 		set sql_safe_updates = 0;
 		DELETE a
 		FROM attendance AS a

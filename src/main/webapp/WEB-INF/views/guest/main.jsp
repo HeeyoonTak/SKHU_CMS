@@ -27,7 +27,7 @@
 	<div class="container">
 		<div class="col-md-12 animate-box">
 			<div class="row" id="fh5co-features" style="float: left">
-				<table class="table table-striped " style="width: 430px">
+				<table class="table table-striped " style="width: 430px; margin-bottom: 0px;">
 					<tr class="text-center">
 						<th colspan="3" style="text-align: center">홍보 게시판</th>
 					</tr>
@@ -37,14 +37,11 @@
 								href="p_content?id=${board_p.id}">${board_p.title}</a></td>
 						</tr>
 					</c:forEach>
-					<tr>
-						<th colspan="2" style="text-align: right"><a href="publicity">더
-								보기</a></th>
-					</tr>
 				</table>
+				<a href="publicity" style="text-align: right; margin-left: 370px;">더보기</a>
 			</div>
 			<div class="row" id="fh5co-features" style="float: right">
-				<table class="table table-striped " style="width: 430px">
+				<table class="table table-striped " style="width: 430px; margin-bottom: 0px;">
 					<tr class="text-center">
 						<th colspan="2" style="text-align: center">모집 게시판</th>
 					</tr>
@@ -77,11 +74,8 @@
 							</c:if>
 						</tr>
 					</c:forEach>
-					<tr>
-						<th colspan="2" style="text-align: right"><a href="recruit">더
-								보기</a></th>
-					</tr>
 				</table>
+				<a href="recruit" style="margin-left: 370px;">더보기</a>
 			</div>
 		</div>
 	</div>
