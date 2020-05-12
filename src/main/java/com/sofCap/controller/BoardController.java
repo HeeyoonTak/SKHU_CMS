@@ -21,12 +21,18 @@ public class BoardController {
 	@Autowired
 	BoardService boardService;
 
+	public void nav_list(Model model) {
+		List<ClubDto> clubs = clubService.findAll();
+		model.addAttribute("clubs", clubs);
+	}
+
 	@RequestMapping("list-content")
 	public String list_content(Model model, @RequestParam("id") int club_id) {
 		ClubDto club = clubService.findById(club_id);
 		List<BoardDto> boards = boardService.findByClubId_p(club_id);
 		model.addAttribute("club", club);
 		model.addAttribute("boards",boards);
+		nav_list(model);
 		return "guest/list-content";
 	}
 
@@ -34,6 +40,7 @@ public class BoardController {
 	public String p_content(Model model, @RequestParam("id") int id) {
 		BoardDto board = boardService.findOne(id);
 		model.addAttribute("board",board);
+		nav_list(model);
 		return "guest/p_content";
 	}
 
@@ -41,6 +48,7 @@ public class BoardController {
 	public String r_content(Model model, @RequestParam("id") int id) {
 		BoardDto board = boardService.findOne(id);
 		model.addAttribute("board",board);
+		nav_list(model);
 		return "guest/r_content";
 	}
 
@@ -48,6 +56,7 @@ public class BoardController {
 	public String n_content(Model model, @RequestParam("id") int id) {
 		BoardDto board = boardService.findOne(id);
 		model.addAttribute("board",board);
+		nav_list(model);
 		return "club_union/n_content";
 	}
 
@@ -55,6 +64,7 @@ public class BoardController {
 	public String m_content(Model model, @RequestParam("id") int id) {
 		BoardDto board = boardService.findOne(id);
 		model.addAttribute("board",board);
+		nav_list(model);
 		return "club_union/m_content";
 	}
 
@@ -62,6 +72,7 @@ public class BoardController {
 	public String publicity(Model model) {
 		List<BoardDto> boards = boardService.findAll_p();
 		model.addAttribute("boards",boards);
+		nav_list(model);
 		return "guest/publicity";
 	}
 
@@ -69,6 +80,7 @@ public class BoardController {
 	public String recruit(Model model) {
 		List<BoardDto> boards = boardService.findAll_r();
 		model.addAttribute("boards",boards);
+		nav_list(model);
 		return "guest/recruit";
 	}
 
@@ -76,6 +88,7 @@ public class BoardController {
 	public String union_notice(Model model) {
 		List<BoardDto> boards = boardService.findAll_n();
 		model.addAttribute("boards",boards);
+		nav_list(model);
 		return "club_union/union_notice";
 	}
 
@@ -83,6 +96,7 @@ public class BoardController {
 	public String union_minutes(Model model) {
 		List<BoardDto> boards = boardService.findAll_m();
 		model.addAttribute("boards",boards);
+		nav_list(model);
 		return "club_union/union_minutes";
 	}
 }

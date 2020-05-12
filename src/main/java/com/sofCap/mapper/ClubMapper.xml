@@ -24,6 +24,14 @@
 		FROM Club c
 	</select>
 
+	<select id="findByUser" resultType="ClubDto">
+		SELECT c.*
+		FROM Club c
+		JOIN User_club uC ON uC.club_id = c.id
+		JOIN user u ON u.id = uC.user_id
+		WHERE name = #{uesr_name}
+	</select>
+	
 	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
 		INSERT
 		Club (club_name, club_type)
