@@ -57,23 +57,31 @@
 								<c:forEach var="adminUser" items="${adminUser}">
 									<th>${adminUser}</th>
 								</c:forEach>
-								<c:if test="${selectSemId eq sem}">
-									<th></th>
-								</c:if>
+								<sec:authorize access="hasRole('ROLE_ClubAdmin')">
+									<c:if test="${selectSemId eq sem}">
+										<th></th>
+									</c:if>
+								</sec:authorize>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach var="findDate" items="${ findDate }">
 								<tr>
-									<c:choose>
-										<c:when test="${selectSemId eq sem}">
-											<!-- 날짜 클릭시 해당 날짜에 따른 출석체크 수정 모달  -->
-											<td id="attendanceUpdate" find="${findDate}">${ findDate }</td>
-										</c:when>
-										<c:otherwise>
-											<td>${ findDate }</td>
-										</c:otherwise>
-									</c:choose>
+									<sec:authorize access="hasRole('ROLE_ClubAdmin')">
+										<c:choose>
+											<c:when test="${selectSemId eq sem}">
+												<!-- 날짜 클릭시 해당 날짜에 따른 출석체크 수정 모달  -->
+												<td id="attendanceUpdate" find="${findDate}">${ findDate }</td>
+											</c:when>
+											<c:otherwise>
+												<td>${ findDate }</td>
+											</c:otherwise>
+										</c:choose>
+									</sec:authorize>
+									<sec:authorize
+										access="hasAnyRole('ROLE_ClubUnion','ROLE_Member')">
+										<td>${ findDate }</td>
+									</sec:authorize>
 									<c:forEach var="attendance" items="${ attendance }"
 										varStatus="status">
 										<c:if test="${attendance.date eq findDate}">
@@ -85,41 +93,49 @@
 													<td>O</td>
 												</c:otherwise>
 											</c:choose>
-											<c:if test="${selectSemId eq sem}">
-												<c:if test="${status.count % fn:length(adminUser) eq 0}">
-													<!--출석체크 삭제-->
-													<td><a
-														href="attendance_delete?date=${attendance.date}&club_id=${user_club_id}">x</a></td>
+											<sec:authorize access="hasRole('ROLE_ClubAdmin')">
+												<c:if test="${selectSemId eq sem}">
+													<c:if test="${status.count % fn:length(adminUser) eq 0}">
+														<!--출석체크 삭제-->
+														<td><a
+															href="attendance_delete?date=${attendance.date}&club_id=${user_club_id}">x</a></td>
+													</c:if>
 												</c:if>
-											</c:if>
+											</sec:authorize>
 										</c:if>
 									</c:forEach>
 								</tr>
 							</c:forEach>
 						</tbody>
-						<c:if test="${selectSemId eq sem}">
-							<tbody>
-								<tr>
-									<!--출석체크 삽입 모달-->
-									<td colspan="${fn:length(adminUser) + 2}">
-										<button id="createBtn" class="btn btn-primary col-md" onclick="return attendanceCreate();">+</button>
-									</td>
-								</tr>
-							</tbody>
-						</c:if>
+						<sec:authorize access="hasRole('ROLE_ClubAdmin')">
+							<c:if test="${selectSemId eq sem}">
+								<tbody>
+									<tr>
+										<!--출석체크 삽입 모달-->
+										<td colspan="${fn:length(adminUser) + 2}">
+											<button id="createBtn" class="btn btn-primary col-md"
+												onclick="return attendanceCreate();">+</button>
+										</td>
+									</tr>
+								</tbody>
+							</c:if>
+						</sec:authorize>
 					</table>
 				</div>
 			</div>
 			<div class="col-md-3 col-md-pull-9" id="fh5co-sidebar">
 				<ul class="attendance_check-list hor_1">
 					<li><a href="${R}club_admin/notice?club_id=${club_id}">공지사항</a></li>
-                    <li><a href="${R}club_admin/account?club_id=${club_id}">회계 관리</a></li>
-                    <li><a href="${R}club_admin/minutes?club_id=${club_id}">회의록</a></li>
-                    <li><a href="${R}club_admin/publicity?club_id=${club_id}">홍보게시판</a></li>
-                    <li><a href="${R}club_admin/recruit?club_id=${club_id}">모집게시판</a></li>
-                    <li><a href="${R}club_admin/attendance?club_id=${club_id}">출석체크</a></li>
-                    <li><a href="${R}club_admin/acceptance?club_id=${club_id}">회원 관리</a></li>
-                    <li><a href="${R}club_admin/apply_q_form?club_id=${club_id}">지원 폼</a></li>
+					<li><a href="${R}club_admin/account?club_id=${club_id}">회계
+							관리</a></li>
+					<li><a href="${R}club_admin/minutes?club_id=${club_id}">회의록</a></li>
+					<li><a href="${R}club_admin/publicity?club_id=${club_id}">홍보게시판</a></li>
+					<li><a href="${R}club_admin/recruit?club_id=${club_id}">모집게시판</a></li>
+					<li><a href="${R}club_admin/attendance?club_id=${club_id}">출석체크</a></li>
+					<li><a href="${R}club_admin/acceptance?club_id=${club_id}">회원
+							관리</a></li>
+					<li><a href="${R}club_admin/apply_q_form?club_id=${club_id}">지원
+							폼</a></li>
 				</ul>
 			</div>
 		</div>
