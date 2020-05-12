@@ -78,6 +78,11 @@ public class ClubAdminController {
 	@Autowired
 	FileService fileService;
 
+	public void nav_list(Model model) {
+		List<ClubDto> clubs = clubService.findAll();
+		model.addAttribute("clubs", clubs);
+	}
+
 	/*
 	 * 지원자 합불 구현하기
 	 */
@@ -91,6 +96,7 @@ public class ClubAdminController {
 		model.addAttribute("club", club);
 		model.addAttribute("acceptanceYes", acceptanceYes);
 		model.addAttribute("acceptanceNo", acceptanceNo);
+		nav_list(model);
 		return "club_admin/acceptance";
 	}
 
@@ -134,6 +140,7 @@ public class ClubAdminController {
 			throws IOException{
 		List<ApplyADto> answerList = clubService.findAnswer(club_id);
 		model.addAttribute("answerList", answerList);
+		nav_list(model);
 		return clubService.findAnswer(club_id);
 	}
 	// 동아리마다 모집 지원 만들기
@@ -141,6 +148,7 @@ public class ClubAdminController {
 	public String aplly_q_make(Model model, Principal principal) {
 //		ClubDto club = clubService.findByName(principal.getName());
 //		model.addAttribute("club", club);
+		nav_list(model);
 		return "club_admin/apply_q_make";
 	}
 
@@ -152,6 +160,7 @@ public class ClubAdminController {
 		List<BoardDto> boards = boardService.findByClubId_n(club_id);
 		model.addAttribute("boards", boards);
 		model.addAttribute("club_id", club_id);
+		nav_list(model);
 		return "club_admin/club_notice";
 	}
 
@@ -160,6 +169,7 @@ public class ClubAdminController {
 	public String n_content(Model model, @RequestParam("id") int id, @RequestParam("club_id") int club_id) {
 		BoardDto board = boardService.findOne(id);
 		model.addAttribute("board", board);
+		nav_list(model);
 		return "club_admin/n_content";
 	}
 
@@ -169,6 +179,7 @@ public class ClubAdminController {
 		board.setBoard_name_id(3);
 		board = boardService.findById(id);
 		model.addAttribute("board", board);
+		nav_list(model);
 		return "club_admin/posting";
 	}
 
@@ -186,6 +197,7 @@ public class ClubAdminController {
 		board.setClub_id(club_id);
 		board = new BoardDto();
 		model.addAttribute("board", board);
+		nav_list(model);
 		return "club_admin/posting";
 	}
 
@@ -228,6 +240,7 @@ public class ClubAdminController {
 		model.addAttribute("end_date", end_date);
 		model.addAttribute("boards", boards);
 		model.addAttribute("club_id", club_id);
+		nav_list(model);
 		return "club_admin/club_minutes";
 	}
 
@@ -236,6 +249,7 @@ public class ClubAdminController {
 	public String m_content(Model model, @RequestParam("id") int id, @RequestParam("club_id") int club_id) {
 		BoardDto board = boardService.findOne(id);
 		model.addAttribute("board", board);
+		nav_list(model);
 		return "club_admin/m_content";
 	}
 
@@ -245,6 +259,7 @@ public class ClubAdminController {
 		board.setBoard_name_id(4);
 		board = boardService.findById(id);
 		model.addAttribute("board", board);
+		nav_list(model);
 		return "club_admin/posting";
 	}
 
@@ -262,6 +277,7 @@ public class ClubAdminController {
 		board.setClub_id(club_id);
 		board = new BoardDto();
 		model.addAttribute("board", board);
+		nav_list(model);
 		return "club_admin/posting";
 	}
 
@@ -290,6 +306,7 @@ public class ClubAdminController {
 		List<BoardDto> boards = boardService.findByClubId_p(club_id);
 		model.addAttribute("boards", boards);
 		model.addAttribute("club_id", club_id);
+		nav_list(model);
 		return "club_admin/club_publicity";
 	}
 
@@ -298,6 +315,7 @@ public class ClubAdminController {
 	public String p_content(Model model, @RequestParam("id") int id, @RequestParam("club_id") int club_id) {
 		BoardDto board = boardService.findOne(id);
 		model.addAttribute("board", board);
+		nav_list(model);
 		return "club_admin/p_content";
 	}
 
@@ -307,6 +325,7 @@ public class ClubAdminController {
 		board.setBoard_name_id(1);
 		board = boardService.findById(id);
 		model.addAttribute("board", board);
+		nav_list(model);
 		return "club_admin/posting";
 	}
 
@@ -324,6 +343,7 @@ public class ClubAdminController {
 		board.setClub_id(club_id);
 		board = new BoardDto();
 		model.addAttribute("board", board);
+		nav_list(model);
 		return "club_admin/posting";
 	}
 
@@ -352,6 +372,7 @@ public class ClubAdminController {
 		List<BoardDto> boards = boardService.findByClubId_r(club_id);
 		model.addAttribute("boards", boards);
 		model.addAttribute("club_id", club_id);
+		nav_list(model);
 		return "club_admin/club_recruit";
 	}
 
@@ -360,6 +381,7 @@ public class ClubAdminController {
 	public String r_content(Model model, @RequestParam("id") int id, @RequestParam("club_id") int club_id) {
 		BoardDto board = boardService.findOne(id);
 		model.addAttribute("board", board);
+		nav_list(model);
 		return "club_admin/r_content";
 	}
 
@@ -369,6 +391,7 @@ public class ClubAdminController {
 		board.setBoard_name_id(2);
 		board = boardService.findById(id);
 		model.addAttribute("board", board);
+		nav_list(model);
 		return "club_admin/posting";
 	}
 
@@ -386,6 +409,7 @@ public class ClubAdminController {
 		board.setClub_id(club_id);
 		board = new BoardDto();
 		model.addAttribute("board", board);
+		nav_list(model);
 		return "club_admin/posting";
 	}
 
@@ -443,6 +467,7 @@ public class ClubAdminController {
 		model.addAttribute("totals", totals);
 		model.addAttribute("start_date", start_date);
 		model.addAttribute("end_date", end_date);
+		nav_list(model);
 		return "club_admin/account";
 	}
 
@@ -542,7 +567,7 @@ public class ClubAdminController {
 		model.addAttribute("findDate", attendanceService.findDate(semId, user_club_id));
 		model.addAttribute("attendance", attendanceService.findBySemDate(semId, user_club_id));
 		model.addAttribute("adminUser", attendanceService.findUser(semId, user_club_id));
-
+		nav_list(model);
 		return "club_admin/attendance";
 	}
 
