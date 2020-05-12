@@ -87,6 +87,11 @@ public class ClubUnionController {
 	@Autowired
 	UserClubService userClubService;
 
+	public void nav_list(Model model) {
+		List<ClubDto> clubs = clubService.findAll();
+		model.addAttribute("clubs", clubs);
+	}
+
 	/*
 	 * jyj_attendance 동아리 연합회 출석체크
 	 */
@@ -119,7 +124,7 @@ public class ClubUnionController {
 		model.addAttribute("findDate", attendanceService.findDate(semId, 1));
 		model.addAttribute("attendance", attendanceService.findBySemDate(semId, 1));
 		model.addAttribute("adminUser", attendanceService.findUser(semId, 1));
-
+		nav_list(model);
 		return "club_union/attendance";
 	}
 
@@ -198,6 +203,7 @@ public class ClubUnionController {
 	public String union_notice(Model model) {
 		List<BoardDto> boards = boardService.findAll_n();
 		model.addAttribute("boards", boards);
+		nav_list(model);
 		return "club_union/union_notice";
 	}
 
@@ -206,6 +212,7 @@ public class ClubUnionController {
 	public String n_content(Model model, @RequestParam("id") int id) {
 		BoardDto board = boardService.findOne(id);
 		model.addAttribute("board", board);
+		nav_list(model);
 		return "club_union/n_content";
 	}
 
@@ -223,6 +230,7 @@ public class ClubUnionController {
 		board.setClub_id(1);
 		board = boardService.findById(id);
 		model.addAttribute("board", board);
+		nav_list(model);
 		return "club_union/posting";
 	}
 
@@ -240,6 +248,7 @@ public class ClubUnionController {
 		board.setClub_id(1);
 		board = new BoardDto();
 		model.addAttribute("board", board);
+		nav_list(model);
 		return "club_union/posting";
 	}
 
@@ -273,6 +282,7 @@ public class ClubUnionController {
 		model.addAttribute("start_date", start_date);
 		model.addAttribute("end_date", end_date);
 		model.addAttribute("boards", boards);
+		nav_list(model);
 		return "club_union/union_minutes";
 	}
 
@@ -281,6 +291,7 @@ public class ClubUnionController {
 	public String m_content(Model model, @RequestParam("id") int id) {
 		BoardDto board = boardService.findOne(id);
 		model.addAttribute("board", board);
+		nav_list(model);
 		return "club_union/m_content";
 	}
 
@@ -298,6 +309,7 @@ public class ClubUnionController {
 		board.setClub_id(1);
 		board = boardService.findById(id);
 		model.addAttribute("board", board);
+		nav_list(model);
 		return "club_union/posting";
 	}
 
@@ -315,7 +327,7 @@ public class ClubUnionController {
 		board.setClub_id(1);
 		board = new BoardDto();
 		model.addAttribute("board", board);
-
+		nav_list(model);
 		return "club_union/posting";
 	}
 
@@ -335,6 +347,7 @@ public class ClubUnionController {
 			return "redirect:notice";
 		List<UserDto> users = userMapper.findAll();
 		model.addAttribute("users", users);
+		nav_list(model);
 		return "club_union/club_manage";
 	}
 
@@ -342,6 +355,7 @@ public class ClubUnionController {
 	public String create(Model model) {
 		UserDto user = new UserDto();
 		model.addAttribute("user", user);
+		nav_list(model);
 		return "club_union/club_create";
 	}
 
@@ -369,6 +383,7 @@ public class ClubUnionController {
 	public String edit(Model model, @RequestParam("id") int id) {
 		UserDto user = userMapper.findOne(id);
 		model.addAttribute("user", user);
+		nav_list(model);
 		return "club_union/club_update";
 	}
 
@@ -451,6 +466,7 @@ public class ClubUnionController {
 		model.addAttribute("totals", totals);
 		model.addAttribute("start_date", start_date);
 		model.addAttribute("end_date", end_date);
+		nav_list(model);
 		return "club_union/account";
 	}
 

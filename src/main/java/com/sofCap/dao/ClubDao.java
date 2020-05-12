@@ -18,7 +18,7 @@ public interface ClubDao {
 
 	List<ApplyADto> findAnswer(int club_id);
 
-	List<ApplyQDto> findQ(int club_id);
+	List<ApplyQDto> findQuestion(int club_id);
 
 	void insert(ClubDto club);
 

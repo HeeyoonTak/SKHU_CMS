@@ -8,8 +8,8 @@ import lombok.Setter;
 public class ApplyQDto {
 
 	int id;
-	String Content;
+	String content;
 	int board_id;
 	int club_id;
-	int semDate_id;	
+	int semDate_id;
 }

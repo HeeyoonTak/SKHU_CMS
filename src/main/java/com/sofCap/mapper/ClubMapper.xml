@@ -24,6 +24,14 @@
 		FROM Club c
 	</select>
 
+	<select id="findByUser" resultType="ClubDto">
+		SELECT c.*
+		FROM Club c
+		JOIN User_club uC ON uC.club_id = c.id
+		JOIN user u ON u.id = uC.user_id
+		WHERE name = #{uesr_name}
+	</select>
+	
 	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
 		INSERT
 		Club (club_name, club_type)
@@ -38,13 +46,13 @@
 	</select>
 	
 	<select id="findAnswer" resultType="ApplyADto">
-		SELECT q.*, a.* FROM apply_a a
-		JOIN apply_q q on a.apply_q_id = q.id and q.club_id=#{club_id}
+		SELECT a.*,q.* FROM apply_a a
+		JOIN apply_q q on a.apply_q_id = q.id and a.club_id=#{club_id}
 	</select>
 	
-	<select id="findQ" resultType="ApplyQDto">
-		SELECT * from apply_q
-		WHERE club_id = #{club_id};
+	<select id="findQuestion" resultType="ApplyQDto">
+		SELECT q.* ,a.* FROM apply_q q
+		JOIN apply_a a on a.apply_q_id = q.id and q.club_id=#{club_id}
 	</select>
 	
 	<delete id="delete">
