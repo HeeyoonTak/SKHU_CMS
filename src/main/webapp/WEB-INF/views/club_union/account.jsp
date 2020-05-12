@@ -201,7 +201,7 @@
 		<ul class="attendance_check-list hor_1">
 			<li><a href="${R}club_union/notice">공지사항</a></li>
 			
-			<sec:authorize access="hasRole('ROLE_ClubUnion, ROLE_ClubAdmin')">
+			<sec:authorize access="hasAnyRole('ROLE_ClubUnion, ROLE_ClubAdmin')">
 				<li><a href="${R}club_union/account">회계 관리</a></li>
 			</sec:authorize>
 			
