@@ -19,93 +19,90 @@
 		</div>
 	</div>
 </div>
-		<div id="fh5co-main">
-			<div class="container">
-				<div class="row">
-					<div class="content-box animate-box">
-						<div class="col-md-9 col-md-push-3" id="fh5co-content">
-							<div class="row">
-								<div style="margin-bottom: 20px">
-									<h3>회원 관리</h3>
-								</div>
-									<div class="col-md-5">
-										<table class="table table-striped ">
-											
-											<tr class="text-center">
-												<th style="text-align: center">비회원</th>
-											</tr>
-												<c:forEach var="user" items="${acceptanceNo}">
-													<tr>
-														<td><label><input type="checkbox" style="margin-right: 10px; width: 18px; height: 18px;" value="">${user.name}</label>
-														<i class="btn btn-primary el-icon-document" style="margin-left: 78.5px" <%-- id="showForm" data-target="#Modal" onclick="return showForm('${apply_q.id}')" --%> ></i></td>
-													</tr>
-												</c:forEach>
-										</table>
-									</div>
-									<div class="col-md-2">
-										<form method="post">
-											<input type="hidden" name="user_id" value="${userClub.user_id}"/>
-											<input type="hidden" name="club_id" value="${userClub.club_id}"/>
-											<button class="btn btn-lg btn-primary" type="submit"
-													name="cmd" value="yes">&gt;</button>
-											<button class="btn btn-lg btn-primary" type="submit"
-													name="cmd" value="no">&lt;</button>
-										</form>
-									</div>
-									<div class="col-md-5">
-										<table class="table table-striped ">
-											
-											<tr class="text-center">
-												<th style="text-align: center">회원</th>
-											</tr>
-												<c:forEach var="user" items="${acceptanceYes}">
-													<tr>
-														<td><label><input type="checkbox" style="margin-right: 10px; width: 18px; height: 18px;" value="">${user.name}</label></td>
-													</tr>
-												</c:forEach>
-										</table>
-									</div>
-								    
-							</div>
+<div id="fh5co-main">
+	<div class="container">
+		<div class="row">
+			<div class="content-box animate-box">
+				<div class="col-md-9 col-md-push-3" id="fh5co-content">
+					<div class="row">
+						<div style="margin-bottom: 20px">
+							<h3>회원 관리</h3>
 						</div>
-					</div>
-					<div class="col-md-3 col-md-pull-9" id="fh5co-sidebar">
-						<ul class="attendance_check-list hor_1">
-                           <li><a href="${R}club_admin/notice?club_id=${club_id}">공지사항</a></li>
-                           <li><a href="${R}club_admin/account?club_id=${club_id}">회계 관리</a></li>
-                           <li><a href="${R}club_admin/minutes?club_id=${club_id}">회의록</a></li>
-                           <li><a href="${R}club_admin/publicity?club_id=${club_id}">홍보게시판</a></li>
-                           <li><a href="${R}club_admin/recruit?club_id=${club_id}">모집게시판</a></li>
-                           <li><a href="${R}club_admin/attendance?club_id=${club_id}">출석체크</a></li>
-                           <li><a href="${R}club_admin/acceptance?club_id=${club_id}">회원 관리</a></li>
-                           <li><a href="${R}club_admin/apply_q_form?club_id=${club_id}">지원 폼</a></li>
-						</ul>
+						<div class="col-md-5">
+							<table class="table table-striped ">
+
+								<tr class="text-center">
+									<th style="text-align: center">비회원</th>
+								</tr>
+								<c:forEach var="user" items="${acceptanceNo}">
+									<tr>
+										<td><label><input type="checkbox"
+												style="margin-right: 10px; width: 18px; height: 18px;"
+												value="">${user.name}</label> <i
+											class="btn btn-primary el-icon-document"
+											style="margin-left: 78.5px"<%-- id="showForm" data-target="#Modal" onclick="return showForm('${apply_q.id}')" --%> ></i></td>
+									</tr>
+								</c:forEach>
+							</table>
+						</div>
+						<div class="col-md-2">
+							<form method="post">
+								<input type="hidden" name="user_id" value="${userClub.user_id}" />
+								<input type="hidden" name="club_id" value="${userClub.club_id}" />
+								<button class="btn btn-lg btn-primary" type="submit" name="cmd"
+									value="yes">&gt;</button>
+								<button class="btn btn-lg btn-primary" type="submit" name="cmd"
+									value="no">&lt;</button>
+							</form>
+						</div>
+						<div class="col-md-5">
+							<table class="table table-striped ">
+
+								<tr class="text-center">
+									<th style="text-align: center">회원</th>
+								</tr>
+								<c:forEach var="user" items="${acceptanceYes}">
+									<tr>
+										<td><label><input type="checkbox"
+												style="margin-right: 10px; width: 18px; height: 18px;"
+												value="">${user.name}</label></td>
+									</tr>
+								</c:forEach>
+							</table>
+						</div>
+
 					</div>
 				</div>
 			</div>
-		</div>
-
-
-<!-- 모달 띄우기 -->		
-<<%-- div class="modal fade" id="Modal" role="dialog" tabindex="-1">
-	<div class="modal-dialog modal-md">
-		<!-- Modal content-->
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 id="modal-title" class="modal-title">지원폼</h4>
-			</div>
-			<div class="modal-body" style="overflow:scroll">
-				<c:forEach var="apply_a" items="${answer}">
-													<tr>
-														<td style="margin-right: 10px; width: 18px; height: 18px;">${apply_q.content}</td>
-														<td style="margin-right: 10px; width: 18px; height: 18px;">${apply_a.content}</td>
-													</tr>
-												</c:forEach>
-			</div>
-			<div class="modal-footer">
-				<button id="closeModal" type="button" class="btn btn-primary col-md"
-					data-dismiss="modal">Close</button>
+			<div class="col-md-3 col-md-pull-9" id="fh5co-sidebar">
+				<ul class="attendance_check-list hor_1">
+					<li><a href="${R}club_admin/notice?club_id=${club_id}">공지사항</a></li>
+					<li><a href="${R}club_admin/account?club_id=${club_id}">회계
+							관리</a></li>
+					<li><a href="${R}club_admin/minutes?club_id=${club_id}">회의록</a></li>
+					<li><a href="${R}club_admin/publicity?club_id=${club_id}">홍보게시판</a></li>
+					<li><a href="${R}club_admin/recruit?club_id=${club_id}">모집게시판</a></li>
+					<li><a href="${R}club_admin/attendance?club_id=${club_id}">출석체크</a></li>
+					<li><a href="${R}club_admin/acceptance?club_id=${club_id}">회원
+							관리</a></li>
+					<li><a href="${R}club_admin/apply_q_form?club_id=${club_id}">지원
+							폼</a></li>
+				</ul>
 			</div>
 		</div>
 	</div>
-</div> --%>
+</div>
+
+
+<!-- 모달 띄우기 -->
+<<%-- div class="modal fade" id="Modal" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-md"> <!-- Modal content--> <div
+class="modal-content"> <div class="modal-header"> <h4 id="modal-title"
+class="modal-title">지원폼</h4> </div> <div class="modal-body"
+style="overflow:scroll"> <c:forEach var="apply_a" items="${answer}">
+<tr> <td style="margin-right: 10px; width: 18px; height:
+18px;">${apply_q.content}</td> <td style="margin-right: 10px; width:
+18px; height: 18px;">${apply_a.content}</td> </tr> </c:forEach> </div>
+<div class="modal-footer"> <button id="closeModal" type="button"
+class="btn btn-primary col-md" data-dismiss="modal">Close</button>
+</div> </div> </div> </div> --%>
