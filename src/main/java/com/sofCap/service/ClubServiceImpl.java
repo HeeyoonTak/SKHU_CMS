@@ -41,9 +41,11 @@ public class ClubServiceImpl implements ClubService {
 		return clubDao.findAnswer(club_id);
 	}
 	@Override
-	public List<ApplyQDto> findQ(int club_id){
-		return clubDao.findQ(club_id);
+	public List<ApplyQDto> findQuestion(int club_id) {
+		// TODO Auto-generated method stub
+		return clubDao.findQuestion(club_id);
 	}
+
 	@Override
 	public void insert(ClubDto club) {
 		clubDao.insert(club);
