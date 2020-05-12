@@ -114,7 +114,8 @@
 									<tr>
 										<!--출석체크 삽입 모달-->
 										<td colspan="${fn:length(adminUser) + 2}">
-											<button id="createBtn" class="btn btn-primary col-md" onclick="return attendanceCreate();">+</button>
+											<button id="createBtn" class="btn btn-primary col-md"
+												onclick="return attendanceCreate();">+</button>
 										</td>
 									</tr>
 								</tbody>
