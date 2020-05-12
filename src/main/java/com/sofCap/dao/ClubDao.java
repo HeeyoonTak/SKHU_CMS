@@ -3,7 +3,6 @@ package com.sofCap.dao;
 import java.util.List;
 
 import com.sofCap.dto.ApplyADto;
-import com.sofCap.dto.ApplyQDto;
 import com.sofCap.dto.ClubDto;
 
 public interface ClubDao {
@@ -11,6 +10,5 @@ public interface ClubDao {
 	ClubDto findById(int id);
 	List<ClubDto> findAll();
 	List<ApplyADto> findAnswer(int club_id);
-	List<ApplyQDto> findQuestion(int club_id);
 }
 

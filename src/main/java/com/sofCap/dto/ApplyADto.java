@@ -12,5 +12,4 @@ public class ApplyADto {
 	int apply_q_id;
 	String content;
 	int user_id;
-	int club_id;
 }
