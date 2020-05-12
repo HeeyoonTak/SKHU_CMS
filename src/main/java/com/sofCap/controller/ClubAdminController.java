@@ -108,7 +108,7 @@ public class ClubAdminController {
 		model.addAttribute("acceptanceNo", acceptanceNo);
 		userService.updateRole(user);
 		userClubService.insert(userClub);
-		return "redirect:acceptance?club_id="+club_id;
+		return "redirect:acceptance?club_id=" + club_id;
 	}
 
 	/* 합격자 취소 or 기존회원 제명 */
@@ -130,12 +130,12 @@ public class ClubAdminController {
 	}
 
 	@RequestMapping(value = "getForm")
-	public List<ApplyADto> getForm(@RequestParam("club_id") int club_id, Model model)
-			throws IOException{
+	public List<ApplyADto> getForm(@RequestParam("club_id") int club_id, Model model) throws IOException {
 		List<ApplyADto> answerList = clubService.findAnswer(club_id);
 		model.addAttribute("answerList", answerList);
 		return clubService.findAnswer(club_id);
 	}
+
 	// 동아리마다 모집 지원 만들기
 	@RequestMapping("apply_q_make")
 	public String aplly_q_make(Model model, Principal principal) {
@@ -601,8 +601,15 @@ public class ClubAdminController {
 		Date now = Date.valueOf(LocalDate.now());
 		int sem = attendanceService.findBySemId(now).getId();
 
-		// 현재 학기에 해당하는 경우 - 삽입
-		attendanceService.dateNow(date, sem, club_id);
+		List<AttendanceDto> attendance = attendanceService.findBySemDate(sem, club_id);
+
+		if (attendance.size() == 0) {
+			// 새로운 학기에 해당하는 경우 - 삽입
+			attendanceService.dateNewAdmin(date, club_id);
+		} else {
+			// 현재 학기에 해당하는 경우 - 삽입
+			attendanceService.dateNow(date, sem, club_id);
+		}
 		return "redirect:/club_admin/attendance";
 	}
 
@@ -613,6 +620,5 @@ public class ClubAdminController {
 	public String delete(Model model, @RequestParam("date") Date date, @RequestParam("club_id") int club_id) {
 		attendanceService.delete(date, club_id);
 		return "redirect:attendance";
-
 	}
 }

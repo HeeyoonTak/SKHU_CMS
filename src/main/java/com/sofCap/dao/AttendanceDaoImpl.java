@@ -50,9 +50,15 @@ public class AttendanceDaoImpl implements AttendanceDao {
 		attendanceMapper.dateNow(date, semId, clubId);
 	}
 
-	/*
-	 * @Override public void dateNew(Date date) { attendanceMapper.dateNew(date); }
-	 */
+	@Override
+	public void dateNewUnion(Date date) {
+		attendanceMapper.dateNewUnion(date);
+	}
+
+	@Override
+	public void dateNewAdmin(Date date, int clubId) {
+		attendanceMapper.dateNewAdmin(date, clubId);
+	}
 
 	@Override
 	public void allUpdate(String date, int clubId) {

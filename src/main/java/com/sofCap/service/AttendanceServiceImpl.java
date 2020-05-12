@@ -53,12 +53,15 @@ public class AttendanceServiceImpl implements AttendanceService {
 		return;
 	}
 
-	/*
-	 * @Transactional
-	 *
-	 * @Override public void dateNew(Date date) { attendanceDao.dateNew(date);
-	 * return; }
-	 */
+	@Override
+	public void dateNewUnion(Date date) {
+		attendanceDao.dateNewUnion(date);
+	}
+
+	@Override
+	public void dateNewAdmin(Date date, int clubId) {
+		attendanceDao.dateNewAdmin(date, clubId);
+	}
 
 	@Override
 	public void allUpdate(String date, int clubId) {

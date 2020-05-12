@@ -25,7 +25,9 @@ public interface AttendanceMapper {
 
 	void dateNow(Date date, int semId, int clubId);
 
-	/* void dateNew(Date date); */
+	void dateNewUnion(Date date);
+
+	void dateNewAdmin(Date date, int clubId);
 
 	void allUpdate(String date, int clubId);
 
