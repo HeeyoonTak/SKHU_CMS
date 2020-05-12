@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.sofCap.dto.ApplyADto;
+import com.sofCap.dto.ApplyQDto;
 import com.sofCap.dto.ClubDto;
 
 @Mapper
@@ -19,6 +20,8 @@ public interface ClubMapper {
 	List<ClubDto> findAll();
 
 	List<ApplyADto> findAnswer(int club_id);
+
+	List<ApplyQDto> findQuestion(int club_id);
 
 	void insert(ClubDto club);
 

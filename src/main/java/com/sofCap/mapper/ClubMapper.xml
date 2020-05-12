@@ -38,8 +38,13 @@
 	</select>
 	
 	<select id="findAnswer" resultType="ApplyADto">
-		SELECT q.*, a.* FROM apply_a a
-		JOIN apply_q q on a.apply_q_id = q.id and q.club_id=#{club_id}
+		SELECT a.*,q.* FROM apply_a a
+		JOIN apply_q q on a.apply_q_id = q.id and a.club_id=#{club_id}
+	</select>
+	
+	<select id="findQuestion" resultType="ApplyQDto">
+		SELECT q.* ,a.* FROM apply_q q
+		JOIN apply_a a on a.apply_q_id = q.id and q.club_id=#{club_id}
 	</select>
 	
 	<delete id="delete">

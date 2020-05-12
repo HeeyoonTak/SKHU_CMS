@@ -31,6 +31,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.sofCap.dto.AccountDto;
 import com.sofCap.dto.ApplyADto;
+import com.sofCap.dto.ApplyQDto;
 import com.sofCap.dto.AttendanceDto;
 import com.sofCap.dto.BoardDto;
 import com.sofCap.dto.ClubDto;
@@ -87,6 +88,10 @@ public class ClubAdminController {
 		ClubDto club = clubService.findById(club_id);
 		List<UserDto> acceptanceYes = userService.findByMember(club_id);
 		List<UserDto> acceptanceNo = userService.findByNotMember(club_id);
+		List<ApplyADto> answerList = clubService.findAnswer(club_id);
+		List<ApplyQDto> questionList = clubService.findQuestion(club_id);
+		model.addAttribute("answerList", answerList);
+		model.addAttribute("questionList", questionList);
 		model.addAttribute("user", user);
 		model.addAttribute("club", club);
 		model.addAttribute("acceptanceYes", acceptanceYes);
@@ -130,11 +135,12 @@ public class ClubAdminController {
 	}
 
 	@RequestMapping(value = "getForm")
-	public List<ApplyADto> getForm(@RequestParam("club_id") int club_id, Model model)
+	public void getForm(@RequestParam("club_id") int club_id, Model model)
 			throws IOException{
 		List<ApplyADto> answerList = clubService.findAnswer(club_id);
+		List<ApplyQDto> questionList = clubService.findQuestion(club_id);
 		model.addAttribute("answerList", answerList);
-		return clubService.findAnswer(club_id);
+		model.addAttribute("questionList", questionList);
 	}
 	// 동아리마다 모집 지원 만들기
 	@RequestMapping("apply_q_make")

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.sofCap.dao.ClubDao;
 import com.sofCap.dto.ApplyADto;
+import com.sofCap.dto.ApplyQDto;
 import com.sofCap.dto.ClubDto;
 
 @Service
@@ -33,6 +34,12 @@ public class ClubServiceImpl implements ClubService {
 	public List<ApplyADto> findAnswer(int club_id) {
 		// TODO Auto-generated method stub
 		return clubDao.findAnswer(club_id);
+	}
+
+	@Override
+	public List<ApplyQDto> findQuestion(int club_id) {
+		// TODO Auto-generated method stub
+		return clubDao.findQuestion(club_id);
 	}
 
 }
