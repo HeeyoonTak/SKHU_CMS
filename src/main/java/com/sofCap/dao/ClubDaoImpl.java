@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.sofCap.dto.ApplyADto;
+import com.sofCap.dto.ApplyQDto;
 import com.sofCap.dto.ClubDto;
 import com.sofCap.mapper.ClubMapper;
 
@@ -25,7 +26,12 @@ public class ClubDaoImpl implements ClubDao {
 	}
 
 	@Override
-	public List<ClubDto> findAll(){
+	public ClubDto findByName(String name) {
+		return clubMapper.findByName(name);
+	}
+
+	@Override
+	public List<ClubDto> findAll() {
 		return clubMapper.findAll();
 	}
 
@@ -33,5 +39,20 @@ public class ClubDaoImpl implements ClubDao {
 	public List<ApplyADto> findAnswer(int club_id) {
 		// TODO Auto-generated method stub
 		return clubMapper.findAnswer(club_id);
+	}
+	
+	@Override
+	public List<ApplyQDto> findQ(int club_id){
+		return clubMapper.findQ(club_id);
+	}
+
+	@Override
+	public void insert(ClubDto club) {
+		clubMapper.insert(club);
+	}
+
+	@Override
+	public void delete(String name) {
+		clubMapper.delete(name);
 	}
 }

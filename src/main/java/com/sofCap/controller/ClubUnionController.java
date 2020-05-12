@@ -92,7 +92,6 @@ public class ClubUnionController {
 	 */
 	@RequestMapping("attendance")
 	public String attendance(Model model, SemDate semdate, Principal principal) {
-
 		// 현재 날짜에 맞는 현재 학기 추출
 		Date now = Date.valueOf(LocalDate.now());
 		int sem = attendanceService.findBySemId(now).getId();
@@ -111,6 +110,7 @@ public class ClubUnionController {
 		if (semId == 0) {
 			semId = sem;
 		}
+
 		model.addAttribute("start", attendanceService.findBySemId(now).getStart_date());
 		model.addAttribute("end", attendanceService.findBySemId(now).getEnd_date());
 		model.addAttribute("semdate", semdate);

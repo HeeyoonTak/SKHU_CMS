@@ -73,8 +73,10 @@ INSERT INTO club (id,club_name, club_type, content) VALUES
   (9, '안세연', 'ASY', '1234', '일반회원', null, null),
   (10, '장예지', 'JYJ', '1234', '일반회원', null, null),
   (11, 'All for RYU', 'RJY', '1234', '동아리관리자', null, null),
-  (12, '행운', 'JSW', '1234', '동아리관리자', null, null);
-  INSERT INTO `softwarecapstion`.`user` (`name`, `login_id`, `password`, `user_type`) VALUES ('최지원자', 'UNKNOWN', '1234', '비회원');
+  (12, '행운', 'Lucky', '1234', '동아리관리자', null, null),
+  (13,'최지원자', 'UNKNOWN', '1234', '비회원', null,null),
+  (14, '정세운', 'JSW', '1234', '일반회원', null, null),
+  (15, '김수현', 'KSH', '1234', '일반회원', null, null);
 
 LOCK TABLES `user_club` WRITE;
 /*!40000 ALTER TABLE `user_club` DISABLE KEYS */;
@@ -156,7 +158,25 @@ UNLOCK TABLES;
   (71, 1, 0, '2019-12-25', 4),
   (72, 1, 1, '2020-01-12', 2),
   (73, 1, 0, '2020-01-12', 3),
-  (74, 1, 1, '2020-01-12', 4);
+  (74, 1, 1, '2020-01-12', 4),
+  (75, 7, 1, '2020-03-10', 10),
+  (76, 7, 1, '2020-03-10', 14),
+  (77, 7, 1, '2020-03-10', 15),
+  (78, 7, 1, '2020-05-03', 10),
+  (79, 7, 1, '2020-05-03', 14),
+  (80, 7, 1, '2020-05-03', 15),
+  (81, 7, 1, '2020-05-31', 10),
+  (82, 7, 1, '2020-05-31', 14),
+  (83, 7, 1, '2020-05-31', 15),
+  (84, 7, 1, '2019-08-31', 10),
+  (85, 7, 1, '2019-08-31', 14),
+  (86, 7, 1, '2019-08-31', 15),
+  (87, 7, 1, '2019-10-04', 10),
+  (88, 7, 1, '2019-10-04', 14),
+  (89, 7, 1, '2019-10-04', 15),
+  (90, 7, 1, '2019-11-24', 10),
+  (91, 7, 1, '2019-11-24', 14),
+  (92, 7, 1, '2019-11-24', 15);
   
 INSERT INTO board_name (id,board_name) VALUES
   (1, '홍보'),
@@ -190,7 +210,7 @@ INSERT INTO board_name (id,board_name) VALUES
   ('2', '나이가 어떻게 되세요?', '2', '2', '1'),
   ('3', '인생이 재밌나요?', '2', '2', '1'),
   ('4', '이름이 뭐예요?( 4minute)', '2', '3', '1');
-
+  
   INSERT INTO `softwarecapstion`.`apply_a` (`apply_q_id`, `content`, `user_id`) VALUES ('1', '심심해서요', '13');
   INSERT INTO `softwarecapstion`.`apply_a` (`apply_q_id`, `content`, `user_id`) VALUES ('2', '56', '13');
   INSERT INTO `softwarecapstion`.`apply_a` (`apply_q_id`, `content`, `user_id`) VALUES ('3', '죽지못해 산다', '13');

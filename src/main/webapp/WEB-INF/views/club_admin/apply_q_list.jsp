@@ -37,7 +37,7 @@
 									id="l_search_term_btn">지원 질문 작성</a></li>
 							</ul>
 						</div>
-						<div class="col-xs-12" style="margin-bottom: 0px">
+						<!-- <div class="col-xs-12" style="margin-bottom: 0px">
 							<div class="panel panel-info">
 								<div class="panel-heading">
 									<h3 class="panel-title">신규 동아리 개설</h3>
@@ -47,6 +47,7 @@
 										<p style="margin-bottom: 14px;">동아리 이름</p>
 										<input type="text" class="form-control" name="name"
 											style="margin-bottom: 14px;" placeholder="동아리 이름을 입력해주세요">
+
 										<p style="margin-bottom: 14px;">동아리 ID</p>
 										<input type="text" class="form-control" name="login_id"
 											style="margin-bottom: 14px;" placeholder="ID를 입력해주세요">
@@ -57,27 +58,27 @@
 											style="float: right; margin-top: 10px; margin-right: 0; margin-right: 0px; margin-bottom: 0px;">개설</button>
 									</div>
 								</form>
-							</div>
-						</div>
+							</div> -->
 					</div>
 				</div>
-				<div class="col-md-3 col-md-pull-9" id="fh5co-sidebar">
-					<ul class="attendance_check-list hor_1">
-						<li><a href="${R}club_admin/notice?club_id=${club_id}">공지사항</a></li>
-						<li><a href="${R}club_admin/account?club_id=${club_id}">회계
-								관리</a></li>
-						<li><a href="${R}club_admin/minutes?club_id=${club_id}">회의록</a></li>
-						<li><a href="${R}club_admin/publicity?club_id=${club_id}">홍보게시판</a></li>
-						<li><a href="${R}club_admin/recruit?club_id=${club_id}">모집게시판</a></li>
-						<li><a href="${R}club_admin/attendance?club_id=${club_id}">출석체크</a></li>
-						<li><a href="${R}club_admin/acceptance?club_id=${club_id}">회원
-								관리</a></li>
-						<li><a href="${R}club_admin/apply_q_form?club_id=${club_id}">지원
-								폼</a></li>
-						<li><a href="${R}club_admin/apply_q_make?club_id=${club_id}">지원
-								폼 만들기</</a></li>
-					</ul>
-				</div>
+			</div>
+			<div class="col-md-3 col-md-pull-9" id="fh5co-sidebar">
+				<ul class="attendance_check-list hor_1">
+					<li><a href="${R}club_admin/notice?club_id=${club_id}">공지사항</a></li>
+					<li><a href="${R}club_admin/account?club_id=${club_id}">회계
+							관리</a></li>
+					<li><a href="${R}club_admin/minutes?club_id=${club_id}">회의록</a></li>
+					<li><a href="${R}club_admin/publicity?club_id=${club_id}">홍보게시판</a></li>
+					<li><a href="${R}club_admin/recruit?club_id=${club_id}">모집게시판</a></li>
+					<li><a href="${R}club_admin/attendance?club_id=${club_id}">출석체크</a></li>
+					<li><a href="${R}club_admin/acceptance?club_id=${club_id}">회원
+							관리</a></li>
+					<li><a href="${R}club_admin/apply_q_form?club_id=${club_id}">지원
+							폼</a></li>
+					<li><a href="${R}club_admin/apply_q_make?club_id=${club_id}">지원
+							폼 만들기</</a></li>
+				</ul>
 			</div>
 		</div>
 	</div>
+</div>
