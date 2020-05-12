@@ -42,6 +42,11 @@
 		JOIN apply_q q on a.apply_q_id = q.id and q.club_id=#{club_id}
 	</select>
 	
+	<select id="findQ" resultType="ApplyQDto">
+		SELECT * from apply_q
+		WHERE club_id = #{club_id};
+	</select>
+	
 	<delete id="delete">
 		DELETE
 		FROM Club
