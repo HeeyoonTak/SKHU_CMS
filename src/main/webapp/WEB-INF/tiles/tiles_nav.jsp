@@ -32,14 +32,14 @@
 					</ul></li>
 				<li><a href="${R}publicity">홍보</a></li>
 				<li><a href="${R}recruit">모집</a></li>
-				<li><sec:authorize
-						access="hasAnyRole('ROLE_ClubAdmin','ROLE_Member')">
-						<a href="${R}" class="fh5co-sub-ddown">내 동아리</a>
-					</sec:authorize>
-					<ul class="fh5co-sub-menu">
-						<li><a href="${R}left-sidebar.html">멋쟁이 사자처럼</a></li>
-						<li><a href="${R}right-sidebar.html">개발자들</a></li>
-					</ul></li>
+				<sec:authorize access="hasAnyRole('ROLE_ClubAdmin','ROLE_Member')">
+					<li><a href="${R}" class="fh5co-sub-ddown">내 동아리</a>
+						<ul class="fh5co-sub-menu">
+							<c:forEach var="club" items="${user_clubs}">
+								<li><a href="${R}club_admin/notice?club_id=${club.id}">${club.club_name}</a></li>
+							</c:forEach>
+						</ul></li>
+				</sec:authorize>
 
 				<li><sec:authorize access="authenticated">
 						<a href="${R}myPage"><i class="el-icon-user-solid">마이페이지</i></a>
