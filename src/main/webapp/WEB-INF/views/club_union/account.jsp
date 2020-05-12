@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
@@ -200,7 +202,6 @@
 	<div class="col-md-2 col-md-pull-7" id="fh5co-sidebar">
 		<ul class="attendance_check-list hor_1">
 			<li><a href="${R}club_union/notice">공지사항</a></li>
-			
 			<sec:authorize access="hasAnyRole('ROLE_ClubUnion, ROLE_ClubAdmin')">
 				<li><a href="${R}club_union/account">회계 관리</a></li>
 			</sec:authorize>

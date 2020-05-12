@@ -38,6 +38,7 @@ import com.sofCap.dto.FilesDto;
 import com.sofCap.dto.SemDateDto;
 import com.sofCap.dto.UserClubDto;
 import com.sofCap.dto.UserDto;
+import com.sofCap.dto.ApplyQDto;
 import com.sofCap.mapper.AccountMapper;
 import com.sofCap.mapper.FileMapper;
 import com.sofCap.mapper.SemDateMapper;
@@ -139,9 +140,13 @@ public class ClubAdminController {
 	// 동아리마다 모집 지원 만들기
 	@RequestMapping("apply_q_make")
 	public String aplly_q_make(Model model, Principal principal) {
-//		ClubDto club = clubService.findByName(principal.getName());
+		ClubDto club = clubService.findByName(principal.getName());
+		System.out.println(club.getClub_name());
+//		System.out.println(club.getClub_name());
 //		model.addAttribute("club", club);
-		return "club_admin/apply_q_make";
+//		List<ApplyQDto> applyQ = clubService.findQ(club.getId());
+//		model.addAttribute("applyQ",applyQ);
+		return "club_admin/apply_q_list";
 	}
 
 	/*
