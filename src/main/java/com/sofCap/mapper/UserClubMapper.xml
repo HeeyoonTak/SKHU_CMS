@@ -13,10 +13,10 @@
 		DELETE FROM User_Club WHERE club_id=#{club_id}
 	</delete>
 
-	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+	<insert id="insert" useGeneratedKeys="false" keyProperty="id">
 		INSERT
 		User_Club (user_id, club_id)
-		VALUES (#{user_id}, #{club_id})
+		VALUES (#{user_id}, #{club_id});
 	</insert>
 
 </mapper>
