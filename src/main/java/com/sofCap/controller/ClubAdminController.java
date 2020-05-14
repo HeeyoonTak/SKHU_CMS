@@ -104,7 +104,7 @@ public class ClubAdminController {
 		return "club_admin/acceptance";
 	}
 
-	/* 지원자 합격 */
+	/* 지원자 개별 합격 */
 	@PostMapping(value = "acceptance", params = "cmd=yes")
 	public String acceptanceYes(Model model, Principal principal, @RequestParam("user_id") int user_id,
 			@RequestParam("club_id") int club_id) {
@@ -122,26 +122,27 @@ public class ClubAdminController {
 		System.out.println("클럽 id: "+club_id);
 		userClubService.insert(user_id, club_id);
 		userService.updateRole(user_id);
-		userService.deleteCandidate(user_id);
 		return "redirect:acceptance?club_id=" + club_id;
 	}
 
-	/* 합격자 취소 or 기존회원 제명 */
+	/* 합격자 개별 취소 or 기존회원 개별 제명 */ //영구제명이므로 지원자로 복귀 X
 	@PostMapping(value = "acceptance", params = "cmd=no")
 	public String acceptanceNo(Model model, Principal principal, @RequestParam("user_id") int user_id,
 			@RequestParam("club_id") int club_id) {
-
 		UserDto user = userService.findByLoginId(principal.getName());
+		ClubDto club = clubService.findById(club_id);
 		UserClubDto userClub = userClubService.findByUserId(user_id);
 		List<UserDto> acceptanceYes = userService.findByMember(club_id);
 		List<UserDto> acceptanceNo = userService.findByNotMember(club_id);
 		model.addAttribute("user", user);
+		model.addAttribute("club", club);
 		model.addAttribute("userClub", userClub);
 		model.addAttribute("acceptanceYes", acceptanceYes);
 		model.addAttribute("acceptanceNo", acceptanceNo);
 		userService.updateRole(user_id);
 		userClubService.delete(user_id);
-		return "redirect:acceptance";
+		userService.deleteCandidate(user_id);
+		return "redirect:acceptance?club_id=" + club_id;
 	}
 
 	@RequestMapping(value = "getForm")
