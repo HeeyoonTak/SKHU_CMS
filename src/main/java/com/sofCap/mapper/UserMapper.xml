@@ -67,4 +67,8 @@
 	<delete id="delete">
 		DELETE FROM User WHERE id = #{id}
 	</delete>
+	
+	<delete id="deleteCandidate">
+		DELETE FROM apply_a WHERE user_id = #{user_id}
+	</delete>
 </mapper>

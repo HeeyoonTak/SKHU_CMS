@@ -12,9 +12,9 @@ public class UserClubServiceImpl implements UserClubService{
 	@Autowired UserClubDao userClubDao;
 
 	@Override
-	public void insert(UserClubDto userClub) {
+	public void insert(int user_id, int club_id) {
 		// TODO Auto-generated method stub
-		userClubDao.insert(userClub);
+		userClubDao.insert(user_id, club_id);
 	}
 
 	@Override

@@ -43,11 +43,16 @@
 								<c:forEach var="user" items="${acceptanceNo}">
 									<tr>
 										<td>
-										<input type="hidden" name="user_id" value="${userClub.user_id}" />
-										<input type="hidden" name="club_id" value="${userClub.club_id}" />
-										<label><input type="checkbox" style="margin-right: 10px; width: 18px; height: 18px;" name="cmd" value="yes">${user.name}</label>
+										<label><input type="checkbox" style="margin-right: 10px; width: 18px; height: 18px;">${user.name}</label>
 										<i class="btn btn-primary el-icon-document" style="margin-left: 78.5px" 
-										data-target="#formModal" onclick="return showForm('${apply_a.club_id}')"></i></td>
+										data-target="#formModal" onclick="return showForm('${apply_a.club_id}')"></i>
+										<form method="post">
+											<input type="hidden" name="user_id" value="${user.id}"/>
+											<input type="hidden" name="club_id" value="${club.id}"/>
+											<button class="btn btn-lg btn-primary" type="submit" name="cmd"
+											value="yes">합격</button>
+										</form>
+										</td>
 									</tr>
 								</c:forEach>
 							</table>

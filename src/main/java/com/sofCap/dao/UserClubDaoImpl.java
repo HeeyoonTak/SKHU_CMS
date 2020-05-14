@@ -12,9 +12,9 @@ public class UserClubDaoImpl implements UserClubDao{
 	@Autowired UserClubMapper userClubMapper;
 
 	@Override
-	public void insert(UserClubDto userClub) {
+	public void insert(int user_id, int club_id) {
 		// TODO Auto-generated method stub
-		userClubMapper.insert(userClub);
+		userClubMapper.insert(user_id, club_id);
 	}
 
 	@Override

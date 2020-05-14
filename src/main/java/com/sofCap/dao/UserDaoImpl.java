@@ -36,9 +36,9 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public void updateRole(UserDto user) {
+	public void updateRole(int id) {
 		// TODO Auto-generated method stub
-		userMapper.updateRole(user);
+		userMapper.updateRole(id);
 	}
 
 	@Override
@@ -51,6 +51,12 @@ public class UserDaoImpl implements UserDao {
 	public List<UserDto> findByNotMember(int club_id) {
 		// TODO Auto-generated method stub
 		return userMapper.findByNotMember(club_id);
+	}
+
+	@Override
+	public void deleteCandidate(int user_id) {
+		// TODO Auto-generated method stub
+		userMapper.deleteCandidate(user_id);
 	}
 
 }

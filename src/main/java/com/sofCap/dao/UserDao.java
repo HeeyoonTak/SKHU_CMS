@@ -11,5 +11,6 @@ public interface UserDao {
 	List<UserDto> findByMember(int club_id);
 	List<UserDto> findByNotMember(int club_id);
 	void updateMypage(UserDto user);
-	void updateRole(UserDto user);
+	void updateRole(int id);
+	void deleteCandidate(int user_id);
 }
