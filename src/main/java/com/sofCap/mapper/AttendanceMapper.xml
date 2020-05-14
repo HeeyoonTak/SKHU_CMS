@@ -5,7 +5,7 @@
 <mapper namespace="com.sofCap.mapper.AttendanceMapper">
 
    <select id="findUser" resultType="String"> <!--학기별 출석체크 회원 name 리스트 -->
-      SELECT DISTINCT u.name, u.id
+      SELECT DISTINCT u.name
       FROM attendance a JOIN sem_date s ON a.date
       BETWEEN s.start_date AND s.end_date
       JOIN user u ON a.user_id = u.id

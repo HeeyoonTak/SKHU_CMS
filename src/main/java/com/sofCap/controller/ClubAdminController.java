@@ -84,6 +84,16 @@ public class ClubAdminController {
 		model.addAttribute("clubs", clubs);
 	}
 
+	public void nav_user(Model model, Principal principal) {
+		if (principal == null)
+			return;
+		else {
+			UserDto user = userService.findByLoginId(principal.getName());
+			List<ClubDto> user_clubs = clubService.findByUser(user.getName());
+			model.addAttribute("user_clubs", user_clubs);
+		}
+	}
+
 	/*
 	 * 지원자 합불 구현하기
 	 */
@@ -118,8 +128,8 @@ public class ClubAdminController {
 		model.addAttribute("userClub", userClub);
 		model.addAttribute("acceptanceYes", acceptanceYes);
 		model.addAttribute("acceptanceNo", acceptanceNo);
-		System.out.println("유저 id: "+user_id);
-		System.out.println("클럽 id: "+club_id);
+		System.out.println("유저 id: " + user_id);
+		System.out.println("클럽 id: " + club_id);
 		userClubService.insert(user_id, club_id);
 		userService.updateRole(user_id);
 		userService.deleteCandidate(user_id);
@@ -145,7 +155,8 @@ public class ClubAdminController {
 	}
 
 	@RequestMapping(value = "getForm")
-	public void getForm(@RequestParam("club_id") int club_id,@RequestParam("user_id") int user_id, Model model) throws IOException {
+	public void getForm(@RequestParam("club_id") int club_id, @RequestParam("user_id") int user_id, Model model)
+			throws IOException {
 		List<ApplyADto> answerList = clubService.findAnswer(club_id);
 		List<ApplyQDto> questionList = clubService.findQuestion(club_id);
 		model.addAttribute("answerList", answerList);
@@ -544,6 +555,7 @@ public class ClubAdminController {
 	public String attendance(Model model, SemDate semdate, Principal principal) {
 
 		// 로그인 한 유저 정보 추출
+
 		UserDto user = userService.findByLoginId(principal.getName());
 		UserClubDto user_club = userClubService.findByUserId(user.getId());
 		int user_club_id = user_club.getClub_id();
@@ -579,6 +591,7 @@ public class ClubAdminController {
 		model.addAttribute("attendance", attendanceService.findBySemDate(semId, user_club_id));
 		model.addAttribute("adminUser", attendanceService.findUser(semId, user_club_id));
 		nav_list(model);
+		nav_user(model, principal);
 		return "club_admin/attendance";
 	}
 

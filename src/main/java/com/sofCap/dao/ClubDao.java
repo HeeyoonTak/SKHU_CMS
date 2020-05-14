@@ -16,6 +16,8 @@ public interface ClubDao {
 
 	List<ClubDto> findAll();
 
+	List<ClubDto> findByUser(String user_name);
+
 	List<ApplyADto> findAnswer(int club_id);
 
 	List<ApplyQDto> findQuestion(int club_id);
