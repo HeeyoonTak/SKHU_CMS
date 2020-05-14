@@ -43,11 +43,16 @@
 								<c:forEach var="user" items="${acceptanceNo}">
 									<tr>
 										<td>
-										<input type="hidden" name="user_id" value="${userClub.user_id}" />
-										<input type="hidden" name="club_id" value="${userClub.club_id}" />
-										<label><input type="checkbox" style="margin-right: 10px; width: 18px; height: 18px;" name="cmd" value="yes">${user.name}</label>
-										<i class="btn btn-primary el-icon-document" style="margin-left: 78.5px" 
-										data-target="#formModal" onclick="return showForm('${apply_a.club_id}')"></i></td>
+										<form method="post">
+										<label><input type="checkbox" style="margin-right: 10px; width: 18px; height: 18px;">${user.name}</label>
+										<i class="btn btn-primary el-icon-document" style="padding:3px 10px;"
+										data-target="#formModal" onclick="return showForm('${apply_a.club_id}')"></i>
+											<input type="hidden" name="user_id" value="${user.id}"/>
+											<input type="hidden" name="club_id" value="${club.id}"/>
+											<button class="btn btn-primary" style="float:right; background-color:green; padding:3px 10px; font-size: 15px;" 
+											type="submit" name="cmd" value="yes">합격</button>
+										</form>
+										</td>
 									</tr>
 								</c:forEach>
 							</table>
@@ -62,6 +67,7 @@
 									value="no">&lt;</button>
 							</form>
 						</div>
+						
 						<div class="col-md-5">
 							<table class="table table-striped ">
 
@@ -70,9 +76,15 @@
 								</tr>
 								<c:forEach var="user" items="${acceptanceYes}">
 									<tr>
-										<td><label><input type="checkbox"
-												style="margin-right: 10px; width: 18px; height: 18px;"
-												value="">${user.name}</label></td>
+										<td>
+											<form method="post">
+											<label><input type="checkbox" style="margin-right: 10px; width: 18px; height: 18px;" value="">${user.name}</label>
+											<input type="hidden" name="user_id" value="${user.id}"/>
+											<input type="hidden" name="club_id" value="${club.id}"/>
+											<button class="btn btn-primary" style="float:right; background-color:red; padding:3px 10px; font-size: 15px;" 
+											type="submit" name="cmd" value="no">탈퇴</button>
+											</form>
+										</td>
 									</tr>
 								</c:forEach>
 							</table>

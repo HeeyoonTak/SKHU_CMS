@@ -23,12 +23,13 @@
 	<select id="findByMember" resultType="UserDto">
 		SELECT u.* FROM User u
 		JOIN User_Club uC on uC.user_id=u.id and uC.club_id=#{club_id} and u.user_type='일반회원'
+		GROUP BY u.name
 	</select>
 
 	<select id="findByNotMember" resultType="UserDto">
 		SELECT u.* FROM User u
 		JOIN apply_a a on a.user_id=u.id 
-    	JOIN apply_q q on q.club_id=2
+    	JOIN apply_q q on q.club_id=#{club_id} and u.user_type='비회원'
     	GROUP BY u.name
 	</select>
 
@@ -66,5 +67,9 @@
 	
 	<delete id="delete">
 		DELETE FROM User WHERE id = #{id}
+	</delete>
+	
+	<delete id="deleteCandidate">
+		DELETE FROM apply_a WHERE user_id = #{user_id}
 	</delete>
 </mapper>

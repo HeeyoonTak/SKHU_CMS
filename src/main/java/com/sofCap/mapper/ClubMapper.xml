@@ -30,6 +30,7 @@
 		JOIN User_club uC ON uC.club_id = c.id
 		JOIN user u ON u.id = uC.user_id
 		WHERE name = #{uesr_name}
+		ORDER BY id;
 	</select>
 	
 	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
