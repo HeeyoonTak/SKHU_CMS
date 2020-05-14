@@ -31,6 +31,11 @@ public class ClubServiceImpl implements ClubService {
 	}
 
 	@Override
+	public List<ClubDto> findByUser(String user_name) {
+		return clubDao.findByUser(user_name);
+	}
+
+	@Override
 	public ClubDto findByName(String name) {
 		return clubDao.findByName(name);
 	}
