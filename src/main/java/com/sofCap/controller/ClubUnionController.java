@@ -92,6 +92,16 @@ public class ClubUnionController {
 		model.addAttribute("clubs", clubs);
 	}
 
+	public void nav_user(Model model, Principal principal) {
+		if (principal == null)
+			return;
+		else {
+			UserDto user = userService.findByLoginId(principal.getName());
+			List<ClubDto> user_clubs = clubMapper.findByUser(user.getName());
+			model.addAttribute("user_clubs", user_clubs);
+		}
+	}
+
 	/*
 	 * jyj_attendance 동아리 연합회 출석체크
 	 */
@@ -125,6 +135,7 @@ public class ClubUnionController {
 		model.addAttribute("attendance", attendanceService.findBySemDate(semId, 1));
 		model.addAttribute("adminUser", attendanceService.findUser(semId, 1));
 		nav_list(model);
+		nav_user(model, principal);
 		return "club_union/attendance";
 	}
 
@@ -200,19 +211,21 @@ public class ClubUnionController {
 	 * ASY_board 동아리 연합회 공지사항
 	 */
 	@RequestMapping("notice")
-	public String union_notice(Model model) {
+	public String union_notice(Model model,Principal principal) {
 		List<BoardDto> boards = boardService.findAll_n();
 		model.addAttribute("boards", boards);
 		nav_list(model);
+		nav_user(model, principal);
 		return "club_union/union_notice";
 	}
 
 	/* 해당 게시글로 이동 */
 	@RequestMapping("n_content")
-	public String n_content(Model model, @RequestParam("id") int id) {
+	public String n_content(Model model, @RequestParam("id") int id, Principal principal) {
 		BoardDto board = boardService.findOne(id);
 		model.addAttribute("board", board);
 		nav_list(model);
+		nav_user(model, principal);
 		return "club_union/n_content";
 	}
 
@@ -225,12 +238,13 @@ public class ClubUnionController {
 
 	/* 게시글 수정 로직 구현 */
 	@RequestMapping(value = "n_edit", method = RequestMethod.GET)
-	public String n_edit(@RequestParam("id") int id, Model model, BoardDto board) {
+	public String n_edit(@RequestParam("id") int id, Model model, BoardDto board, Principal principal) {
 		board.setBoard_name_id(3);
 		board.setClub_id(1);
 		board = boardService.findById(id);
 		model.addAttribute("board", board);
 		nav_list(model);
+		nav_user(model, principal);
 		return "club_union/posting";
 	}
 
@@ -243,12 +257,13 @@ public class ClubUnionController {
 
 	/* 게시글 삽입 로직 구현 */
 	@RequestMapping(value = "n_create", method = RequestMethod.GET)
-	public String n_create(Model model, BoardDto board) {
+	public String n_create(Model model, BoardDto board, Principal principal) {
 		board.setBoard_name_id(3);
 		board.setClub_id(1);
 		board = new BoardDto();
 		model.addAttribute("board", board);
 		nav_list(model);
+		nav_user(model, principal);
 		return "club_union/posting";
 	}
 
@@ -265,7 +280,7 @@ public class ClubUnionController {
 	 * ASY_board 동아리 연합회 회의록
 	 */
 	@RequestMapping("minutes")
-	public String union_minutes(Model model, SemDate semdate) {
+	public String union_minutes(Model model, SemDate semdate, Principal principal) {
 		if (semdate.getSem_name() == null) {
 			Date now = Date.valueOf(LocalDate.now());
 			String sem_name = semdateMapper.findByDate(now);
@@ -283,15 +298,17 @@ public class ClubUnionController {
 		model.addAttribute("end_date", end_date);
 		model.addAttribute("boards", boards);
 		nav_list(model);
+		nav_user(model, principal);
 		return "club_union/union_minutes";
 	}
 
 	/* 해당 게시글로 이동 */
 	@RequestMapping("m_content")
-	public String m_content(Model model, @RequestParam("id") int id) {
+	public String m_content(Model model, @RequestParam("id") int id, Principal principal) {
 		BoardDto board = boardService.findOne(id);
 		model.addAttribute("board", board);
 		nav_list(model);
+		nav_user(model, principal);
 		return "club_union/m_content";
 	}
 
@@ -304,12 +321,13 @@ public class ClubUnionController {
 
 	/* 게시글 수정 로직 구현 */
 	@RequestMapping(value = "m_edit", method = RequestMethod.GET)
-	public String m_edit(@RequestParam("id") int id, Model model, BoardDto board) {
+	public String m_edit(@RequestParam("id") int id, Model model, BoardDto board, Principal principal) {
 		board.setBoard_name_id(4);
 		board.setClub_id(1);
 		board = boardService.findById(id);
 		model.addAttribute("board", board);
 		nav_list(model);
+		nav_user(model, principal);
 		return "club_union/posting";
 	}
 
@@ -322,12 +340,13 @@ public class ClubUnionController {
 
 	/* 게시글 삽입 로직 구현 */
 	@RequestMapping(value = "m_create", method = RequestMethod.GET)
-	public String m_create(Model model, BoardDto board) {
+	public String m_create(Model model, BoardDto board, Principal principal) {
 		board.setBoard_name_id(4);
 		board.setClub_id(1);
 		board = new BoardDto();
 		model.addAttribute("board", board);
 		nav_list(model);
+		nav_user(model, principal);
 		return "club_union/posting";
 	}
 
@@ -348,14 +367,16 @@ public class ClubUnionController {
 		List<UserDto> users = userMapper.findAll();
 		model.addAttribute("users", users);
 		nav_list(model);
+		nav_user(model, principal);
 		return "club_union/club_manage";
 	}
 
 	@RequestMapping(value = "club_create", method = RequestMethod.GET)
-	public String create(Model model) {
+	public String create(Model model, Principal principal) {
 		UserDto user = new UserDto();
 		model.addAttribute("user", user);
 		nav_list(model);
+		nav_user(model, principal);
 		return "club_union/club_create";
 	}
 
@@ -380,10 +401,11 @@ public class ClubUnionController {
 	}
 
 	@RequestMapping(value = "club_edit", method = RequestMethod.GET)
-	public String edit(Model model, @RequestParam("id") int id) {
+	public String edit(Model model, @RequestParam("id") int id, Principal principal) {
 		UserDto user = userMapper.findOne(id);
 		model.addAttribute("user", user);
 		nav_list(model);
+		nav_user(model, principal);
 		return "club_union/club_update";
 	}
 
@@ -467,6 +489,7 @@ public class ClubUnionController {
 		model.addAttribute("start_date", start_date);
 		model.addAttribute("end_date", end_date);
 		nav_list(model);
+		nav_user(model, principal);
 		return "club_union/account";
 	}
 
