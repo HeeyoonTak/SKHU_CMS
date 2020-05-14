@@ -136,6 +136,8 @@
 							관리</a></li>
 					<li><a href="${R}club_admin/apply_q_form?club_id=${club_id}">지원
 							폼</a></li>
+					<li><a href="${R}club_admin/apply_q_list=${club_id}">지원
+							폼 만들기</a></li>
 				</ul>
 			</div>
 		</div>
