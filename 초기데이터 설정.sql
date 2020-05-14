@@ -211,6 +211,6 @@ INSERT INTO board_name (id,board_name) VALUES
   ('3', '인생이 재밌나요?', '2', '2', '1'),
   ('4', '이름이 뭐예요?( 4minute)', '2', '3', '1');
   
-  INSERT INTO `softwarecapstion`.`apply_a` (`apply_q_id`, `content`, `user_id`) VALUES ('1', '심심해서요', '13');
-  INSERT INTO `softwarecapstion`.`apply_a` (`apply_q_id`, `content`, `user_id`) VALUES ('2', '56', '13');
-  INSERT INTO `softwarecapstion`.`apply_a` (`apply_q_id`, `content`, `user_id`) VALUES ('3', '죽지못해 산다', '13');
+  INSERT INTO `softwarecapstion`.`apply_a` (`apply_q_id`, `content`, `user_id`,'club_id') VALUES ('1', '심심해서요', '13','2');
+  INSERT INTO `softwarecapstion`.`apply_a` (`apply_q_id`, `content`, `user_id`,'club_id') VALUES ('2', '56', '13','2');
+  INSERT INTO `softwarecapstion`.`apply_a` (`apply_q_id`, `content`, `user_id`,'club_id') VALUES ('3', '죽지못해 산다', '13','2');
