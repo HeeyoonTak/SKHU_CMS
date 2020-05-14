@@ -101,24 +101,28 @@ public class ClubAdminController {
 		model.addAttribute("club", club);
 		model.addAttribute("acceptanceYes", acceptanceYes);
 		model.addAttribute("acceptanceNo", acceptanceNo);
-		nav_list(model);
 		return "club_admin/acceptance";
 	}
 
 	/* 지원자 합격 */
-	@PostMapping(value = "acceptance", params = "cmd=yes") // id값은 지원자 id값
+	@PostMapping(value = "acceptance", params = "cmd=yes")
 	public String acceptanceYes(Model model, Principal principal, @RequestParam("user_id") int user_id,
 			@RequestParam("club_id") int club_id) {
 		UserDto user = userService.findByLoginId(principal.getName());
+		ClubDto club = clubService.findById(club_id);
 		UserClubDto userClub = userClubService.findByUserId(user_id);
 		List<UserDto> acceptanceYes = userService.findByMember(club_id);
 		List<UserDto> acceptanceNo = userService.findByNotMember(club_id);
 		model.addAttribute("user", user);
+		model.addAttribute("club", club);
 		model.addAttribute("userClub", userClub);
 		model.addAttribute("acceptanceYes", acceptanceYes);
 		model.addAttribute("acceptanceNo", acceptanceNo);
-		userService.updateRole(user);
-		userClubService.insert(userClub);
+		System.out.println("유저 id: "+user_id);
+		System.out.println("클럽 id: "+club_id);
+		userClubService.insert(user_id, club_id);
+		userService.updateRole(user_id);
+		userService.deleteCandidate(user_id);
 		return "redirect:acceptance?club_id=" + club_id;
 	}
 
@@ -135,13 +139,13 @@ public class ClubAdminController {
 		model.addAttribute("userClub", userClub);
 		model.addAttribute("acceptanceYes", acceptanceYes);
 		model.addAttribute("acceptanceNo", acceptanceNo);
-		userService.updateRole(user);
+		userService.updateRole(user_id);
 		userClubService.delete(user_id);
 		return "redirect:acceptance";
 	}
 
 	@RequestMapping(value = "getForm")
-	public void getForm(@RequestParam("club_id") int club_id, Model model) throws IOException {
+	public void getForm(@RequestParam("club_id") int club_id,@RequestParam("user_id") int user_id, Model model) throws IOException {
 		List<ApplyADto> answerList = clubService.findAnswer(club_id);
 		List<ApplyQDto> questionList = clubService.findQuestion(club_id);
 		model.addAttribute("answerList", answerList);
@@ -155,7 +159,7 @@ public class ClubAdminController {
 		ClubDto club = clubService.findByName(principal.getName());
 		System.out.println(club.getClub_name());
 //		System.out.println(club.getClub_name());
-//		model.addAttribute("club", club);		
+//		model.addAttribute("club", club);
 		return "club_admin/apply_q_make";
 	}
 

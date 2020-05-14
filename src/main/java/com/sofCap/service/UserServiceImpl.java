@@ -59,9 +59,9 @@ public class UserServiceImpl implements UserService {
     }
 
 	@Override
-	public void updateRole(UserDto user) {
+	public void updateRole(int id) {
 		// TODO Auto-generated method stub
-		userDao.updateRole(user);
+		userDao.updateRole(id);
 	}
 
 	@Override
@@ -74,6 +74,12 @@ public class UserServiceImpl implements UserService {
 	public List<UserDto> findByNotMember(int club_id) {
 		// TODO Auto-generated method stub
 		return userDao.findByNotMember(club_id);
+	}
+
+	@Override
+	public void deleteCandidate(int user_id) {
+		// TODO Auto-generated method stub
+		userDao.deleteCandidate(user_id);
 	}
 
 }
