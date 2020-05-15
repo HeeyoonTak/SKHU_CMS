@@ -36,8 +36,8 @@ public class ClubDaoImpl implements ClubDao {
 	}
 
 	@Override
-	public List<ClubDto> findByUser(String user_name) {
-		return clubMapper.findByUser(user_name);
+	public List<ClubDto> findByUserId(int user_id) {
+		return clubMapper.findByUserId(user_id);
 	}
 
 	@Override

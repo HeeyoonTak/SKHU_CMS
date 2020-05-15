@@ -39,7 +39,7 @@ public class BoardController {
 			return;
 		else {
 			UserDto user = userService.findByLoginId(principal.getName());
-			List<ClubDto> user_clubs = clubMapper.findByUser(user.getName());
+			List<ClubDto> user_clubs = clubService.findByUserId(user.getId());
 			model.addAttribute("user_clubs", user_clubs);
 		}
 	}
