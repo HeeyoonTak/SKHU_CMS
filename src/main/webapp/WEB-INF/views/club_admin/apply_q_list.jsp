@@ -45,7 +45,18 @@
 								<div class="panel-body">
 									<c:forEach var="q" items="${applyQ}">
 										<p style="margin-bottom: 14px;">${q.content}</p>
+										<a href="${R}club_admin/delete?id=${q.id}"
+											onclick="return deleteAlert();">x</a>
 									</c:forEach>
+									<form action="apply_q_save" method="post"
+										enctype="multipart/form-data" onsubmit="return check(1);"
+										name="apply_submit" id="apply_submit">
+										<input type="text" name="remark" class="form-control input-lg"
+											placeholder="질문을 입력해주세요."> <a
+											onclick="return delete_row(this);"></a>
+										<button onclick="return attachApplyQ(this);"
+											class="btn btn-primary col-md" id="pls-btn">+</button>
+									</form>
 								</div>
 							</div>
 						</div>
@@ -64,8 +75,7 @@
 								관리</a></li>
 						<sec:authorize access="hasRole('ROLE_ClubAdmin')">
 							<li><a href="${R}club_admin/apply_q_list">지원 폼</a></li>
-							<li><a href="${R}club_admin/apply_q_make">지원
-									폼 만들기</a></li>
+							<li><a href="${R}club_admin/apply_q_make">지원 폼 만들기</a></li>
 						</sec:authorize>
 					</ul>
 				</div>
