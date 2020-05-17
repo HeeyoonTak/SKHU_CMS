@@ -46,7 +46,7 @@
 										<form method="post">
 										<label><input type="checkbox" style="margin-right: 10px; width: 18px; height: 18px;">${user.name}</label>
 										<i class="btn btn-primary el-icon-document" style="padding:3px 10px;"
-										data-target="#formModal" onclick="return showForm('${apply_a.club_id}')"></i>
+										data-target="#formModal" onclick="return showForm('${apply_q.club_id}','${apply_a.user_id}')"></i>
 											<input type="hidden" name="user_id" value="${user.id}"/>
 											<input type="hidden" name="club_id" value="${club.id}"/>
 											<button class="btn btn-primary" style="float:right; background-color:green; padding:3px 10px; font-size: 15px;" 
@@ -131,7 +131,7 @@
 							style="margin-right: 10px; width: 18px; height: 18px; font-weight: bold">질문    :</td>
 						<c:forEach var="apply_q" items="${questionList}">
 							<td style="margin-right: 10px; width: 18px; height: 18px;"
-								id="receiptForm">${apply_q.id}.${apply_q.content}</td>
+								id="receiptForm">Q.${apply_q.content}</td>
 						</c:forEach>
 					</tr>
 					<tr>
@@ -139,7 +139,7 @@
 							style="margin-right: 10px; width: 18px; height: 18px; font-weight: bold">답변    :</td>
 						<c:forEach var="apply_a" items="${answerList}">
 							<td style="margin-right: 10px; width: 18px; height: 18px;"
-								id="receiptForm">${apply_a.content}</td>
+								id="receiptForm">A.${apply_a.content}</td>
 						</c:forEach>
 					</tr>
 				</table>
@@ -152,10 +152,9 @@
 	</div>
 </div>
 <script>
-	function showForm(club_id) {
-		var imgurl = "${R}club_admin/getForm?club_id=" + club_id;
-		$('#receiptForm').attr("src", imgurl);
+	function showForm(club_id,user_id) {
+		var url = "${R}club_admin/getForm?club_id=" + club_id + "&user_id=" + user_id;
+		$('#receiptForm').attr("src", url);
 		$('#formModal').modal('show');
-		console.log("click open");
 	};
 </script>
