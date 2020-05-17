@@ -32,10 +32,10 @@
 					<div class="row">
 						<div class="col-xs-12" style="margin-bottom: 0px">
 							<h2 class="h3" style="margin-bottom: 0px">동아리 관리</h2>
-							<ul class="pagination" style="margin-bottom: 0px">
+							<!--  ul class="pagination" style="margin-bottom: 0px">
 								<li><a href="" class="btn btn-primary btn-lg"
 									id="l_search_term_btn">지원 질문 작성</a></li>
-							</ul>
+							</ul --><br>
 						</div>
 						<div class="col-xs-12" style="margin-bottom: 0px">
 							<div class="panel panel-info">
@@ -44,8 +44,20 @@
 								</div>
 								<div class="panel-body">
 									<c:forEach var="q" items="${applyQ}">
-										<p style="margin-bottom: 14px;">${q.content}</p>
+										<p style="margin-bottom: 14px;">${q.content}
+											<button href="${R}club_admin/delete?id=${q.id}"
+												onclick="return deleteAlert();">x</button>
+										</p>
 									</c:forEach>
+									<form action="apply_q_save" method="post"
+										enctype="multipart/form-data" onsubmit="return check(1);"
+										name="apply_submit" id="apply_submit">
+										<input type="text" name="remark" class="form-control input-lg"
+											placeholder="질문을 입력해주세요."> <a
+											onclick="return delete_row(this);"></a>
+										<button onclick="return attachApplyQ(this);"
+											class="btn btn-primary col-md" id="pls-btn">+</button>
+									</form>
 								</div>
 							</div>
 						</div>
@@ -64,8 +76,7 @@
 								관리</a></li>
 						<sec:authorize access="hasRole('ROLE_ClubAdmin')">
 							<li><a href="${R}club_admin/apply_q_list">지원 폼</a></li>
-							<li><a href="${R}club_admin/apply_q_make">지원
-									폼 만들기</a></li>
+							<li><a href="${R}club_admin/apply_q_make">지원 폼 만들기</a></li>
 						</sec:authorize>
 					</ul>
 				</div>
