@@ -7,6 +7,7 @@ import com.sofCap.dto.UserDto;
 public interface UserDao {
 	UserDto findByLoginId(String login_id);
 	List<UserDto> findAll();
+	List<UserDto> findAllofNotMember();
 	UserDto findOne(int id);
 	List<UserDto> findByMember(int club_id);
 	List<UserDto> findByNotMember(int club_id);

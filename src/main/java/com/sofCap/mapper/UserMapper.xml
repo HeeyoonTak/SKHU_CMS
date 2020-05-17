@@ -20,6 +20,10 @@
 		SELECT * FROM User WHERE user_type="동아리관리자"
 	</select>
 	
+	<select id="findAllofNotMember" resultType="UserDto">
+		SELECT * FROM User WHERE user_type="비회원"
+	</select>
+	
 	<select id="findByMember" resultType="UserDto">
 		SELECT u.* FROM User u
 		JOIN User_Club uC on uC.user_id=u.id and uC.club_id=#{club_id} and u.user_type='일반회원'
