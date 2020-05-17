@@ -32,10 +32,10 @@
 					<div class="row">
 						<div class="col-xs-12" style="margin-bottom: 0px">
 							<h2 class="h3" style="margin-bottom: 0px">동아리 관리</h2>
-							<ul class="pagination" style="margin-bottom: 0px">
+							<!--  ul class="pagination" style="margin-bottom: 0px">
 								<li><a href="" class="btn btn-primary btn-lg"
 									id="l_search_term_btn">지원 질문 작성</a></li>
-							</ul>
+							</ul --><br>
 						</div>
 						<div class="col-xs-12" style="margin-bottom: 0px">
 							<div class="panel panel-info">
@@ -44,9 +44,10 @@
 								</div>
 								<div class="panel-body">
 									<c:forEach var="q" items="${applyQ}">
-										<p style="margin-bottom: 14px;">${q.content}</p>
-										<a href="${R}club_admin/delete?id=${q.id}"
-											onclick="return deleteAlert();">x</a>
+										<p style="margin-bottom: 14px;">${q.content}
+											<button href="${R}club_admin/delete?id=${q.id}"
+												onclick="return deleteAlert();">x</button>
+										</p>
 									</c:forEach>
 									<form action="apply_q_save" method="post"
 										enctype="multipart/form-data" onsubmit="return check(1);"

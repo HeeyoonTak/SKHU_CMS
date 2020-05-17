@@ -168,9 +168,9 @@ public class ClubAdminController {
 		model.addAttribute("questionList", questionList);
 	}
 
-	// 동아리마다 모집 지원 만들기 _질문 리스트
+	// 동아리마다 모집 지원 _질문 리스트
 	@RequestMapping("apply_q_list")
-	public String apply_q_list(Model model, Principal principal) {
+	public String apply_q_list(Model model, SemDate semdate, Principal principal) {
 		UserDto user = userService.findByLoginId(principal.getName()); // 현재 로그인한 사용자로 user 정보 획득
 //		if (user.getUser_type().equals("동아리관리자"))
 //			return "redirect:notice";
@@ -178,17 +178,28 @@ public class ClubAdminController {
 		ClubDto club = clubService.findById(userclub.getClub_id()); // user_club로 club 정보 획득
 		List<ApplyQDto> applyQ = clubService.findQuestion(club.getId()); // club에 해당되어 있는 질문 리스트 가져오기
 		System.out.println(applyQ);
+		if (semdate.getSem_name() == null) {
+			Date now = Date.valueOf(LocalDate.now());
+			String sem_name = semdateMapper.findByDate(now);
+			System.out.println(sem_name);
+		}
 		model.addAttribute("applyQ", applyQ);
 		return "club_admin/apply_q_list";
 	}
 
 	// 동아리마다 모집 지원 질문 쓰기
 	@RequestMapping(value = "apply_q_make", method = RequestMethod.GET)
-	public String apply_q_make(Model model, Principal principal) {
+	public String apply_q_make(Model model,
+			@RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date[] date, SemDate semdate,
+			Principal principal) {
 		UserDto user = userService.findByLoginId(principal.getName()); // 현재 로그인한 사용자로 user 정보 획득
-		if (user.getUser_type().equals("동아리관리자"))
+		if (user.getUser_type().equals("동아리관리자")) // 만약 동아리 관리자가 아니라면 들어오지 못하도록
 			return "redirect:notice";
+		UserClubDto userclub = userClubService.findByUserId(user.getId()); // user와 연결된 user_club 정보 획득
+		ClubDto club = clubService.findById(userclub.getClub_id()); // user_club로 club 정보 획득
 		ApplyQDto applyq = new ApplyQDto();
+		applyq.setClub_id(club.getId());
+		applyq.setSemDate_id(semdate.getId());
 		model.addAttribute(applyq);
 		return "clubAdmin/apply_q_make";
 	}
@@ -215,7 +226,8 @@ public class ClubAdminController {
 
 	/* 해당 게시글로 이동 */
 	@RequestMapping("n_content")
-	public String n_content(Model model, @RequestParam("id") int id, @RequestParam("club_id") int club_id, Principal principal) {
+	public String n_content(Model model, @RequestParam("id") int id, @RequestParam("club_id") int club_id,
+			Principal principal) {
 		BoardDto board = boardService.findOne(id);
 		model.addAttribute("board", board);
 		nav_list(model);
@@ -274,7 +286,8 @@ public class ClubAdminController {
 	 * ASY_board 동아리 회의록
 	 */
 	@RequestMapping("minutes")
-	public String club_minutes(Model model, SemDate semdate, @RequestParam("club_id") int club_id, Principal principal) {
+	public String club_minutes(Model model, SemDate semdate, @RequestParam("club_id") int club_id,
+			Principal principal) {
 		if (semdate.getSem_name() == null) {
 			Date now = Date.valueOf(LocalDate.now());
 			String sem_name = semdateMapper.findByDate(now);
@@ -299,7 +312,8 @@ public class ClubAdminController {
 
 	/* 해당 게시글로 이동 */
 	@RequestMapping("m_content")
-	public String m_content(Model model, @RequestParam("id") int id, @RequestParam("club_id") int club_id, Principal principal) {
+	public String m_content(Model model, @RequestParam("id") int id, @RequestParam("club_id") int club_id,
+			Principal principal) {
 		BoardDto board = boardService.findOne(id);
 		model.addAttribute("board", board);
 		nav_list(model);
@@ -369,7 +383,8 @@ public class ClubAdminController {
 
 	/* 해당 게시글로 이동 */
 	@RequestMapping("p_content")
-	public String p_content(Model model, @RequestParam("id") int id, @RequestParam("club_id") int club_id, Principal principal) {
+	public String p_content(Model model, @RequestParam("id") int id, @RequestParam("club_id") int club_id,
+			Principal principal) {
 		BoardDto board = boardService.findOne(id);
 		model.addAttribute("board", board);
 		nav_list(model);
@@ -439,7 +454,8 @@ public class ClubAdminController {
 
 	/* 해당 게시글로 이동 */
 	@RequestMapping("r_content")
-	public String r_content(Model model, @RequestParam("id") int id, @RequestParam("club_id") int club_id, Principal principal) {
+	public String r_content(Model model, @RequestParam("id") int id, @RequestParam("club_id") int club_id,
+			Principal principal) {
 		BoardDto board = boardService.findOne(id);
 		model.addAttribute("board", board);
 		nav_list(model);

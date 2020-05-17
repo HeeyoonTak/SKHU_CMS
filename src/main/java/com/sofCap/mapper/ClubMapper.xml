@@ -38,7 +38,14 @@
 		Club (club_name, club_type)
 		VALUES (#{club_name}, #{club_type})
 	</insert>
+	
+	<insert id="insertQ" useGeneratedKeys="true" keyProperty="id">
+		INSERT 
+		apply_q (content, board_id, club_id, semDate_id) 
+		VALUES (#{content}, 2, #{club_id}, #{semDate_id});
 
+	</insert>
+	
 	<select id="findByName" resultType="ClubDto">
 		SELECT *
 		From Club
