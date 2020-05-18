@@ -219,7 +219,6 @@ public class ClubAdminController {
 //		return "redirect:apply_q_list";
 //	}
 
-
 	/*
 	 * ASY_board 동아리 공지사항
 	 */
