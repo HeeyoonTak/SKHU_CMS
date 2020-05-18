@@ -2,8 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://www.springframework.org/security/tags"
-	prefix="sec"%>
 <c:url var="R" value="/" />
 
 
@@ -29,17 +27,12 @@
 <!-- START fhtco-main -->
 <div id="fh5co-main">
 	<!-- START container -->
-	<div class="col-md-8 col-md-push-3 container">
+	<div class="container">
 
 		<div class="row animate-box">
 			<h2 class="fh5co-uppercase-heading-sm text-center">회계 관리</h2>
 
-		</div>
-
-
-		<div class="row animate-box">
-			<div class="fh5co-spacer fh5co-spacer-md"></div>
-			<div id="fh5co-tab-feature-center" class="fh5co-tab text-center">
+			<div id="fh5co-tab-feature-center" class="fh5co-tab text-center col-md-9 col-md-push-3">
 				<ul class="resp-tabs-list hor_1">
 						<li><i class="fh5co-tab-menu-icon"></i>${ club.club_name }</li>
 				</ul>
@@ -110,14 +103,11 @@
 																	<td>${ account.remark }</td>
 																</c:otherwise>
 															</c:choose>
-															
+															<%-- <td>${ account.total }</td> --%>
 															<td><a class="btn btn-primary" id="showReceipt" data-target="#createModal" onclick="return showReceipt('${account.id}');">영수증</a>
 																<%-- <img src ="${R}club_union/getImage?id=${account.id}" width="100" height="100"></img> --%>
 															</td>
-															
-															<sec:authorize access="hasRole('ROLE_ClubAdmin')">
 															<td><a href="${R}club_admin/delete?id=${account.id}&club_id=${club_id}" onclick="return deleteAlert();">x</a></td>
-															</sec:authorize>
 														</tr>
 													</c:if>
 												</c:forEach>
@@ -130,7 +120,6 @@
 													</c:if>
 												</c:forEach>
 											</tbody>
-											<sec:authorize access="hasRole('ROLE_ClubAdmin')">
 											<tbody>
 												<tr id="default">
 													<input type="hidden" name="club_id" value="${club_id}">
@@ -146,7 +135,7 @@
 													<td><input type="number" name="price"
 														class="form-control input-lg" placeholder="사용금액"></td>
 													<td><input type="text" name="remark"
-														class="form-control input-lg" placeholder="사용내용 및 비고"></td>
+														class="form-control input-lg" placeholder="사용내용"></td>
 													<!-- <td></td> -->
 													<td><input type="file" name="file"
 														class="btn btn-primary" id="uploadImage"
@@ -162,13 +151,9 @@
 															class="btn btn-primary col-md" id="pls-btn">+</button></td>
 												</tr>
 											</tbody>
-											</sec:authorize>
-											
 
 										</table>
 								</div>
-								
-								<sec:authorize access="hasRole('ROLE_ClubAdmin')">
 								<div class="row">
 									<div class="col-md-8"></div>
 									<div class="col-md-4">
@@ -177,25 +162,13 @@
 											id="l_account_save" name="l_account_save" value="회계 저장">
 									</div>
 								</div>
-								</sec:authorize>
 								</form>
-						
 							</div>
 						</div>
 					</div>
 			</div>
-		</div>
-		
-		<div class="fh5co-spacer fh5co-spacer-md"></div>
-
-		<div class="row"></div>
-		<!-- // END row -->
-		<div class="fh5co-spacer fh5co-spacer-md"></div>
-
-	</div>
-	<!-- // END container -->
-	<!-- sidebar -->
-			<div class="col-md-2 col-md-pull-7" id="fh5co-sidebar">
+			<!-- sidebar -->
+			<div class="col-md-3 col-md-pull-9" id="fh5co-sidebar">
 				<ul class="attendance_check-list hor_1">
 					<li><a href="${R}club_admin/notice?club_id=${club_id}">공지사항</a></li>
                     <li><a href="${R}club_admin/account?club_id=${club_id}">회계 관리</a></li>
@@ -208,6 +181,30 @@
 				</ul>
 			</div>
 			<!-- sidebar 끝 -->
+		</div>
+		
+		<div class="fh5co-spacer fh5co-spacer-md"></div>
+
+		<div class="row"></div>
+		<!-- // END row -->
+		<div class="fh5co-spacer fh5co-spacer-md"></div>
+
+	</div>
+	<!-- // END container -->
+	<%-- <!-- sidebar -->
+			<div class="col-md-2 col-md-pull-7" id="fh5co-sidebar">
+				<ul class="attendance_check-list hor_1">
+					<li><a href="${R}club_admin/notice?club_id=${club_id}">공지사항</a></li>
+                    <li><a href="${R}club_admin/account?club_id=${club_id}">회계 관리</a></li>
+                    <li><a href="${R}club_admin/minutes?club_id=${club_id}">회의록</a></li>
+                    <li><a href="${R}club_admin/publicity?club_id=${club_id}">홍보게시판</a></li>
+                    <li><a href="${R}club_admin/recruit?club_id=${club_id}">모집게시판</a></li>
+                    <li><a href="${R}club_admin/attendance?club_id=${club_id}">출석체크</a></li>
+                    <li><a href="${R}club_admin/acceptance?club_id=${club_id}">회원 관리</a></li>
+                    <li><a href="${R}club_admin/apply_q_form?club_id=${club_id}">지원 폼</a></li>
+				</ul>
+			</div>
+			<!-- sidebar 끝 --> --%>
 
 </div>
 
