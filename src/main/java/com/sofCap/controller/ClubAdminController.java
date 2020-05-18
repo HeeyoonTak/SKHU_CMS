@@ -219,6 +219,7 @@ public class ClubAdminController {
 //		return "redirect:apply_q_list";
 //	}
 
+
 	/*
 	 * ASY_board 동아리 공지사항
 	 */
@@ -525,12 +526,10 @@ public class ClubAdminController {
 
 	/* 학기에 따른 회계 리스트 조회 */
 	@RequestMapping(value = "account")
-	public String account(Model model, SemDate semdate, Principal principal) {
+	public String account(Model model, SemDate semdate, Principal principal, @RequestParam("club_id") int club_id) {
 
 		UserDto user = userService.findByLoginId(principal.getName());
-		UserClubDto user_club = userClubService.findByUserId(user.getId());
-		int user_club_id = user_club.getClub_id();
-		ClubDto myClub = clubService.findById(user_club_id);
+		ClubDto club = clubService.findById(club_id);
 
 		System.out.println(semdate.getSem_name());
 		if (semdate.getSem_name() == null) {
@@ -546,9 +545,9 @@ public class ClubAdminController {
 		String start_date = format.format(startenddate.getStart_date());
 		String end_date = format.format(startenddate.getEnd_date());
 
-		model.addAttribute("user_club_id", user_club_id);
+		model.addAttribute("club_id", club_id);
+		model.addAttribute("club", club);
 		model.addAttribute("accounts", accounts);
-		model.addAttribute("myClub", myClub);
 		model.addAttribute("sems", semdateService.findAll());
 		model.addAttribute("semdate", semdate);
 		model.addAttribute("account_type", account_type);
@@ -569,7 +568,7 @@ public class ClubAdminController {
 			throws IOException {
 		String sem_name = semdate.getSem_name();
 		save(club_id, price, remark, file, account_type, date, sem_name);
-		return "redirect:account";
+		return "redirect:account?club_id="+club_id;
 	}
 
 	/* 입력한 회계 내역 저장 트랜잭션 */
@@ -607,11 +606,11 @@ public class ClubAdminController {
 
 	/* 선택한 회계 내역 삭제 */
 	@RequestMapping("delete")
-	public String delete(Model model, @RequestParam("id") int id) {
+	public String delete(Model model, @RequestParam("id") int id, @RequestParam("club_id") int club_id) {
 		int f_id = accountMapper.findFileId(id);
 		accountMapper.delete(id);
 		fileMapper.delete(f_id);
-		return "redirect:account";
+		return "redirect:account?club_id="+club_id;
 	}
 
 	/*
