@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
 <c:url var="R" value="/" />
 
 
@@ -108,11 +110,14 @@
 																	<td>${ account.remark }</td>
 																</c:otherwise>
 															</c:choose>
-															<%-- <td>${ account.total }</td> --%>
+															
 															<td><a class="btn btn-primary" id="showReceipt" data-target="#createModal" onclick="return showReceipt('${account.id}');">영수증</a>
 																<%-- <img src ="${R}club_union/getImage?id=${account.id}" width="100" height="100"></img> --%>
 															</td>
+															
+															<sec:authorize access="hasRole('ROLE_ClubAdmin')">
 															<td><a href="${R}club_admin/delete?id=${account.id}&club_id=${club_id}" onclick="return deleteAlert();">x</a></td>
+															</sec:authorize>
 														</tr>
 													</c:if>
 												</c:forEach>
@@ -125,6 +130,7 @@
 													</c:if>
 												</c:forEach>
 											</tbody>
+											<sec:authorize access="hasRole('ROLE_ClubAdmin')">
 											<tbody>
 												<tr id="default">
 													<input type="hidden" name="club_id" value="${club_id}">
@@ -156,9 +162,13 @@
 															class="btn btn-primary col-md" id="pls-btn">+</button></td>
 												</tr>
 											</tbody>
+											</sec:authorize>
+											
 
 										</table>
 								</div>
+								
+								<sec:authorize access="hasRole('ROLE_ClubAdmin')">
 								<div class="row">
 									<div class="col-md-8"></div>
 									<div class="col-md-4">
@@ -167,7 +177,9 @@
 											id="l_account_save" name="l_account_save" value="회계 저장">
 									</div>
 								</div>
+								</sec:authorize>
 								</form>
+						
 							</div>
 						</div>
 					</div>
