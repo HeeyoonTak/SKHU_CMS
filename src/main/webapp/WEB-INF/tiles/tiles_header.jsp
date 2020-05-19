@@ -103,8 +103,8 @@
 <!--  질문 입력 추가 삽입 -->
 <script>
         function attachApplyQ(obj) {
-        	const str = `
-        		<tr height="40">
+        	const str = 
+               `<tr height="40">
 				<td colspan=2><input type="text" name="question"
 					style="margin: auto" class="form-control input"
 					style="margin-bottom: 3px; width: 100%"
@@ -122,34 +122,11 @@
 <!--  회계 입력 tr 삽입 -->
 <!-- <script>
         function attachAddr(obj) {
-            const str = `<tr id="default">
-							<input type="hidden" name="club_id" value="${club_id}">
-							<td>
-								<input type="date" name="date" class="form-control input-lg" max="${end_date}" min="${start_date}">
-							</td>
-							<td>
-								<select class="form-control input-lg" name="account_type">
-									<c:forEach var="at" items="${ account_type }"
-										varStatus="i">
-										<option value="${i.index}">${ at }</option>
-									</c:forEach>
-								</select>
-							</td>
-							<td>
-								<input type="number" name="price" class="form-control input-lg" placeholder="사용금액">
-							</td>
-							<td>
-								<input type="text" name="remark" class="form-control input-lg" placeholder="사용내용">
-							</td>
-							<!-- <td></td> -->
-							<td>
-								<input type="file" name="file" class="btn btn-primary" id="uploadImage" onchange="fileChange(this);"> 
-								<label for="uploadImage" class="fileName" style="display: none"></label>
-							</td>
-							<td><a onclick="return delete_row(this);" style="color:red; text-decoration:none;">x</a></td>
-						</tr>`;
-						
-				$(obj).parents('tr').before(str);
+            const str = `
+                <input type="text" name="remark" class="form-control input-lg"
+				placeholder="질문을 입력해주세요."> <a
+				onclick="return delete_row(this);"></a>`;
+            $(obj).parents('tr').before(str);
             return false;
         }
 
