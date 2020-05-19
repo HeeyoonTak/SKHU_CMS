@@ -215,7 +215,8 @@ public class ClubAdminController {
 
 //	@RequestMapping(value = "apply_q_make", method = RequestMethod.POST)
 //	public String create(Model model, ApplyQDto applyq, Principal principal) {
-//		
+//
+//	
 //		return "redirect:apply_q_list";
 //	}
 
