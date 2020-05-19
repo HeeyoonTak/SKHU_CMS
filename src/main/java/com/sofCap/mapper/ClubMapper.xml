@@ -38,7 +38,14 @@
 		Club (club_name, club_type)
 		VALUES (#{club_name}, #{club_type})
 	</insert>
+	
+	<insert id="insertQ" useGeneratedKeys="true" keyProperty="id">
+		INSERT 
+		apply_q (content, board_id, club_id, semDate_id) 
+		VALUES (#{content}, 2, #{club_id}, #{semDate_id});
 
+	</insert>
+	
 	<select id="findByName" resultType="ClubDto">
 		SELECT *
 		From Club
@@ -48,12 +55,13 @@
 	
 	<select id="findAnswer" resultType="ApplyADto">
 		SELECT a.*,q.* FROM apply_a a
-		JOIN apply_q q on a.apply_q_id = q.id and a.club_id=#{club_id}
+		JOIN apply_q q on a.apply_q_id = q.id and a.club_id=#{club_id} and a.user_id=#{user_id}
 	</select>
 	
 	<select id="findQuestion" resultType="ApplyQDto">
 		SELECT q.* ,a.* FROM apply_q q
 		JOIN apply_a a on a.apply_q_id = q.id and q.club_id=#{club_id}
+		group by q.id
 	</select>
 	
 	<delete id="delete">

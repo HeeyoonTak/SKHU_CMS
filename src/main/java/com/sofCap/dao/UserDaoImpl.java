@@ -59,4 +59,10 @@ public class UserDaoImpl implements UserDao {
 		userMapper.deleteCandidate(user_id);
 	}
 
+	@Override
+	public List<UserDto> findAllofNotMember() {
+		// TODO Auto-generated method stub
+		return userMapper.findAllofNotMember();
+	}
+
 }

@@ -21,9 +21,11 @@ public interface ClubMapper {
 
 	List<ClubDto> findByUserId(int user_id);
 
-	List<ApplyADto> findAnswer(int club_id);
+	List<ApplyADto> findAnswer(int club_id, int user_id);
 
 	List<ApplyQDto> findQuestion(int club_id);
+	
+	void insertQ(ApplyQDto applyQ);
 
 	void insert(ClubDto club);
 

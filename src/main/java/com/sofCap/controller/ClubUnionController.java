@@ -396,7 +396,7 @@ public class ClubUnionController {
 		club = clubMapper.findByName(user.getName());
 		user_club.setUser_id(user.getId());
 		user_club.setClub_id(club.getId());
-		//userclubMapper.insert(user_club);  명석 부분 일단 지워둠 쏘리 ㅎㅎㅎㅎ
+		userclubMapper.insert(user.getId(),club.getId());
 		return "redirect:club_list";
 	}
 

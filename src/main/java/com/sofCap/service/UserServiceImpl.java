@@ -82,4 +82,10 @@ public class UserServiceImpl implements UserService {
 		userDao.deleteCandidate(user_id);
 	}
 
+	@Override
+	public List<UserDto> findAllofNotMember() {
+		// TODO Auto-generated method stub
+		return userDao.findAllofNotMember();
+	}
+
 }

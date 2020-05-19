@@ -14,6 +14,8 @@ public interface UserMapper {
 
 	List<UserDto> findAll();
 
+	List<UserDto> findAllofNotMember();
+
 	List<UserDto> findByMember(int club_id);
 
 	List<UserDto> findByNotMember(int club_id);
