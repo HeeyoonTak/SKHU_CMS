@@ -18,8 +18,8 @@
 		<div class="col-md-8 col-md-offset-2">
 			<div class="fh5co-hero-wrap">
 				<div class="fh5co-hero-intro">
-					<h1 class="to-animate hero-animate-1">멋쟁이 사자처럼</h1>
-					<h2 class="to-animate hero-animate-2">웹프로그래밍을 기반으로 한 개발 동아리</h2>
+					<h1 class="to-animate hero-animate-1">${club.club_name}</h1>
+					<h2 class="to-animate hero-animate-2">${club.content}</h2>
 				</div>
 			</div>
 		</div>
@@ -43,15 +43,18 @@
 								<c:forEach var="user" items="${acceptanceNo}">
 									<tr>
 										<td>
-										<form method="post">
-										<label><input type="checkbox" style="margin-right: 10px; width: 18px; height: 18px;">${user.name}</label>
-										<i class="btn btn-primary el-icon-document" style="padding:3px 10px;"
-										data-target="#formModal" onclick="return showForm('${apply_q.club_id}','${apply_a.user_id}')"></i>
-											<input type="hidden" name="user_id" value="${user.id}"/>
-											<input type="hidden" name="club_id" value="${club.id}"/>
-											<button class="btn btn-primary" style="float:right; background-color:green; padding:3px 10px; font-size: 15px;" 
-											type="submit" name="cmd" value="yes">합격</button>
-										</form>
+											<form method="post">
+												<label><input type="checkbox"
+													style="margin-right: 10px; width: 18px; height: 18px;">${user.name}</label>
+												<i class="btn btn-primary el-icon-document"
+													style="padding: 3px 10px;" data-target="#formModal"
+													onclick="return showForm('${apply_q.club_id}','${apply_a.user_id}')"></i>
+												<input type="hidden" name="user_id" value="${user.id}" /> <input
+													type="hidden" name="club_id" value="${club.id}" />
+												<button class="btn btn-primary"
+													style="float: right; background-color: green; padding: 3px 10px; font-size: 15px;"
+													type="submit" name="cmd" value="yes">합격</button>
+											</form>
 										</td>
 									</tr>
 								</c:forEach>
@@ -67,7 +70,7 @@
 									value="no">&lt;</button>
 							</form>
 						</div>
-						
+
 						<div class="col-md-5">
 							<table class="table table-striped ">
 
@@ -78,11 +81,14 @@
 									<tr>
 										<td>
 											<form method="post">
-											<label><input type="checkbox" style="margin-right: 10px; width: 18px; height: 18px;" value="">${user.name}</label>
-											<input type="hidden" name="user_id" value="${user.id}"/>
-											<input type="hidden" name="club_id" value="${club.id}"/>
-											<button class="btn btn-primary" style="float:right; background-color:red; padding:3px 10px; font-size: 15px;" 
-											type="submit" name="cmd" value="no">탈퇴</button>
+												<label><input type="checkbox"
+													style="margin-right: 10px; width: 18px; height: 18px;"
+													value="">${user.name}</label> <input type="hidden"
+													name="user_id" value="${user.id}" /> <input type="hidden"
+													name="club_id" value="${club.id}" />
+												<button class="btn btn-primary"
+													style="float: right; background-color: red; padding: 3px 10px; font-size: 15px;"
+													type="submit" name="cmd" value="no">탈퇴</button>
 											</form>
 										</td>
 									</tr>
@@ -128,7 +134,8 @@
 				<table class="table table-striped ">
 					<tr>
 						<td
-							style="margin-right: 10px; width: 18px; height: 18px; font-weight: bold">질문    :</td>
+							style="margin-right: 10px; width: 18px; height: 18px; font-weight: bold">질문
+							:</td>
 						<c:forEach var="apply_q" items="${questionList}">
 							<td style="margin-right: 10px; width: 18px; height: 18px;"
 								id="receiptForm">Q.${apply_q.content}</td>
@@ -136,7 +143,8 @@
 					</tr>
 					<tr>
 						<td
-							style="margin-right: 10px; width: 18px; height: 18px; font-weight: bold">답변    :</td>
+							style="margin-right: 10px; width: 18px; height: 18px; font-weight: bold">답변
+							:</td>
 						<c:forEach var="apply_a" items="${answerList}">
 							<td style="margin-right: 10px; width: 18px; height: 18px;"
 								id="receiptForm">A.${apply_a.content}</td>
@@ -152,8 +160,9 @@
 	</div>
 </div>
 <script>
-	function showForm(club_id,user_id) {
-		var url = "${R}club_admin/getForm?club_id=" + club_id + "&user_id=" + user_id;
+	function showForm(club_id, user_id) {
+		var url = "${R}club_admin/getForm?club_id=" + club_id + "&user_id="
+				+ user_id;
 		$('#receiptForm').attr("src", url);
 		$('#formModal').modal('show');
 	};
