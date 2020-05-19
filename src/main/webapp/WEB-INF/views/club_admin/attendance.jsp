@@ -15,8 +15,8 @@
 		<div class="col-md-8 col-md-offset-2">
 			<div class="fh5co-hero-wrap">
 				<div class="fh5co-hero-intro">
-					<h1 class="to-animate hero-animate-1">${myClub.club_name}</h1>
-					<h2 class="to-animate hero-animate-2">${myClub.content}</h2>
+					<h1 class="to-animate hero-animate-1">${club.club_name}</h1>
+					<h2 class="to-animate hero-animate-2">${club.content}</h2>
 				</div>
 			</div>
 		</div>
@@ -98,7 +98,7 @@
 													<c:if test="${status.count % fn:length(adminUser) eq 0}">
 														<!--출석체크 삭제-->
 														<td><a
-															href="attendance_delete?date=${attendance.date}&club_id=${user_club_id}">x</a></td>
+															href="attendance_delete?date=${attendance.date}&club_id=${club_id}">x</a></td>
 													</c:if>
 												</c:if>
 											</sec:authorize>
@@ -146,7 +146,7 @@
 
 <!-- Modal -->
 <form:form method="post" action="" id="modalForm">
-	<input type="hidden" name="club_id" value="${user_club_id}">
+	<input type="hidden" name="club_id" value="${club_id}">
 	<div class="modal fade" id="modal" role="dialog">
 		<div class="modal-dialog modal-md">
 
@@ -191,7 +191,7 @@
 	    			$('#modalForm').attr('onsubmit','');
 	    			$('#modal').modal('show');
 				    var find = $(this).attr("find");
-				    var club_id = '${user_club_id}';
+				    var club_id = '${club_id}';
 			    	var obj;
 		    	    jQuery.ajax({
 			    	   type:"POST", 
