@@ -103,14 +103,24 @@
 <!--  질문 입력 추가 삽입 -->
 <script>
         function attachApplyQ(obj) {
-            const str = ``;
-            $(obj).parents('tr').before(str);
+        	const str = `
+        		<tr height="40">
+				<td colspan=2><input type="text" name="question"
+					style="margin: auto" class="form-control input"
+					style="margin-bottom: 3px; width: 100%"
+					placeholder="질문을 입력해주세요." /></td>
+				<td style="text-align: center;"><button
+						style="margin: auto" class="btn"
+						onclick="
+						return delete_row(this);">x</button></td>
+			</tr>`;
+            $(obj).parents('tr').before(str);;
             return false;
         }
 
 </script>
 <!--  회계 입력 tr 삽입 -->
-<script>
+<!-- <script>
         function attachAddr(obj) {
             const str = `<tr id="default">
 							<input type="hidden" name="club_id" value="${club_id}">
@@ -143,7 +153,7 @@
             return false;
         }
 
-</script>
+</script> -->
 
 <!-- summernote -->
 <!-- <script>
