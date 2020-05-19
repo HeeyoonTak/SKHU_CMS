@@ -31,4 +31,6 @@ public interface ClubService {
 	void insert(ClubDto club);
 
 	void delete(String name);
+
+	void update(ClubDto club);
 }

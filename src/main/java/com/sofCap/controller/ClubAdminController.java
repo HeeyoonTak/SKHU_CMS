@@ -233,6 +233,9 @@ public class ClubAdminController {
 		return "redirect:apply_q_list";
 	}
 
+	/*
+	 * ASY_board 동아리 관리
+	 */
 	@RequestMapping("club_manage")
 	public String club_manage(Model model, @RequestParam("club_id") int club_id, Principal principal) {
 		model.addAttribute("club_id", club_id);
@@ -241,6 +244,7 @@ public class ClubAdminController {
 		return "club_admin/club_manage";
 	}
 
+	/* 동아리 정보 편집 구현 */
 	@RequestMapping(value = "manage", method = RequestMethod.GET)
 	public String manage(Model model, @RequestParam("club_id") int club_id, Principal principal) {
 		ClubDto club = clubService.findById(club_id);
@@ -255,9 +259,7 @@ public class ClubAdminController {
 	public String manage(Model model, ClubDto club1, @RequestParam("club_id") int club_id) {
 		ClubDto club = clubService.findById(club_id);
 		club.setContent(club1.getContent());
-		clubMapper.update(club);
-		System.out.println(club.getId());
-		System.out.println(club.getContent());
+		clubService.update(club);
 		return "redirect:manage?club_id=" + club_id;
 	}
 
