@@ -77,4 +77,9 @@ public class ClubServiceImpl implements ClubService {
 		clubDao.delete(name);
 	}
 
+	@Override
+	public void update(ClubDto club) {
+		clubDao.update(club);
+	}
+
 }

@@ -30,7 +30,7 @@
 		JOIN
 		User_club uC ON uC.club_id = c.id
 		JOIN user u ON u.id = uC.user_id
-		WHERE u.id = #{uesr_id}
+		WHERE u.id = #{user_id}
 		ORDER BY c.id;
 	</select>
 
@@ -85,4 +85,10 @@
 		WHERE club_name = #{name};
 	</delete>
 
+	<update id="update">
+		UPDATE Club SET
+		content = #{content}
+		WHERE id=#{id}
+	</update>
+	
 </mapper>

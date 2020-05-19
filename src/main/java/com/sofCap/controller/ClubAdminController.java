@@ -208,6 +208,7 @@ public class ClubAdminController {
 		return "redirect:apply_q_list";
 	}
 
+
 	@Transactional
 	private void saveQusetion(String[] questions, int club_id) {
 		int board_id = 2;
@@ -230,6 +231,36 @@ public class ClubAdminController {
 	public String deleteQ(Model model, @RequestParam("id") int id) {
 		clubService.deleteQ(id);
 		return "redirect:apply_q_list";
+	}
+
+	/*
+	 * ASY_board 동아리 관리
+	 */
+	@RequestMapping("club_manage")
+	public String club_manage(Model model, @RequestParam("club_id") int club_id, Principal principal) {
+		model.addAttribute("club_id", club_id);
+		nav_list(model);
+		nav_user(model, principal);
+		return "club_admin/club_manage";
+	}
+
+	/* 동아리 정보 편집 구현 */
+	@RequestMapping(value = "manage", method = RequestMethod.GET)
+	public String manage(Model model, @RequestParam("club_id") int club_id, Principal principal) {
+		ClubDto club = clubService.findById(club_id);
+		model.addAttribute("club_id", club_id);
+		model.addAttribute("club", club);
+		nav_list(model);
+		nav_user(model, principal);
+		return "club_admin/manage";
+	}
+
+	@RequestMapping(value = "manage", method = RequestMethod.POST)
+	public String manage(Model model, ClubDto club1, @RequestParam("club_id") int club_id) {
+		ClubDto club = clubService.findById(club_id);
+		club.setContent(club1.getContent());
+		clubService.update(club);
+		return "redirect:manage?club_id=" + club_id;
 	}
 
 	/*

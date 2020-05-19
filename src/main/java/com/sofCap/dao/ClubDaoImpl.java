@@ -76,4 +76,9 @@ public class ClubDaoImpl implements ClubDao {
 	public void delete(String name) {
 		clubMapper.delete(name);
 	}
+
+	@Override
+	public void update(ClubDto club) {
+		clubMapper.update(club);
+	}
 }
