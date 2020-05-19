@@ -1,7 +1,12 @@
 package com.sofCap.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.security.Principal;
+import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -65,11 +70,30 @@ public class BoardController {
 	}
 
 	@RequestMapping("r_content")
-	public String r_content(Model model, @RequestParam("id") int id,Principal principal) {
+	public String r_content(Model model, @RequestParam("id") int id,Principal principal, HttpServletResponse response) throws IOException {
 		BoardDto board = boardService.findOne(id);
 		model.addAttribute("board",board);
 		nav_list(model);
 		nav_user(model, principal);
+
+		Date now = new Date();
+		Date start = board.getStart_date();
+		Date end = board.getEnd_date();
+
+		if(now.after(start) && now.after(end)) {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('마감되었습니다.'); history.go(-1);</script>");
+			out.flush();
+			return "redirect:recruit";
+		}
+		if(now.before(start) && now.before(start)) {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('모집 예정입니다.'); history.go(-1);</script>");
+			out.flush();
+			return "redirect:recruit";
+		}
 		return "guest/r_content";
 	}
 
