@@ -102,19 +102,18 @@ public class ClubAdminController {
 	 */
 	@GetMapping("acceptance")
 	public String acceptane(Model model, @RequestParam("club_id") int club_id, Principal principal) {
-		UserDto user = userService.findByLoginId(principal.getName());
+		//UserDto user = userService.findByLoginId(principal.getName());
 		ClubDto club = clubService.findById(club_id);
 		List<UserDto> acceptanceYes = userService.findByMember(club_id);
 		List<UserDto> acceptanceNo = userService.findByNotMember(club_id);
 		List<ApplyQDto> questionList = clubService.findQuestion(club_id);
-		// List<ApplyADto> answerList = clubService.findAnswer(club_id, user_id); 지원폼
-		// 작성자 유저ID를 어떻게 넣을것인가???
+		List<ApplyADto> answerList = clubService.findAnswer(club_id);
 		model.addAttribute("user", user);
 		model.addAttribute("club", club);
 		model.addAttribute("acceptanceYes", acceptanceYes);
 		model.addAttribute("acceptanceNo", acceptanceNo);
 		model.addAttribute("questionList", questionList);
-		// model.addAttribute("answerList", answerList);
+		model.addAttribute("answerList", answerList);
 		nav_list(model);
 		nav_user(model, principal);
 		return "club_admin/acceptance";
@@ -161,21 +160,24 @@ public class ClubAdminController {
 		return "redirect:acceptance?club_id=" + club_id;
 	}
 
-	@RequestMapping(value = "getForm")
+
 	public void getForm(@RequestParam("club_id") int club_id, @RequestParam("user_id") int user_id, Model model,
 			Principal principal) throws IOException {
 		UserDto user = userService.findByLoginId(principal.getName());
 		ClubDto club = clubService.findById(club_id);
 		UserClubDto userClub = userClubService.findByUserId(user_id);
-		List<ApplyADto> answerList = clubService.findAnswer(club_id, user_id);
-		List<ApplyQDto> questionList = clubService.findQuestion(club_id);
+		List<UserDto> acceptanceYes = userService.findByMember(club_id);
 		List<UserDto> acceptanceNo = userService.findByNotMember(club_id);
 		model.addAttribute("user", user);
 		model.addAttribute("club", club);
 		model.addAttribute("userClub", userClub);
+		model.addAttribute("acceptanceYes", acceptanceYes);
+		model.addAttribute("acceptanceNo", acceptanceNo);
+		List<ApplyADto> answerList = clubService.findAnswer(club_id);
+		List<ApplyQDto> questionList = clubService.findQuestion(club_id);
 		model.addAttribute("answerList", answerList);
 		model.addAttribute("questionList", questionList);
-		model.addAttribute("acceptanceNo", acceptanceNo);
+		model.addAttribute("user_id", user_id);
 	}
 
 	// 동아리마다 모집 지원 _질문 리스트

@@ -40,21 +40,19 @@
 								<tr class="text-center">
 									<th style="text-align: center">지원자</th>
 								</tr>
-								<c:forEach var="user" items="${acceptanceNo}">
+								<c:forEach var="user" items="${acceptanceNo}" >
 									<tr>
 										<td>
-											<form method="post">
-												<label><input type="checkbox"
-													style="margin-right: 10px; width: 18px; height: 18px;">${user.name}</label>
-												<i class="btn btn-primary el-icon-document"
-													style="padding: 3px 10px;" data-target="#formModal"
-													onclick="return showForm('${apply_q.club_id}','${apply_a.user_id}')"></i>
-												<input type="hidden" name="user_id" value="${user.id}" /> <input
-													type="hidden" name="club_id" value="${club.id}" />
-												<button class="btn btn-primary"
-													style="float: right; background-color: green; padding: 3px 10px; font-size: 15px;"
-													type="submit" name="cmd" value="yes">합격</button>
-											</form>
+										<form method="post">
+										<label><input type="checkbox" style="margin-right: 10px; width: 18px; height: 18px;">${user.name} ${user.id}</label>
+										<input type="hidden" name="user_id" value="${user.id}"/>
+										<i class="btn btn-primary el-icon-document" style="padding:3px 10px;"
+										data-target="#formModal" onclick="return showForm('${club.id}','${user.id}')"></i>
+											<input type="hidden" name="user_id" value="${user.id}"/>
+											<input type="hidden" name="club_id" value="${club.id}"/>
+											<button class="btn btn-primary" style="float:right; background-color:green; padding:3px 10px; font-size: 15px;" 
+											type="submit" name="cmd" value="yes">합격</button>
+										</form>
 										</td>
 									</tr>
 								</c:forEach>
@@ -129,7 +127,7 @@
 					aria-label="Close">
 					<span aria-hidden="true">x</span>
 				</button>
-				<h4 id="modal-title" class="modal-title">동아리 지원서</h4>
+				<h4 id="modal-title" class="modal-title">동아리 지원서 </h4>
 			</div>
 			<div class="modal-body" style="overflow: scroll">
 				<table class="table table-striped ">
@@ -144,11 +142,13 @@
 					</tr>
 					<tr>
 						<td
-							style="margin-right: 10px; width: 18px; height: 18px; font-weight: bold">답변
-							:</td>
-						<c:forEach var="apply_a" items="${answerList}">
+							style="margin-right: 10px; width: 18px; height: 18px; font-weight: bold">답변    :</td>
+							<%-- <input type="hidden" id="user_id" name="user_id" value="${user.id}"/> --%>
+						<c:forEach var="apply_a" items="${answerList}" >
+						<c:if test="${ user.id eq apply_a.user_id}">
 							<td style="margin-right: 10px; width: 18px; height: 18px;"
 								id="receiptForm">A.${apply_a.content}</td>
+						</c:if>
 						</c:forEach>
 					</tr>
 				</table>
@@ -161,10 +161,9 @@
 	</div>
 </div>
 <script>
-	function showForm(club_id, user_id) {
-		var url = "${R}club_admin/getForm?club_id=" + club_id + "&user_id="
-				+ user_id;
-		$('#receiptForm').attr("src", url);
+	function showForm(club_id,user_id) {
+		var url = "${R}club_admin/getForm?club_id=" + club_id + "&user_id=" + user_id;
+		$('#user_id').val(user_id);
 		$('#formModal').modal('show');
 	};
 </script>
