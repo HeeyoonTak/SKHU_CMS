@@ -73,7 +73,9 @@ public class MainController {
 	@RequestMapping("myPage")
 	public String myPage(Model model, Principal principal) {
 		UserDto user = userService.findByLoginId(principal.getName());
+		ClubDto club = clubService.findByClubCon(user.getId());
 		model.addAttribute("user", user);
+		model.addAttribute("club", club);
 		nav_list(model);
 		nav_user(model, principal);
 		return "guest/myPage";

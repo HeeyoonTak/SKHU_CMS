@@ -31,6 +31,13 @@
 
 								<hr class="mb-4">
 								<div class="mb-3">
+									<label for="content" style="color:black">소개글</label> <input type="text"
+										class="form-control" value="${club.content}"
+										name="content" placeholder="동아리 소개글">
+								</div>
+								
+								<hr class="mb-4">
+								<div class="mb-3">
 									<label for="email" style="color:black">이메일</label> <input type="email"
 										class="form-control" value="${user.email}"
 										name="email" placeholder="abcg1234@gmail.com"

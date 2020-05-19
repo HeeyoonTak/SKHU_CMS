@@ -17,6 +17,8 @@ public interface ClubMapper {
 
 	ClubDto findByName(String name);
 
+	ClubDto findByClubCon(int id);
+
 	List<ClubDto> findAll();
 
 	List<ClubDto> findByUserId(int user_id);
@@ -24,7 +26,7 @@ public interface ClubMapper {
 	List<ApplyADto> findAnswer(int club_id, int user_id);
 
 	List<ApplyQDto> findQuestion(int club_id);
-	
+
 	void insertQ(ApplyQDto applyQ);
 
 	void insert(ClubDto club);

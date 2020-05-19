@@ -14,6 +14,8 @@ public interface ClubService {
 
 	ClubDto findByName(String name);
 
+	ClubDto findByClubCon(int id);
+
 	List<ClubDto> findAll();
 
 	List<ClubDto> findByUserId(int user_id);
