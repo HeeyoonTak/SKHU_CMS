@@ -78,4 +78,10 @@
 		WHERE club_name = #{name};
 	</delete>
 
+	<update id="update">
+		UPDATE Club SET
+		content = #{content}
+		WHERE id=#{id}
+	</update>
+	
 </mapper>

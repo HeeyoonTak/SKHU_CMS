@@ -216,9 +216,37 @@ public class ClubAdminController {
 //	@RequestMapping(value = "apply_q_make", method = RequestMethod.POST)
 //	public String create(Model model, ApplyQDto applyq, Principal principal) {
 //
-//	
+//
 //		return "redirect:apply_q_list";
 //	}
+
+	@RequestMapping("club_manage")
+	public String club_manage(Model model, @RequestParam("club_id") int club_id, Principal principal) {
+		model.addAttribute("club_id", club_id);
+		nav_list(model);
+		nav_user(model, principal);
+		return "club_admin/club_manage";
+	}
+
+	@RequestMapping(value = "manage", method = RequestMethod.GET)
+	public String manage(Model model, @RequestParam("club_id") int club_id, Principal principal) {
+		ClubDto club = clubService.findById(club_id);
+		model.addAttribute("club_id", club_id);
+		model.addAttribute("club", club);
+		nav_list(model);
+		nav_user(model, principal);
+		return "club_admin/manage";
+	}
+
+	@RequestMapping(value = "manage", method = RequestMethod.POST)
+	public String manage(Model model, ClubDto club1, @RequestParam("club_id") int club_id) {
+		ClubDto club = clubService.findById(club_id);
+		club.setContent(club1.getContent());
+		clubMapper.update(club);
+		System.out.println(club.getId());
+		System.out.println(club.getContent());
+		return "redirect:manage?club_id=" + club_id;
+	}
 
 	/*
 	 * ASY_board 동아리 공지사항
