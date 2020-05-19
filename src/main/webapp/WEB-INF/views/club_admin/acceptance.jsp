@@ -18,8 +18,8 @@
 		<div class="col-md-8 col-md-offset-2">
 			<div class="fh5co-hero-wrap">
 				<div class="fh5co-hero-intro">
-					<h1 class="to-animate hero-animate-1">멋쟁이 사자처럼</h1>
-					<h2 class="to-animate hero-animate-2">웹프로그래밍을 기반으로 한 개발 동아리</h2>
+					<h1 class="to-animate hero-animate-1">${club.club_name}</h1>
+					<h2 class="to-animate hero-animate-2">${club.content}</h2>
 				</div>
 			</div>
 		</div>
@@ -68,7 +68,7 @@
 									value="no">&lt;</button>
 							</form>
 						</div>
-						
+
 						<div class="col-md-5">
 							<table class="table table-striped ">
 
@@ -79,11 +79,14 @@
 									<tr>
 										<td>
 											<form method="post">
-											<label><input type="checkbox" style="margin-right: 10px; width: 18px; height: 18px;" value="">${user.name}</label>
-											<input type="hidden" name="user_id" value="${user.id}"/>
-											<input type="hidden" name="club_id" value="${club.id}"/>
-											<button class="btn btn-primary" style="float:right; background-color:red; padding:3px 10px; font-size: 15px;" 
-											type="submit" name="cmd" value="no">탈퇴</button>
+												<label><input type="checkbox"
+													style="margin-right: 10px; width: 18px; height: 18px;"
+													value="">${user.name}</label> <input type="hidden"
+													name="user_id" value="${user.id}" /> <input type="hidden"
+													name="club_id" value="${club.id}" />
+												<button class="btn btn-primary"
+													style="float: right; background-color: red; padding: 3px 10px; font-size: 15px;"
+													type="submit" name="cmd" value="no">탈퇴</button>
 											</form>
 										</td>
 									</tr>
@@ -105,8 +108,9 @@
 					<li><a href="${R}club_admin/attendance?club_id=${club_id}">출석체크</a></li>
 					<li><a href="${R}club_admin/acceptance?club_id=${club_id}">회원
 							관리</a></li>
-					<li><a href="${R}club_admin/apply_q_form?club_id=${club_id}">지원
-							폼</a></li>
+					<sec:authorize access="hasRole('ROLE_ClubAdmin')">
+							<li><a href="${R}club_admin/apply_q_list">모집 질문 작성</a></li>
+						</sec:authorize>
 				</ul>
 			</div>
 		</div>
@@ -129,7 +133,8 @@
 				<table class="table table-striped ">
 					<tr>
 						<td
-							style="margin-right: 10px; width: 18px; height: 18px; font-weight: bold">질문    :</td>
+							style="margin-right: 10px; width: 18px; height: 18px; font-weight: bold">질문
+							:</td>
 						<c:forEach var="apply_q" items="${questionList}">
 							<td style="margin-right: 10px; width: 18px; height: 18px;"
 								id="receiptForm">Q.${apply_q.content}</td>

@@ -53,6 +53,21 @@ public class ClubDaoImpl implements ClubDao {
 	}
 
 	@Override
+	public List<ApplyQDto> findQuestionByClub(int club_id) {
+		return clubMapper.findQuestionByClub(club_id);
+	}
+
+	@Override
+	public void insertQ(ApplyQDto applyQ) {
+		clubMapper.insertQ(applyQ);
+	}
+
+	@Override
+	public void deleteQ(int id) {
+		clubMapper.deleteQ(id);
+	}
+
+	@Override
 	public void insert(ClubDto club) {
 		clubMapper.insert(club);
 	}
@@ -60,5 +75,10 @@ public class ClubDaoImpl implements ClubDao {
 	@Override
 	public void delete(String name) {
 		clubMapper.delete(name);
+	}
+
+	@Override
+	public void update(ClubDto club) {
+		clubMapper.update(club);
 	}
 }

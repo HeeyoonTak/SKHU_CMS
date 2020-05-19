@@ -40,6 +40,9 @@
 								<tr style="text-align: center">
 									<td style="height: 300px">${board.content}</td>
 								</tr>
+								<tr style="text-align: center">
+                                    <td><fmt:formatDate pattern="yyyy-MM-dd" value="${ board.date }" /></td>
+                                </tr>
 								<c:if test="${board.start_date != null && board.end_date != null}">
                                 <tr style="text-align: center">
                                     <td>기간 : <fmt:formatDate pattern="yyyy/MM/dd"
