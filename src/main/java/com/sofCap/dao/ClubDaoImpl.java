@@ -41,9 +41,9 @@ public class ClubDaoImpl implements ClubDao {
 	}
 
 	@Override
-	public List<ApplyADto> findAnswer(int club_id, int user_id) {
+	public List<ApplyADto> findAnswer(int club_id) {
 		// TODO Auto-generated method stub
-		return clubMapper.findAnswer(club_id, user_id);
+		return clubMapper.findAnswer(club_id);
 	}
 
 	@Override

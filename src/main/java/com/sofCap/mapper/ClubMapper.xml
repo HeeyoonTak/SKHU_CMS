@@ -48,7 +48,7 @@
 	
 	<select id="findAnswer" resultType="ApplyADto">
 		SELECT a.*,q.* FROM apply_a a
-		JOIN apply_q q on a.apply_q_id = q.id and a.club_id=#{club_id} and a.user_id=#{user_id}
+		JOIN apply_q q on a.apply_q_id = q.id and a.club_id=#{club_id}
 	</select>
 	
 	<select id="findQuestion" resultType="ApplyQDto">
