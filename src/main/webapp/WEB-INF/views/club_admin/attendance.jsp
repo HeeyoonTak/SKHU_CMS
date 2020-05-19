@@ -134,10 +134,9 @@
 					<li><a href="${R}club_admin/attendance?club_id=${club_id}">출석체크</a></li>
 					<li><a href="${R}club_admin/acceptance?club_id=${club_id}">회원
 							관리</a></li>
-					<li><a href="${R}club_admin/apply_q_form?club_id=${club_id}">지원
-							폼</a></li>
-					<li><a href="${R}club_admin/apply_q_list=${club_id}">지원
-							폼 만들기</a></li>
+					<sec:authorize access="hasRole('ROLE_ClubAdmin')">
+						<li><a href="${R}club_admin/apply_q_list">모집 질문 작성</a></li>
+					</sec:authorize>
 				</ul>
 			</div>
 		</div>

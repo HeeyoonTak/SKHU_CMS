@@ -32,10 +32,6 @@
 					<div class="row">
 						<div class="col-xs-12" style="margin-bottom: 0px">
 							<h2 class="h3" style="margin-bottom: 0px">동아리 관리</h2>
-							<!--  ul class="pagination" style="margin-bottom: 0px">
-								<li><a href="" class="btn btn-primary btn-lg"
-									id="l_search_term_btn">지원 질문 작성</a></li>
-							</ul -->
 							<br>
 						</div>
 						<div class="col-xs-12" style="margin-bottom: 0px">
@@ -58,7 +54,7 @@
 											<tbody>
 												<c:forEach var="q" items="${applyQ}">
 													<tr height="40">
-														<td>${q.content}</td>
+														<td><p style="word-break: break-all">${q.content}</p></td>
 														<td style="text-align: center;"><a
 															href="${R}club_admin/applyQ_delete?id=${q.id}"
 															onclick="return deleteAlert();">삭제</a></td>
@@ -101,14 +97,14 @@
 				</div>
 				<div class="col-md-3 col-md-pull-9" id="fh5co-sidebar">
 					<ul class="attendance_check-list hor_1">
-						<li><a href="${R}club_admin/notice?club_id=${club_id}">공지사항</a></li>
-						<li><a href="${R}club_admin/account?club_id=${club_id}">회계
+						<li><a href="${R}club_admin/notice?club_id=${club.id}">공지사항</a></li>
+						<li><a href="${R}club_admin/account?club_id=${club.id}">회계
 								관리</a></li>
-						<li><a href="${R}club_admin/minutes?club_id=${club_id}">회의록</a></li>
-						<li><a href="${R}club_admin/publicity?club_id=${club_id}">홍보게시판</a></li>
-						<li><a href="${R}club_admin/recruit?club_id=${club_id}">모집게시판</a></li>
-						<li><a href="${R}club_admin/attendance?club_id=${club_id}">출석체크</a></li>
-						<li><a href="${R}club_admin/acceptance?club_id=${club_id}">회원
+						<li><a href="${R}club_admin/minutes?club_id=${club.id}">회의록</a></li>
+						<li><a href="${R}club_admin/publicity?club_id=${club.id}">홍보게시판</a></li>
+						<li><a href="${R}club_admin/recruit?club_id=${club.id}">모집게시판</a></li>
+						<li><a href="${R}club_admin/attendance?club_id=${club.id}">출석체크</a></li>
+						<li><a href="${R}club_admin/acceptance?club_id=${club.id}">회원
 								관리</a></li>
 						<sec:authorize access="hasRole('ROLE_ClubAdmin')">
 							<li><a href="${R}club_admin/apply_q_list">모집 질문 작성</a></li>

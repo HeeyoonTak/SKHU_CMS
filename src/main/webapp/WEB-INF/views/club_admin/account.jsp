@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <c:url var="R" value="/" />
-
 
 <div id="fh5co-hero">
 	<a href="#fh5co-main"
@@ -180,8 +181,9 @@
 					<li><a href="${R}club_admin/attendance?club_id=${club_id}">출석체크</a></li>
 					<li><a href="${R}club_admin/acceptance?club_id=${club_id}">회원
 							관리</a></li>
-					<li><a href="${R}club_admin/apply_q_form?club_id=${club_id}">지원
-							폼</a></li>
+					<sec:authorize access="hasRole('ROLE_ClubAdmin')">
+						<li><a href="${R}club_admin/apply_q_list">모집 질문 작성</a></li>
+					</sec:authorize>
 				</ul>
 			</div>
 			<!-- sidebar 끝 -->
