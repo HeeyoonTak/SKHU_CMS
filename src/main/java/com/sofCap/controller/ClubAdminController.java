@@ -107,13 +107,14 @@ public class ClubAdminController {
 		List<UserDto> acceptanceYes = userService.findByMember(club_id);
 		List<UserDto> acceptanceNo = userService.findByNotMember(club_id);
 		List<ApplyQDto> questionList = clubService.findQuestion(club_id);
-		//List<ApplyADto> answerList = clubService.findAnswer(club_id, user_id); 지원폼 작성자 유저ID를 어떻게 넣을것인가???
+		// List<ApplyADto> answerList = clubService.findAnswer(club_id, user_id); 지원폼
+		// 작성자 유저ID를 어떻게 넣을것인가???
 		model.addAttribute("user", user);
 		model.addAttribute("club", club);
 		model.addAttribute("acceptanceYes", acceptanceYes);
 		model.addAttribute("acceptanceNo", acceptanceNo);
 		model.addAttribute("questionList", questionList);
-		//model.addAttribute("answerList", answerList);
+		// model.addAttribute("answerList", answerList);
 		nav_list(model);
 		nav_user(model, principal);
 		return "club_admin/acceptance";
@@ -140,7 +141,7 @@ public class ClubAdminController {
 		return "redirect:acceptance?club_id=" + club_id;
 	}
 
-	/* 합격자 개별 취소 or 기존회원 개별 제명 */ //영구제명이므로 지원자로 복귀 X
+	/* 합격자 개별 취소 or 기존회원 개별 제명 */ // 영구제명이므로 지원자로 복귀 X
 	@PostMapping(value = "acceptance", params = "cmd=no")
 	public String acceptanceNo(Model model, Principal principal, @RequestParam("user_id") int user_id,
 			@RequestParam("club_id") int club_id) {
@@ -161,8 +162,8 @@ public class ClubAdminController {
 	}
 
 	@RequestMapping(value = "getForm")
-	public void getForm(@RequestParam("club_id") int club_id, @RequestParam("user_id") int user_id, Model model, Principal principal)
-			throws IOException {
+	public void getForm(@RequestParam("club_id") int club_id, @RequestParam("user_id") int user_id, Model model,
+			Principal principal) throws IOException {
 		UserDto user = userService.findByLoginId(principal.getName());
 		ClubDto club = clubService.findById(club_id);
 		UserClubDto userClub = userClubService.findByUserId(user_id);
@@ -181,11 +182,9 @@ public class ClubAdminController {
 	@RequestMapping("apply_q_list")
 	public String apply_q_list(Model model, SemDate semdate, Principal principal) {
 		UserDto user = userService.findByLoginId(principal.getName()); // 현재 로그인한 사용자로 user 정보 획득
-//		if (user.getUser_type().equals("동아리관리자"))
-//			return "redirect:notice";
 		UserClubDto userclub = userClubService.findByUserId(user.getId()); // user와 연결된 user_club 정보 획득
 		ClubDto club = clubService.findById(userclub.getClub_id()); // user_club로 club 정보 획득
-		List<ApplyQDto> applyQ = clubService.findQuestion(club.getId()); // club에 해당되어 있는 질문 리스트 가져오기
+		List<ApplyQDto> applyQ = clubService.findQuestionByClub(club.getId()); // club에 해당되어 있는 질문 리스트 가져오기
 		System.out.println(applyQ);
 		if (semdate.getSem_name() == null) {
 			Date now = Date.valueOf(LocalDate.now());
@@ -193,31 +192,44 @@ public class ClubAdminController {
 			System.out.println(sem_name);
 		}
 		model.addAttribute("applyQ", applyQ);
+		nav_list(model);
+		nav_user(model, principal);
 		return "club_admin/apply_q_list";
 	}
 
 	// 동아리마다 모집 지원 질문 쓰기
-	@RequestMapping(value = "apply_q_make", method = RequestMethod.GET)
-	public String apply_q_make(Model model,
-			@RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date[] date, SemDate semdate,
-			Principal principal) {
+	@RequestMapping(value = "apply_q_save", method = RequestMethod.POST)
+	public String apply_q_save(Model model, Principal principal, @RequestParam("question") String[] questions) {
 		UserDto user = userService.findByLoginId(principal.getName()); // 현재 로그인한 사용자로 user 정보 획득
-		if (user.getUser_type().equals("동아리관리자")) // 만약 동아리 관리자가 아니라면 들어오지 못하도록
-			return "redirect:notice";
 		UserClubDto userclub = userClubService.findByUserId(user.getId()); // user와 연결된 user_club 정보 획득
 		ClubDto club = clubService.findById(userclub.getClub_id()); // user_club로 club 정보 획득
-		ApplyQDto applyq = new ApplyQDto();
-		applyq.setClub_id(club.getId());
-		applyq.setSemDate_id(semdate.getId());
-		model.addAttribute(applyq);
-		return "clubAdmin/apply_q_make";
+		saveQusetion(questions, club.getId());
+		return "redirect:apply_q_list";
 	}
 
-//	@RequestMapping(value = "apply_q_make", method = RequestMethod.POST)
-//	public String create(Model model, ApplyQDto applyq, Principal principal) {
-//		
-//		return "redirect:apply_q_list";
-//	}
+	@Transactional
+	private void saveQusetion(String[] questions, int club_id) {
+		int board_id = 2;
+		Date now = Date.valueOf(LocalDate.now());
+		String sem_name = semdateMapper.findByDate(now);
+		SemDateDto semdate = semdateMapper.findStartAndEndDate(sem_name);
+		System.out.print(questions.length);
+		for (int i = 0; i < questions.length; i++) {
+			ApplyQDto applyq = new ApplyQDto();
+			applyq.setContent(questions[i]);
+			applyq.setBoard_id(board_id);
+			applyq.setClub_id(club_id);
+			applyq.setSemDate_id(semdate.getId());
+			clubMapper.insertQ(applyq);
+		}
+	}
+
+	// 모집 질문 삭제
+	@RequestMapping("applyQ_delete")
+	public String deleteQ(Model model, @RequestParam("id") int id) {
+		clubService.deleteQ(id);
+		return "redirect:apply_q_list";
+	}
 
 	/*
 	 * ASY_board 동아리 공지사항

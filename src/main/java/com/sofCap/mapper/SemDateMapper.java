@@ -10,7 +10,9 @@ import com.sofCap.dto.SemDateDto;
 @Mapper
 public interface SemDateMapper {
 	List<SemDateDto> findAll();
+
 	String findByDate(Date date);
+
 	SemDateDto findStartAndEndDate(String sem_name);
 
 	static int findIdByDate(Date date) {

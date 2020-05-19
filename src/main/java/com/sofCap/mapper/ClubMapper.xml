@@ -27,43 +27,58 @@
 	<select id="findByUserId" resultType="ClubDto">
 		SELECT c.*
 		FROM Club c
-		JOIN User_club uC ON uC.club_id = c.id
+		JOIN
+		User_club uC ON uC.club_id = c.id
 		JOIN user u ON u.id = uC.user_id
 		WHERE u.id = #{uesr_id}
 		ORDER BY c.id;
 	</select>
-	
+
 	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
 		INSERT
 		Club (club_name, club_type)
 		VALUES (#{club_name}, #{club_type})
 	</insert>
-	
-	<insert id="insertQ" useGeneratedKeys="true" keyProperty="id">
-		INSERT 
-		apply_q (content, board_id, club_id, semDate_id) 
-		VALUES (#{content}, 2, #{club_id}, #{semDate_id});
 
+	<insert id="insertQ" useGeneratedKeys="true" keyProperty="id">
+		INSERT
+		apply_q (content, board_id, club_id, semDate_id)
+		VALUES (#{content}, 2, #{club_id}, #{semDate_id});
 	</insert>
 	
+	<delete id="deleteQ">
+		DELETE
+		FROM apply_q
+		WHERE id = #{id};
+	</delete>
+
 	<select id="findByName" resultType="ClubDto">
 		SELECT *
 		From Club
 		WHERE
 		club_name = #{name};
 	</select>
-	
+
 	<select id="findAnswer" resultType="ApplyADto">
 		SELECT a.*,q.* FROM apply_a a
-		JOIN apply_q q on a.apply_q_id = q.id and a.club_id=#{club_id} and a.user_id=#{user_id}
+		JOIN apply_q q on a.apply_q_id = q.id and a.club_id=#{club_id} and
+		a.user_id=#{user_id}
 	</select>
-	
+
 	<select id="findQuestion" resultType="ApplyQDto">
-		SELECT q.* ,a.* FROM apply_q q
-		JOIN apply_a a on a.apply_q_id = q.id and q.club_id=#{club_id}
+		SELECT q.* ,a.* FROM
+		apply_q q
+		JOIN apply_a a on a.apply_q_id = q.id and
+		q.club_id=#{club_id}
 		group by q.id
 	</select>
-	
+
+	<select id="findQuestionByClub" resultType="ApplyQDto">
+		SELECT *
+		FROM apply_q
+		WHERE club_id = #{club_id};
+	</select>
+
 	<delete id="delete">
 		DELETE
 		FROM Club
