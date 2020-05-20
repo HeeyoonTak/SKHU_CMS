@@ -37,7 +37,7 @@
 							<h3>회원 관리</h3>
 						</div>
 						<div class="col-md-5">
-							<table class="table table-striped ">
+							<table class="table table-striped" style="width:100%">
 
 								<tr class="text-center">
 									<th style="text-align: center">지원자</th>
@@ -66,7 +66,7 @@
 																	${user.id}</h4>
 															</div>
 															<div class="modal-body" style="overflow: scroll">
-																<table class="table table-striped ">
+																<table class="table table-striped" style="max-width: 100%; display: table;" >
 																	<tr>
 																		<td
 																			style="margin-right: 10px; width: 18px; height: 18px; font-weight: bold">질문
@@ -108,21 +108,26 @@
 										</td>
 									</tr>
 								</c:forEach>
+								<tr>
+									<td>
+										<button class="btn btn-primary" style="background-color: green; padding: 5px; width: 100%; margin-bottom:1%">선택한 지원자 목록 합격</button>
+									</td>
+								</tr>
 							</table>
 						</div>
 						<div class="col-md-2">
 							<form method="post">
-								<input type="hidden" name="user_id" value="${userClub.user_id}" />
+								<%-- <input type="hidden" name="user_id" value="${userClub.user_id}" />
 								<input type="hidden" name="club_id" value="${userClub.club_id}" />
 								<button class="btn btn-lg btn-primary" type="submit" name="cmd"
 									value="yes">&gt;</button>
-								<!-- <button class="btn btn-lg btn-primary" type="submit" name="cmd"
-									value="no">&lt;</button> -->
+								<button class="btn btn-lg btn-primary" type="submit" name="cmd"
+									value="no">&lt;</button> --%>
 							</form>
 						</div>
 
 						<div class="col-md-5">
-							<table class="table table-striped ">
+							<table class="table table-striped" style="width:100%">
 
 								<tr class="text-center">
 									<th style="text-align: center">회원</th>
@@ -138,11 +143,16 @@
 													name="club_id" value="${club.id}" />
 												<button class="btn btn-primary"
 													style="float: right; background-color: red; padding: 3px 10px; font-size: 15px;"
-													type="submit" name="cmd" value="no">탈퇴</button>
+													type="submit" name="cmd" value="no" >탈퇴</button>
 											</form>
 										</td>
 									</tr>
 								</c:forEach>
+								<tr>
+									<td>
+										<button class="btn btn-primary" style="background-color: red;padding: 5px; width: 100%; margin-bottom:1%" >선택한 회원 목록 탈퇴</button>
+									</td>
+								</tr>
 							</table>
 						</div>
 
@@ -169,49 +179,6 @@
 	</div>
 </div>
 
-<!-- 모달 띄우기 -->
-<%-- <div class="modal fade" id="formModal" role="dialog" tabindex="-1">
-	<div class="modal-dialog modal-md">
-		<!-- Modal content-->
-		<div class="modal-content">
-			<div class="modal-header">
-				<button class="close" type="button" data-dismiss="modal"
-					aria-label="Close">
-					<span aria-hidden="true">x</span>
-				</button>
-				<h4 id="modal-title" class="modal-title">동아리 지원서 ${user_id}</h4>
-
-			</div>
-			<div class="modal-body" style="overflow: scroll">
-				<table class="table table-striped ">
-					<tr>
-						<td
-							style="margin-right: 10px; width: 18px; height: 18px; font-weight: bold">질문
-							:</td>
-						<c:forEach var="apply_q" items="${questionList}">
-							<td style="margin-right: 10px; width: 18px; height: 18px;"
-								id="receiptForm">Q.${apply_q.content}</td>
-						</c:forEach>
-					</tr>
-					<tr>
-						<td
-							style="margin-right: 10px; width: 18px; height: 18px; font-weight: bold">답변    :</td>
-						<c:forEach var="apply_a" items="${answerList1}">
-								<c:if test="${user_id eq apply_a.user_id }">
-								<td style="margin-right: 10px; width: 18px; height: 18px;"
-									id="answer1">A.${apply_a.content}</td>
-								</c:if>
-						</c:forEach>
-					</tr>
-				</table>
-			</div>
-			<div class="modal-footer">
-				<button id="closeModal" type="button" class="btn btn-primary col-md"
-					data-dismiss="modal">확인</button>
-			</div>
-		</div>
-	</div>
-</div> --%>
 <script>
 	function showForm(club_id, user_id) {
 		/* var url = "${R}club_admin/acceptance?club_id=" + club_id + "&user_id=" + user_id; */
