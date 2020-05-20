@@ -101,19 +101,23 @@ public class ClubAdminController {
 	 * 지원자 합불 구현하기
 	 */
 	@GetMapping("acceptance")
-	public String acceptane(Model model, @RequestParam("club_id") int club_id, Principal principal) {
+	public String acceptane(Model model, @RequestParam("club_id") int club_id, Principal principal, @RequestParam(value = "user_id", defaultValue = "0") int user_id) {
 		UserDto user = userService.findByLoginId(principal.getName());
 		ClubDto club = clubService.findById(club_id);
 		List<UserDto> acceptanceYes = userService.findByMember(club_id);
 		List<UserDto> acceptanceNo = userService.findByNotMember(club_id);
 		List<ApplyQDto> questionList = clubService.findQuestion(club_id);
-		//List<ApplyADto> answerList = clubService.findAnswer(club_id, user_id); 지원폼 작성자 유저ID를 어떻게 넣을것인가???
+		List<ApplyADto> answerList = clubService.findAnswer(club_id,user_id); //지원폼 작성자 유저ID를 어떻게 넣을것인가???
+		List<ApplyADto> answerList1=clubService.findAnswerByClubId(club_id);
+		
 		model.addAttribute("user", user);
 		model.addAttribute("club", club);
 		model.addAttribute("acceptanceYes", acceptanceYes);
 		model.addAttribute("acceptanceNo", acceptanceNo);
 		model.addAttribute("questionList", questionList);
-		//model.addAttribute("answerList", answerList);
+		model.addAttribute("answerList", answerList);
+		model.addAttribute("answerList1", answerList1);
+		model.addAttribute("user_id", user_id);
 		nav_list(model);
 		nav_user(model, principal);
 		return "club_admin/acceptance";
@@ -166,7 +170,8 @@ public class ClubAdminController {
 		UserDto user = userService.findByLoginId(principal.getName());
 		ClubDto club = clubService.findById(club_id);
 		UserClubDto userClub = userClubService.findByUserId(user_id);
-		List<ApplyADto> answerList = clubService.findAnswer(club_id, user_id);
+		List<ApplyADto> answerList = clubService.findAnswer(club_id,user_id);
+		List<ApplyADto> answerList1=clubService.findAnswerByClubId(club_id);
 		List<ApplyQDto> questionList = clubService.findQuestion(club_id);
 		List<UserDto> acceptanceNo = userService.findByNotMember(club_id);
 		model.addAttribute("user", user);
@@ -174,7 +179,7 @@ public class ClubAdminController {
 		model.addAttribute("userClub", userClub);
 		model.addAttribute("answerList", answerList);
 		model.addAttribute("questionList", questionList);
-		model.addAttribute("acceptanceNo", acceptanceNo);
+		model.addAttribute("acceptanceNo", acceptanceNo);		
 	}
 
 	// 동아리마다 모집 지원 _질문 리스트
