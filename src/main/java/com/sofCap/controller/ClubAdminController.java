@@ -107,9 +107,8 @@ public class ClubAdminController {
 		List<UserDto> acceptanceYes = userService.findByMember(club_id);
 		List<UserDto> acceptanceNo = userService.findByNotMember(club_id);
 		List<ApplyQDto> questionList = clubService.findQuestion(club_id);
-		List<ApplyADto> answerList = clubService.findAnswer(club_id,user_id); //지원폼 작성자 유저ID를 어떻게 넣을것인가???
+		List<ApplyADto> answerList = clubService.findAnswer(club_id,user_id);
 		List<ApplyADto> answerList1=clubService.findAnswerByClubId(club_id);
-		
 		model.addAttribute("user", user);
 		model.addAttribute("club", club);
 		model.addAttribute("acceptanceYes", acceptanceYes);
@@ -141,6 +140,7 @@ public class ClubAdminController {
 		System.out.println("클럽 id: " + club_id);
 		userClubService.insert(user_id, club_id);
 		userService.updateRole(user_id);
+		userService.deleteCandidate(user_id);
 		return "redirect:acceptance?club_id=" + club_id;
 	}
 
@@ -160,7 +160,6 @@ public class ClubAdminController {
 		model.addAttribute("acceptanceNo", acceptanceNo);
 		userService.updateRole(user_id);
 		userClubService.delete(user_id);
-		userService.deleteCandidate(user_id);
 		return "redirect:acceptance?club_id=" + club_id;
 	}
 
@@ -182,7 +181,7 @@ public class ClubAdminController {
 		model.addAttribute("acceptanceNo", acceptanceNo);
 		model.addAttribute("answerList", answerList);
 		model.addAttribute("questionList", questionList);
-		model.addAttribute("acceptanceNo", acceptanceNo);		
+		model.addAttribute("acceptanceNo", acceptanceNo);
 		model.addAttribute("user_id", user_id);
 	}
 
