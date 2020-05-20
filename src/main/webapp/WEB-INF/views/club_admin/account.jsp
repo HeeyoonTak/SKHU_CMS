@@ -14,9 +14,8 @@
 		<div class="col-md-8 col-md-offset-2">
 			<div class="fh5co-hero-wrap">
 				<div class="fh5co-hero-intro">
-					<h1 class="to-animate hero-animate-1">동아리 연합회</h1>
-					<h2 class="to-animate hero-animate-2">동아리 연합회의 모든 내용을 볼 수
-						있습니다.</h2>
+					<h1 class="to-animate hero-animate-1">${club.club_name}</h1>
+					<h2 class="to-animate hero-animate-2">${club.content}</h2>
 
 				</div>
 			</div>
@@ -30,9 +29,9 @@
 	<div class="container">
 
 		<div class="row animate-box">
-			<h2 class="fh5co-uppercase-heading-sm text-center">회계 관리</h2>
-
 			<div id="fh5co-tab-feature-center" class="fh5co-tab text-center col-md-9 col-md-push-3">
+						<h2 class="fh5co-uppercase-heading-sm text-center" id="heading">회계 관리</h2>
+			
 				<ul class="resp-tabs-list hor_1">
 						<li><i class="fh5co-tab-menu-icon"></i>${ club.club_name }</li>
 				</ul>
@@ -121,6 +120,7 @@
 												</c:forEach>
 											</tbody>
 											<tbody>
+												<!-- START input row -->
 												<tr id="default">
 													<input type="hidden" name="club_id" value="${club_id}">
 													<td><input type="date" name="date"
@@ -137,14 +137,18 @@
 													<td><input type="text" name="remark"
 														class="form-control input-lg" placeholder="사용내용"></td>
 													<!-- <td></td> -->
-													<td><input type="file" name="file"
+													<td>
+													<label for="uploadImage" class="btn btn-primary">파일선택</label>
+													<input type="file" name="file"
 														class="btn btn-primary" id="uploadImage"
-														onchange="fileChange(this);"> <label
+														onchange="fileChange(this);" style="display:none"> 
+														<label
 														for="uploadImage" class="fileName" style="display: none"></label>
 													</td>
 													<td><a onclick="return delete_row(this);"></a></td>
 												</tr>
-
+												<!-- END input row --> 
+												
 												<tr>
 													<td colspan="6"><button
 															onclick="return attachAddr(this);"

@@ -567,7 +567,7 @@ public class ClubAdminController {
 			throws IOException {
 		String sem_name = semdate.getSem_name();
 		save(club_id, price, remark, file, account_type, date, sem_name);
-		return "redirect:account?club_id="+club_id;
+		return "redirect:account?club_id="+club_id+"#fh5co-main";
 	}
 
 	/* 입력한 회계 내역 저장 트랜잭션 */
@@ -609,7 +609,7 @@ public class ClubAdminController {
 		int f_id = accountMapper.findFileId(id);
 		accountMapper.delete(id);
 		fileMapper.delete(f_id);
-		return "redirect:account?club_id="+club_id;
+		return "redirect:account?club_id="+club_id+"#fh5co-main";
 	}
 
 	/*

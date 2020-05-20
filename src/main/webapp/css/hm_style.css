@@ -50,6 +50,7 @@
 
 #l_search_term {
     display: inline;
+    font-size: small;
 }
 
 .btn-primary:hover{
