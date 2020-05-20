@@ -31,17 +31,14 @@
 <!-- START fhtco-main -->
 <div id="fh5co-main">
 	<!-- START container -->
-	<div class="col-md-8 col-md-push-3 container">
+	<div class="container">
 
 		<div class="row animate-box">
-			<h2 class="fh5co-uppercase-heading-sm text-center">회계 관리</h2>
+			<div id="fh5co-tab-feature-center"
+				class="fh5co-tab text-center col-md-9 col-md-push-3">
+				<h2 class="fh5co-uppercase-heading-sm text-center" id="heading">회계
+					관리</h2>
 
-		</div>
-
-
-		<div class="row animate-box">
-			<div class="fh5co-spacer fh5co-spacer-md"></div>
-			<div id="fh5co-tab-feature-center" class="fh5co-tab text-center">
 				<ul class="resp-tabs-list hor_1">
 					<c:forEach var="club" items="${ clubs }">
 						<li><i class="fh5co-tab-menu-icon"></i>${ club.club_name }</li>
@@ -156,11 +153,11 @@
 														<td><input type="text" name="remark"
 															class="form-control input-lg" placeholder="사용내용 및 비고"></td>
 														<!-- <td></td> -->
-														<td><input type="file" name="file"
-															class="btn btn-primary" id="uploadImage"
-															onchange="fileChange(this);"> <label
-															for="uploadImage" class="fileName" style="display: none"></label>
-														</td>
+														<td><label for="uploadImage" class="btn btn-primary">파일선택</label>
+													<input type="file" name="file" class="btn btn-primary"
+													id="uploadImage" onchange="fileChange(this);"
+													style="display: none"> <label for="uploadImage"
+													class="fileName" style="display: none"></label></td>
 														<td><a onclick="return delete_row(this);"></a></td>
 													</tr>
 
@@ -188,6 +185,25 @@
 					</div>
 				</c:forEach>
 			</div>
+
+			<!-- sidebar -->
+			<div class="col-md-3 col-md-pull-9" id="fh5co-sidebar">
+				<ul class="attendance_check-list hor_1">
+					<li><a href="${R}club_union/notice">공지사항</a></li>
+					<sec:authorize
+						access="hasAnyRole('ROLE_ClubUnion, ROLE_ClubAdmin')">
+						<li><a href="${R}club_union/account">회계 관리</a></li>
+					</sec:authorize>
+
+					<sec:authorize access="hasRole('ROLE_ClubUnion')">
+						<li><a href="${R}club_union/club_list">동아리 관리</a></li>
+					</sec:authorize>
+					<li><a href="${R}club_union/attendance">출석체크</a></li>
+					<li><a href="${R}club_union/minutes">회의록</a></li>
+				</ul>
+			</div>
+			<!-- sidebar 끝 -->
+
 		</div>
 
 		<div class="fh5co-spacer fh5co-spacer-md"></div>
@@ -195,27 +211,9 @@
 		<div class="row"></div>
 		<!-- // END row -->
 		<div class="fh5co-spacer fh5co-spacer-md"></div>
-
 	</div>
-	<!-- // END container -->
-	<!-- sidebar -->
-	<div class="col-md-2 col-md-pull-7" id="fh5co-sidebar">
-		<ul class="attendance_check-list hor_1">
-			<li><a href="${R}club_union/notice">공지사항</a></li>
-			<sec:authorize access="hasAnyRole('ROLE_ClubUnion, ROLE_ClubAdmin')">
-				<li><a href="${R}club_union/account">회계 관리</a></li>
-			</sec:authorize>
-			
-			<sec:authorize access="hasRole('ROLE_ClubUnion')">
-					<li><a href="${R}club_union/club_list">동아리 관리</a></li>
-				</sec:authorize>
-			<li><a href="${R}club_union/attendance">출석체크</a></li>
-			<li><a href="${R}club_union/minutes">회의록</a></li>
-		</ul>
-	</div>
-	<!-- sidebar 끝 -->
-
 </div>
+
 
 <!-- showReceipt modal -->
 <div class="modal fade" id="createModal" role="dialog" tabindex="-1">
