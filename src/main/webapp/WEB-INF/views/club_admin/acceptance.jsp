@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
 <c:url var="R" value="/" />
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
@@ -94,6 +96,7 @@
 																	class="btn btn-primary col-md" data-dismiss="modal">확인</button>
 															</div>
 														</div>
+														<!-- Modal종료 -->
 													</div>
 												</div>
 												<input type="hidden" name="user_id" value="${user.id}" /> <input
@@ -113,8 +116,8 @@
 								<input type="hidden" name="club_id" value="${userClub.club_id}" />
 								<button class="btn btn-lg btn-primary" type="submit" name="cmd"
 									value="yes">&gt;</button>
-								<button class="btn btn-lg btn-primary" type="submit" name="cmd"
-									value="no">&lt;</button>
+								<!-- <button class="btn btn-lg btn-primary" type="submit" name="cmd"
+									value="no">&lt;</button> -->
 							</form>
 						</div>
 
