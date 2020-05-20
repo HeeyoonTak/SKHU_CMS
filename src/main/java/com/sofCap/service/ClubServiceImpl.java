@@ -58,6 +58,21 @@ public class ClubServiceImpl implements ClubService {
 	}
 
 	@Override
+	public List<ApplyQDto> findQuestionByClub(int club_id) {
+		return clubDao.findQuestionByClub(club_id);
+	}
+
+	@Override
+	public void insertQ(ApplyQDto applyQ) {
+		clubDao.insertQ(applyQ);
+	}
+
+	@Override
+	public void deleteQ(int id) {
+		clubDao.deleteQ(id);
+	}
+
+	@Override
 	public void insert(ClubDto club) {
 		clubDao.insert(club);
 	}
@@ -65,6 +80,11 @@ public class ClubServiceImpl implements ClubService {
 	@Override
 	public void delete(String name) {
 		clubDao.delete(name);
+	}
+
+	@Override
+	public void update(ClubDto club) {
+		clubDao.update(club);
 	}
 
 }

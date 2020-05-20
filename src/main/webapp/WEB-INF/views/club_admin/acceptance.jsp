@@ -18,8 +18,8 @@
 		<div class="col-md-8 col-md-offset-2">
 			<div class="fh5co-hero-wrap">
 				<div class="fh5co-hero-intro">
-					<h1 class="to-animate hero-animate-1">멋쟁이 사자처럼</h1>
-					<h2 class="to-animate hero-animate-2">웹프로그래밍을 기반으로 한 개발 동아리</h2>
+					<h1 class="to-animate hero-animate-1">${club.club_name}</h1>
+					<h2 class="to-animate hero-animate-2">${club.content}</h2>
 				</div>
 			</div>
 		</div>
@@ -156,8 +156,9 @@
 					<li><a href="${R}club_admin/attendance?club_id=${club_id}">출석체크</a></li>
 					<li><a href="${R}club_admin/acceptance?club_id=${club_id}">회원
 							관리</a></li>
-					<li><a href="${R}club_admin/apply_q_form?club_id=${club_id}">지원
-							폼</a></li>
+					<sec:authorize access="hasRole('ROLE_ClubAdmin')">
+							<li><a href="${R}club_admin/apply_q_list">모집 질문 작성</a></li>
+						</sec:authorize>
 				</ul>
 			</div>
 		</div>
@@ -175,12 +176,14 @@
 					<span aria-hidden="true">x</span>
 				</button>
 				<h4 id="modal-title" class="modal-title">동아리 지원서 ${user_id}</h4>
+
 			</div>
 			<div class="modal-body" style="overflow: scroll">
 				<table class="table table-striped ">
 					<tr>
 						<td
-							style="margin-right: 10px; width: 18px; height: 18px; font-weight: bold">질문    :</td>
+							style="margin-right: 10px; width: 18px; height: 18px; font-weight: bold">질문
+							:</td>
 						<c:forEach var="apply_q" items="${questionList}">
 							<td style="margin-right: 10px; width: 18px; height: 18px;"
 								id="receiptForm">Q.${apply_q.content}</td>
@@ -206,11 +209,18 @@
 	</div>
 </div> --%>
 <script>
+<<<<<<< HEAD
 	function showForm(club_id, user_id) {
 		/* var url = "${R}club_admin/acceptance?club_id=" + club_id + "&user_id=" + user_id; */
 		/*var answer = "${url.answerList}"
 		$('#answer').val(answer); */
 		/* ${'#modal-title'}.html(user_id);*/
 		$('#formModal' + user_id).modal('show');
+=======
+	function showForm(club_id,user_id) {
+		var url = "${R}club_admin/getForm?club_id=" + club_id + "&user_id=" + user_id;
+		$('#user_id').val(user_id);
+		$('#formModal').modal('show');
+>>>>>>> e27c23077e947bc663b303b297491e612cd4045a
 	};
 </script>

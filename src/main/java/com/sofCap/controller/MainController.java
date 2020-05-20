@@ -75,6 +75,7 @@ public class MainController {
 		UserDto user = userService.findByLoginId(principal.getName());
 		model.addAttribute("user", user);
 		nav_list(model);
+		nav_user(model, principal);
 		return "guest/myPage";
 	}
 

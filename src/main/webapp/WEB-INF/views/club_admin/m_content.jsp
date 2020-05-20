@@ -16,8 +16,8 @@
 			<div class="fh5co-hero-wrap">
 				<form>
 					<div class="fh5co-hero-intro">
-						<h1 class="to-animate hero-animate-1">동아리 명칭</h1>
-						<h2 class="to-animate hero-animate-2">동아리 소개글</h2>
+						<h1 class="to-animate hero-animate-1">${club.club_name}</h1>
+						<h2 class="to-animate hero-animate-2">${club.content}</h2>
 					</div>
 				</form>
 			</div>
@@ -46,7 +46,7 @@
 									<td><fmt:formatDate pattern="yyyy-MM-dd"
 											value="${ board.date }" /></td>
 								</tr>
-<%-- 								<tr>
+								<%-- 								<tr>
 								   <td>${files.file_name }
 								   <form method="post" enctype="multipart/form-data">
              	                      <button type="submit" name="cmd" value="download" class="btn btn-primary">다운로드</button>
@@ -54,7 +54,7 @@
 								   </form>
 								  </td>
 								</tr> --%>
-								</table>
+							</table>
 							<div class="row">
 								<div class="col-md-12">
 									<form:form method="post" modelAttribute="board">

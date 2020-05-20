@@ -24,7 +24,15 @@ public interface ClubDao {
 
 	List<ApplyQDto> findQuestion(int club_id);
 
+	List<ApplyQDto> findQuestionByClub(int club_id);
+
+	void insertQ(ApplyQDto applyQ);
+
+	void deleteQ(int id);
+
 	void insert(ClubDto club);
 
 	void delete(String name);
+
+	void update(ClubDto club);
 }

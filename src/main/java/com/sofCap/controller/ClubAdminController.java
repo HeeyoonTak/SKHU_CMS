@@ -144,7 +144,7 @@ public class ClubAdminController {
 		return "redirect:acceptance?club_id=" + club_id;
 	}
 
-	/* 합격자 개별 취소 or 기존회원 개별 제명 */ //영구제명이므로 지원자로 복귀 X
+	/* 합격자 개별 취소 or 기존회원 개별 제명 */ // 영구제명이므로 지원자로 복귀 X
 	@PostMapping(value = "acceptance", params = "cmd=no")
 	public String acceptanceNo(Model model, Principal principal, @RequestParam("user_id") int user_id,
 			@RequestParam("club_id") int club_id) {
@@ -164,65 +164,112 @@ public class ClubAdminController {
 		return "redirect:acceptance?club_id=" + club_id;
 	}
 
-	@RequestMapping(value = "getForm")
-	public void getForm(@RequestParam("club_id") int club_id, @RequestParam("user_id") int user_id, Model model, Principal principal)
-			throws IOException {
+
+	public void getForm(@RequestParam("club_id") int club_id, @RequestParam("user_id") int user_id, Model model,
+			Principal principal) throws IOException {
 		UserDto user = userService.findByLoginId(principal.getName());
 		ClubDto club = clubService.findById(club_id);
 		UserClubDto userClub = userClubService.findByUserId(user_id);
 		List<ApplyADto> answerList = clubService.findAnswer(club_id,user_id);
 		List<ApplyADto> answerList1=clubService.findAnswerByClubId(club_id);
 		List<ApplyQDto> questionList = clubService.findQuestion(club_id);
+		List<UserDto> acceptanceYes = userService.findByMember(club_id);
 		List<UserDto> acceptanceNo = userService.findByNotMember(club_id);
 		model.addAttribute("user", user);
 		model.addAttribute("club", club);
 		model.addAttribute("userClub", userClub);
+		model.addAttribute("acceptanceYes", acceptanceYes);
+		model.addAttribute("acceptanceNo", acceptanceNo);
 		model.addAttribute("answerList", answerList);
 		model.addAttribute("questionList", questionList);
 		model.addAttribute("acceptanceNo", acceptanceNo);		
+		model.addAttribute("user_id", user_id);
 	}
 
 	// 동아리마다 모집 지원 _질문 리스트
 	@RequestMapping("apply_q_list")
 	public String apply_q_list(Model model, SemDate semdate, Principal principal) {
 		UserDto user = userService.findByLoginId(principal.getName()); // 현재 로그인한 사용자로 user 정보 획득
-//		if (user.getUser_type().equals("동아리관리자"))
-//			return "redirect:notice";
 		UserClubDto userclub = userClubService.findByUserId(user.getId()); // user와 연결된 user_club 정보 획득
 		ClubDto club = clubService.findById(userclub.getClub_id()); // user_club로 club 정보 획득
-		List<ApplyQDto> applyQ = clubService.findQuestion(club.getId()); // club에 해당되어 있는 질문 리스트 가져오기
+		List<ApplyQDto> applyQ = clubService.findQuestionByClub(club.getId()); // club에 해당되어 있는 질문 리스트 가져오기
 		System.out.println(applyQ);
 		if (semdate.getSem_name() == null) {
 			Date now = Date.valueOf(LocalDate.now());
 			String sem_name = semdateMapper.findByDate(now);
 			System.out.println(sem_name);
 		}
+		model.addAttribute("club", club);
 		model.addAttribute("applyQ", applyQ);
+		nav_list(model);
+		nav_user(model, principal);
 		return "club_admin/apply_q_list";
 	}
 
 	// 동아리마다 모집 지원 질문 쓰기
-	@RequestMapping(value = "apply_q_make", method = RequestMethod.GET)
-	public String apply_q_make(Model model,
-			@RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date[] date, SemDate semdate,
-			Principal principal) {
+	@RequestMapping(value = "apply_q_save", method = RequestMethod.POST)
+	public String apply_q_save(Model model, Principal principal, @RequestParam("question") String[] questions) {
 		UserDto user = userService.findByLoginId(principal.getName()); // 현재 로그인한 사용자로 user 정보 획득
-		if (user.getUser_type().equals("동아리관리자")) // 만약 동아리 관리자가 아니라면 들어오지 못하도록
-			return "redirect:notice";
 		UserClubDto userclub = userClubService.findByUserId(user.getId()); // user와 연결된 user_club 정보 획득
 		ClubDto club = clubService.findById(userclub.getClub_id()); // user_club로 club 정보 획득
-		ApplyQDto applyq = new ApplyQDto();
-		applyq.setClub_id(club.getId());
-		applyq.setSemDate_id(semdate.getId());
-		model.addAttribute(applyq);
-		return "clubAdmin/apply_q_make";
+		saveQusetion(questions, club.getId());
+		return "redirect:apply_q_list";
 	}
 
-//	@RequestMapping(value = "apply_q_make", method = RequestMethod.POST)
-//	public String create(Model model, ApplyQDto applyq, Principal principal) {
-//		
-//		return "redirect:apply_q_list";
-//	}
+
+	@Transactional
+	private void saveQusetion(String[] questions, int club_id) {
+		int board_id = 2;
+		Date now = Date.valueOf(LocalDate.now());
+		String sem_name = semdateMapper.findByDate(now);
+		SemDateDto semdate = semdateMapper.findStartAndEndDate(sem_name);
+		System.out.print(questions.length);
+		for (int i = 0; i < questions.length; i++) {
+			ApplyQDto applyq = new ApplyQDto();
+			applyq.setContent(questions[i]);
+			applyq.setBoard_id(board_id);
+			applyq.setClub_id(club_id);
+			applyq.setSemDate_id(semdate.getId());
+			clubMapper.insertQ(applyq);
+		}
+	}
+
+	// 모집 질문 삭제
+	@RequestMapping("applyQ_delete")
+	public String deleteQ(Model model, @RequestParam("id") int id) {
+		clubService.deleteQ(id);
+		return "redirect:apply_q_list";
+	}
+
+	/*
+	 * ASY_board 동아리 관리
+	 */
+	@RequestMapping("club_manage")
+	public String club_manage(Model model, @RequestParam("club_id") int club_id, Principal principal) {
+		model.addAttribute("club_id", club_id);
+		nav_list(model);
+		nav_user(model, principal);
+		return "club_admin/club_manage";
+	}
+
+	/* 동아리 정보 편집 구현 */
+	@RequestMapping(value = "manage", method = RequestMethod.GET)
+	public String manage(Model model, @RequestParam("club_id") int club_id, Principal principal) {
+		ClubDto club = clubService.findById(club_id);
+		model.addAttribute("club_id", club_id);
+		model.addAttribute("club", club);
+		nav_list(model);
+		nav_user(model, principal);
+		return "club_admin/manage";
+	}
+
+	@RequestMapping(value = "manage", method = RequestMethod.POST)
+	public String manage(Model model, ClubDto club1, @RequestParam("club_id") int club_id) {
+		ClubDto club = clubService.findById(club_id);
+		club.setContent(club1.getContent());
+		clubService.update(club);
+		return "redirect:manage?club_id=" + club_id;
+	}
 
 	/*
 	 * ASY_board 동아리 공지사항
@@ -230,6 +277,8 @@ public class ClubAdminController {
 	@RequestMapping("notice")
 	public String club_notice(Model model, @RequestParam("club_id") int club_id, Principal principal) {
 		List<BoardDto> boards = boardService.findByClubId_n(club_id);
+		ClubDto club = clubService.findById(club_id);
+		model.addAttribute("club", club);
 		model.addAttribute("boards", boards);
 		model.addAttribute("club_id", club_id);
 		nav_list(model);
@@ -312,6 +361,8 @@ public class ClubAdminController {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		String start_date = format.format(startenddate.getStart_date());
 		String end_date = format.format(startenddate.getEnd_date());
+		ClubDto club = clubService.findById(club_id);
+		model.addAttribute("club", club);
 		model.addAttribute("sems", semdateService.findAll());
 		model.addAttribute("semdate", semdate);
 		model.addAttribute("start_date", start_date);
@@ -387,6 +438,8 @@ public class ClubAdminController {
 	@RequestMapping("publicity")
 	public String club_publicity(Model model, @RequestParam("club_id") int club_id, Principal principal) {
 		List<BoardDto> boards = boardService.findByClubId_p(club_id);
+		ClubDto club = clubService.findById(club_id);
+		model.addAttribute("club", club);
 		model.addAttribute("boards", boards);
 		model.addAttribute("club_id", club_id);
 		nav_list(model);
@@ -458,6 +511,8 @@ public class ClubAdminController {
 	@RequestMapping("recruit")
 	public String club_recruit(Model model, @RequestParam("club_id") int club_id, Principal principal) {
 		List<BoardDto> boards = boardService.findByClubId_r(club_id);
+		ClubDto club = clubService.findById(club_id);
+		model.addAttribute("club", club);
 		model.addAttribute("boards", boards);
 		model.addAttribute("club_id", club_id);
 		nav_list(model);
@@ -622,14 +677,12 @@ public class ClubAdminController {
 	 */
 	@RequestMapping("attendance")
 
-	public String attendance(Model model, SemDate semdate, Principal principal) {
+	public String attendance(Model model, SemDate semdate, Principal principal, @RequestParam("club_id") int club_id) {
 
 		// 로그인 한 유저 정보 추출
 
 		UserDto user = userService.findByLoginId(principal.getName());
-		UserClubDto user_club = userClubService.findByUserId(user.getId());
-		int user_club_id = user_club.getClub_id();
-		ClubDto myClub = clubService.findById(user_club_id);
+		ClubDto club = clubService.findById(club_id);
 
 		// 현재 날짜에 맞는 현재 학기 추출
 		Date now = Date.valueOf(LocalDate.now());
@@ -650,16 +703,16 @@ public class ClubAdminController {
 			semId = sem;
 		}
 
-		model.addAttribute("myClub", myClub);
-		model.addAttribute("user_club_id", user_club_id);
+		model.addAttribute("club_id", club_id);
+		model.addAttribute("club", club);
 		model.addAttribute("start", attendanceService.findBySemId(now).getStart_date());
 		model.addAttribute("end", attendanceService.findBySemId(now).getEnd_date());
 		model.addAttribute("semdate", semdate);
 		model.addAttribute("semDate", semdateService.findAll());
 		model.addAttribute("selectSemId", semId);
-		model.addAttribute("findDate", attendanceService.findDate(semId, user_club_id));
-		model.addAttribute("attendance", attendanceService.findBySemDate(semId, user_club_id));
-		model.addAttribute("adminUser", attendanceService.findUser(semId, user_club_id));
+		model.addAttribute("findDate", attendanceService.findDate(semId, club_id));
+		model.addAttribute("attendance", attendanceService.findBySemDate(semId, club_id));
+		model.addAttribute("adminUser", attendanceService.findUser(semId, club_id));
 		nav_list(model);
 		nav_user(model, principal);
 		return "club_admin/attendance";
@@ -707,7 +760,7 @@ public class ClubAdminController {
 				attendanceService.update(updateck[i]);
 			}
 		}
-		return "redirect:/club_admin/attendance";
+		return "redirect:attendance?club_id="+club_id;
 	}
 
 	/*
@@ -729,7 +782,7 @@ public class ClubAdminController {
 			// 현재 학기에 해당하는 경우 - 삽입
 			attendanceService.dateNow(date, sem, club_id);
 		}
-		return "redirect:/club_admin/attendance";
+		return "redirect:attendance?club_id="+club_id;
 	}
 
 	/*
@@ -738,6 +791,6 @@ public class ClubAdminController {
 	@RequestMapping("attendance_delete")
 	public String delete(Model model, @RequestParam("date") Date date, @RequestParam("club_id") int club_id) {
 		attendanceService.delete(date, club_id);
-		return "redirect:attendance";
+		return "redirect:attendance?club_id="+club_id;
 	}
 }
