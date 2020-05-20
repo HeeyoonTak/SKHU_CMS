@@ -52,6 +52,7 @@
 												<div class="modal fade" id="formModal${user.id}"
 													role="dialog" tabindex="-1" style="z-index: 9999;">
 													<div class="modal-dialog modal-md">
+													
 														<!-- Modal content-->
 														<div class="modal-content">
 															<div class="modal-header">
@@ -209,18 +210,11 @@
 	</div>
 </div> --%>
 <script>
-<<<<<<< HEAD
 	function showForm(club_id, user_id) {
 		/* var url = "${R}club_admin/acceptance?club_id=" + club_id + "&user_id=" + user_id; */
 		/*var answer = "${url.answerList}"
 		$('#answer').val(answer); */
 		/* ${'#modal-title'}.html(user_id);*/
 		$('#formModal' + user_id).modal('show');
-=======
-	function showForm(club_id,user_id) {
-		var url = "${R}club_admin/getForm?club_id=" + club_id + "&user_id=" + user_id;
-		$('#user_id').val(user_id);
-		$('#formModal').modal('show');
->>>>>>> e27c23077e947bc663b303b297491e612cd4045a
 	};
 </script>
