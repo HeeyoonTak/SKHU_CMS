@@ -10,7 +10,7 @@
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
-
+<script src="/resources/jquery/jquery-3.3.1.min.js"></script>
 <div id="fh5co-hero">
 	<a href="#fh5co-main"
 		class="smoothscroll fh5co-arrow to-animate hero-animate-4"><i
@@ -130,27 +130,77 @@
 							<table class="table table-striped" style="width:100%">
 
 								<tr class="text-center">
-									<th style="text-align: center">회원</th>
+									<th style="text-align: center">
+									<div class="allCheck">
+									<input type="checkbox" name="allCheck" id="allCheck" />
+									전체회원
+										<script>
+											$("#allCheck").click(function(){
+												var chk = $("#allCheck").prop("checked");
+												if(chk) {
+ 													$(".chBox").prop("checked", true);
+ 												} else {
+ 													$(".chBox").prop("checked", false);
+ 												}
+											});
+										</script>
+									</div>
+									</th>
+									
 								</tr>
 								<c:forEach var="user" items="${acceptanceYes}">
 									<tr>
 										<td>
 											<form method="post">
-												<label><input type="checkbox"
-													style="margin-right: 10px; width: 18px; height: 18px;"
-													value="">${user.name}</label> <input type="hidden"
-													name="user_id" value="${user.id}" /> <input type="hidden"
-													name="club_id" value="${club.id}" />
+												<div class="checkBox">
+												<label>
+												<input type="checkbox" style="margin-right: 10px; width: 18px; height: 18px;"
+												name="chBox" class="chBox" data-cartNum="${user.id}"/>${user.name}</label>
+													<script>
+														$(".chBox").click(function(){
+																$("#allCheck").prop("checked",false)
+														});
+													</script>
+													<input type="hidden" name="user_id" value="${user.id}" /> 
+													<input type="hidden" name="club_id" value="${club.id}" />													
 												<button class="btn btn-primary"
 													style="float: right; background-color: red; padding: 3px 10px; font-size: 15px;"
-													type="submit" name="cmd" value="no" >탈퇴</button>
+													type="submit" name="cmd" value="no">탈퇴</button>
+												</div>
 											</form>
 										</td>
 									</tr>
 								</c:forEach>
 								<tr>
 									<td>
-										<button class="btn btn-primary" style="background-color: red;padding: 5px; width: 100%; margin-bottom:1%" >선택한 회원 목록 탈퇴</button>
+									<div class="delBtn">
+										<button type="button" class="selectDelete_btn"
+										style="background-color: red;padding: 5px; width: 100%; margin-bottom:1%">선택한 회원 목록 탈퇴</button>
+										<script>
+ 											$(".selectDelete_btn").click(function(){
+  											var confirm_val = confirm("정말 삭제하시겠습니까?");
+  
+  											if(confirm_val) {
+ 											 	var checkArr = new Array();
+   
+   												$("input[class='chBox']:checked").each(function(){
+    												checkArr.push($(this).attr("data-cartNum"));
+   												});
+    
+												$.ajax({
+    												url : "${R}club_admin/deleteAll",
+    												type : "post",
+    												data : { chbox : checkArr },
+    												success : function(){
+
+													    	 location.href = "${R}club_admin/acceptance?club_id=" + 2;
+        													
+   														}
+   													});
+  												} 
+ 											});
+										</script>
+									</div>
 									</td>
 								</tr>
 							</table>

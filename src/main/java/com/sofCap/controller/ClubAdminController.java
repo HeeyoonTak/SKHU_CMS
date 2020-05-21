@@ -11,6 +11,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.json.JSONArray;
@@ -101,14 +102,15 @@ public class ClubAdminController {
 	 * 지원자 합불 구현하기
 	 */
 	@GetMapping("acceptance")
-	public String acceptane(Model model, @RequestParam("club_id") int club_id, Principal principal, @RequestParam(value = "user_id", defaultValue = "0") int user_id) {
+	public String acceptane(Model model, @RequestParam("club_id") int club_id, Principal principal,
+			@RequestParam(value = "user_id", defaultValue = "0") int user_id) {
 		UserDto user = userService.findByLoginId(principal.getName());
 		ClubDto club = clubService.findById(club_id);
 		List<UserDto> acceptanceYes = userService.findByMember(club_id);
 		List<UserDto> acceptanceNo = userService.findByNotMember(club_id);
 		List<ApplyQDto> questionList = clubService.findQuestion(club_id);
-		List<ApplyADto> answerList = clubService.findAnswer(club_id,user_id);
-		List<ApplyADto> answerList1=clubService.findAnswerByClubId(club_id);
+		List<ApplyADto> answerList = clubService.findAnswer(club_id, user_id);
+		List<ApplyADto> answerList1 = clubService.findAnswerByClubId(club_id);
 		model.addAttribute("user", user);
 		model.addAttribute("club", club);
 		model.addAttribute("acceptanceYes", acceptanceYes);
@@ -163,14 +165,26 @@ public class ClubAdminController {
 		return "redirect:acceptance?club_id=" + club_id;
 	}
 
+	@ResponseBody
+	@PostMapping(value = "deleteAll")
+	public void deleteAll(HttpSession session, Principal principal,
+			@RequestParam(value = "chbox[]", defaultValue = "0") List<Integer> chArr) throws Exception {
 
+		for (int i : chArr) {
+			userService.updateRole(i);
+			userClubService.delete(i);
+		}
+	}
+
+
+	// Modal
 	public void getForm(@RequestParam("club_id") int club_id, @RequestParam("user_id") int user_id, Model model,
 			Principal principal) throws IOException {
 		UserDto user = userService.findByLoginId(principal.getName());
 		ClubDto club = clubService.findById(club_id);
 		UserClubDto userClub = userClubService.findByUserId(user_id);
-		List<ApplyADto> answerList = clubService.findAnswer(club_id,user_id);
-		List<ApplyADto> answerList1=clubService.findAnswerByClubId(club_id);
+		List<ApplyADto> answerList = clubService.findAnswer(club_id, user_id);
+		List<ApplyADto> answerList1 = clubService.findAnswerByClubId(club_id);
 		List<ApplyQDto> questionList = clubService.findQuestion(club_id);
 		List<UserDto> acceptanceYes = userService.findByMember(club_id);
 		List<UserDto> acceptanceNo = userService.findByNotMember(club_id);
@@ -214,7 +228,6 @@ public class ClubAdminController {
 		saveQusetion(questions, club.getId());
 		return "redirect:apply_q_list";
 	}
-
 
 	@Transactional
 	private void saveQusetion(String[] questions, int club_id) {
@@ -626,7 +639,7 @@ public class ClubAdminController {
 			throws IOException {
 		String sem_name = semdate.getSem_name();
 		save(club_id, price, remark, file, account_type, date, sem_name);
-		return "redirect:account?club_id="+club_id;
+		return "redirect:account?club_id=" + club_id;
 	}
 
 	/* 입력한 회계 내역 저장 트랜잭션 */
@@ -668,7 +681,7 @@ public class ClubAdminController {
 		int f_id = accountMapper.findFileId(id);
 		accountMapper.delete(id);
 		fileMapper.delete(f_id);
-		return "redirect:account?club_id="+club_id;
+		return "redirect:account?club_id=" + club_id;
 	}
 
 	/*
@@ -759,7 +772,7 @@ public class ClubAdminController {
 				attendanceService.update(updateck[i]);
 			}
 		}
-		return "redirect:attendance?club_id="+club_id;
+		return "redirect:attendance?club_id=" + club_id;
 	}
 
 	/*
@@ -781,7 +794,7 @@ public class ClubAdminController {
 			// 현재 학기에 해당하는 경우 - 삽입
 			attendanceService.dateNow(date, sem, club_id);
 		}
-		return "redirect:attendance?club_id="+club_id;
+		return "redirect:attendance?club_id=" + club_id;
 	}
 
 	/*
@@ -790,6 +803,6 @@ public class ClubAdminController {
 	@RequestMapping("attendance_delete")
 	public String delete(Model model, @RequestParam("date") Date date, @RequestParam("club_id") int club_id) {
 		attendanceService.delete(date, club_id);
-		return "redirect:attendance?club_id="+club_id;
+		return "redirect:attendance?club_id=" + club_id;
 	}
 }
