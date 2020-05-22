@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.sofCap.dto.ApplyADto;
 import com.sofCap.dto.ApplyQDto;
+import com.sofCap.dto.ApplyQDto_mod;
 import com.sofCap.dto.ClubDto;
 
 @Mapper
@@ -30,6 +31,8 @@ public interface ClubMapper {
 	List<ApplyQDto> findQuestionByClub(int club_id);
 
 	ApplyQDto QfindById(int id);
+
+	List<ApplyQDto_mod> findQmodQusetionByClub(int club_id);
 
 	void insertQ(ApplyQDto applyQ);
 

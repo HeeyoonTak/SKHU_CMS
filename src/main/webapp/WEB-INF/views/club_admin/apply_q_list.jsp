@@ -56,11 +56,13 @@
 													<tr height="40">
 														<td><p style="word-break: break-all">${q.content}</p></td>
 														<!-- 삭제 버튼 -->
-														<td style="text-align: center;"><a
-															href="${R}club_admin/applyQ_delete?id=${q.id}"
-															style="border-bottom: 0px; color: red; text-decoration: none;"
-															onclick="return deleteAlert();">삭제</a></td>
-														<!--  수정  -->
+														<td style="text-align: center;"><c:if
+																test="${q.count eq 0}">
+																<a href="${R}club_admin/applyQ_delete?id=${q.id}"
+																	style="border-bottom: 0px; color: red; text-decoration: none;"
+																	onclick="return deleteAlert();">삭제 </a>
+															</c:if></td>
+														<!-- 수정  -->
 														<td style="text-align: center;">
 															<!-- 모달을 열기 위한 버튼 -->
 															<button type="button"
@@ -133,7 +135,9 @@
 										</div>
 										<div style="marginfloat: left">
 											<p style="padding-top: 10px; margin-bottom: 0px;">이미 지원이
-												시작된(답변이 달린) 질문은 삭제하실 수 없습니다.</p>
+												시작된 질문은 삭제하실 수 없습니다.</p>
+											<p style="padding-top: 10px; margin-bottom: 0px;">(삭제 버튼이
+												없는 질문은 이미 모집이 시작된(답변이 달린) 질문입니다.)</p>
 										</div>
 									</div>
 								</div>
