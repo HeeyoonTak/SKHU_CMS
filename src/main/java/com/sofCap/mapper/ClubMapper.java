@@ -29,7 +29,11 @@ public interface ClubMapper {
 
 	List<ApplyQDto> findQuestionByClub(int club_id);
 
+	ApplyQDto QfindById(int id);
+
 	void insertQ(ApplyQDto applyQ);
+
+	void editQ(ApplyQDto applyQ);
 
 	void deleteQ(int id);
 

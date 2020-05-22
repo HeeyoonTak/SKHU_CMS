@@ -44,6 +44,9 @@ template {
   display: none;
 }
 
+#underline_remove{
+	text-decoration: none;
+}
 a {
   background-color: transparent;
 }
@@ -1168,7 +1171,7 @@ a {
 }
 a:hover, a:focus {
   color: #067cad;
-  text-decoration: underline;
+  
 }
 a:focus {
   outline: thin dotted;
