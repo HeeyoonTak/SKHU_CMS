@@ -33,7 +33,12 @@
 		WHERE u.id = #{user_id}
 		ORDER BY c.id;
 	</select>
-
+	<select id="QfindById" resultType="ApplyQDto">
+		SELECT *
+		FROM apply_q
+		WHERE id = #{id};
+	</select>
+	
 	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
 		INSERT
 		Club (club_name, club_type)
@@ -43,14 +48,20 @@
 	<insert id="insertQ" useGeneratedKeys="true" keyProperty="id">
 		INSERT
 		apply_q (content, board_id, club_id, semDate_id)
-		VALUES (#{content}, 2, #{club_id}, #{semDate_id});
+		VALUES (#{content}, 2,
+		#{club_id}, #{semDate_id});
 	</insert>
-	
+
 	<delete id="deleteQ">
 		DELETE
 		FROM apply_q
 		WHERE id = #{id};
 	</delete>
+	<update id="editQ">
+		UPDATE apply_q
+		SET content = #{content}
+		WHERE id=#{id}
+	</update>
 
 	<select id="findByName" resultType="ClubDto">
 		SELECT *
@@ -90,5 +101,5 @@
 		content = #{content}
 		WHERE id=#{id}
 	</update>
-	
+
 </mapper>

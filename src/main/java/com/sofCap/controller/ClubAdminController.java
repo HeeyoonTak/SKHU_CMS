@@ -185,7 +185,6 @@ public class ClubAdminController {
 		UserClubDto userclub = userClubService.findByUserId(user.getId()); // user와 연결된 user_club 정보 획득
 		ClubDto club = clubService.findById(userclub.getClub_id()); // user_club로 club 정보 획득
 		List<ApplyQDto> applyQ = clubService.findQuestionByClub(club.getId()); // club에 해당되어 있는 질문 리스트 가져오기
-		System.out.println(applyQ);
 		if (semdate.getSem_name() == null) {
 			Date now = Date.valueOf(LocalDate.now());
 			String sem_name = semdateMapper.findByDate(now);
@@ -208,7 +207,6 @@ public class ClubAdminController {
 		return "redirect:apply_q_list";
 	}
 
-
 	@Transactional
 	private void saveQusetion(String[] questions, int club_id) {
 		int board_id = 2;
@@ -224,6 +222,22 @@ public class ClubAdminController {
 			applyq.setSemDate_id(semdate.getId());
 			clubMapper.insertQ(applyq);
 		}
+	}
+
+	// 질문 수정
+	@RequestMapping(value = "apply_q_edit", method = RequestMethod.POST)
+	public String apply_q_edit(Model model, Principal principal,
+			@RequestParam("edited_question") String edited_question, @RequestParam("id") int id) {
+		UserDto user = userService.findByLoginId(principal.getName()); // 현재 로그인한 사용자로 user 정보 획득
+		UserClubDto userclub = userClubService.findByUserId(user.getId()); // user와 연결된 user_club 정보 획득
+		ClubDto club = clubService.findById(userclub.getClub_id()); // user_club로 club 정보 획득
+		ApplyQDto edit_Q = clubMapper.QfindById(id);
+		System.out.println("번호 : " + id + " / 내용 : " + edited_question);
+		System.out.println("번호 : " + edit_Q.getId() + " / 내용 : " + edit_Q.getContent());
+		edit_Q.setContent(edited_question);
+		clubMapper.editQ(edit_Q);
+
+		return "redirect:apply_q_list";
 	}
 
 	// 모집 질문 삭제
@@ -619,7 +633,7 @@ public class ClubAdminController {
 			throws IOException {
 		String sem_name = semdate.getSem_name();
 		save(club_id, price, remark, file, account_type, date, sem_name);
-		return "redirect:account?club_id="+club_id;
+		return "redirect:account?club_id=" + club_id;
 	}
 
 	/* 입력한 회계 내역 저장 트랜잭션 */
@@ -661,7 +675,7 @@ public class ClubAdminController {
 		int f_id = accountMapper.findFileId(id);
 		accountMapper.delete(id);
 		fileMapper.delete(f_id);
-		return "redirect:account?club_id="+club_id;
+		return "redirect:account?club_id=" + club_id;
 	}
 
 	/*
@@ -752,7 +766,7 @@ public class ClubAdminController {
 				attendanceService.update(updateck[i]);
 			}
 		}
-		return "redirect:attendance?club_id="+club_id;
+		return "redirect:attendance?club_id=" + club_id;
 	}
 
 	/*
@@ -774,7 +788,7 @@ public class ClubAdminController {
 			// 현재 학기에 해당하는 경우 - 삽입
 			attendanceService.dateNow(date, sem, club_id);
 		}
-		return "redirect:attendance?club_id="+club_id;
+		return "redirect:attendance?club_id=" + club_id;
 	}
 
 	/*
@@ -783,6 +797,6 @@ public class ClubAdminController {
 	@RequestMapping("attendance_delete")
 	public String delete(Model model, @RequestParam("date") Date date, @RequestParam("club_id") int club_id) {
 		attendanceService.delete(date, club_id);
-		return "redirect:attendance?club_id="+club_id;
+		return "redirect:attendance?club_id=" + club_id;
 	}
 }
