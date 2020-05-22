@@ -33,6 +33,7 @@
 		WHERE u.id = #{user_id}
 		ORDER BY c.id;
 	</select>
+	
 	<select id="QfindById" resultType="ApplyQDto">
 		SELECT *
 		FROM apply_q
@@ -57,6 +58,7 @@
 		FROM apply_q
 		WHERE id = #{id};
 	</delete>
+	
 	<update id="editQ">
 		UPDATE apply_q
 		SET content = #{content}
@@ -88,6 +90,16 @@
 		SELECT *
 		FROM apply_q
 		WHERE club_id = #{club_id};
+	</select>
+	
+	<select id="findQmodQusetionByClub" resultType="ApplyQDto_mod">
+		SELECT Q.*,
+		count(Q.id = apply_q_id) count
+		FROM apply_q Q
+		LEFT JOIN apply_a A ON Q.id =
+		A.apply_q_id
+		WHERE Q.club_id = #{club_id}
+		GROUP BY Q.id;
 	</select>
 
 	<delete id="delete">
