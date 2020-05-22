@@ -58,6 +58,12 @@
 												<option selected>2020-1학기</option>
 											</select> -->
 										</form:form>
+
+										<a
+											href="${R}club_admin/account/excel/download?club_id=${club_id}"
+											class="btn btn-primary btn-sm"
+											style="margin-top: 10px; margin-bottom: -10px"> 엑셀 다운로드</a>
+
 									</div>
 								</div>
 							</form>
