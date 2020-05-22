@@ -11,7 +11,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.json.JSONArray;
@@ -165,11 +164,29 @@ public class ClubAdminController {
 		return "redirect:acceptance?club_id=" + club_id;
 	}
 
+	/*체크박스로 지원자 합격*/
+	@ResponseBody
+	@PostMapping(value = "acceptAll")
+	public void acceptAll(@RequestParam(value = "chbox2[]", defaultValue = "0") List<Integer> chArr,
+			@RequestParam(value="club_id") int club_id, Model model) throws Exception {
+		ClubDto club = clubService.findById(club_id);
+		model.addAttribute("club", club);
+		for (int i : chArr) {
+			System.out.println(i);
+			System.out.println(club_id);
+			userClubService.insert(i, club_id);
+			userService.updateRole(i);
+			userService.deleteCandidate(i);
+		}
+	}
+
+	/* 체크박스로 회원 제명 */
 	@ResponseBody
 	@PostMapping(value = "deleteAll")
-	public void deleteAll(HttpSession session, Principal principal,
-			@RequestParam(value = "chbox[]", defaultValue = "0") List<Integer> chArr) throws Exception {
-
+	public void deleteAll(@RequestParam(value = "chbox[]", defaultValue = "0") List<Integer> chArr,
+			@RequestParam(value="club_id") int club_id, Model model) throws Exception {
+		ClubDto club = clubService.findById(club_id);
+		model.addAttribute("club", club);
 		for (int i : chArr) {
 			userService.updateRole(i);
 			userClubService.delete(i);
