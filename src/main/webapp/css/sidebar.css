@@ -1,0 +1,25 @@
+#lis {
+	margin: 0px auto;
+}
+
+#bst {
+	color: #90d7ea; 
+}
+
+#bts {
+	margin: 0px auto;
+	background-color: transparent;
+	text-align: left;
+}
+
+#divst {
+	border: 2px solid #EAEAEA; 
+	border-radius: 15px;
+	width: 170px;
+}
+
+#hrs {
+	border: 1px solid #EAEAEA; 
+	margin: 0px;
+	padding: 0px;
+}

@@ -68,6 +68,8 @@
 <link rel="stylesheet" href="${R}css/hm_style.css">
 
 <link rel="stylesheet" href="${R}css/yj_style.css">
+
+<link rel="stylesheet" href="${R}css/sidebar.css">
 <!-- summernote 서식 -->
 
 
