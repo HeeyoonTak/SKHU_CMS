@@ -32,7 +32,7 @@
 				<div class="col-md-9 col-md-push-3" id="fh5co-content">
 					<div class="row">
 						<div style="margin-bottom: 20px">
-							<h3>홍보 게시판</h3>
+							<h4 style="color: #CCCCCC; margin-left: 50px">홍보 게시판</h4>
 						</div>
 						<div>
 							<div style="margin-left: 50px">
@@ -79,20 +79,7 @@
 				</div>
 			</div>
 			<div class="col-md-3 col-md-pull-9" id="fh5co-sidebar">
-				<ul class="attendance_check-list hor_1">
-					<li><a href="${R}club_admin/notice?club_id=${club_id}">공지사항</a></li>
-					<li><a href="${R}club_admin/account?club_id=${club_id}">회계
-							관리</a></li>
-					<li><a href="${R}club_admin/minutes?club_id=${club_id}">회의록</a></li>
-					<li><a href="${R}club_admin/publicity?club_id=${club_id}">홍보게시판</a></li>
-					<li><a href="${R}club_admin/recruit?club_id=${club_id}">모집게시판</a></li>
-					<li><a href="${R}club_admin/attendance?club_id=${club_id}">출석체크</a></li>
-					<li><a href="${R}club_admin/acceptance?club_id=${club_id}">회원
-							관리</a></li>
-					<sec:authorize access="hasRole('ROLE_ClubAdmin')">
-						<li><a href="${R}club_admin/apply_q_list">모집 질문 작성</a></li>
-					</sec:authorize>
-				</ul>
+                <c:import url="../tiles/tiles_club_sidebar.jsp" />
 			</div>
 		</div>
 	</div>

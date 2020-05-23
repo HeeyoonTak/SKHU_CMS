@@ -47,16 +47,7 @@
             </div>
          </div>
          <div class="col-md-3 col-md-pull-9" id="fh5co-sidebar">
-            <ul class="attendance_check-list hor_1">
-               <li><a href="${R}club_admin/notice?club_id=${club_id}">공지사항</a></li>
-               <li><a href="${R}club_admin/account?club_id=${club_id}">회계 관리</a></li>
-               <li><a href="${R}club_admin/minutes?club_id=${club_id}">회의록</a></li>
-               <li><a href="${R}club_admin/publicity?club_id=${club_id}">홍보게시판</a></li>
-               <li><a href="${R}club_admin/recruit?club_id=${club_id}">모집게시판</a></li>
-               <li><a href="${R}club_admin/attendance?club_id=${club_id}">출석체크</a></li>
-               <li><a href="${R}club_admin/acceptance?club_id=${club_id}">회원 관리</a></li>
-               <li><a href="${R}club_admin/apply_q_form?club_id=${club_id}">지원 폼</a></li>
-            </ul>
+                <c:import url="../tiles/tiles_club_sidebar.jsp" />
          </div>
       </div>
    </div>

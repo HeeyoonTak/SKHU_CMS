@@ -39,6 +39,7 @@ import com.sofCap.dto.FilesDto;
 import com.sofCap.dto.SemDateDto;
 import com.sofCap.dto.UserClubDto;
 import com.sofCap.dto.UserDto;
+import com.sofCap.dto.ApplyQDto_mod;
 import com.sofCap.mapper.AccountMapper;
 import com.sofCap.mapper.ClubMapper;
 import com.sofCap.mapper.FileMapper;
@@ -222,7 +223,7 @@ public class ClubAdminController {
 		UserDto user = userService.findByLoginId(principal.getName()); // 현재 로그인한 사용자로 user 정보 획득
 		UserClubDto userclub = userClubService.findByUserId(user.getId()); // user와 연결된 user_club 정보 획득
 		ClubDto club = clubService.findById(userclub.getClub_id()); // user_club로 club 정보 획득
-		List<ApplyQDto> applyQ = clubService.findQuestionByClub(club.getId()); // club에 해당되어 있는 질문 리스트 가져오기
+		List<ApplyQDto_mod> applyQ = clubMapper.findQmodQusetionByClub(club.getId()); // club에 해당되어 있는 질문 리스트 가져오기
 		if (semdate.getSem_name() == null) {
 			Date now = Date.valueOf(LocalDate.now());
 			String sem_name = semdateMapper.findByDate(now);
@@ -251,7 +252,6 @@ public class ClubAdminController {
 		Date now = Date.valueOf(LocalDate.now());
 		String sem_name = semdateMapper.findByDate(now);
 		SemDateDto semdate = semdateMapper.findStartAndEndDate(sem_name);
-		System.out.print(questions.length);
 		for (int i = 0; i < questions.length; i++) {
 			ApplyQDto applyq = new ApplyQDto();
 			applyq.setContent(questions[i]);
@@ -270,8 +270,6 @@ public class ClubAdminController {
 		UserClubDto userclub = userClubService.findByUserId(user.getId()); // user와 연결된 user_club 정보 획득
 		ClubDto club = clubService.findById(userclub.getClub_id()); // user_club로 club 정보 획득
 		ApplyQDto edit_Q = clubMapper.QfindById(id);
-		System.out.println("번호 : " + id + " / 내용 : " + edited_question);
-		System.out.println("번호 : " + edit_Q.getId() + " / 내용 : " + edit_Q.getContent());
 		edit_Q.setContent(edited_question);
 		clubMapper.editQ(edit_Q);
 
@@ -282,6 +280,25 @@ public class ClubAdminController {
 	@RequestMapping("applyQ_delete")
 	public String deleteQ(Model model, @RequestParam("id") int id) {
 		clubService.deleteQ(id);
+		return "redirect:apply_q_list";
+	}
+	
+	// 질문 삭제 ( 질문에 따른 답변 모두 삭제 )
+	@RequestMapping("apply_all_delete")
+	public String all_delete(Model model, Principal principal) {
+		UserDto user = userService.findByLoginId(principal.getName()); // 현재 로그인한 사용자로 user 정보 획득
+		UserClubDto userclub = userClubService.findByUserId(user.getId()); // user와 연결된 user_club 정보 획득
+		ClubDto club = clubService.findById(userclub.getClub_id()); // user_club로 club 정보 획득
+		List<ApplyADto> applyA_all = clubMapper.findAnswerByClubId(club.getId());
+		for(int i =0; i<applyA_all.size(); i++) {
+			clubMapper.deleteA(applyA_all.get(i).getId());
+		}
+		List<ApplyQDto> applyQ_all = clubMapper.findQuestionByClub(club.getId());
+		for(int i =0; i<applyQ_all.size(); i++) {
+			clubMapper.deleteQ(applyQ_all.get(i).getId());
+		}
+		nav_list(model);
+		nav_user(model, principal);
 		return "redirect:apply_q_list";
 	}
 

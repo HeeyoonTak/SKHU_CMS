@@ -32,28 +32,21 @@
             <div class="col-md-9 col-md-push-3" id="fh5co-content">
                <div class="row">
                   <div style="margin-bottom: 20px">
-                     <h3>동아리 관리</h3>
+                     <h4 style="color: #CCCCCC;">동아리 관리</h4>
                   </div>
+                  <div>
                      <a href="manage?club_id=${club_id}" class="btn btn-primary btn-lg"
                                  id="l_search_term_btn">동아리 정보 편집</a>
-                     <a href="r_edit?id=${board.id}" class="btn btn-primary btn-lg"
+                     <a href="acceptance?club_id=${club_id}" class="btn btn-primary btn-lg"
                                  id="l_search_term_btn" >회원 관리</a>
-                     <a href="r_edit?id=${board.id}" class="btn btn-primary btn-lg"
-                                 id="l_search_term_btn" >지원 폼</a>
+                     <a href="apply_q_list" class="btn btn-primary btn-lg"
+                                 id="l_search_term_btn" >지원 폼 작성</a>
+                 </div>
                </div>
             </div>
          </div>
          <div class="col-md-3 col-md-pull-9" id="fh5co-sidebar">
-            <ul class="attendance_check-list hor_1">
-               <li><a href="${R}club_admin/notice?club_id=${club_id}">공지사항</a></li>
-               <li><a href="${R}club_admin/account?club_id=${club_id}">회계 관리</a></li>
-               <li><a href="${R}club_admin/minutes?club_id=${club_id}">회의록</a></li>
-               <li><a href="${R}club_admin/publicity?club_id=${club_id}">홍보게시판</a></li>
-               <li><a href="${R}club_admin/recruit?club_id=${club_id}">모집게시판</a></li>
-               <li><a href="${R}club_admin/attendance?club_id=${club_id}">출석체크</a></li>
-               <li><a href="${R}club_admin/acceptance?club_id=${club_id}">회원 관리</a></li>
-               <li><a href="${R}club_admin/apply_q_form?club_id=${club_id}">지원 폼</a></li>
-            </ul>
+                <c:import url="../tiles/tiles_club_sidebar.jsp" />
          </div>
       </div>
    </div>
