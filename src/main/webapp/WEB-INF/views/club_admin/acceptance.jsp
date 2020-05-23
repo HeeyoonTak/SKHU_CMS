@@ -125,7 +125,12 @@
 													type="hidden" name="club_id" value="${club.id}" />
 												<button class="btn btn-primary"
 													style="float: right; background-color: green; padding: 3px 10px; font-size: 15px;"
-													type="submit" name="cmd" value="yes">합격</button>
+													type="submit" name="cmd" value="yes" onclick="accept()">합격</button>
+													<script>
+														function accept(){
+															if (confirm("해당 지원자를 선발하겠습니까?") == false) return;
+														}
+													</script>
 												</div>
 											</form>
 										</td>
@@ -207,7 +212,12 @@
 													<input type="hidden" name="club_id" value="${club.id}" />													
 												<button class="btn btn-primary"
 													style="float: right; background-color: red; padding: 3px 10px; font-size: 15px;"
-													type="submit" name="cmd" value="no">탈퇴</button>
+													type="submit" name="cmd" value="no" onclick="deleteMember()">탈퇴</button>
+													<script>
+														function deleteMember(){
+															if (confirm("해당 회원을 탈퇴 시키겠습니까?") == false) return;
+														}
+													</script>
 												</div>
 											</form>
 										</td>
