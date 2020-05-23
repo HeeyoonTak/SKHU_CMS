@@ -32,14 +32,16 @@
             <div class="col-md-9 col-md-push-3" id="fh5co-content">
                <div class="row">
                   <div style="margin-bottom: 20px">
-                     <h3>동아리 관리</h3>
+                     <h4 style="color: #CCCCCC;">동아리 관리</h4>
                   </div>
+                  <div>
                      <a href="manage?club_id=${club_id}" class="btn btn-primary btn-lg"
                                  id="l_search_term_btn">동아리 정보 편집</a>
                      <a href="acceptance?club_id=${club_id}" class="btn btn-primary btn-lg"
                                  id="l_search_term_btn" >회원 관리</a>
                      <a href="apply_q_list" class="btn btn-primary btn-lg"
                                  id="l_search_term_btn" >지원 폼 작성</a>
+                 </div>
                </div>
             </div>
          </div>

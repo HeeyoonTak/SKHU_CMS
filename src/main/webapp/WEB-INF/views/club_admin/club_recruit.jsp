@@ -32,7 +32,7 @@
 				<div class="col-md-9 col-md-push-3" id="fh5co-content">
 					<div class="row">
 						<div style="margin-bottom: 20px">
-							<h3>모집 게시판</h3>
+							<h4 style="color: #CCCCCC; margin-left: 50px">모집 게시판</h4>
 						</div>
 						<div>
 							<div style="margin-left: 50px">
