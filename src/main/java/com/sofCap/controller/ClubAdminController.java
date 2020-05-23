@@ -282,6 +282,25 @@ public class ClubAdminController {
 		clubService.deleteQ(id);
 		return "redirect:apply_q_list";
 	}
+	
+	// 질문 삭제 ( 질문에 따른 답변 모두 삭제 )
+	@RequestMapping("apply_all_delete")
+	public String all_delete(Model model, Principal principal) {
+		UserDto user = userService.findByLoginId(principal.getName()); // 현재 로그인한 사용자로 user 정보 획득
+		UserClubDto userclub = userClubService.findByUserId(user.getId()); // user와 연결된 user_club 정보 획득
+		ClubDto club = clubService.findById(userclub.getClub_id()); // user_club로 club 정보 획득
+		List<ApplyADto> applyA_all = clubMapper.findAnswerByClubId(club.getId());
+		for(int i =0; i<applyA_all.size(); i++) {
+			clubMapper.deleteA(applyA_all.get(i).getId());
+		}
+		List<ApplyQDto> applyQ_all = clubMapper.findQuestionByClub(club.getId());
+		for(int i =0; i<applyQ_all.size(); i++) {
+			clubMapper.deleteQ(applyQ_all.get(i).getId());
+		}
+		nav_list(model);
+		nav_user(model, principal);
+		return "redirect:apply_q_list";
+	}
 
 	/*
 	 * ASY_board 동아리 관리

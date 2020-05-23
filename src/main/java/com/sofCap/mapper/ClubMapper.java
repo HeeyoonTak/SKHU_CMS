@@ -29,6 +29,8 @@ public interface ClubMapper {
 	List<ApplyQDto> findQuestion(int club_id);
 
 	List<ApplyQDto> findQuestionByClub(int club_id);
+	
+	void deleteA(int id);
 
 	ApplyQDto QfindById(int id);
 
