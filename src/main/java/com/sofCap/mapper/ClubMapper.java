@@ -23,10 +23,14 @@ public interface ClubMapper {
 	List<ClubDto> findByUserId(int user_id);
 
 	List<ApplyADto> findAnswer(int club_id, int user_id);
+	
+	List<ApplyADto> findAnswerByClubId(int id);
 
 	List<ApplyQDto> findQuestion(int club_id);
 
 	List<ApplyQDto> findQuestionByClub(int club_id);
+	
+	void deleteA(int id);
 
 	ApplyQDto QfindById(int id);
 
