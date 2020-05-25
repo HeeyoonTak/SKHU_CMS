@@ -132,7 +132,7 @@
 				<td><label for="uploadImage" class="btn btn-primary">파일선택</label>
 					<input type="file" name="file" class="btn btn-primary"
 					id="uploadImage" onchange="fileChange(this);"
-					>
+						style="display:none">
 					<p
 					class="fileName" style="display: none"></p></td>
 							<td><a onclick="return delete_row(this);" style="color:red;">x</a></td>
@@ -300,3 +300,23 @@
 			};
 		};
 	</script>
+
+	<!-- <script>
+	$(document).ready(function() {
+
+	var table = document.getElementsByTagName('table')[0],
+	  rows = table.getElementsByTagName('tr'),
+	  text = 'textContent' in document ? 'textContent' : 'innerText';
+
+		/* var label = document.getElementsByTagName('label')[1];
+		label.htmlFor = 'some-input-id'; */
+		
+	for (var i = 0, len = rows.length; i < len; i++) {
+		console.log("length:"+rows.length);
+		var label = document.getElementsByTagName('label')[i+1];
+		label.htmlFor += i+1; 
+		
+	/* rows[i].children[0][text] = i + ': ' + rows[i].children[0][text]; */
+ 	}
+	});
+	</script> -->
