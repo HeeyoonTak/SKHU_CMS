@@ -113,29 +113,28 @@
 <script>
         function attachAddr(obj) {
             const str = `<tr id="default">
-							<input type="hidden" name="club_id" value="${club_id}">
-							<td><input type="date" name="date"
-								class="form-control input-lg" max="${end_date}" min="${start_date}"></td>
-							<td><select class="form-control input-lg"
-								name="account_type">
-									<c:forEach var="at" items="${ account_type }"
-										varStatus="i">
-										<option value="${i.index}">${ at }</option>
-									</c:forEach>
-							</select></td>
-							<td><input type="number" name="price"
-								class="form-control input-lg" placeholder="사용금액"></td>
-							<td><input type="text" name="remark"
-								class="form-control input-lg" placeholder="사용내용"></td>
-							<!-- <td></td> -->
-							<td>
-							<label for="uploadImage" class="btn btn-primary">파일선택</label>
-							<input type="file" name="file"
-								class="btn btn-primary" id="uploadImage"
-								onchange="fileChange(this);" style="display:none"> 
-								<label
-								for="uploadImage" class="fileName" style="display: none"></label>
-							</td>
+				<input type="hidden" name="club_id" value="${club_id}">
+				<td><input type="date" name="date"
+					class="form-control input-lg" max="${end_date}"
+					min="${start_date}"></td>
+				<td><select class="form-control input-lg"
+					name="account_type">
+						<c:forEach var="at" items="${ account_type }"
+							varStatus="i">
+							<option value="${i.index}">${ at }</option>
+						</c:forEach>
+				</select></td>
+				<td><input type="number" name="price"
+					class="form-control input-lg" placeholder="사용금액"></td>
+				<td><input type="text" name="remark"
+					class="form-control input-lg" placeholder="사용내용"></td>
+				<!-- <td></td> -->
+				<td><label for="uploadImage" class="btn btn-primary">파일선택</label>
+					<input type="file" name="file" class="btn btn-primary"
+					id="uploadImage" onchange="fileChange(this);"
+					>
+					<p
+					class="fileName" style="display: none"></p></td>
 							<td><a onclick="return delete_row(this);" style="color:red;">x</a></td>
 						</tr>`;
 						
@@ -237,9 +236,10 @@
 <script>
     	function fileChange(obj){
             var fileName = obj.files[0].name;
-            $(obj).siblings('.fileName').css("display","inline-block");
-            $(obj).siblings('.fileName').text(fileName);   
-            return false;         
+            $(obj).next().css("display","inline-block");
+            $(obj).next().text(fileName);
+            console.log(obj);
+            return false;        
         };
     
 	</script>

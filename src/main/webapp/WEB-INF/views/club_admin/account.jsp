@@ -150,8 +150,9 @@
 												<td><label for="uploadImage" class="btn btn-primary">파일선택</label>
 													<input type="file" name="file" class="btn btn-primary"
 													id="uploadImage" onchange="fileChange(this);"
-													style="display: none"> <label for="uploadImage"
-													class="fileName" style="display: none"></label></td>
+													>
+													<p
+													class="fileName" style="display: none"></p></td>
 												<td><a onclick="return delete_row(this);"></a></td>
 											</tr>
 											<!-- END input row -->
