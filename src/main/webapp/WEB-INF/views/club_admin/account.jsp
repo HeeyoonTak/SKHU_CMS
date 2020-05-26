@@ -29,10 +29,11 @@
 	<div class="container">
 
 		<div class="row animate-box">
-			<h2 class="fh5co-uppercase-heading-sm text-center">회계 관리</h2>
-
 			<div id="fh5co-tab-feature-center"
 				class="fh5co-tab text-center col-md-9 col-md-push-3">
+				<h2 class="fh5co-uppercase-heading-sm text-center" id="heading">회계
+					관리</h2>
+
 				<ul class="resp-tabs-list hor_1">
 					<li><i class="fh5co-tab-menu-icon"></i>${ club.club_name }</li>
 				</ul>
@@ -57,6 +58,10 @@
 												<option selected>2020-1학기</option>
 											</select> -->
 										</form:form>
+										<a
+											href="${R}club_admin/account/excel/download?club_id=${club_id}"
+											class="btn btn-primary btn-sm"
+											style="margin-top: 10px; margin-bottom: -10px"> 엑셀 다운로드</a>
 									</div>
 								</div>
 							</form>
@@ -122,6 +127,8 @@
 											</c:forEach>
 										</tbody>
 										<tbody>
+
+											<!-- START input row -->
 											<tr id="default">
 												<input type="hidden" name="club_id" value="${club_id}">
 												<td><input type="date" name="date"
@@ -139,14 +146,15 @@
 												<td><input type="text" name="remark"
 													class="form-control input-lg" placeholder="사용내용"></td>
 												<!-- <td></td> -->
-												<td><input type="file" name="file"
-													class="btn btn-primary" id="uploadImage"
-													onchange="fileChange(this);"> <label
-													for="uploadImage" class="fileName" style="display: none"></label>
-												</td>
+												<td><p class="btn btn-primary" onclick="clickbutton(this);">파일선택</p>
+													<input type="file" name="file" class="btn btn-primary"
+													id="uploadImage" onchange="fileChange(this);"
+													style="display:none">
+													<p
+													class="fileName" style="display: none"></p></td>
 												<td><a onclick="return delete_row(this);"></a></td>
 											</tr>
-
+											<!-- END input row -->
 											<tr>
 												<td colspan="6"><button
 														onclick="return attachAddr(this);"
@@ -171,7 +179,22 @@
 			</div>
 			<!-- sidebar -->
 			<div class="col-md-3 col-md-pull-9" id="fh5co-sidebar">
-                <c:import url="../tiles/tiles_club_sidebar.jsp" />
+
+                <%-- <c:import url="../tiles/tiles_club_sidebar.jsp" /> --%>
+                
+				<ul class="attendance_check-list hor_1">
+					<li><a href="${R}club_admin/notice?club_id=${club_id}">공지사항</a></li>
+					<li><a href="${R}club_admin/account?club_id=${club_id}">회계
+							관리</a></li>
+					<li><a href="${R}club_admin/minutes?club_id=${club_id}">회의록</a></li>
+					<li><a href="${R}club_admin/publicity?club_id=${club_id}">홍보게시판</a></li>
+					<li><a href="${R}club_admin/recruit?club_id=${club_id}">모집게시판</a></li>
+					<li><a href="${R}club_admin/attendance?club_id=${club_id}">출석체크</a></li>
+					<li><a href="${R}club_admin/acceptance?club_id=${club_id}">회원
+							관리</a></li>
+					<li><a href="${R}club_admin/apply_q_form?club_id=${club_id}">지원
+							폼</a></li>
+				</ul>
 			</div>
 			<!-- sidebar 끝 -->
 		</div>

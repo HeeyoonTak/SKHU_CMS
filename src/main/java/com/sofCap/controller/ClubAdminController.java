@@ -1,8 +1,10 @@
 package com.sofCap.controller;
 
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URLEncoder;
 import java.security.Principal;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
@@ -12,6 +14,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -49,6 +52,7 @@ import com.sofCap.service.AccountService;
 import com.sofCap.service.AttendanceService;
 import com.sofCap.service.BoardService;
 import com.sofCap.service.ClubService;
+import com.sofCap.service.ExcelService;
 import com.sofCap.service.FileService;
 import com.sofCap.service.SemDateService;
 import com.sofCap.service.UserClubService;
@@ -82,6 +86,8 @@ public class ClubAdminController {
 	FileService fileService;
 	@Autowired
 	ClubMapper clubMapper;
+	@Autowired
+	ExcelService excelService;
 
 	public void nav_list(Model model) {
 		List<ClubDto> clubs = clubService.findAll();
@@ -688,7 +694,7 @@ public class ClubAdminController {
 			throws IOException {
 		String sem_name = semdate.getSem_name();
 		save(club_id, price, remark, file, account_type, date, sem_name);
-		return "redirect:account?club_id=" + club_id;
+		return "redirect:account?club_id="+club_id+"#fh5co-main";
 	}
 
 	/* 입력한 회계 내역 저장 트랜잭션 */
@@ -730,8 +736,28 @@ public class ClubAdminController {
 		int f_id = accountMapper.findFileId(id);
 		accountMapper.delete(id);
 		fileMapper.delete(f_id);
-		return "redirect:account?club_id=" + club_id;
+		return "redirect:account?club_id="+club_id+"#fh5co-main";
 	}
+	
+	/* 저장된 회계 내역 다운로드 */
+	@RequestMapping("account/excel/download")
+	public void download(HttpServletResponse response, @RequestParam("club_id") int club_id) throws Exception{
+		List<AccountDto> accounts = excelService.findByClubId(club_id);
+		Workbook workbook = excelService.createXLS(accounts);
+		
+		Date now = Date.valueOf(LocalDate.now());
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		String now_date = format.format(now);
+		String club_name = clubService.findById(club_id).getClub_name();
+		
+		String fileName = URLEncoder.encode(now_date+" "+club_name+" 회계.xls", "UTF-8");
+		response.setContentType("application/octet-stream");
+		response.setHeader("Content-Disposition", "attachment;filename=" + fileName + ";");
+		try(BufferedOutputStream output = new BufferedOutputStream(response.getOutputStream())){
+			workbook.write(output);
+		}
+	}
+	
 
 	/*
 	 * jyj_attendance 동아리 출석체크
