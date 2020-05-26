@@ -10,4 +10,5 @@ public interface FileMapper {
 	FilesDto getReceiptImage(int id);
 	void delete(int id);
 	void clubFileUpload(FilesDto file);
+	FilesDto getClubImage(int id);
 }

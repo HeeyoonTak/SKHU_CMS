@@ -342,6 +342,16 @@ public class ClubAdminController {
 		return "redirect:manage?club_id=" + club_id;
 	}
 
+	@RequestMapping(value = "getClubImage")
+	public void getClubImage(HttpServletRequest req, HttpServletResponse res, @RequestParam("id") int id)
+			throws IOException {
+		res.setContentType("image/jpeg");
+		FilesDto file = fileMapper.getClubImage(id);
+		byte[] imagefile = file.getData();
+		InputStream in1 = new ByteArrayInputStream(imagefile);
+		IOUtils.copy(in1, res.getOutputStream());
+	}
+
 	/*
 	 * ASY_board 동아리 공지사항
 	 */
@@ -742,18 +752,18 @@ public class ClubAdminController {
 		fileMapper.delete(f_id);
 		return "redirect:account?club_id="+club_id+"#fh5co-main";
 	}
-	
+
 	/* 저장된 회계 내역 다운로드 */
 	@RequestMapping("account/excel/download")
 	public void download(HttpServletResponse response, @RequestParam("club_id") int club_id) throws Exception{
 		List<AccountDto> accounts = excelService.findByClubId(club_id);
 		Workbook workbook = excelService.createXLS(accounts);
-		
+
 		Date now = Date.valueOf(LocalDate.now());
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		String now_date = format.format(now);
 		String club_name = clubService.findById(club_id).getClub_name();
-		
+
 		String fileName = URLEncoder.encode(now_date+" "+club_name+" 회계.xls", "UTF-8");
 		response.setContentType("application/octet-stream");
 		response.setHeader("Content-Disposition", "attachment;filename=" + fileName + ";");
@@ -761,7 +771,7 @@ public class ClubAdminController {
 			workbook.write(output);
 		}
 	}
-	
+
 
 	/*
 	 * jyj_attendance 동아리 출석체크
