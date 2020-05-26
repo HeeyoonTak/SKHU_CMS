@@ -14,4 +14,5 @@ public interface UserService {
 	void updateRole(int id);
 	void deleteCandidate(int user_id);
 	List<UserDto> findAll();
+	List<UserDto> findAllofNotMember();
 }

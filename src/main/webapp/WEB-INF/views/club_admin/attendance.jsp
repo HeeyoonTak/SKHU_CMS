@@ -15,8 +15,8 @@
 		<div class="col-md-8 col-md-offset-2">
 			<div class="fh5co-hero-wrap">
 				<div class="fh5co-hero-intro">
-					<h1 class="to-animate hero-animate-1">${myClub.club_name}</h1>
-					<h2 class="to-animate hero-animate-2">${myClub.content}</h2>
+					<h1 class="to-animate hero-animate-1">${club.club_name}</h1>
+					<h2 class="to-animate hero-animate-2">${club.content}</h2>
 				</div>
 			</div>
 		</div>
@@ -98,7 +98,7 @@
 													<c:if test="${status.count % fn:length(adminUser) eq 0}">
 														<!--출석체크 삭제-->
 														<td><a
-															href="attendance_delete?date=${attendance.date}&club_id=${user_club_id}">x</a></td>
+															href="attendance_delete?date=${attendance.date}&club_id=${club_id}">x</a></td>
 													</c:if>
 												</c:if>
 											</sec:authorize>
@@ -124,21 +124,7 @@
 				</div>
 			</div>
 			<div class="col-md-3 col-md-pull-9" id="fh5co-sidebar">
-				<ul class="attendance_check-list hor_1">
-					<li><a href="${R}club_admin/notice?club_id=${club_id}">공지사항</a></li>
-					<li><a href="${R}club_admin/account?club_id=${club_id}">회계
-							관리</a></li>
-					<li><a href="${R}club_admin/minutes?club_id=${club_id}">회의록</a></li>
-					<li><a href="${R}club_admin/publicity?club_id=${club_id}">홍보게시판</a></li>
-					<li><a href="${R}club_admin/recruit?club_id=${club_id}">모집게시판</a></li>
-					<li><a href="${R}club_admin/attendance?club_id=${club_id}">출석체크</a></li>
-					<li><a href="${R}club_admin/acceptance?club_id=${club_id}">회원
-							관리</a></li>
-					<li><a href="${R}club_admin/apply_q_form?club_id=${club_id}">지원
-							폼</a></li>
-					<li><a href="${R}club_admin/apply_q_list=${club_id}">지원
-							폼 만들기</a></li>
-				</ul>
+               <c:import url="../tiles/tiles_club_sidebar.jsp" />
 			</div>
 		</div>
 	</div>
@@ -146,7 +132,7 @@
 
 <!-- Modal -->
 <form:form method="post" action="" id="modalForm">
-	<input type="hidden" name="club_id" value="${user_club_id}">
+	<input type="hidden" name="club_id" value="${club_id}">
 	<div class="modal fade" id="modal" role="dialog">
 		<div class="modal-dialog modal-md">
 
@@ -191,7 +177,7 @@
 	    			$('#modalForm').attr('onsubmit','');
 	    			$('#modal').modal('show');
 				    var find = $(this).attr("find");
-				    var club_id = '${user_club_id}';
+				    var club_id = '${club_id}';
 			    	var obj;
 		    	    jQuery.ajax({
 			    	   type:"POST", 

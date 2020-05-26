@@ -76,7 +76,9 @@ INSERT INTO club (id,club_name, club_type, content) VALUES
   (12, '행운', 'Lucky', '1234', '동아리관리자', null, null),
   (13,'최지원자', 'UNKNOWN', '1234', '비회원', null,null),
   (14, '정세운', 'JSW', '1234', '일반회원', null, null),
-  (15, '김수현', 'KSH', '1234', '일반회원', null, null);
+  (15, '김수현', 'KSH', '1234', '일반회원', null, null),
+(16, '김지원자', 'kim', '1234', '비회원', null, null);
+
 
 LOCK TABLES `user_club` WRITE;
 /*!40000 ALTER TABLE `user_club` DISABLE KEYS */;
@@ -214,3 +216,6 @@ INSERT INTO board_name (id,board_name) VALUES
   INSERT INTO `softwarecapstion`.`apply_a` (`id`,`apply_q_id`, `content`, `user_id`, `club_id`) VALUES ('1','1', '심심해서요', '13', '2');
   INSERT INTO `softwarecapstion`.`apply_a` (`id`,`apply_q_id`, `content`, `user_id`, `club_id`) VALUES ('2','2', '56', '13', '2');
   INSERT INTO `softwarecapstion`.`apply_a` (`id`,`apply_q_id`, `content`, `user_id`, `club_id`) VALUES ('3','3', '죽지못해 산다', '13', '2');
+INSERT INTO `softwarecapstion`.`apply_a` (`id`,`apply_q_id`, `content`, `user_id`, `club_id`) VALUES ('4','1', 'ㄲ', '16', '2');
+  INSERT INTO `softwarecapstion`.`apply_a` (`id`,`apply_q_id`, `content`, `user_id`, `club_id`) VALUES ('5','2', 'ㄸ', '16', '2');
+  INSERT INTO `softwarecapstion`.`apply_a` (`id`,`apply_q_id`, `content`, `user_id`, `club_id`) VALUES ('6','3', 'ㅉ 산다', '16', '2');

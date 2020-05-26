@@ -36,20 +36,41 @@ public class ClubDaoImpl implements ClubDao {
 	}
 
 	@Override
-	public List<ClubDto> findByUser(String user_name) {
-		return clubMapper.findByUser(user_name);
+	public List<ClubDto> findByUserId(int user_id) {
+		return clubMapper.findByUserId(user_id);
 	}
 
 	@Override
-	public List<ApplyADto> findAnswer(int club_id) {
+	public List<ApplyADto> findAnswer(int club_id,int user_id) {
 		// TODO Auto-generated method stub
-		return clubMapper.findAnswer(club_id);
+		return clubMapper.findAnswer(club_id,user_id);
 	}
+	
+	@Override
+	public 	List<ApplyADto> findAnswerByClubId(int club_id){
+		return clubMapper.findAnswerByClubId(club_id);
+	}
+
 
 	@Override
 	public List<ApplyQDto> findQuestion(int club_id) {
 		// TODO Auto-generated method stub
 		return clubMapper.findQuestion(club_id);
+	}
+
+	@Override
+	public List<ApplyQDto> findQuestionByClub(int club_id) {
+		return clubMapper.findQuestionByClub(club_id);
+	}
+
+	@Override
+	public void insertQ(ApplyQDto applyQ) {
+		clubMapper.insertQ(applyQ);
+	}
+
+	@Override
+	public void deleteQ(int id) {
+		clubMapper.deleteQ(id);
 	}
 
 	@Override
@@ -60,5 +81,10 @@ public class ClubDaoImpl implements ClubDao {
 	@Override
 	public void delete(String name) {
 		clubMapper.delete(name);
+	}
+
+	@Override
+	public void update(ClubDto club) {
+		clubMapper.update(club);
 	}
 }

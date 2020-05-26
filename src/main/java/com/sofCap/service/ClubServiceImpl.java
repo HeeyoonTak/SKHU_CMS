@@ -31,8 +31,8 @@ public class ClubServiceImpl implements ClubService {
 	}
 
 	@Override
-	public List<ClubDto> findByUser(String user_name) {
-		return clubDao.findByUser(user_name);
+	public List<ClubDto> findByUserId(int user_id) {
+		return clubDao.findByUserId(user_id);
 	}
 
 	@Override
@@ -41,14 +41,35 @@ public class ClubServiceImpl implements ClubService {
 	}
 
 	@Override
-	public List<ApplyADto> findAnswer(int club_id) {
+	public List<ApplyADto> findAnswer(int club_id,int user_id) {
 		// TODO Auto-generated method stub
-		return clubDao.findAnswer(club_id);
+		return clubDao.findAnswer(club_id, user_id);
 	}
+	
+	@Override
+	public 	List<ApplyADto> findAnswerByClubId(int club_id){
+		return clubDao.findAnswerByClubId(club_id);
+	}
+
 	@Override
 	public List<ApplyQDto> findQuestion(int club_id) {
 		// TODO Auto-generated method stub
 		return clubDao.findQuestion(club_id);
+	}
+
+	@Override
+	public List<ApplyQDto> findQuestionByClub(int club_id) {
+		return clubDao.findQuestionByClub(club_id);
+	}
+
+	@Override
+	public void insertQ(ApplyQDto applyQ) {
+		clubDao.insertQ(applyQ);
+	}
+
+	@Override
+	public void deleteQ(int id) {
+		clubDao.deleteQ(id);
 	}
 
 	@Override
@@ -59,6 +80,11 @@ public class ClubServiceImpl implements ClubService {
 	@Override
 	public void delete(String name) {
 		clubDao.delete(name);
+	}
+
+	@Override
+	public void update(ClubDto club) {
+		clubDao.update(club);
 	}
 
 }

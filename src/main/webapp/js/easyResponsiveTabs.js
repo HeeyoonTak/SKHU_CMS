@@ -6,7 +6,7 @@
             //Set the default values, use comma to separate the settings, example:
             var defaults = {
                 type: 'default', //default, vertical, accordion;
-                width: 'auto',
+                width: 'unset',
                 fit: true,
                 closed: false,
                 tabidentify: '',
@@ -48,7 +48,7 @@
                 $respTabs.find('ul.resp-tabs-list.' + options.tabidentify + ' li').addClass('resp-tab-item').addClass(options.tabidentify);
                 $respTabs.css({
                     'display': 'block',
-                    'width': jwidth
+//                    'width': jwidth
                 });
 
                 if (options.type == 'vertical')
@@ -63,7 +63,7 @@
                         $respTabs.addClass('resp-vtabs').addClass(options.tabidentify);
                     }
                     if (jfit == true) {
-                        $respTabs.css({ width: '100%', margin: '0px' });
+                        $respTabs.css({ margin: '0px' });
                     }
                     if (jtype == accord) {
                         $respTabs.addClass('resp-easy-accordion').addClass(options.tabidentify);

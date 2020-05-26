@@ -1,8 +1,17 @@
 package com.sofCap.controller;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
 import java.security.Principal;
+import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,8 +20,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sofCap.dto.BoardDto;
 import com.sofCap.dto.ClubDto;
+import com.sofCap.dto.FilesDto;
 import com.sofCap.dto.UserDto;
 import com.sofCap.mapper.ClubMapper;
+import com.sofCap.mapper.FileMapper;
 import com.sofCap.service.BoardService;
 import com.sofCap.service.ClubService;
 import com.sofCap.service.UserService;
@@ -28,6 +39,8 @@ public class BoardController {
 	UserService userService;
 	@Autowired
 	ClubMapper clubMapper;
+	@Autowired
+	FileMapper fileMapper;
 
 	public void nav_list(Model model) {
 		List<ClubDto> clubs = clubService.findAll();
@@ -39,7 +52,7 @@ public class BoardController {
 			return;
 		else {
 			UserDto user = userService.findByLoginId(principal.getName());
-			List<ClubDto> user_clubs = clubMapper.findByUser(user.getName());
+			List<ClubDto> user_clubs = clubService.findByUserId(user.getId());
 			model.addAttribute("user_clubs", user_clubs);
 		}
 	}
@@ -55,6 +68,16 @@ public class BoardController {
 		return "guest/list-content";
 	}
 
+	@RequestMapping(value = "getClubImage")
+	public void getClubImage(HttpServletRequest req, HttpServletResponse res, @RequestParam("id") int id)
+			throws IOException {
+		res.setContentType("image/jpeg");
+		FilesDto file = fileMapper.getClubImage(id);
+		byte[] imagefile = file.getData();
+		InputStream in1 = new ByteArrayInputStream(imagefile);
+		IOUtils.copy(in1, res.getOutputStream());
+	}
+
 	@RequestMapping("p_content")
 	public String p_content(Model model, @RequestParam("id") int id, Principal principal) {
 		BoardDto board = boardService.findOne(id);
@@ -65,11 +88,30 @@ public class BoardController {
 	}
 
 	@RequestMapping("r_content")
-	public String r_content(Model model, @RequestParam("id") int id,Principal principal) {
+	public String r_content(Model model, @RequestParam("id") int id,Principal principal, HttpServletResponse response) throws IOException {
 		BoardDto board = boardService.findOne(id);
 		model.addAttribute("board",board);
 		nav_list(model);
 		nav_user(model, principal);
+
+		Date now = new Date();
+		Date start = board.getStart_date();
+		Date end = board.getEnd_date();
+
+		if(now.after(start) && now.after(end)) {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('마감되었습니다.'); history.go(-1);</script>");
+			out.flush();
+			return "redirect:recruit";
+		}
+		if(now.before(start) && now.before(start)) {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('모집 예정입니다.'); history.go(-1);</script>");
+			out.flush();
+			return "redirect:recruit";
+		}
 		return "guest/r_content";
 	}
 

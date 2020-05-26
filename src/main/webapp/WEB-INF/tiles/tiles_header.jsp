@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
 <c:url var="R" value="/" />
 
 <meta charset="UTF-8">
@@ -66,21 +68,27 @@
 <link rel="stylesheet" href="${R}css/hm_style.css">
 
 <link rel="stylesheet" href="${R}css/yj_style.css">
+
+<link rel="stylesheet" href="${R}css/sidebar.css">
 <!-- summernote 서식 -->
 
 
 <!-- <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
  -->
- <!-- 세연 js -->
-<!--  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> --> 
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
-   <!-- include summernote css/js-->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>
-    <!-- include summernote-ko-KR -->
-    <script src="${R}res/summernote/lang/summernote-ko-KR.js"></script>
+<!-- 세연 js -->
+<!--  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> -->
+<script
+	src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+<!-- include summernote css/js-->
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css"
+	rel="stylesheet">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>
+<!-- include summernote-ko-KR -->
+<script src="${R}res/summernote/lang/summernote-ko-KR.js"></script>
 
-    
+
 
 <!-- Modernizr JS -->
 <script src="${R}js/modernizr-2.6.2.min.js"></script>
@@ -96,39 +104,62 @@
 
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 
+<!--  질문 입력 추가 삽입 -->
+<script>
+        function attachApplyQ(obj) {
+        	const str = 
+               `<tr height="40">
+				<td colspan=2><input type="text" name="question"
+					style="margin: auto" class="form-control input"
+					style="margin-bottom: 3px; width: 100%"
+					placeholder="질문을 입력해주세요." /></td>
+				<td style="text-align: center;"><button
+						style="margin: auto" class="btn"
+						onclick="
+						return delete_row(this);">x</button></td>
+			</tr>`;
+            $(obj).parents('tr').before(str);;
+            return false;
+        }
+
+</script>
 <!--  회계 입력 tr 삽입 -->
-	<script>
+<script>
         function attachAddr(obj) {
             const str = `<tr id="default">
-							<td><input type="date" name="date"
-								class="form-control input-lg"></td>
-							<td><select class="form-control input-lg"
-								name="account_type">
-									<c:forEach var="at" items="${ account_type }"
-										varStatus="i">
-										<option value="${i.index}">${ at }</option>
-									</c:forEach>
-							</select></td>
-							<td><input type="number" name="price"
-								class="form-control input-lg" placeholder="사용금액"></td>
-							<td><input type="text" name="remark"
-								class="form-control input-lg" placeholder="사용내용 및 비고"></td>
-							<!-- <td></td> -->
-							<td><input type="file" name="file"
-								class="btn btn-primary" id="uploadImage"
-								onchange="fileChange(this);"> <label
-								for="uploadImage" class="fileName" style="display: none"></label>
-							</td>
-							<td><a onclick="return delete_row(this);">x</a></td>
+				<input type="hidden" name="club_id" value="${club_id}">
+				<td><input type="date" name="date"
+					class="form-control input-lg" max="${end_date}"
+					min="${start_date}"></td>
+				<td><select class="form-control input-lg"
+					name="account_type">
+						<c:forEach var="at" items="${ account_type }"
+							varStatus="i">
+							<option value="${i.index}">${ at }</option>
+						</c:forEach>
+				</select></td>
+				<td><input type="number" name="price"
+					class="form-control input-lg" placeholder="사용금액"></td>
+				<td><input type="text" name="remark"
+					class="form-control input-lg" placeholder="사용내용"></td>
+				<!-- <td></td> -->
+				<td><p class="btn btn-primary" onclick="clickbutton(this);">파일선택</p>
+					<input type="file" name="file" class="btn btn-primary"
+					id="uploadImage" onchange="fileChange(this);"
+						style="display:none">
+					<p
+					class="fileName" style="display: none"></p></td>
+							<td><a onclick="return delete_row(this);" style="color:red;">x</a></td>
 						</tr>`;
-            $(obj).parents('tr').before(str);
+						
+				$(obj).parents('tr').before(str);
             return false;
         }
 
 </script>
 
 <!-- summernote -->
-    <!-- <script>
+<!-- <script>
     $(document).ready(function() {
           $('#summernote').summernote({
                  placeholder: 'content',
@@ -139,9 +170,9 @@
           });
         });
     </script> -->
- 
- <!-- 회계 입력 tr 삭제 -->
-	<script>
+
+<!-- 회계 입력 tr 삭제 -->
+<script>
         function delete_row(obj) {
             $(obj).parents('tbody tr').remove();
             return false;
@@ -149,7 +180,7 @@
     </script>
 
 <!-- 회계 입력 빈 값 체크 -->
-	<script>
+<script>
 		 function check(ci_count){
 				var isValid=true;
 				var str="";
@@ -216,18 +247,19 @@
 	</script>
 
 <!--  영수증 첨부 파일 선택 시 파일명 나타내기 -->
-	<script>
+<script>
     	function fileChange(obj){
             var fileName = obj.files[0].name;
-            $(obj).siblings('.fileName').css("display","inline-block");
-            $(obj).siblings('.fileName').text(fileName);   
-            return false;         
+            $(obj).next().css("display","inline-block");
+            $(obj).next().text(fileName);
+            console.log(obj);
+            return false;        
         };
     
 	</script>
 
- <!-- 영수증 첨부 사진 볼 수 있는 modal 띄우기 -->
-	<script>
+<!-- 영수증 첨부 사진 볼 수 있는 modal 띄우기 -->
+<script>
 		function showReceipt(str){
 			var imgurl="${R}club_union/getImage?id="+str;
 			$('#receiptImg').attr("src",imgurl);
@@ -238,16 +270,16 @@
 			$('#modalBox').modal('hide');
 			}); */
 	</script>
-	
+
 <!-- 회계 내역 삭제 시 확인 alert -->
-	<script>
+<script>
 		function deleteAlert(){
 			alert("삭제되었습니다");
 		}
 	</script>
 
 <!-- 출석체크 추가 모달 생성 -->
-	<script>
+<script>
 		function attendanceCreate(){
 	    	$('#modal').find('tr:gt(0)').remove();
 	    	$('#modal #modal-title').text('출석체크');
@@ -260,7 +292,7 @@
 	</script>
 
 <!-- 출석체크 생성시 기존에 존재하는 날짜일 때 에러 메시지 출력, 현재 학기에 해당하는 날짜일때만 삽입 가능 !에러 메시지 출력 -->
-	<script>
+<script>
 		function checkForm() {
 	    	var date = $('#date').val();
 	    	var overlap = '';
@@ -281,4 +313,10 @@
 				return false;
 			};
 		};
+	</script>
+	
+	<script>
+		function clickbutton(obj){
+			$(obj).next().click();
+			}
 	</script>

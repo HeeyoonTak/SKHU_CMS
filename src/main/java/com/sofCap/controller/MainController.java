@@ -20,6 +20,7 @@ import com.sofCap.dto.ClubDto;
 import com.sofCap.dto.UserDto;
 import com.sofCap.mapper.BoardMapper;
 import com.sofCap.mapper.ClubMapper;
+import com.sofCap.service.ClubService;
 import com.sofCap.service.UserClubService;
 import com.sofCap.service.UserService;
 
@@ -35,6 +36,8 @@ public class MainController {
 	BoardMapper boardMapper;
 	@Autowired
 	ClubMapper clubMapper;
+	@Autowired
+	ClubService clubService;
 
 	public void nav_list(Model model) {
 		List<ClubDto> clubs = clubMapper.findAll();
@@ -46,7 +49,7 @@ public class MainController {
 			return;
 		else {
 			UserDto user = userService.findByLoginId(principal.getName());
-			List<ClubDto> user_clubs = clubMapper.findByUser(user.getName());
+			List<ClubDto> user_clubs = clubService.findByUserId(user.getId());
 			model.addAttribute("user_clubs", user_clubs);
 		}
 	}
@@ -72,6 +75,7 @@ public class MainController {
 		UserDto user = userService.findByLoginId(principal.getName());
 		model.addAttribute("user", user);
 		nav_list(model);
+		nav_user(model, principal);
 		return "guest/myPage";
 	}
 

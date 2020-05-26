@@ -19,4 +19,16 @@
 		DELETE FROM files 
 		WHERE id=#{id}
 	</delete>
+	
+	<insert id="clubFileUpload" useGeneratedKeys="true" keyProperty="id">
+		INSERT files (file_name, size, data)
+		VALUES (#{file_name}, #{size}, #{data})
+	</insert>
+	
+	<select id="getClubImage" resultType="FilesDto">
+		SELECT f.* FROM files f
+		RIGHT JOIN club c
+		ON c.file_id = f.id
+		WHERE c.id=#{id}
+	</select>
 </mapper>

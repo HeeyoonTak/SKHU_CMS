@@ -15,8 +15,8 @@
 		<div class="col-md-8 col-md-offset-2">
 			<div class="fh5co-hero-wrap">
 				<div class="fh5co-hero-intro">
-					<h1 class="to-animate hero-animate-1">동아리 명칭</h1>
-					<h2 class="to-animate hero-animate-2">동아리 소개글</h2>
+					<h1 class="to-animate hero-animate-1">${club.club_name}</h1>
+					<h2 class="to-animate hero-animate-2">${club.content}</h2>
 				</div>
 			</div>
 		</div>
@@ -30,10 +30,10 @@
 				<div class="col-md-9 col-md-push-3" id="fh5co-content">
 					<div class="row">
 						<div style="margin-bottom: 20px">
-							<h3>회의록</h3>
+							<h4 style="color: #CCCCCC; margin-left: 50px">회의록</h4>
 						</div>
 						<div>
- 							<div class="row">
+							<div class="row">
 								<form action="#" method="post">
 									<div class="col-md-9"></div>
 									<div class="col-md-3">
@@ -61,12 +61,13 @@
 									</tr>
 									<c:forEach var="board" items="${boards}">
 										<tr>
-											<td><a href="m_content?club_id=${board.club_id}&id=${board.id}">${board.title}</a></td>
+											<td><a
+												href="m_content?club_id=${board.club_id}&id=${board.id}">${board.title}</a></td>
 											<td style="text-align: center; width: 200px;"><fmt:formatDate
 													pattern="yyyy-MM-dd" value="${ board.date }" /></td>
 											<sec:authorize access="hasRole('ROLE_ClubAdmin')">
-												<td style="width: 50px"><a href="m_delete?id=${board.id}"
-													style="color: #ff0000">x</a></td>
+												<td style="width: 50px"><a
+													href="m_delete?id=${board.id}" style="color: #ff0000">x</a></td>
 											</sec:authorize>
 										</tr>
 									</c:forEach>
@@ -81,8 +82,9 @@
 								<div class="row">
 									<div class="col-md-12">
 										<sec:authorize access="hasRole('ROLE_ClubAdmin')">
-											<a href="m_create?club_id=${club_id}" class="btn btn-primary btn-lg"
-												id="l_search_term_btn" style="float: right;">작성</a>
+											<a href="m_create?club_id=${club_id}"
+												class="btn btn-primary btn-lg" id="l_search_term_btn"
+												style="float: right;">작성</a>
 										</sec:authorize>
 									</div>
 								</div>
@@ -91,18 +93,9 @@
 					</div>
 				</div>
 			</div>
-         <div class="col-md-3 col-md-pull-9" id="fh5co-sidebar">
-            <ul class="attendance_check-list hor_1">
-               <li><a href="${R}club_admin/notice?club_id=${club_id}">공지사항</a></li>
-               <li><a href="${R}club_admin/account?club_id=${club_id}">회계 관리</a></li>
-               <li><a href="${R}club_admin/minutes?club_id=${club_id}">회의록</a></li>
-               <li><a href="${R}club_admin/publicity?club_id=${club_id}">홍보게시판</a></li>
-               <li><a href="${R}club_admin/recruit?club_id=${club_id}">모집게시판</a></li>
-               <li><a href="${R}club_admin/attendance?club_id=${club_id}">출석체크</a></li>
-               <li><a href="${R}club_admin/acceptance?club_id=${club_id}">회원 관리</a></li>
-               <li><a href="${R}club_admin/apply_q_form?club_id=${club_id}">지원 폼</a></li>
-            </ul>
-         </div>
+			<div class="col-md-3 col-md-pull-9" id="fh5co-sidebar">
+                <c:import url="../tiles/tiles_club_sidebar.jsp" />
+			</div>
 		</div>
 	</div>
 </div>
