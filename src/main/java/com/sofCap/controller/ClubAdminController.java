@@ -32,6 +32,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.sofCap.dto.AccountDto;
 import com.sofCap.dto.ApplyADto;
 import com.sofCap.dto.ApplyQDto;
+import com.sofCap.dto.ApplyQDto_mod;
 import com.sofCap.dto.AttendanceDto;
 import com.sofCap.dto.BoardDto;
 import com.sofCap.dto.ClubDto;
@@ -39,7 +40,6 @@ import com.sofCap.dto.FilesDto;
 import com.sofCap.dto.SemDateDto;
 import com.sofCap.dto.UserClubDto;
 import com.sofCap.dto.UserDto;
-import com.sofCap.dto.ApplyQDto_mod;
 import com.sofCap.mapper.AccountMapper;
 import com.sofCap.mapper.ClubMapper;
 import com.sofCap.mapper.FileMapper;
@@ -282,7 +282,7 @@ public class ClubAdminController {
 		clubService.deleteQ(id);
 		return "redirect:apply_q_list";
 	}
-	
+
 	// 질문 삭제 ( 질문에 따른 답변 모두 삭제 )
 	@RequestMapping("apply_all_delete")
 	public String all_delete(Model model, Principal principal) {
@@ -325,9 +325,13 @@ public class ClubAdminController {
 	}
 
 	@RequestMapping(value = "manage", method = RequestMethod.POST)
-	public String manage(Model model, ClubDto club1, @RequestParam("club_id") int club_id) {
+	public String manage(Model model, @RequestBody MultipartFile file_id, @RequestParam("club_id") int club_id, @RequestParam("content") String content) throws IOException {
 		ClubDto club = clubService.findById(club_id);
-		club.setContent(club1.getContent());
+		if (!file_id.isEmpty()) {
+			int f_id = fileService.clubFileUpload(file_id);
+			club.setFile_id(f_id);
+		}
+		club.setContent(content);
 		clubService.update(club);
 		return "redirect:manage?club_id=" + club_id;
 	}
