@@ -40,8 +40,7 @@
 												placeholder="제목" path="title" class="form-control input-md" /></th>
 									</tr>
 									<tr>
-										<td><textarea id="summernote" name="content">${board.content }</textarea>
-											<input type="hidden" name="content" /></td>
+										<td><textarea id="summernote" name="content">${board.content }</textarea></td>
 									</tr>
 									<tr style="text-align: center">
 										<td>신청 기간: <form:input type="date" path="start_date"
