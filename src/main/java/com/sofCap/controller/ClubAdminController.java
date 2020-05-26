@@ -331,9 +331,13 @@ public class ClubAdminController {
 	}
 
 	@RequestMapping(value = "manage", method = RequestMethod.POST)
-	public String manage(Model model, ClubDto club1, @RequestParam("club_id") int club_id) {
+	public String manage(Model model, @RequestBody MultipartFile file_id, @RequestParam("club_id") int club_id, @RequestParam("content") String content) throws IOException {
 		ClubDto club = clubService.findById(club_id);
-		club.setContent(club1.getContent());
+		if (!file_id.isEmpty()) {
+			int f_id = fileService.clubFileUpload(file_id);
+			club.setFile_id(f_id);
+		}
+		club.setContent(content);
 		clubService.update(club);
 		return "redirect:manage?club_id=" + club_id;
 	}

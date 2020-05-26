@@ -16,5 +16,9 @@ public class FileDaoImpl implements FileDao {
 		return;
 	}
 
-
+	@Override
+	public void clubFileUpload(FilesDto file) {
+		fileMapper.clubFileUpload(file);
+		return;
+	}
 }

@@ -121,7 +121,8 @@
 
 	<update id="update">
 		UPDATE Club SET
-		content = #{content}
+		content = #{content},
+		file_id = #{file_id}
 		WHERE id=#{id}
 	</update>
 

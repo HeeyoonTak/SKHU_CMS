@@ -36,4 +36,25 @@ public class FileServiceImpl implements FileService {
 		return afd.getId();
 	}
 
+	@Override
+	public void clubFileUpload(FilesDto file) {
+		fileDao.clubFileUpload(file);
+		return;
+	}
+
+	@Override
+	public int clubFileUpload(MultipartFile uploadFile) throws IOException {
+		String fileName = System.currentTimeMillis() + "_" + uploadFile.getOriginalFilename();
+		byte[] data = null;
+		int size = (int) uploadFile.getSize();
+		data = uploadFile.getBytes();
+
+		afd.setFile_name(fileName);
+		afd.setData(data);
+		afd.setSize(size);
+
+		clubFileUpload(afd);
+		return afd.getId();
+	}
+
 }
