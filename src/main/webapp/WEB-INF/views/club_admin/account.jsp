@@ -180,9 +180,9 @@
 			<!-- sidebar -->
 			<div class="col-md-3 col-md-pull-9" id="fh5co-sidebar">
 
-                <%-- <c:import url="../tiles/tiles_club_sidebar.jsp" /> --%>
+                <c:import url="../tiles/tiles_club_sidebar.jsp" /> 
                 
-				<ul class="attendance_check-list hor_1">
+				<%-- <ul class="attendance_check-list hor_1">
 					<li><a href="${R}club_admin/notice?club_id=${club_id}">공지사항</a></li>
 					<li><a href="${R}club_admin/account?club_id=${club_id}">회계
 							관리</a></li>
@@ -194,7 +194,7 @@
 							관리</a></li>
 					<li><a href="${R}club_admin/apply_q_form?club_id=${club_id}">지원
 							폼</a></li>
-				</ul>
+				</ul> --%>
 			</div>
 			<!-- sidebar 끝 -->
 		</div>

@@ -154,10 +154,10 @@
 															class="form-control input-lg" placeholder="사용내용 및 비고"></td>
 														<!-- <td></td> -->
 														<td><label for="uploadImage" class="btn btn-primary">파일선택</label>
-													<input type="file" name="file" class="btn btn-primary"
-													id="uploadImage" onchange="fileChange(this);"
-													style="display: none"> <label for="uploadImage"
-													class="fileName" style="display: none"></label></td>
+															<input type="file" name="file" class="btn btn-primary"
+															id="uploadImage" onchange="fileChange(this);"
+															style="display: none"> <label for="uploadImage"
+															class="fileName" style="display: none"></label></td>
 														<td><a onclick="return delete_row(this);"></a></td>
 													</tr>
 
@@ -187,7 +187,7 @@
 			</div>
 
 			<!-- sidebar -->
-			<div class="col-md-3 col-md-pull-9" id="fh5co-sidebar">
+			<%-- <div class="col-md-3 col-md-pull-9" id="fh5co-sidebar">
 				<ul class="attendance_check-list hor_1">
 					<li><a href="${R}club_union/notice">공지사항</a></li>
 					<sec:authorize
@@ -201,6 +201,12 @@
 					<li><a href="${R}club_union/attendance">출석체크</a></li>
 					<li><a href="${R}club_union/minutes">회의록</a></li>
 				</ul>
+			</div> --%>
+			<!-- sidebar 끝 -->
+			
+			<!-- sidebar -->
+			<div class="col-md-3 col-md-pull-9" id="fh5co-sidebar">
+				<c:import url="../tiles/tiles_union_sidebar.jsp" />
 			</div>
 			<!-- sidebar 끝 -->
 
@@ -213,11 +219,7 @@
 		<div class="fh5co-spacer fh5co-spacer-md"></div>
 	</div>
 	<!-- // END container -->
-	<!-- sidebar -->
-	<div class="col-md-2 col-md-pull-7" id="fh5co-sidebar">
-           <c:import url="../tiles/tiles_union_sidebar.jsp" />
-	</div>
-	<!-- sidebar 끝 -->
+
 </div>
 
 
