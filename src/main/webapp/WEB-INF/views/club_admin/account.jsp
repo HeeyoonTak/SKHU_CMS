@@ -147,7 +147,7 @@
 												<td><input type="text" name="remark"
 													class="form-control input-lg" placeholder="사용내용"></td>
 												<!-- <td></td> -->
-												<td><label for="uploadImage" class="btn btn-primary">파일선택</label>
+												<td><p class="btn btn-primary" onclick="clickbutton(this);">파일선택</p>
 													<input type="file" name="file" class="btn btn-primary"
 													id="uploadImage" onchange="fileChange(this);"
 													style="display:none">

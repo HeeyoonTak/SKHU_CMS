@@ -129,7 +129,7 @@
 				<td><input type="text" name="remark"
 					class="form-control input-lg" placeholder="사용내용"></td>
 				<!-- <td></td> -->
-				<td><label for="uploadImage" class="btn btn-primary">파일선택</label>
+				<td><p class="btn btn-primary" onclick="clickbutton(this);">파일선택</p>
 					<input type="file" name="file" class="btn btn-primary"
 					id="uploadImage" onchange="fileChange(this);"
 						style="display:none">
@@ -300,23 +300,9 @@
 			};
 		};
 	</script>
-
-	<!-- <script>
-	$(document).ready(function() {
-
-	var table = document.getElementsByTagName('table')[0],
-	  rows = table.getElementsByTagName('tr'),
-	  text = 'textContent' in document ? 'textContent' : 'innerText';
-
-		/* var label = document.getElementsByTagName('label')[1];
-		label.htmlFor = 'some-input-id'; */
-		
-	for (var i = 0, len = rows.length; i < len; i++) {
-		console.log("length:"+rows.length);
-		var label = document.getElementsByTagName('label')[i+1];
-		label.htmlFor += i+1; 
-		
-	/* rows[i].children[0][text] = i + ': ' + rows[i].children[0][text]; */
- 	}
-	});
-	</script> -->
+	
+	<script>
+		function clickbutton(obj){
+			$(obj).next().click();
+			}
+	</script>
