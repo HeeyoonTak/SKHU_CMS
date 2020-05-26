@@ -14,8 +14,8 @@
 			<div class="fh5co-hero-wrap">
 				<form>
 					<div class="fh5co-hero-intro">
-						<h1 class="to-animate hero-animate-1">멋쟁이 사자처럼</h1>
-						<h2 class="to-animate hero-animate-2">웹프로그래밍을 기반으로 한 개발 동아리</h2>
+						<h1 class="to-animate hero-animate-1">모집 게시판</h1>
+						<h2 class="to-animate hero-animate-2">동아리원을 모집하는 게시판</h2>
 					</div>
 				</form>
 			</div>
