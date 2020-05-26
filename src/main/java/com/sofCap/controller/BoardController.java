@@ -1,13 +1,17 @@
 package com.sofCap.controller;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.security.Principal;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,8 +20,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sofCap.dto.BoardDto;
 import com.sofCap.dto.ClubDto;
+import com.sofCap.dto.FilesDto;
 import com.sofCap.dto.UserDto;
 import com.sofCap.mapper.ClubMapper;
+import com.sofCap.mapper.FileMapper;
 import com.sofCap.service.BoardService;
 import com.sofCap.service.ClubService;
 import com.sofCap.service.UserService;
@@ -33,6 +39,8 @@ public class BoardController {
 	UserService userService;
 	@Autowired
 	ClubMapper clubMapper;
+	@Autowired
+	FileMapper fileMapper;
 
 	public void nav_list(Model model) {
 		List<ClubDto> clubs = clubService.findAll();
@@ -58,6 +66,16 @@ public class BoardController {
 		nav_list(model);
 		nav_user(model, principal);
 		return "guest/list-content";
+	}
+
+	@RequestMapping(value = "getClubImage")
+	public void getClubImage(HttpServletRequest req, HttpServletResponse res, @RequestParam("id") int id)
+			throws IOException {
+		res.setContentType("image/jpeg");
+		FilesDto file = fileMapper.getClubImage(id);
+		byte[] imagefile = file.getData();
+		InputStream in1 = new ByteArrayInputStream(imagefile);
+		IOUtils.copy(in1, res.getOutputStream());
 	}
 
 	@RequestMapping("p_content")

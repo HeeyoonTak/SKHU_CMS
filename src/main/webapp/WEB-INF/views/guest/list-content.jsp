@@ -37,8 +37,7 @@
 									<h2 class="h3">소개글</h2>
 								</div>
 								<div class="col-md-6">
-									<img src="images/likelion.jpg"
-										style="width: 300px; height: 300px;">
+									<img src="${R}/getClubImage?id=${club.id}" id="clubImg" />
 								</div>
 								<form>
 									<div class="col-md-6">
