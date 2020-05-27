@@ -127,7 +127,12 @@ public class ClubAdminController {
 		model.addAttribute("user_id", user_id);
 		nav_list(model);
 		nav_user(model, principal);
-		return "club_admin/acceptance";
+		System.out.println(user.getUser_type());
+		if(user.getUser_type().equals("동아리관리자")) {
+			return "club_admin/acceptance";  //"redirect:notice?club_id=" + club_id;
+		}else {
+			return "redirect:notice?club_id=" + club_id;
+		}
 	}
 
 	/* 지원자 개별 합격 */
@@ -239,6 +244,7 @@ public class ClubAdminController {
 		model.addAttribute("applyQ", applyQ);
 		nav_list(model);
 		nav_user(model, principal);
+
 		return "club_admin/apply_q_list";
 	}
 
@@ -314,20 +320,30 @@ public class ClubAdminController {
 	@RequestMapping("club_manage")
 	public String club_manage(Model model, @RequestParam("club_id") int club_id, Principal principal) {
 		model.addAttribute("club_id", club_id);
+		UserDto user = userService.findByLoginId(principal.getName());
 		nav_list(model);
 		nav_user(model, principal);
-		return "club_admin/club_manage";
+		if(user.getUser_type().equals("동아리관리자")) {
+			return "club_admin/club_manage";
+		}else {
+			return "redirect:notice?club_id=" + club_id;
+		}
 	}
 
 	/* 동아리 정보 편집 구현 */
 	@RequestMapping(value = "manage", method = RequestMethod.GET)
 	public String manage(Model model, @RequestParam("club_id") int club_id, Principal principal) {
+		UserDto user = userService.findByLoginId(principal.getName());
 		ClubDto club = clubService.findById(club_id);
 		model.addAttribute("club_id", club_id);
 		model.addAttribute("club", club);
 		nav_list(model);
 		nav_user(model, principal);
-		return "club_admin/manage";
+		if(user.getUser_type().equals("동아리관리자")) {
+			return "club_admin/manage";
+		}else {
+			return "redirect:notice?club_id=" + club_id;
+		}
 	}
 
 	@RequestMapping(value = "manage", method = RequestMethod.POST)

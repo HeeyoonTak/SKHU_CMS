@@ -32,8 +32,7 @@
 
 	<select id="findByNotMember" resultType="UserDto">
 		SELECT u.* FROM User u
-		JOIN apply_a a on a.user_id=u.id 
-    	JOIN apply_q q on q.club_id=#{club_id} and u.user_type='비회원'
+		JOIN apply_a a on a.user_id=u.id and a.club_id=#{club_id} and u.user_type='비회원'
     	GROUP BY u.name
 	</select>
 
