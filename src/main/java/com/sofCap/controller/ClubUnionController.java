@@ -180,7 +180,7 @@ public class ClubUnionController {
 				attendanceService.update(updateck[i]);
 			}
 		}
-		return "redirect:/club_union/attendance";
+		return "redirect:/club_union/attendance#heading";
 	}
 
 	/*
@@ -195,7 +195,7 @@ public class ClubUnionController {
 
 		// 현재 학기에 해당하는 경우 - 삽입
 		attendanceService.dateNow(date, sem, 1);
-		return "redirect:/club_union/attendance";
+		return "redirect:/club_union/attendance#heading";
 	}
 
 	/*
@@ -204,7 +204,7 @@ public class ClubUnionController {
 	@RequestMapping("attendance_delete")
 	public String delete(Model model, @RequestParam("date") Date date) {
 		attendanceService.delete(date, 1);
-		return "redirect:attendance";
+		return "redirect:/club_union/attendance#heading";
 	}
 
 	/*

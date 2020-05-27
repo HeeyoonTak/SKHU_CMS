@@ -861,7 +861,7 @@ public class ClubAdminController {
 				attendanceService.update(updateck[i]);
 			}
 		}
-		return "redirect:attendance?club_id=" + club_id;
+		return "redirect:attendance?club_id=" + club_id + "#heading";
 	}
 
 	/*
@@ -883,7 +883,7 @@ public class ClubAdminController {
 			// 현재 학기에 해당하는 경우 - 삽입
 			attendanceService.dateNow(date, sem, club_id);
 		}
-		return "redirect:attendance?club_id=" + club_id;
+		return "redirect:attendance?club_id=" + club_id + "#heading";
 	}
 
 	/*
@@ -892,6 +892,6 @@ public class ClubAdminController {
 	@RequestMapping("attendance_delete")
 	public String delete(Model model, @RequestParam("date") Date date, @RequestParam("club_id") int club_id) {
 		attendanceService.delete(date, club_id);
-		return "redirect:attendance?club_id=" + club_id;
+		return "redirect:attendance?club_id=" + club_id + "#heading";
 	}
 }

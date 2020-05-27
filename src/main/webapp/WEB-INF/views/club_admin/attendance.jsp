@@ -27,7 +27,7 @@
 
 	<div class="container">
 		<div class="row animate-box">
-			<h2 class="fh5co-uppercase-heading-sm text-right">출석체크</h2>
+			<h2 class="fh5co-uppercase-heading-sm text-right" id="heading">출석체크</h2>
 		</div>
 
 		<div class="row1">
