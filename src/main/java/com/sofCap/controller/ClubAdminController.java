@@ -4,6 +4,7 @@ import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.net.URLEncoder;
 import java.security.Principal;
 import java.sql.Date;
@@ -109,7 +110,7 @@ public class ClubAdminController {
 	 */
 	@GetMapping("acceptance")
 	public String acceptane(Model model, @RequestParam("club_id") int club_id, Principal principal,
-			@RequestParam(value = "user_id", defaultValue = "0") int user_id) {
+			@RequestParam(value = "user_id", defaultValue = "0") int user_id, HttpServletResponse response) throws IOException {
 		UserDto user = userService.findByLoginId(principal.getName());
 		ClubDto club = clubService.findById(club_id);
 		List<UserDto> acceptanceYes = userService.findByMember(club_id);
@@ -129,8 +130,12 @@ public class ClubAdminController {
 		nav_user(model, principal);
 		System.out.println(user.getUser_type());
 		if(user.getUser_type().equals("동아리관리자")) {
-			return "club_admin/acceptance";  //"redirect:notice?club_id=" + club_id;
+			return "club_admin/acceptance";
 		}else {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('접근이 제한된 사용자입니다.'); history.go(-1);</script>");
+			out.flush();
 			return "redirect:notice?club_id=" + club_id;
 		}
 	}
@@ -230,7 +235,7 @@ public class ClubAdminController {
 
 	// 동아리마다 모집 지원 _질문 리스트
 	@RequestMapping("apply_q_list")
-	public String apply_q_list(Model model, SemDate semdate, Principal principal) {
+	public String apply_q_list(Model model, SemDate semdate, Principal principal, HttpServletResponse response) throws IOException  {
 		UserDto user = userService.findByLoginId(principal.getName()); // 현재 로그인한 사용자로 user 정보 획득
 		UserClubDto userclub = userClubService.findByUserId(user.getId()); // user와 연결된 user_club 정보 획득
 		ClubDto club = clubService.findById(userclub.getClub_id()); // user_club로 club 정보 획득
@@ -245,7 +250,15 @@ public class ClubAdminController {
 		nav_list(model);
 		nav_user(model, principal);
 
-		return "club_admin/apply_q_list";
+		if(user.getUser_type().equals("동아리관리자")) {
+			return "club_admin/apply_q_list";
+		}else {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('접근이 제한된 사용자입니다.'); history.go(-1);</script>");
+			out.flush();
+			return "redirect:notice?club_id=" + club.getId();
+		}
 	}
 
 	// 동아리마다 모집 지원 질문 쓰기
@@ -318,7 +331,7 @@ public class ClubAdminController {
 	 * ASY_board 동아리 관리
 	 */
 	@RequestMapping("club_manage")
-	public String club_manage(Model model, @RequestParam("club_id") int club_id, Principal principal) {
+	public String club_manage(Model model, @RequestParam("club_id") int club_id, Principal principal, HttpServletResponse response) throws IOException {
 		model.addAttribute("club_id", club_id);
 		UserDto user = userService.findByLoginId(principal.getName());
 		nav_list(model);
@@ -326,13 +339,17 @@ public class ClubAdminController {
 		if(user.getUser_type().equals("동아리관리자")) {
 			return "club_admin/club_manage";
 		}else {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('접근이 제한된 사용자입니다.'); history.go(-1);</script>");
+			out.flush();
 			return "redirect:notice?club_id=" + club_id;
 		}
 	}
 
 	/* 동아리 정보 편집 구현 */
 	@RequestMapping(value = "manage", method = RequestMethod.GET)
-	public String manage(Model model, @RequestParam("club_id") int club_id, Principal principal) {
+	public String manage(Model model, @RequestParam("club_id") int club_id, Principal principal, HttpServletResponse response) throws IOException {
 		UserDto user = userService.findByLoginId(principal.getName());
 		ClubDto club = clubService.findById(club_id);
 		model.addAttribute("club_id", club_id);
@@ -342,6 +359,10 @@ public class ClubAdminController {
 		if(user.getUser_type().equals("동아리관리자")) {
 			return "club_admin/manage";
 		}else {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('접근이 제한된 사용자입니다.'); history.go(-1);</script>");
+			out.flush();
 			return "redirect:notice?club_id=" + club_id;
 		}
 	}
