@@ -20,8 +20,8 @@ public class AccountDaoImpl implements AccountDao {
 	}
 
 	@Override
-	public 	List<AccountDto> findByClubId(int club_id){
-		return accountMapper.findByClubId(club_id);
+	public 	List<AccountDto> findByClubIdAndSem(int club_id,String sem_name){
+		return accountMapper.findByClubIdAndSem(club_id,sem_name);
 	}
 
 	@Override
