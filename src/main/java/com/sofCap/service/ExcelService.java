@@ -14,16 +14,15 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sofCap.dao.AccountDao;
 import com.sofCap.dto.AccountDto;
 
 @Service
 public class ExcelService {
-	@Autowired AccountDao accountDao;
+	@Autowired AccountService accountService;
 
 	//클럽별 회계 목록을 리턴하는 메소드
-	public List<AccountDto> findByClubId(int club_id){
-		return accountDao.findByClubId(club_id);
+	public List<AccountDto> findByClubIdAndSem(int club_id,String sem_name){
+		return accountService.findByClubIdAndSem(club_id,sem_name);
 	}
 	
 	//날짜 서식을 생성하는 메소드

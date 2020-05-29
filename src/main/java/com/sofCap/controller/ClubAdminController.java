@@ -792,16 +792,16 @@ public class ClubAdminController {
 
 	/* 저장된 회계 내역 다운로드 */
 	@RequestMapping("account/excel/download")
-	public void download(HttpServletResponse response, @RequestParam("club_id") int club_id) throws Exception{
-		List<AccountDto> accounts = excelService.findByClubId(club_id);
+	public void download(HttpServletResponse response, @RequestParam("club_id") int club_id, @RequestParam("sem_name") String sem_name) throws Exception{
+		List<AccountDto> accounts = excelService.findByClubIdAndSem(club_id, sem_name);
 		Workbook workbook = excelService.createXLS(accounts);
 
 		Date now = Date.valueOf(LocalDate.now());
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		String now_date = format.format(now);
 		String club_name = clubService.findById(club_id).getClub_name();
-
-		String fileName = URLEncoder.encode(now_date+" "+club_name+" 회계.xls", "UTF-8");
+		
+		String fileName = URLEncoder.encode(now_date+" "+club_name+" "+sem_name+" 회계.xls", "UTF-8");
 		response.setContentType("application/octet-stream");
 		response.setHeader("Content-Disposition", "attachment;filename=" + fileName + ";");
 		try(BufferedOutputStream output = new BufferedOutputStream(response.getOutputStream())){
