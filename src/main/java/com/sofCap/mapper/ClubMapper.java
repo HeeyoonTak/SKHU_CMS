@@ -30,6 +30,8 @@ public interface ClubMapper {
 
 	List<ApplyQDto> findQuestionByClub(int club_id);
 	
+	void insertA(ApplyADto applyA);
+	
 	void deleteA(int id);
 
 	ApplyQDto QfindById(int id);
