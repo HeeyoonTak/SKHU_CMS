@@ -55,7 +55,7 @@
 									<a class="btn btn-primary btn-lg" id="l_search_term_btn"
 										style="float: right;" href="javascript:history.back();">목록</a> <a
 										class="btn btn-primary btn-lg" id="l_search_term_btn"
-										style="float: right;" href="">지원</a>
+										style="float: right;" href="apply_recruit?club_id=${board.club_id}">지원</a>
 								</div>
 							</div>
 						</div>
