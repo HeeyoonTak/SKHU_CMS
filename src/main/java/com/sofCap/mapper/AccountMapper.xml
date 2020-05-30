@@ -6,9 +6,11 @@
 		SELECT * FROM account
 	</select>
 
-	<select id="findByClubId" resultType="AccountDto">
-		SELECT * FROM account WHERE
-		club_id = #{club_id}
+	<select id="findByClubIdAndSem" resultType="AccountDto">
+		SELECT * FROM account a
+		join sem_date s
+		on a.date between s.start_date and s.end_date
+		WHERE a.club_id = #{club_id} and s.sem_name=#{sem_name}
 	</select>
 
 	<select id="findBySem" resultType="AccountDto">

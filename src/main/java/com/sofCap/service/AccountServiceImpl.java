@@ -21,8 +21,8 @@ public class AccountServiceImpl implements AccountService{
 	}
 
 	@Override
-	public List<AccountDto> findByClubId(int club_id){
-		return accountDao.findByClubId(club_id);
+	public List<AccountDto> findByClubIdAndSem(int club_id, String sem_name){
+		return accountDao.findByClubIdAndSem(club_id,sem_name);
 	}
 
 	@Override
