@@ -57,12 +57,23 @@
 		WHERE id=#{id}
 	</update>
 	
-	<update id="updateRole">
+	<update id="updateNotMemberRole">
 		UPDATE User SET user_type =
 		CASE
 			WHEN user_type LIKE '동연' THEN '동연'
             WHEN user_type LIKE '동아리관리자' THEN '동아리관리자'
 			WHEN user_type LIKE '비회원' THEN '일반회원'
+			WHEN user_type LIKE '일반회원' THEN '일반회원'
+		END
+		WHERE id=#{id}
+	</update>
+	
+	<update id="updateMemberRole">
+		UPDATE User SET user_type =
+		CASE
+			WHEN user_type LIKE '동연' THEN '동연'
+            WHEN user_type LIKE '동아리관리자' THEN '동아리관리자'
+			WHEN user_type LIKE '비회원' THEN '비회원'
 			WHEN user_type LIKE '일반회원' THEN '비회원'
 		END
 		WHERE id=#{id}

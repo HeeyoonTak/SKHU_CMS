@@ -158,7 +158,7 @@ public class ClubAdminController {
 		System.out.println("유저 id: " + user_id);
 		System.out.println("클럽 id: " + club_id);
 		userClubService.insert(user_id, club_id);
-		userService.updateRole(user_id);
+		userService.updateNotMemberRole(user_id);
 		userService.deleteCandidate(user_id);
 		return "redirect:acceptance?club_id=" + club_id;
 	}
@@ -177,7 +177,7 @@ public class ClubAdminController {
 		model.addAttribute("userClub", userClub);
 		model.addAttribute("acceptanceYes", acceptanceYes);
 		model.addAttribute("acceptanceNo", acceptanceNo);
-		userService.updateRole(user_id);
+		userService.updateMemberRole(user_id);
 		userClubService.delete(user_id);
 		return "redirect:acceptance?club_id=" + club_id;
 	}
@@ -193,7 +193,7 @@ public class ClubAdminController {
 			System.out.println(i);
 			System.out.println(club_id);
 			userClubService.insert(i, club_id);
-			userService.updateRole(i);
+			userService.updateNotMemberRole(i);
 			userService.deleteCandidate(i);
 		}
 	}
@@ -206,7 +206,7 @@ public class ClubAdminController {
 		ClubDto club = clubService.findById(club_id);
 		model.addAttribute("club", club);
 		for (int i : chArr) {
-			userService.updateRole(i);
+			userService.updateMemberRole(i);
 			userClubService.delete(i);
 		}
 	}

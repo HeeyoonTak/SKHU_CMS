@@ -26,7 +26,9 @@ public interface UserMapper {
 
 	void updateMypage(UserDto user);
 
-	void updateRole(int id);
+	void updateNotMemberRole(int id);
+
+	void updateMemberRole(int id);
 
 	void delete(int id);
 
