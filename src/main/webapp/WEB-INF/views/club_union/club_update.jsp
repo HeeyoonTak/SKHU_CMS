@@ -12,7 +12,8 @@
 			<div class="fh5co-hero-wrap">
 				<div class="fh5co-hero-intro">
 					<h1 class="to-animate hero-animate-1">동아리 연합회</h1>
-					<h2 class="to-animate hero-animate-2">동아리 연합회의 세부사항을 확인해 보세요!</h2>
+					<h2 class="to-animate hero-animate-2">모든 동아리의 행사와 복지를 관리,
+							지원하는 학생 자치기구</h2>
 				</div>
 			</div>
 		</div>

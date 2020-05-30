@@ -331,16 +331,6 @@ public class ClubAdminController {
 		return "redirect:apply_q_list?club_id=" + club.getId();
 	}
 
-	// 일반 회원이 모집 폼에 지원하기
-	@RequestMapping(value = "apply_recruit")
-	public String apply_recruit(Model model, @RequestParam("club_id") int club_id, Principal principal) {
-		UserDto user = userService.findByLoginId(principal.getName()); // 현재 로그인한 사용자로 user 정보 획득
-		ClubDto club = clubService.findById(club_id);
-		List<ApplyQDto_mod> applyQ = clubMapper.findQmodQusetionByClub(club.getId()); // club에 해당되어 있는 질문 리스트 가져오기
-		model.addAttribute("applyQ", applyQ);
-		model.addAttribute("club", club);
-		return "club_admin/apply_recruit";
-	}
 	// 모집 지원 save
 	@RequestMapping(value = "apply_a_save", method = RequestMethod.POST)
 	public String apply_a_save(Model model, Principal principal, @RequestParam("Qs") int[] questions,

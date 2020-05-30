@@ -7,20 +7,20 @@
 	prefix="sec"%>
 <c:url var="R" value="/" />
 <div id="fh5co-hero">
-	<a href="#fh5co-main"
-		class="smoothscroll fh5co-arrow to-animate hero-animate-4"><i
-		class="ti-angle-down"></i></a>
-	<!-- End fh5co-arrow -->
-	<div class="container">
-		<div class="col-md-8 col-md-offset-2">
-			<div class="fh5co-hero-wrap">
-				<div class="fh5co-hero-intro">
-					<h1 class="to-animate hero-animate-1">내 동아리 이름 받아오기</h1>
-					<h2 class="to-animate hero-animate-2">동아리 소개글 받아오기</h2>
-				</div>
-			</div>
-		</div>
-	</div>
+   <a href="#fh5co-main"
+      class="smoothscroll fh5co-arrow to-animate hero-animate-4"><i
+      class="ti-angle-down"></i></a>
+   <!-- End fh5co-arrow -->
+   <div class="container">
+      <div class="col-md-8 col-md-offset-2">
+         <div class="fh5co-hero-wrap">
+            <div class="fh5co-hero-intro">
+               <h1 class="to-animate hero-animate-1">${club.club_name}</h1>
+               <h2 class="to-animate hero-animate-2">${club.content}</h2>
+            </div>
+         </div>
+      </div>
+   </div>
 </div>
 
 <div id="fh5co-main">
