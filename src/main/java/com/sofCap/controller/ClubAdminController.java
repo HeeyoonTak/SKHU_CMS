@@ -304,7 +304,7 @@ public class ClubAdminController {
 
 	// 모집 질문 삭제
 	@RequestMapping("applyQ_delete")
-	public String deleteQ(Model model,Principal principal, @RequestParam("id") int id) {
+	public String deleteQ(Model model, Principal principal, @RequestParam("id") int id) {
 		UserDto user = userService.findByLoginId(principal.getName()); // 현재 로그인한 사용자로 user 정보 획득
 		UserClubDto userclub = userClubService.findByUserId(user.getId()); // user와 연결된 user_club 정보 획득
 		ClubDto club = clubService.findById(userclub.getClub_id()); // user_club로 club 정보 획득
@@ -329,6 +329,39 @@ public class ClubAdminController {
 		nav_list(model);
 		nav_user(model, principal);
 		return "redirect:apply_q_list?club_id=" + club.getId();
+	}
+
+	// 일반 회원이 모집 폼에 지원하기
+	@RequestMapping(value = "apply_recruit")
+	public String apply_recruit(Model model, @RequestParam("club_id") int club_id, Principal principal) {
+		UserDto user = userService.findByLoginId(principal.getName()); // 현재 로그인한 사용자로 user 정보 획득
+		ClubDto club = clubService.findById(club_id);
+		List<ApplyQDto_mod> applyQ = clubMapper.findQmodQusetionByClub(club.getId()); // club에 해당되어 있는 질문 리스트 가져오기
+		model.addAttribute("applyQ", applyQ);
+		model.addAttribute("club", club);
+		return "club_admin/apply_recruit";
+	}
+	// 모집 지원 save
+	@RequestMapping(value = "apply_a_save", method = RequestMethod.POST)
+	public String apply_a_save(Model model, Principal principal, @RequestParam("Qs") int[] questions,
+			@RequestParam("answers") String[] answers, @RequestParam("club_id") int club_id) {
+		UserDto user = userService.findByLoginId(principal.getName()); // 현재 로그인한 사용자로 user 정보 획득
+		saveAnswer(questions, answers, user.getId(), club_id);
+		nav_list(model);
+		nav_user(model, principal);
+		return "redirect:apply_recruit?club_id=" + club_id;
+	}
+
+	@Transactional
+	private void saveAnswer(int[] Questions, String[] answers, int user_id, int club_id) {
+		for (int i = 0; i < answers.length; i++) {
+			ApplyADto applyA = new ApplyADto();
+			applyA.setApply_q_id(Questions[i]);
+			applyA.setContent(answers[i]);
+			applyA.setUser_id(user_id);
+			applyA.setClub_id(club_id);
+			clubMapper.insertA(applyA);
+		}
 	}
 
 	/*
@@ -799,7 +832,8 @@ public class ClubAdminController {
 
 	/* 저장된 회계 내역 다운로드 */
 	@RequestMapping("account/excel/download")
-	public void download(HttpServletResponse response, @RequestParam("club_id") int club_id, @RequestParam("sem_name") String sem_name) throws Exception{
+	public void download(HttpServletResponse response, @RequestParam("club_id") int club_id,
+			@RequestParam("sem_name") String sem_name) throws Exception {
 		List<AccountDto> accounts = excelService.findByClubIdAndSem(club_id, sem_name);
 
 		Workbook workbook = excelService.createXLS(accounts);
@@ -808,7 +842,7 @@ public class ClubAdminController {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		String now_date = format.format(now);
 		String club_name = clubService.findById(club_id).getClub_name();
-		String fileName = URLEncoder.encode(now_date+" "+club_name+" "+sem_name+" 회계.xls", "UTF-8");
+		String fileName = URLEncoder.encode(now_date + " " + club_name + " " + sem_name + " 회계.xls", "UTF-8");
 
 		response.setContentType("application/octet-stream");
 		response.setHeader("Content-Disposition", "attachment;filename=" + fileName + ";");
