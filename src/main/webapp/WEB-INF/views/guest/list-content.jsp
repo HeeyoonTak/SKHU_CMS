@@ -37,7 +37,7 @@
 									<h2 class="h3">소개글</h2>
 								</div>
 								<div class="col-md-6">
-									<img src="${R}/getClubImage?id=${club.id}" id="clubImg" />
+									<img src="${R}/getClubImage?id=${club.id}" id="clubImg" style="width: 270px; height: 250px" />
 								</div>
 								<form>
 									<div class="col-md-6">
