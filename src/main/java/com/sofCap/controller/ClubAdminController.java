@@ -440,6 +440,8 @@ public class ClubAdminController {
 			Principal principal) {
 		BoardDto board = boardService.findOne(id);
 		model.addAttribute("board", board);
+		ClubDto club = clubService.findById(club_id);
+		model.addAttribute("club", club);
 		nav_list(model);
 		nav_user(model, principal);
 		return "club_admin/n_content";
@@ -451,6 +453,8 @@ public class ClubAdminController {
 		board.setBoard_name_id(3);
 		board = boardService.findById(id);
 		model.addAttribute("board", board);
+		//예지model.addAttribute("club.club_name", boardService.findOneClub(id).getClub_name());
+		//model.addAttribute("club.content", boardService.findOneClub(id).getClub_content());
 		nav_list(model);
 		nav_user(model, principal);
 		return "club_admin/posting";
@@ -470,6 +474,8 @@ public class ClubAdminController {
 		board.setClub_id(club_id);
 		board = new BoardDto();
 		model.addAttribute("board", board);
+		ClubDto club = clubService.findById(club_id);
+		model.addAttribute("club", club);
 		nav_list(model);
 		nav_user(model, principal);
 		return "club_admin/posting";
@@ -849,7 +855,6 @@ public class ClubAdminController {
 	public String attendance(Model model, SemDate semdate, Principal principal, @RequestParam("club_id") int club_id) {
 
 		// 로그인 한 유저 정보 추출
-
 		UserDto user = userService.findByLoginId(principal.getName());
 		ClubDto club = clubService.findById(club_id);
 

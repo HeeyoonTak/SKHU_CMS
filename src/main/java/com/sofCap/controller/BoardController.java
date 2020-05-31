@@ -100,6 +100,8 @@ public class BoardController {
 			throws IOException {
 		BoardDto board = boardService.findOne(id);
 		model.addAttribute("board", board);
+		model.addAttribute("club_name", boardService.findOneClub(id).getClub_name());
+		model.addAttribute("club_content", boardService.findOneClub(id).getClub_content());
 		nav_list(model);
 		nav_user(model, principal);
 
