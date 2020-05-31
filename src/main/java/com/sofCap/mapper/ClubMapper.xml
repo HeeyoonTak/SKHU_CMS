@@ -47,6 +47,12 @@
 		VALUES (#{club_name}, #{club_type})
 	</insert>
 
+	<insert id="insertA" useGeneratedKeys="true" keyProperty="id">
+		INSERT
+		apply_A(apply_q_id, content, user_id, club_id)
+		VALUES (#{apply_q_id}, #{content}, #{user_id}, #{club_id});
+	</insert>
+
 	<delete id="deleteA">
 		DELETE
 		FROM apply_a
@@ -82,13 +88,15 @@
 	<select id="findAnswer" resultType="ApplyADto">
 		SELECT a.*,q.* FROM apply_a a
 		JOIN apply_q q on a.apply_q_id = q.id and a.club_id=#{club_id}
-	</select>	
-	
-	<select id="findAnswerByClubId" resultType="ApplyADto">
-		SELECT a.*,q.* FROM apply_a a
-		JOIN apply_q q on a.apply_q_id = q.id and a.club_id=#{club_id}
 	</select>
-	
+
+	<select id="findAnswerByClubId" resultType="ApplyADto">
+		SELECT a.*,q.* FROM
+		apply_a a
+		JOIN apply_q q on a.apply_q_id = q.id and
+		a.club_id=#{club_id}
+	</select>
+
 	<select id="findQuestion" resultType="ApplyQDto">
 		SELECT q.* ,a.* FROM
 		apply_q q
@@ -122,7 +130,8 @@
 	<update id="update">
 		UPDATE Club SET
 		content = #{content},
-		file_id = #{file_id}
+		file_id =
+		#{file_id}
 		WHERE id=#{id}
 	</update>
 

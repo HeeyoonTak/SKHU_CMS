@@ -11,7 +11,7 @@ import com.sofCap.model.SemDate;
 @Mapper
 public interface AccountMapper {
 	List<AccountDto> findAll();
-	List<AccountDto> findByClubId(int club_id);
+	List<AccountDto> findByClubIdAndSem(int club_id, String sem_name);
 	List<AccountDto> findBySem(SemDate sem_name);
 	void update(AccountDto account);
 	void insert(AccountDto account);

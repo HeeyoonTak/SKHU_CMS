@@ -14,7 +14,7 @@
 				<form>
 					<div class="fh5co-hero-intro">
 						<h1 class="to-animate hero-animate-1">홍보 게시판</h1>
-						<h2 class="to-animate hero-animate-2">교내 동아리 행사 및 일정을 한눈에 확인하세요.</h2>
+						<h2 class="to-animate hero-animate-2">동아리의 행사 및 모집을 홍보하는 게시판</h2>
 					</div>
 				</form>
 			</div>
