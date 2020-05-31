@@ -178,7 +178,7 @@ public class ClubAdminController {
 		model.addAttribute("acceptanceYes", acceptanceYes);
 		model.addAttribute("acceptanceNo", acceptanceNo);
 		userService.updateMemberRole(user_id);
-		userClubService.delete(user_id);
+		userClubService.deleteMember(user_id, club_id);
 		return "redirect:acceptance?club_id=" + club_id;
 	}
 
@@ -207,7 +207,7 @@ public class ClubAdminController {
 		model.addAttribute("club", club);
 		for (int i : chArr) {
 			userService.updateMemberRole(i);
-			userClubService.delete(i);
+			userClubService.deleteMember(i, club_id);
 		}
 	}
 

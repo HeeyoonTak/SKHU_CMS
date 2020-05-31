@@ -29,4 +29,10 @@ public class UserClubDaoImpl implements UserClubDao{
 		userClubMapper.delete(user_id);
 	}
 
+	@Override
+	public void deleteMember(int user_id, int club_id) {
+		// TODO Auto-generated method stub
+		userClubMapper.deleteMember(user_id, club_id);
+	}
+
 }

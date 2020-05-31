@@ -12,6 +12,10 @@
 	<delete id="delete">
 		DELETE FROM User_Club WHERE club_id=#{club_id}
 	</delete>
+	
+	<delete id="deleteMember">
+		DELETE FROM User_Club WHERE user_id=#{user_id} and club_id=#{club_id}
+	</delete>
 
 	<insert id="insert" useGeneratedKeys="false" keyProperty="id">
 		INSERT
