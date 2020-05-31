@@ -16,6 +16,13 @@
 		#{id}
 	</select>
 	
+	<select id="findOneClub" resultType="BoardDto"> <!-- 해당 게시물에 속한 클럽 정보 뽑아오기 (상단에 출력) -->
+		SELECT b.id, b.club_id, c.club_name, c.content as club_content
+		FROM board b
+		JOIN club c ON b.club_id = c.id
+		WHERE b.id = #{id};
+	</select>
+	
 	 <!-- 
 	   동연 mapper 
 	 -->

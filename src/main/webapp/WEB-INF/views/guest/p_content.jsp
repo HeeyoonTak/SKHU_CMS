@@ -14,8 +14,8 @@
 			<div class="fh5co-hero-wrap">
 				<form>
 					<div class="fh5co-hero-intro">
-						<h1 class="to-animate hero-animate-1">홍보 게시판</h1>
-						<h2 class="to-animate hero-animate-2">동아리의 행사 및 모집을 홍보하는 게시판</h2>
+						<h1 class="to-animate hero-animate-1">${club_name}</h1>
+						<h2 class="to-animate hero-animate-2">${club_content}</h2>
 					</div>
 				</form>
 			</div>

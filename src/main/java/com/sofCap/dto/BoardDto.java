@@ -23,4 +23,6 @@ public class BoardDto {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	Date end_date;
 	ClubDto club;
+	String club_name;
+	String club_content;
 }
