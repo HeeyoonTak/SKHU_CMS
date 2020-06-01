@@ -34,6 +34,7 @@
 			<div class="col-md-9 col-md-push-3" id="fh5co-content">
 				<div class="row">
 					<form action="#" method="get">
+						<input type="hidden" name="club_id" value="${club_id}">
 						<div class="col-md-9"></div>
 						<div class="col-md-3">
 							<div class="form-group">
@@ -124,7 +125,7 @@
 				</div>
 			</div>
 			<div class="col-md-3 col-md-pull-9" id="fh5co-sidebar">
-               <c:import url="../tiles/tiles_club_sidebar.jsp" />
+				<c:import url="../tiles/tiles_club_sidebar.jsp" />
 			</div>
 		</div>
 	</div>
