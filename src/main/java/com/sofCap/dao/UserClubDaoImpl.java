@@ -1,5 +1,7 @@
 package com.sofCap.dao;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -18,7 +20,7 @@ public class UserClubDaoImpl implements UserClubDao{
 	}
 
 	@Override
-	public UserClubDto findByUserId(int user_id) {
+	public List<UserClubDto> findByUserId(int user_id) {
 		// TODO Auto-generated method stub
 		return userClubMapper.findByUserId(user_id);
 	}
@@ -33,6 +35,12 @@ public class UserClubDaoImpl implements UserClubDao{
 	public void deleteMember(int user_id, int club_id) {
 		// TODO Auto-generated method stub
 		userClubMapper.deleteMember(user_id, club_id);
+	}
+
+	@Override
+	public int userCount(int user_id) {
+		// TODO Auto-generated method stub
+		return userClubMapper.userCount(user_id);
 	}
 
 }

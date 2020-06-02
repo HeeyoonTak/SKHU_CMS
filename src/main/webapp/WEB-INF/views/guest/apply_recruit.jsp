@@ -50,8 +50,7 @@
 											<tbody>
 												<c:forEach var="q" items="${applyQ}">
 													<tr height="10">
-														<td><p
-																style="word-break: break-all; margin-bottom: 3px;">${q.content}</p></td>
+														<td><p style="word-break: break-all; margin-bottom: 3px;">${q.content}</p></td>
 													</tr>
 													<tr height="40">
 														<input type="hidden" name="Qs" value=${q.id}>
