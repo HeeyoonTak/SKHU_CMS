@@ -331,28 +331,6 @@ public class ClubAdminController {
 		return "redirect:apply_q_list?club_id=" + club.getId();
 	}
 
-	// 모집 지원 save
-	@RequestMapping(value = "apply_a_save", method = RequestMethod.POST)
-	public String apply_a_save(Model model, Principal principal, @RequestParam("Qs") int[] questions,
-			@RequestParam("answers") String[] answers, @RequestParam("club_id") int club_id) {
-		UserDto user = userService.findByLoginId(principal.getName()); // 현재 로그인한 사용자로 user 정보 획득
-		saveAnswer(questions, answers, user.getId(), club_id);
-		nav_list(model);
-		nav_user(model, principal);
-		return "redirect:apply_recruit?club_id=" + club_id;
-	}
-
-	@Transactional
-	private void saveAnswer(int[] Questions, String[] answers, int user_id, int club_id) {
-		for (int i = 0; i < answers.length; i++) {
-			ApplyADto applyA = new ApplyADto();
-			applyA.setApply_q_id(Questions[i]);
-			applyA.setContent(answers[i]);
-			applyA.setUser_id(user_id);
-			applyA.setClub_id(club_id);
-			clubMapper.insertA(applyA);
-		}
-	}
 
 	/*
 	 * ASY_board 동아리 관리
