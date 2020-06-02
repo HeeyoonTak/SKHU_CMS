@@ -121,6 +121,8 @@ public class ClubAdminController {
 		List<ApplyADto> answerList1 = clubService.findAnswerByClubId(club_id);
 		model.addAttribute("user", user);
 		model.addAttribute("club", club);
+		model.addAttribute("club_id", club_id);
+
 		model.addAttribute("acceptanceYes", acceptanceYes);
 		model.addAttribute("acceptanceNo", acceptanceNo);
 		model.addAttribute("questionList", questionList);
