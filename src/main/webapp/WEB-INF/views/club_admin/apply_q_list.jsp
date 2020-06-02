@@ -106,7 +106,6 @@
 																				<button type="button" class="btn btn-default"
 																					data-dismiss="modal">취소</button>
 																			</div>
-
 																		</div>
 																	</div>
 																</form>
@@ -157,7 +156,7 @@
 					</div>
 				</div>
 				<div class="col-md-3 col-md-pull-9" id="fh5co-sidebar">
-                <c:import url="../tiles/tiles_club_sidebar.jsp" />
+					<c:import url="../tiles/tiles_club_sidebar.jsp" />
 				</div>
 			</div>
 		</div>

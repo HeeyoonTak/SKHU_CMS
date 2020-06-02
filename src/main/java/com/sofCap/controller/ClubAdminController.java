@@ -341,6 +341,7 @@ public class ClubAdminController {
 		model.addAttribute("club", club);
 		return "club_admin/apply_recruit";
 	}
+
 	// 모집 지원 save
 	@RequestMapping(value = "apply_a_save", method = RequestMethod.POST)
 	public String apply_a_save(Model model, Principal principal, @RequestParam("Qs") int[] questions,
