@@ -520,9 +520,9 @@ public class ClubUnionController {
 	// 버전 3
 	/* 학기에 따른 회계 리스트 조회 */
 	@RequestMapping(value = "account")
-	public String account(Model model, SemDate semdate, Principal principal) {
+	public String account(Model model, SemDate semdate, Principal principal, HttpServletResponse response) throws IOException {
 		UserDto user = userService.findByLoginId(principal.getName());
-		UserClubDto user_club = userClubService.findByUserId(user.getId()).get(0);
+		UserClubDto user_club = userClubService.findByUserId(user.getId()).get(0); //동아리 관리자는 하나의 club에만 소속되어있기 때문에 get(0)해도 됨
 		int user_club_id = user_club.getClub_id();
 		ClubDto myClub = clubService.findById(user_club_id);
 		System.out.println(semdate.getSem_name());
@@ -551,7 +551,16 @@ public class ClubUnionController {
 		model.addAttribute("end_date", end_date);
 		nav_list(model);
 		nav_user(model, principal);
-		return "club_union/account";
+		
+		if (user.getUser_type().equals("동아리관리자") || user.getUser_type().equals("동연")) {
+			return "club_union/account";
+		} else {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('접근이 제한된 사용자입니다.'); history.go(-1);</script>");
+			out.flush();
+			return " ";
+		}
 	}
 
 	/* 회계 내역 입력 */
