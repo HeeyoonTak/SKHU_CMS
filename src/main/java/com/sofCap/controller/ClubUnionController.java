@@ -420,7 +420,7 @@ public class ClubUnionController {
 		if (!principal.getName().equals("clubAs"))
 			return "redirect:notice";
 		System.out.println(user_id);
-		int club_id = userclubMapper.findByUserId(user_id).getClub_id();
+		int club_id = userclubMapper.findByUserId(user_id).get(0).getClub_id(); //수정필요
 		String name = clubMapper.findById(club_id).getClub_name();
 		userclubMapper.delete(club_id);
 		clubMapper.delete(name);
@@ -461,7 +461,7 @@ public class ClubUnionController {
 	@RequestMapping(value = "account")
 	public String account(Model model, SemDate semdate, Principal principal) {
 		UserDto user = userService.findByLoginId(principal.getName());
-		UserClubDto user_club = userClubService.findByUserId(user.getId());
+		UserClubDto user_club = userClubService.findByUserId(user.getId()).get(0);
 		int user_club_id = user_club.getClub_id();
 		ClubDto myClub = clubService.findById(user_club_id);
 		System.out.println(semdate.getSem_name());

@@ -147,7 +147,7 @@ public class ClubAdminController {
 			@RequestParam("club_id") int club_id) {
 		UserDto user = userService.findByLoginId(principal.getName());
 		ClubDto club = clubService.findById(club_id);
-		UserClubDto userClub = userClubService.findByUserId(user_id);
+		UserClubDto userClub = userClubService.findByUserId(user_id).get(0);
 		List<UserDto> acceptanceYes = userService.findByMember(club_id);
 		List<UserDto> acceptanceNo = userService.findByNotMember(club_id);
 		model.addAttribute("user", user);
@@ -169,7 +169,7 @@ public class ClubAdminController {
 			@RequestParam("club_id") int club_id) {
 		UserDto user = userService.findByLoginId(principal.getName());
 		ClubDto club = clubService.findById(club_id);
-		UserClubDto userClub = userClubService.findByUserId(user_id);
+		UserClubDto userClub = userClubService.findByUserId(user_id).get(0);
 		List<UserDto> acceptanceYes = userService.findByMember(club_id);
 		List<UserDto> acceptanceNo = userService.findByNotMember(club_id);
 		model.addAttribute("user", user);
@@ -216,7 +216,7 @@ public class ClubAdminController {
 			Principal principal) throws IOException {
 		UserDto user = userService.findByLoginId(principal.getName());
 		ClubDto club = clubService.findById(club_id);
-		UserClubDto userClub = userClubService.findByUserId(user_id);
+		UserClubDto userClub = userClubService.findByUserId(user_id).get(0);
 		List<ApplyADto> answerList = clubService.findAnswer(club_id, user_id);
 		List<ApplyADto> answerList1 = clubService.findAnswerByClubId(club_id);
 		List<ApplyQDto> questionList = clubService.findQuestion(club_id);
@@ -245,7 +245,7 @@ public class ClubAdminController {
 			out.flush();
 			return "redirect:notice?club_id=" + club_id;
 		}
-		UserClubDto userclub = userClubService.findByUserId(user.getId()); // user와 연결된 user_club 정보 획득
+		UserClubDto userclub = userClubService.findByUserId(user.getId()).get(0); // user와 연결된 user_club 정보 획득
 		ClubDto club = clubService.findById(userclub.getClub_id()); // user_club로 club 정보 획득
 		List<ApplyQDto_mod> applyQ = clubMapper.findQmodQusetionByClub(club.getId()); // club에 해당되어 있는 질문 리스트 가져오기
 		if (semdate.getSem_name() == null) {
@@ -266,7 +266,7 @@ public class ClubAdminController {
 	@RequestMapping(value = "apply_q_save", method = RequestMethod.POST)
 	public String apply_q_save(Model model, Principal principal, @RequestParam("question") String[] questions) {
 		UserDto user = userService.findByLoginId(principal.getName()); // 현재 로그인한 사용자로 user 정보 획득
-		UserClubDto userclub = userClubService.findByUserId(user.getId()); // user와 연결된 user_club 정보 획득
+		UserClubDto userclub = userClubService.findByUserId(user.getId()).get(0); // user와 연결된 user_club 정보 획득
 		ClubDto club = clubService.findById(userclub.getClub_id()); // user_club로 club 정보 획득
 		saveQusetion(questions, club.getId());
 		return "redirect:apply_q_list?club_id=" + club.getId();
@@ -293,7 +293,7 @@ public class ClubAdminController {
 	public String apply_q_edit(Model model, Principal principal,
 			@RequestParam("edited_question") String edited_question, @RequestParam("id") int id) {
 		UserDto user = userService.findByLoginId(principal.getName()); // 현재 로그인한 사용자로 user 정보 획득
-		UserClubDto userclub = userClubService.findByUserId(user.getId()); // user와 연결된 user_club 정보 획득
+		UserClubDto userclub = userClubService.findByUserId(user.getId()).get(0); // user와 연결된 user_club 정보 획득
 		ClubDto club = clubService.findById(userclub.getClub_id()); // user_club로 club 정보 획득
 		ApplyQDto edit_Q = clubMapper.QfindById(id);
 		edit_Q.setContent(edited_question);
@@ -306,7 +306,7 @@ public class ClubAdminController {
 	@RequestMapping("applyQ_delete")
 	public String deleteQ(Model model, Principal principal, @RequestParam("id") int id) {
 		UserDto user = userService.findByLoginId(principal.getName()); // 현재 로그인한 사용자로 user 정보 획득
-		UserClubDto userclub = userClubService.findByUserId(user.getId()); // user와 연결된 user_club 정보 획득
+		UserClubDto userclub = userClubService.findByUserId(user.getId()).get(0); // user와 연결된 user_club 정보 획득
 		ClubDto club = clubService.findById(userclub.getClub_id()); // user_club로 club 정보 획득
 		clubService.deleteQ(id);
 		return "redirect:apply_q_list?club_id=" + club.getId();
@@ -316,7 +316,7 @@ public class ClubAdminController {
 	@RequestMapping("apply_all_delete")
 	public String all_delete(Model model, Principal principal) {
 		UserDto user = userService.findByLoginId(principal.getName()); // 현재 로그인한 사용자로 user 정보 획득
-		UserClubDto userclub = userClubService.findByUserId(user.getId()); // user와 연결된 user_club 정보 획득
+		UserClubDto userclub = userClubService.findByUserId(user.getId()).get(0); // user와 연결된 user_club 정보 획득
 		ClubDto club = clubService.findById(userclub.getClub_id()); // user_club로 club 정보 획득
 		List<ApplyADto> applyA_all = clubMapper.findAnswerByClubId(club.getId());
 		for (int i = 0; i < applyA_all.size(); i++) {
@@ -739,9 +739,18 @@ public class ClubAdminController {
 
 	/* 학기에 따른 회계 리스트 조회 */
 	@RequestMapping(value = "account")
-	public String account(Model model, SemDate semdate, Principal principal, @RequestParam("club_id") int club_id) {
+	public String account(Model model, SemDate semdate, Principal principal, @RequestParam("club_id") int club_id, HttpServletResponse response) throws IOException {
 
-		UserDto user = userService.findByLoginId(principal.getName());
+	
+		UserDto user = userService.findByLoginId(principal.getName()); // 현재 로그인한 사용자로 user 정보 획득
+		
+		List<UserClubDto> clubs = userClubService.findByUserId(user.getId()); //소속되어있는 동아리들 
+		boolean club_belong = false; //동아리에 소속되어있는지 확인하는 변수
+		for(int i = 0; i < clubs.size(); i++) {
+			if(clubs.get(i).getClub_id()==club_id) club_belong = true; 
+			//파라미터 club_id와 소속되어있는 동아리목록(clubs)의 club_id가 같은게 있다면 소속확인하는 변수(clus_belong)을 true로 바꿈
+		}
+		
 		ClubDto club = clubService.findById(club_id);
 
 		System.out.println(semdate.getSem_name());
@@ -769,7 +778,17 @@ public class ClubAdminController {
 		model.addAttribute("end_date", end_date);
 		nav_list(model);
 		nav_user(model, principal);
-		return "club_admin/account";
+		
+		//접근권한 확인
+		if (club_belong==true) {
+			return "club_admin/account";
+		} else {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('접근이 제한된 사용자입니다.'); history.go(-1);</script>");
+			out.flush();
+			return " ";
+		}
 	}
 
 	/* 회계 내역 입력 */
