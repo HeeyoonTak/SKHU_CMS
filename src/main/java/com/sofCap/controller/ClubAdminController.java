@@ -174,6 +174,7 @@ public class ClubAdminController {
 		UserClubDto userClub = userClubService.findByUserId(user_id).get(0);
 		List<UserDto> acceptanceYes = userService.findByMember(club_id);
 		List<UserDto> acceptanceNo = userService.findByNotMember(club_id);
+		List<UserClubDto> clubs = userClubService.findByUserId(user.getId());
 		model.addAttribute("user", user);
 		model.addAttribute("club", club);
 		model.addAttribute("userClub", userClub);
@@ -181,10 +182,14 @@ public class ClubAdminController {
 		model.addAttribute("acceptanceNo", acceptanceNo);
 		System.out.println(userClubService.userCount(user_id));
 		userClubService.deleteMember(user_id, club_id);
-		if(userClubService.userCount(user_id)==0) {
-			userService.updateMemberRole(user_id);
-		}else {
-			System.out.println(userClubService.userCount(user_id));
+		for(int i = 0; i < clubs.size(); i++) {
+			if(clubs.get(i).getClub_id()==club_id) {
+				if(userClubService.userCount(user_id)==0) {
+					userService.updateMemberRole(user_id);
+				}else {
+					System.out.println(userClubService.userCount(user_id));
+				}
+			}
 		}
 		return "redirect:acceptance?club_id=" + club_id;
 	}
@@ -849,16 +854,16 @@ public class ClubAdminController {
 	@RequestMapping(value = "account")
 	public String account(Model model, SemDate semdate, Principal principal, @RequestParam("club_id") int club_id, HttpServletResponse response) throws IOException {
 
-	
+
 		UserDto user = userService.findByLoginId(principal.getName()); // 현재 로그인한 사용자로 user 정보 획득
-		
-		List<UserClubDto> clubs = userClubService.findByUserId(user.getId()); //소속되어있는 동아리들 
+
+		List<UserClubDto> clubs = userClubService.findByUserId(user.getId()); //소속되어있는 동아리들
 		boolean club_belong = false; //동아리에 소속되어있는지 확인하는 변수
 		for(int i = 0; i < clubs.size(); i++) {
-			if(clubs.get(i).getClub_id()==club_id) club_belong = true; 
+			if(clubs.get(i).getClub_id()==club_id) club_belong = true;
 			//파라미터 club_id와 소속되어있는 동아리목록(clubs)의 club_id가 같은게 있다면 소속확인하는 변수(clus_belong)을 true로 바꿈
 		}
-		
+
 		ClubDto club = clubService.findById(club_id);
 
 		System.out.println(semdate.getSem_name());
@@ -886,7 +891,7 @@ public class ClubAdminController {
 		model.addAttribute("end_date", end_date);
 		nav_list(model);
 		nav_user(model, principal);
-		
+
 		//접근권한 확인
 		if (club_belong==true) {
 			return "club_admin/account";
