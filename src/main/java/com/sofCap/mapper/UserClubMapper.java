@@ -11,4 +11,5 @@ public interface UserClubMapper {
 	void insert(int user_id, int club_id);
 	void delete(int user_id);
 	void deleteMember(int user_id, int club_id);
+	int userCount(int user_id);
 }

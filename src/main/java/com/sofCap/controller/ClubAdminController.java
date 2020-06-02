@@ -121,6 +121,8 @@ public class ClubAdminController {
 		List<ApplyADto> answerList1 = clubService.findAnswerByClubId(club_id);
 		model.addAttribute("user", user);
 		model.addAttribute("club", club);
+		model.addAttribute("club_id", club_id);
+
 		model.addAttribute("acceptanceYes", acceptanceYes);
 		model.addAttribute("acceptanceNo", acceptanceNo);
 		model.addAttribute("questionList", questionList);
@@ -177,8 +179,13 @@ public class ClubAdminController {
 		model.addAttribute("userClub", userClub);
 		model.addAttribute("acceptanceYes", acceptanceYes);
 		model.addAttribute("acceptanceNo", acceptanceNo);
-		userService.updateMemberRole(user_id);
+		System.out.println(userClubService.userCount(user_id));
 		userClubService.deleteMember(user_id, club_id);
+		if(userClubService.userCount(user_id)==0) {
+			userService.updateMemberRole(user_id);
+		}else {
+			System.out.println(userClubService.userCount(user_id));
+		}
 		return "redirect:acceptance?club_id=" + club_id;
 	}
 
@@ -206,8 +213,12 @@ public class ClubAdminController {
 		ClubDto club = clubService.findById(club_id);
 		model.addAttribute("club", club);
 		for (int i : chArr) {
-			userService.updateMemberRole(i);
 			userClubService.deleteMember(i, club_id);
+			if(userClubService.userCount(i)==0) {
+				userService.updateMemberRole(i);
+			}else {
+				System.out.println(userClubService.userCount(i));
+			}
 		}
 	}
 
