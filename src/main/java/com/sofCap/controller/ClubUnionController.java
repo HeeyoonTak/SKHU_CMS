@@ -236,7 +236,7 @@ public class ClubUnionController {
 			Principal principal, HttpServletResponse response) throws IOException {
 		UserDto user = userService.findByLoginId(principal.getName());
 		boardService.delete(id);
-		if (user.getUser_type().equals("동아리관리자")) {
+		if (user.getUser_type().equals("동연")) {
 			return "redirect:notice";
 	      } else {
 	         response.setContentType("text/html; charset=UTF-8");
@@ -258,7 +258,7 @@ public class ClubUnionController {
 		model.addAttribute("board", board);
 		nav_list(model);
 		nav_user(model, principal);
-		if (user.getUser_type().equals("동아리관리자")) {
+		if (user.getUser_type().equals("동연")) {
 			return "club_union/posting";
 	      } else {
 	         response.setContentType("text/html; charset=UTF-8");
@@ -287,7 +287,7 @@ public class ClubUnionController {
 		model.addAttribute("board", board);
 		nav_list(model);
 		nav_user(model, principal);
-		if (user.getUser_type().equals("동아리관리자")) {
+		if (user.getUser_type().equals("동연")) {
 			return "club_union/posting";
 	      } else {
 	         response.setContentType("text/html; charset=UTF-8");
@@ -349,7 +349,7 @@ public class ClubUnionController {
 			Principal principal, HttpServletResponse response) throws IOException {
 		UserDto user = userService.findByLoginId(principal.getName());
 		boardService.delete(id);
-		if (user.getUser_type().equals("동아리관리자")) {
+		if (user.getUser_type().equals("동연")) {
 			return "redirect:minutes";
 	      } else {
 	         response.setContentType("text/html; charset=UTF-8");
@@ -371,7 +371,7 @@ public class ClubUnionController {
 		model.addAttribute("board", board);
 		nav_list(model);
 		nav_user(model, principal);
-		if (user.getUser_type().equals("동아리관리자")) {
+		if (user.getUser_type().equals("동연")) {
 			return "club_union/posting";
 	      } else {
 	         response.setContentType("text/html; charset=UTF-8");
@@ -400,7 +400,7 @@ public class ClubUnionController {
 		model.addAttribute("board", board);
 		nav_list(model);
 		nav_user(model, principal);
-		if (user.getUser_type().equals("동아리관리자")) {
+		if (user.getUser_type().equals("동연")) {
 			return "club_union/posting";
 	      } else {
 	         response.setContentType("text/html; charset=UTF-8");
