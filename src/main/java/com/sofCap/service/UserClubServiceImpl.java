@@ -1,5 +1,7 @@
 package com.sofCap.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +20,7 @@ public class UserClubServiceImpl implements UserClubService{
 	}
 
 	@Override
-	public UserClubDto findByUserId(int user_id) {
+	public List<UserClubDto> findByUserId(int user_id) {
 		// TODO Auto-generated method stub
 		return userClubDao.findByUserId(user_id);
 	}
