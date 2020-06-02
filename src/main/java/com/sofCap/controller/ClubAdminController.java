@@ -362,6 +362,8 @@ public class ClubAdminController {
 			HttpServletResponse response) throws IOException {
 		model.addAttribute("club_id", club_id);
 		UserDto user = userService.findByLoginId(principal.getName());
+		ClubDto club = clubService.findById(club_id);
+		model.addAttribute("club", club);
 		nav_list(model);
 		nav_user(model, principal);
 		if (user.getUser_type().equals("동아리관리자")) {
@@ -562,6 +564,8 @@ public class ClubAdminController {
 			Principal principal) {
 		BoardDto board = boardService.findOne(id);
 		model.addAttribute("board", board);
+		ClubDto club = clubService.findById(club_id);
+		model.addAttribute("club", club);
 		nav_list(model);
 		nav_user(model, principal);
 		return "club_admin/m_content";
@@ -604,6 +608,8 @@ public class ClubAdminController {
 		board.setClub_id(club_id);
 		board = new BoardDto();
 		model.addAttribute("board", board);
+		ClubDto club = clubService.findById(club_id);
+		model.addAttribute("club", club);
 		nav_list(model);
 		nav_user(model, principal);
 		if (user.getUser_type().equals("동아리관리자")) {
@@ -665,6 +671,8 @@ public class ClubAdminController {
 			Principal principal) {
 		BoardDto board = boardService.findOne(id);
 		model.addAttribute("board", board);
+		ClubDto club = clubService.findById(club_id);
+		model.addAttribute("club", club);
 		nav_list(model);
 		nav_user(model, principal);
 		return "club_admin/p_content";
@@ -707,6 +715,8 @@ public class ClubAdminController {
 		board.setClub_id(club_id);
 		board = new BoardDto();
 		model.addAttribute("board", board);
+		ClubDto club = clubService.findById(club_id);
+		model.addAttribute("club", club);
 		nav_list(model);
 		nav_user(model, principal);
 		if (user.getUser_type().equals("동아리관리자")) {
@@ -769,6 +779,8 @@ public class ClubAdminController {
 			Principal principal) {
 		BoardDto board = boardService.findOne(id);
 		model.addAttribute("board", board);
+		ClubDto club = clubService.findById(club_id);
+		model.addAttribute("club", club);
 		nav_list(model);
 		nav_user(model, principal);
 		return "club_admin/r_content";
@@ -811,6 +823,8 @@ public class ClubAdminController {
 		board.setClub_id(club_id);
 		board = new BoardDto();
 		model.addAttribute("board", board);
+		ClubDto club = clubService.findById(club_id);
+		model.addAttribute("club", club);
 		nav_list(model);
 		nav_user(model, principal);
 		if (user.getUser_type().equals("동아리관리자")) {
