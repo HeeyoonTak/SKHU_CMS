@@ -40,13 +40,13 @@ INSERT INTO club_type (id,type_name) VALUES
   (5,'공연2') ; 
   
 INSERT INTO club (id,club_name, club_type, content) VALUES
-  (1,'동아리연합회', 1, null),
-  (2,'멋쟁이사자처럼', 2, null),
-  (3,'FLOW', 3, null),
-  (4,'ELPIS', 4, null),
-  (5,'아침햇살', 5, null),
-  (6,'All for RYU', 2, null),
-  (7,'행운', 5, null);
+  (1,'동아리연합회', 1, '모든 동아리의 행사와 복지를 관리, 지원하는 학생 자치기구'),
+  (2,'멋쟁이사자처럼', 2, '비전공자를 위한 웹 프로그래밍 개발 동아리'),
+  (3,'FLOW', 3, '농구를 사랑하는 사람들의 모임'),
+  (4,'ELPIS', 4, '밴드 동아리'),
+  (5,'아침햇살', 5, '춤 동아리'),
+  (6,'All for RYU', 2, '류준열을 사랑하는 사람들의 모임'),
+  (7,'행운', 5, '정세운을 사랑하는 사람들의 모임');
 
  -- INSERT INTO account (id,club_id, price, total, remark, account_type, date) VALUES
  --  (1,1, 200000, 200000, null,  0, '2020-03-02'),
@@ -82,7 +82,7 @@ INSERT INTO club (id,club_name, club_type, content) VALUES
 
 LOCK TABLES `user_club` WRITE;
 /*!40000 ALTER TABLE `user_club` DISABLE KEYS */;
-INSERT INTO `user_club` VALUES (1,1,1),(2,2,2),(3,3,3),(4,4,4),(5,5,5),(6,6,4),(7,6,3),(8,7,2),(9,8,2),(10,8,6),(11,9,5),(12,10,7),(13, 11, 6),(14, 12, 7);
+INSERT INTO `user_club` VALUES (1,1,1),(2,2,2),(3,3,3),(4,4,4),(5,5,5),(6,6,4),(7,6,3),(8,7,2),(9,8,2),(10,8,6),(11,9,5),(12,10,7),(13, 11, 6),(14, 12, 7),(15, 14, 7),(16, 15, 7);
 /*!40000 ALTER TABLE `user_club` ENABLE KEYS */;
 UNLOCK TABLES;
 

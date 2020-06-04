@@ -21,6 +21,11 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
+	public BoardDto findOneClub(int id) {
+		return boardDao.findOneClub(id);
+	}
+
+	@Override
 	public List<BoardDto> findBySem_m(SemDate sem_name) {
 		return boardDao.findBySem_m(sem_name);
 	}

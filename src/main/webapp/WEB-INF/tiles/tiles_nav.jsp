@@ -27,7 +27,9 @@
 				<li><a href="${R}" class="fh5co-sub-ddown">동아리</a>
 					<ul class="fh5co-sub-menu">
 						<c:forEach var="club" items="${clubs}">
+						<c:if test="${club.id ne 1}">
 							<li><a href="${R}list-content?id=${club.id}">${club.club_name}</a></li>
+						</c:if>		
 						</c:forEach>
 					</ul></li>
 				<li><a href="${R}publicity">홍보</a></li>

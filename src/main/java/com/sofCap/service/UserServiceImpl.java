@@ -59,12 +59,6 @@ public class UserServiceImpl implements UserService {
     }
 
 	@Override
-	public void updateRole(int id) {
-		// TODO Auto-generated method stub
-		userDao.updateRole(id);
-	}
-
-	@Override
 	public List<UserDto> findByMember(int club_id) {
 		// TODO Auto-generated method stub
 		return userDao.findByMember(club_id);
@@ -86,6 +80,18 @@ public class UserServiceImpl implements UserService {
 	public List<UserDto> findAllofNotMember() {
 		// TODO Auto-generated method stub
 		return userDao.findAllofNotMember();
+	}
+
+	@Override
+	public void updateNotMemberRole(int id) {
+		// TODO Auto-generated method stub
+		userDao.updateNotMemberRole(id);
+	}
+
+	@Override
+	public void updateMemberRole(int id) {
+		// TODO Auto-generated method stub
+		userDao.updateMemberRole(id);
 	}
 
 }

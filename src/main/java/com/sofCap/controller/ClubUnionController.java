@@ -3,6 +3,7 @@ package com.sofCap.controller;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.security.Principal;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
@@ -180,7 +181,7 @@ public class ClubUnionController {
 				attendanceService.update(updateck[i]);
 			}
 		}
-		return "redirect:/club_union/attendance";
+		return "redirect:/club_union/attendance#heading";
 	}
 
 	/*
@@ -195,7 +196,7 @@ public class ClubUnionController {
 
 		// 현재 학기에 해당하는 경우 - 삽입
 		attendanceService.dateNow(date, sem, 1);
-		return "redirect:/club_union/attendance";
+		return "redirect:/club_union/attendance#heading";
 	}
 
 	/*
@@ -204,7 +205,7 @@ public class ClubUnionController {
 	@RequestMapping("attendance_delete")
 	public String delete(Model model, @RequestParam("date") Date date) {
 		attendanceService.delete(date, 1);
-		return "redirect:attendance";
+		return "redirect:/club_union/attendance#heading";
 	}
 
 	/*
@@ -231,21 +232,41 @@ public class ClubUnionController {
 
 	/* 게시글 삭제 로직 구현 */
 	@RequestMapping("n_delete")
-	public String n_delete(Model model, @RequestParam("id") int id) {
+	public String n_delete(Model model, @RequestParam("id") int id,
+			Principal principal, HttpServletResponse response) throws IOException {
+		UserDto user = userService.findByLoginId(principal.getName());
 		boardService.delete(id);
-		return "redirect:notice";
+		if (user.getUser_type().equals("동연")) {
+			return "redirect:notice";
+	      } else {
+	         response.setContentType("text/html; charset=UTF-8");
+	         PrintWriter out = response.getWriter();
+	         out.println("<script>alert('접근이 제한된 사용자입니다.'); history.go(-1);</script>");
+	         out.flush();
+	         return "redirect:notice";
+	      }
 	}
 
 	/* 게시글 수정 로직 구현 */
 	@RequestMapping(value = "n_edit", method = RequestMethod.GET)
-	public String n_edit(@RequestParam("id") int id, Model model, BoardDto board, Principal principal) {
+	public String n_edit(@RequestParam("id") int id, Model model, BoardDto board,
+			Principal principal, HttpServletResponse response) throws IOException {
+		UserDto user = userService.findByLoginId(principal.getName());
 		board.setBoard_name_id(3);
 		board.setClub_id(1);
 		board = boardService.findById(id);
 		model.addAttribute("board", board);
 		nav_list(model);
 		nav_user(model, principal);
-		return "club_union/posting";
+		if (user.getUser_type().equals("동연")) {
+			return "club_union/posting";
+	      } else {
+	         response.setContentType("text/html; charset=UTF-8");
+	         PrintWriter out = response.getWriter();
+	         out.println("<script>alert('접근이 제한된 사용자입니다.'); history.go(-1);</script>");
+	         out.flush();
+	         return "redirect:n_content";
+	      }
 	}
 
 	@Transactional
@@ -257,14 +278,24 @@ public class ClubUnionController {
 
 	/* 게시글 삽입 로직 구현 */
 	@RequestMapping(value = "n_create", method = RequestMethod.GET)
-	public String n_create(Model model, BoardDto board, Principal principal) {
+	public String n_create(Model model, BoardDto board, Principal principal,
+			HttpServletResponse response) throws IOException {
+		UserDto user = userService.findByLoginId(principal.getName());
 		board.setBoard_name_id(3);
 		board.setClub_id(1);
 		board = new BoardDto();
 		model.addAttribute("board", board);
 		nav_list(model);
 		nav_user(model, principal);
-		return "club_union/posting";
+		if (user.getUser_type().equals("동연")) {
+			return "club_union/posting";
+	      } else {
+	         response.setContentType("text/html; charset=UTF-8");
+	         PrintWriter out = response.getWriter();
+	         out.println("<script>alert('접근이 제한된 사용자입니다.'); history.go(-1);</script>");
+	         out.flush();
+	         return "redirect:n_content";
+	      }
 	}
 
 	@Transactional
@@ -314,21 +345,41 @@ public class ClubUnionController {
 
 	/* 게시글 삭제 로직 구현 */
 	@RequestMapping("m_delete")
-	public String m_delete(Model model, @RequestParam("id") int id) {
+	public String m_delete(Model model, @RequestParam("id") int id,
+			Principal principal, HttpServletResponse response) throws IOException {
+		UserDto user = userService.findByLoginId(principal.getName());
 		boardService.delete(id);
-		return "redirect:minutes";
+		if (user.getUser_type().equals("동연")) {
+			return "redirect:minutes";
+	      } else {
+	         response.setContentType("text/html; charset=UTF-8");
+	         PrintWriter out = response.getWriter();
+	         out.println("<script>alert('접근이 제한된 사용자입니다.'); history.go(-1);</script>");
+	         out.flush();
+	         return "redirect:minutes";
+	      }
 	}
 
 	/* 게시글 수정 로직 구현 */
 	@RequestMapping(value = "m_edit", method = RequestMethod.GET)
-	public String m_edit(@RequestParam("id") int id, Model model, BoardDto board, Principal principal) {
+	public String m_edit(@RequestParam("id") int id, Model model, BoardDto board,
+			Principal principal, HttpServletResponse response) throws IOException {
+		UserDto user = userService.findByLoginId(principal.getName());
 		board.setBoard_name_id(4);
 		board.setClub_id(1);
 		board = boardService.findById(id);
 		model.addAttribute("board", board);
 		nav_list(model);
 		nav_user(model, principal);
-		return "club_union/posting";
+		if (user.getUser_type().equals("동연")) {
+			return "club_union/posting";
+	      } else {
+	         response.setContentType("text/html; charset=UTF-8");
+	         PrintWriter out = response.getWriter();
+	         out.println("<script>alert('접근이 제한된 사용자입니다.'); history.go(-1);</script>");
+	         out.flush();
+	         return "redirect:m_content";
+	      }
 	}
 
 	@Transactional
@@ -340,14 +391,24 @@ public class ClubUnionController {
 
 	/* 게시글 삽입 로직 구현 */
 	@RequestMapping(value = "m_create", method = RequestMethod.GET)
-	public String m_create(Model model, BoardDto board, Principal principal) {
+	public String m_create(Model model, BoardDto board,
+			Principal principal, HttpServletResponse response) throws IOException {
+		UserDto user = userService.findByLoginId(principal.getName());
 		board.setBoard_name_id(4);
 		board.setClub_id(1);
 		board = new BoardDto();
 		model.addAttribute("board", board);
 		nav_list(model);
 		nav_user(model, principal);
-		return "club_union/posting";
+		if (user.getUser_type().equals("동연")) {
+			return "club_union/posting";
+	      } else {
+	         response.setContentType("text/html; charset=UTF-8");
+	         PrintWriter out = response.getWriter();
+	         out.println("<script>alert('접근이 제한된 사용자입니다.'); history.go(-1);</script>");
+	         out.flush();
+	         return "redirect:m_content";
+	      }
 	}
 
 	@Transactional
@@ -420,7 +481,7 @@ public class ClubUnionController {
 		if (!principal.getName().equals("clubAs"))
 			return "redirect:notice";
 		System.out.println(user_id);
-		int club_id = userclubMapper.findByUserId(user_id).getClub_id();
+		int club_id = userclubMapper.findByUserId(user_id).get(0).getClub_id(); //수정필요
 		String name = clubMapper.findById(club_id).getClub_name();
 		userclubMapper.delete(club_id);
 		clubMapper.delete(name);
@@ -461,7 +522,7 @@ public class ClubUnionController {
 	@RequestMapping(value = "account")
 	public String account(Model model, SemDate semdate, Principal principal) {
 		UserDto user = userService.findByLoginId(principal.getName());
-		UserClubDto user_club = userClubService.findByUserId(user.getId());
+		UserClubDto user_club = userClubService.findByUserId(user.getId()).get(0);
 		int user_club_id = user_club.getClub_id();
 		ClubDto myClub = clubService.findById(user_club_id);
 		System.out.println(semdate.getSem_name());

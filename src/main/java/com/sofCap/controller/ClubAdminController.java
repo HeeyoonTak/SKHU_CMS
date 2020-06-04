@@ -121,6 +121,8 @@ public class ClubAdminController {
 		List<ApplyADto> answerList1 = clubService.findAnswerByClubId(club_id);
 		model.addAttribute("user", user);
 		model.addAttribute("club", club);
+		model.addAttribute("club_id", club_id);
+
 		model.addAttribute("acceptanceYes", acceptanceYes);
 		model.addAttribute("acceptanceNo", acceptanceNo);
 		model.addAttribute("questionList", questionList);
@@ -147,7 +149,7 @@ public class ClubAdminController {
 			@RequestParam("club_id") int club_id) {
 		UserDto user = userService.findByLoginId(principal.getName());
 		ClubDto club = clubService.findById(club_id);
-		UserClubDto userClub = userClubService.findByUserId(user_id);
+		UserClubDto userClub = userClubService.findByUserId(user_id).get(0);
 		List<UserDto> acceptanceYes = userService.findByMember(club_id);
 		List<UserDto> acceptanceNo = userService.findByNotMember(club_id);
 		model.addAttribute("user", user);
@@ -158,7 +160,7 @@ public class ClubAdminController {
 		System.out.println("유저 id: " + user_id);
 		System.out.println("클럽 id: " + club_id);
 		userClubService.insert(user_id, club_id);
-		userService.updateRole(user_id);
+		userService.updateNotMemberRole(user_id);
 		userService.deleteCandidate(user_id);
 		return "redirect:acceptance?club_id=" + club_id;
 	}
@@ -169,16 +171,26 @@ public class ClubAdminController {
 			@RequestParam("club_id") int club_id) {
 		UserDto user = userService.findByLoginId(principal.getName());
 		ClubDto club = clubService.findById(club_id);
-		UserClubDto userClub = userClubService.findByUserId(user_id);
+		UserClubDto userClub = userClubService.findByUserId(user_id).get(0);
 		List<UserDto> acceptanceYes = userService.findByMember(club_id);
 		List<UserDto> acceptanceNo = userService.findByNotMember(club_id);
+		List<UserClubDto> clubs = userClubService.findByUserId(user.getId());
 		model.addAttribute("user", user);
 		model.addAttribute("club", club);
 		model.addAttribute("userClub", userClub);
 		model.addAttribute("acceptanceYes", acceptanceYes);
 		model.addAttribute("acceptanceNo", acceptanceNo);
-		userService.updateRole(user_id);
-		userClubService.delete(user_id);
+		System.out.println(userClubService.userCount(user_id));
+		userClubService.deleteMember(user_id, club_id);
+		for(int i = 0; i < clubs.size(); i++) {
+			if(clubs.get(i).getClub_id()==club_id) {
+				if(userClubService.userCount(user_id)==0) {
+					userService.updateMemberRole(user_id);
+				}else {
+					System.out.println(userClubService.userCount(user_id));
+				}
+			}
+		}
 		return "redirect:acceptance?club_id=" + club_id;
 	}
 
@@ -193,7 +205,7 @@ public class ClubAdminController {
 			System.out.println(i);
 			System.out.println(club_id);
 			userClubService.insert(i, club_id);
-			userService.updateRole(i);
+			userService.updateNotMemberRole(i);
 			userService.deleteCandidate(i);
 		}
 	}
@@ -206,8 +218,12 @@ public class ClubAdminController {
 		ClubDto club = clubService.findById(club_id);
 		model.addAttribute("club", club);
 		for (int i : chArr) {
-			userService.updateRole(i);
-			userClubService.delete(i);
+			userClubService.deleteMember(i, club_id);
+			if(userClubService.userCount(i)==0) {
+				userService.updateMemberRole(i);
+			}else {
+				System.out.println(userClubService.userCount(i));
+			}
 		}
 	}
 
@@ -216,7 +232,7 @@ public class ClubAdminController {
 			Principal principal) throws IOException {
 		UserDto user = userService.findByLoginId(principal.getName());
 		ClubDto club = clubService.findById(club_id);
-		UserClubDto userClub = userClubService.findByUserId(user_id);
+		UserClubDto userClub = userClubService.findByUserId(user_id).get(0);
 		List<ApplyADto> answerList = clubService.findAnswer(club_id, user_id);
 		List<ApplyADto> answerList1 = clubService.findAnswerByClubId(club_id);
 		List<ApplyQDto> questionList = clubService.findQuestion(club_id);
@@ -245,7 +261,7 @@ public class ClubAdminController {
 			out.flush();
 			return "redirect:notice?club_id=" + club_id;
 		}
-		UserClubDto userclub = userClubService.findByUserId(user.getId()); // user와 연결된 user_club 정보 획득
+		UserClubDto userclub = userClubService.findByUserId(user.getId()).get(0); // user와 연결된 user_club 정보 획득
 		ClubDto club = clubService.findById(userclub.getClub_id()); // user_club로 club 정보 획득
 		List<ApplyQDto_mod> applyQ = clubMapper.findQmodQusetionByClub(club.getId()); // club에 해당되어 있는 질문 리스트 가져오기
 		if (semdate.getSem_name() == null) {
@@ -266,7 +282,7 @@ public class ClubAdminController {
 	@RequestMapping(value = "apply_q_save", method = RequestMethod.POST)
 	public String apply_q_save(Model model, Principal principal, @RequestParam("question") String[] questions) {
 		UserDto user = userService.findByLoginId(principal.getName()); // 현재 로그인한 사용자로 user 정보 획득
-		UserClubDto userclub = userClubService.findByUserId(user.getId()); // user와 연결된 user_club 정보 획득
+		UserClubDto userclub = userClubService.findByUserId(user.getId()).get(0); // user와 연결된 user_club 정보 획득
 		ClubDto club = clubService.findById(userclub.getClub_id()); // user_club로 club 정보 획득
 		saveQusetion(questions, club.getId());
 		return "redirect:apply_q_list?club_id=" + club.getId();
@@ -293,7 +309,7 @@ public class ClubAdminController {
 	public String apply_q_edit(Model model, Principal principal,
 			@RequestParam("edited_question") String edited_question, @RequestParam("id") int id) {
 		UserDto user = userService.findByLoginId(principal.getName()); // 현재 로그인한 사용자로 user 정보 획득
-		UserClubDto userclub = userClubService.findByUserId(user.getId()); // user와 연결된 user_club 정보 획득
+		UserClubDto userclub = userClubService.findByUserId(user.getId()).get(0); // user와 연결된 user_club 정보 획득
 		ClubDto club = clubService.findById(userclub.getClub_id()); // user_club로 club 정보 획득
 		ApplyQDto edit_Q = clubMapper.QfindById(id);
 		edit_Q.setContent(edited_question);
@@ -306,7 +322,7 @@ public class ClubAdminController {
 	@RequestMapping("applyQ_delete")
 	public String deleteQ(Model model, Principal principal, @RequestParam("id") int id) {
 		UserDto user = userService.findByLoginId(principal.getName()); // 현재 로그인한 사용자로 user 정보 획득
-		UserClubDto userclub = userClubService.findByUserId(user.getId()); // user와 연결된 user_club 정보 획득
+		UserClubDto userclub = userClubService.findByUserId(user.getId()).get(0); // user와 연결된 user_club 정보 획득
 		ClubDto club = clubService.findById(userclub.getClub_id()); // user_club로 club 정보 획득
 		clubService.deleteQ(id);
 		return "redirect:apply_q_list?club_id=" + club.getId();
@@ -316,7 +332,7 @@ public class ClubAdminController {
 	@RequestMapping("apply_all_delete")
 	public String all_delete(Model model, Principal principal) {
 		UserDto user = userService.findByLoginId(principal.getName()); // 현재 로그인한 사용자로 user 정보 획득
-		UserClubDto userclub = userClubService.findByUserId(user.getId()); // user와 연결된 user_club 정보 획득
+		UserClubDto userclub = userClubService.findByUserId(user.getId()).get(0); // user와 연결된 user_club 정보 획득
 		ClubDto club = clubService.findById(userclub.getClub_id()); // user_club로 club 정보 획득
 		List<ApplyADto> applyA_all = clubMapper.findAnswerByClubId(club.getId());
 		for (int i = 0; i < applyA_all.size(); i++) {
@@ -331,38 +347,6 @@ public class ClubAdminController {
 		return "redirect:apply_q_list?club_id=" + club.getId();
 	}
 
-	// 일반 회원이 모집 폼에 지원하기
-	@RequestMapping(value = "apply_recruit")
-	public String apply_recruit(Model model, @RequestParam("club_id") int club_id, Principal principal) {
-		UserDto user = userService.findByLoginId(principal.getName()); // 현재 로그인한 사용자로 user 정보 획득
-		ClubDto club = clubService.findById(club_id);
-		List<ApplyQDto_mod> applyQ = clubMapper.findQmodQusetionByClub(club.getId()); // club에 해당되어 있는 질문 리스트 가져오기
-		model.addAttribute("applyQ", applyQ);
-		model.addAttribute("club", club);
-		return "club_admin/apply_recruit";
-	}
-	// 모집 지원 save
-	@RequestMapping(value = "apply_a_save", method = RequestMethod.POST)
-	public String apply_a_save(Model model, Principal principal, @RequestParam("Qs") int[] questions,
-			@RequestParam("answers") String[] answers, @RequestParam("club_id") int club_id) {
-		UserDto user = userService.findByLoginId(principal.getName()); // 현재 로그인한 사용자로 user 정보 획득
-		saveAnswer(questions, answers, user.getId(), club_id);
-		nav_list(model);
-		nav_user(model, principal);
-		return "redirect:apply_recruit?club_id=" + club_id;
-	}
-
-	@Transactional
-	private void saveAnswer(int[] Questions, String[] answers, int user_id, int club_id) {
-		for (int i = 0; i < answers.length; i++) {
-			ApplyADto applyA = new ApplyADto();
-			applyA.setApply_q_id(Questions[i]);
-			applyA.setContent(answers[i]);
-			applyA.setUser_id(user_id);
-			applyA.setClub_id(club_id);
-			clubMapper.insertA(applyA);
-		}
-	}
 
 	/*
 	 * ASY_board 동아리 관리
@@ -372,6 +356,8 @@ public class ClubAdminController {
 			HttpServletResponse response) throws IOException {
 		model.addAttribute("club_id", club_id);
 		UserDto user = userService.findByLoginId(principal.getName());
+		ClubDto club = clubService.findById(club_id);
+		model.addAttribute("club", club);
 		nav_list(model);
 		nav_user(model, principal);
 		if (user.getUser_type().equals("동아리관리자")) {
@@ -450,6 +436,8 @@ public class ClubAdminController {
 			Principal principal) {
 		BoardDto board = boardService.findOne(id);
 		model.addAttribute("board", board);
+		ClubDto club = clubService.findById(club_id);
+		model.addAttribute("club", club);
 		nav_list(model);
 		nav_user(model, principal);
 		return "club_admin/n_content";
@@ -457,13 +445,23 @@ public class ClubAdminController {
 
 	/* 게시글 수정 로직 구현 */
 	@RequestMapping(value = "n_edit", method = RequestMethod.GET)
-	public String n_edit(@RequestParam("id") int id, Model model, BoardDto board, Principal principal) {
+	public String n_edit(@RequestParam("id") int id, Model model, BoardDto board,
+			Principal principal, HttpServletResponse response) throws IOException {
+		UserDto user = userService.findByLoginId(principal.getName());
 		board.setBoard_name_id(3);
 		board = boardService.findById(id);
 		model.addAttribute("board", board);
 		nav_list(model);
 		nav_user(model, principal);
-		return "club_admin/posting";
+		if (user.getUser_type().equals("동아리관리자")) {
+			return "club_admin/posting";
+	      } else {
+	         response.setContentType("text/html; charset=UTF-8");
+	         PrintWriter out = response.getWriter();
+	         out.println("<script>alert('접근이 제한된 사용자입니다.'); history.go(-1);</script>");
+	         out.flush();
+	         return "redirect:n_content";
+	      }
 	}
 
 	@Transactional
@@ -475,14 +473,26 @@ public class ClubAdminController {
 
 	/* 게시글 삽입 로직 구현 */
 	@RequestMapping(value = "n_create", method = RequestMethod.GET)
-	public String n_create(Model model, BoardDto board, @RequestParam("club_id") int club_id, Principal principal) {
+	public String n_create(Model model, BoardDto board, @RequestParam("club_id") int club_id,
+			Principal principal, HttpServletResponse response) throws IOException {
+		UserDto user = userService.findByLoginId(principal.getName());
 		board.setBoard_name_id(3);
 		board.setClub_id(club_id);
 		board = new BoardDto();
 		model.addAttribute("board", board);
+		ClubDto club = clubService.findById(club_id);
+		model.addAttribute("club", club);
 		nav_list(model);
 		nav_user(model, principal);
-		return "club_admin/posting";
+		if (user.getUser_type().equals("동아리관리자")) {
+			return "club_admin/posting";
+	      } else {
+	         response.setContentType("text/html; charset=UTF-8");
+	         PrintWriter out = response.getWriter();
+	         out.println("<script>alert('접근이 제한된 사용자입니다.'); history.go(-1);</script>");
+	         out.flush();
+	         return "redirect:n_content";
+	      }
 	}
 
 	@Transactional
@@ -496,10 +506,20 @@ public class ClubAdminController {
 
 	/* 게시글 삭제 로직 구현 */
 	@RequestMapping("n_delete")
-	public String n_delete(Model model, @RequestParam("id") int id) {
+	public String n_delete(Model model, @RequestParam("id") int id,
+			Principal principal, HttpServletResponse response) throws IOException {
+		UserDto user = userService.findByLoginId(principal.getName());
 		BoardDto board = boardService.findById(id);
 		boardService.delete(id);
-		return "redirect:notice?club_id=" + board.getClub_id();
+		if (user.getUser_type().equals("동아리관리자")) {
+			return "redirect:notice?club_id=" + board.getClub_id();
+	      } else {
+	         response.setContentType("text/html; charset=UTF-8");
+	         PrintWriter out = response.getWriter();
+	         out.println("<script>alert('접근이 제한된 사용자입니다.'); history.go(-1);</script>");
+	         out.flush();
+	         return "redirect:notice?club_id=" + board.getClub_id();
+	      }
 	}
 
 	/*
@@ -538,6 +558,8 @@ public class ClubAdminController {
 			Principal principal) {
 		BoardDto board = boardService.findOne(id);
 		model.addAttribute("board", board);
+		ClubDto club = clubService.findById(club_id);
+		model.addAttribute("club", club);
 		nav_list(model);
 		nav_user(model, principal);
 		return "club_admin/m_content";
@@ -545,13 +567,23 @@ public class ClubAdminController {
 
 	/* 게시글 수정 로직 구현 */
 	@RequestMapping(value = "m_edit", method = RequestMethod.GET)
-	public String m_edit(@RequestParam("id") int id, Model model, BoardDto board, Principal principal) {
+	public String m_edit(@RequestParam("id") int id, Model model, BoardDto board,
+			Principal principal, HttpServletResponse response) throws IOException {
+		UserDto user = userService.findByLoginId(principal.getName());
 		board.setBoard_name_id(4);
 		board = boardService.findById(id);
 		model.addAttribute("board", board);
 		nav_list(model);
 		nav_user(model, principal);
-		return "club_admin/posting";
+		if (user.getUser_type().equals("동아리관리자")) {
+			return "club_admin/posting";
+	      } else {
+	         response.setContentType("text/html; charset=UTF-8");
+	         PrintWriter out = response.getWriter();
+	         out.println("<script>alert('접근이 제한된 사용자입니다.'); history.go(-1);</script>");
+	         out.flush();
+	         return "redirect:n_content";
+	      }
 	}
 
 	@Transactional
@@ -563,14 +595,26 @@ public class ClubAdminController {
 
 	/* 게시글 삽입 로직 구현 */
 	@RequestMapping(value = "m_create", method = RequestMethod.GET)
-	public String m_create(Model model, BoardDto board, @RequestParam("club_id") int club_id, Principal principal) {
+	public String m_create(Model model, BoardDto board, @RequestParam("club_id") int club_id,
+			Principal principal, HttpServletResponse response) throws IOException {
+		UserDto user = userService.findByLoginId(principal.getName());
 		board.setBoard_name_id(4);
 		board.setClub_id(club_id);
 		board = new BoardDto();
 		model.addAttribute("board", board);
+		ClubDto club = clubService.findById(club_id);
+		model.addAttribute("club", club);
 		nav_list(model);
 		nav_user(model, principal);
-		return "club_admin/posting";
+		if (user.getUser_type().equals("동아리관리자")) {
+			return "club_admin/posting";
+	      } else {
+	         response.setContentType("text/html; charset=UTF-8");
+	         PrintWriter out = response.getWriter();
+	         out.println("<script>alert('접근이 제한된 사용자입니다.'); history.go(-1);</script>");
+	         out.flush();
+	         return "redirect:n_content";
+	      }
 	}
 
 	@Transactional
@@ -584,10 +628,20 @@ public class ClubAdminController {
 
 	/* 게시글 삭제 로직 구현 */
 	@RequestMapping("m_delete")
-	public String m_delete(Model model, @RequestParam("id") int id) {
+	public String m_delete(Model model, @RequestParam("id") int id,
+			Principal principal, HttpServletResponse response) throws IOException {
+		UserDto user = userService.findByLoginId(principal.getName());
 		BoardDto board = boardService.findById(id);
 		boardService.delete(id);
-		return "redirect:minutes?club_id=" + board.getClub_id();
+		if (user.getUser_type().equals("동아리관리자")) {
+			return "redirect:minutes?club_id=" + board.getClub_id();
+	      } else {
+	         response.setContentType("text/html; charset=UTF-8");
+	         PrintWriter out = response.getWriter();
+	         out.println("<script>alert('접근이 제한된 사용자입니다.'); history.go(-1);</script>");
+	         out.flush();
+	         return "redirect:minutes?club_id=" + board.getClub_id();
+	      }
 	}
 
 	/*
@@ -611,6 +665,8 @@ public class ClubAdminController {
 			Principal principal) {
 		BoardDto board = boardService.findOne(id);
 		model.addAttribute("board", board);
+		ClubDto club = clubService.findById(club_id);
+		model.addAttribute("club", club);
 		nav_list(model);
 		nav_user(model, principal);
 		return "club_admin/p_content";
@@ -618,13 +674,23 @@ public class ClubAdminController {
 
 	/* 게시글 수정 로직 구현 */
 	@RequestMapping(value = "p_edit", method = RequestMethod.GET)
-	public String p_edit(@RequestParam("id") int id, Model model, BoardDto board, Principal principal) {
+	public String p_edit(@RequestParam("id") int id, Model model, BoardDto board,
+			Principal principal, HttpServletResponse response) throws IOException {
+		UserDto user = userService.findByLoginId(principal.getName());
 		board.setBoard_name_id(1);
 		board = boardService.findById(id);
 		model.addAttribute("board", board);
 		nav_list(model);
 		nav_user(model, principal);
-		return "club_admin/posting";
+		if (user.getUser_type().equals("동아리관리자")) {
+			return "club_admin/posting";
+	      } else {
+	         response.setContentType("text/html; charset=UTF-8");
+	         PrintWriter out = response.getWriter();
+	         out.println("<script>alert('접근이 제한된 사용자입니다.'); history.go(-1);</script>");
+	         out.flush();
+	         return "redirect:p_content";
+	      }
 	}
 
 	@Transactional
@@ -636,14 +702,26 @@ public class ClubAdminController {
 
 	/* 게시글 삽입 로직 구현 */
 	@RequestMapping(value = "p_create", method = RequestMethod.GET)
-	public String p_create(Model model, BoardDto board, @RequestParam("club_id") int club_id, Principal principal) {
+	public String p_create(Model model, BoardDto board, @RequestParam("club_id") int club_id,
+			Principal principal, HttpServletResponse response) throws IOException {
+		UserDto user = userService.findByLoginId(principal.getName());
 		board.setBoard_name_id(1);
 		board.setClub_id(club_id);
 		board = new BoardDto();
 		model.addAttribute("board", board);
+		ClubDto club = clubService.findById(club_id);
+		model.addAttribute("club", club);
 		nav_list(model);
 		nav_user(model, principal);
-		return "club_admin/posting";
+		if (user.getUser_type().equals("동아리관리자")) {
+			return "club_admin/posting";
+	      } else {
+	         response.setContentType("text/html; charset=UTF-8");
+	         PrintWriter out = response.getWriter();
+	         out.println("<script>alert('접근이 제한된 사용자입니다.'); history.go(-1);</script>");
+	         out.flush();
+	         return "redirect:p_content";
+	      }
 	}
 
 	@Transactional
@@ -657,10 +735,21 @@ public class ClubAdminController {
 
 	/* 게시글 삭제 로직 구현 */
 	@RequestMapping("p_delete")
-	public String p_delete(Model model, @RequestParam("id") int id) {
+	public String p_delete(Model model, @RequestParam("id") int id,
+			Principal principal, HttpServletResponse response) throws IOException {
+		UserDto user = userService.findByLoginId(principal.getName());
 		BoardDto board = boardService.findById(id);
 		boardService.delete(id);
-		return "redirect:publicity?club_id=" + board.getClub_id();
+		if (user.getUser_type().equals("동아리관리자")) {
+			return "redirect:publicity?club_id=" + board.getClub_id();
+	      } else {
+	         response.setContentType("text/html; charset=UTF-8");
+	         PrintWriter out = response.getWriter();
+	         out.println("<script>alert('접근이 제한된 사용자입니다.'); history.go(-1);</script>");
+	         out.flush();
+	         return "redirect:publicity?club_id=" + board.getClub_id();
+	      }
+
 	}
 
 	/*
@@ -684,6 +773,8 @@ public class ClubAdminController {
 			Principal principal) {
 		BoardDto board = boardService.findOne(id);
 		model.addAttribute("board", board);
+		ClubDto club = clubService.findById(club_id);
+		model.addAttribute("club", club);
 		nav_list(model);
 		nav_user(model, principal);
 		return "club_admin/r_content";
@@ -691,13 +782,23 @@ public class ClubAdminController {
 
 	/* 게시글 수정 로직 구현 */
 	@RequestMapping(value = "r_edit", method = RequestMethod.GET)
-	public String r_edit(@RequestParam("id") int id, Model model, BoardDto board, Principal principal) {
+	public String r_edit(@RequestParam("id") int id, Model model, BoardDto board,
+			Principal principal, HttpServletResponse response) throws IOException {
+		UserDto user = userService.findByLoginId(principal.getName());
 		board.setBoard_name_id(2);
 		board = boardService.findById(id);
 		model.addAttribute("board", board);
 		nav_list(model);
 		nav_user(model, principal);
-		return "club_admin/posting";
+		if (user.getUser_type().equals("동아리관리자")) {
+			return "club_admin/posting";
+	      } else {
+	         response.setContentType("text/html; charset=UTF-8");
+	         PrintWriter out = response.getWriter();
+	         out.println("<script>alert('접근이 제한된 사용자입니다.'); history.go(-1);</script>");
+	         out.flush();
+	         return "redirect:r_content";
+	      }
 	}
 
 	@Transactional
@@ -709,14 +810,26 @@ public class ClubAdminController {
 
 	/* 게시글 삽입 로직 구현 */
 	@RequestMapping(value = "r_create", method = RequestMethod.GET)
-	public String r_create(Model model, BoardDto board, @RequestParam("club_id") int club_id, Principal principal) {
+	public String r_create(Model model, BoardDto board, @RequestParam("club_id") int club_id,
+			Principal principal, HttpServletResponse response) throws IOException {
+		UserDto user = userService.findByLoginId(principal.getName());
 		board.setBoard_name_id(2);
 		board.setClub_id(club_id);
 		board = new BoardDto();
 		model.addAttribute("board", board);
+		ClubDto club = clubService.findById(club_id);
+		model.addAttribute("club", club);
 		nav_list(model);
 		nav_user(model, principal);
-		return "club_admin/posting";
+		if (user.getUser_type().equals("동아리관리자")) {
+			return "club_admin/posting";
+	      } else {
+	         response.setContentType("text/html; charset=UTF-8");
+	         PrintWriter out = response.getWriter();
+	         out.println("<script>alert('접근이 제한된 사용자입니다.'); history.go(-1);</script>");
+	         out.flush();
+	         return "redirect:r_content";
+	      }
 	}
 
 	@Transactional
@@ -730,10 +843,20 @@ public class ClubAdminController {
 
 	/* 게시글 삭제 로직 구현 */
 	@RequestMapping("r_delete")
-	public String r_delete(Model model, @RequestParam("id") int id) {
+	public String r_delete(Model model, @RequestParam("id") int id,
+			Principal principal, HttpServletResponse response) throws IOException {
+		UserDto user = userService.findByLoginId(principal.getName());
 		BoardDto board = boardService.findById(id);
 		boardService.delete(id);
-		return "redirect:recruit?club_id=" + board.getClub_id();
+		if (user.getUser_type().equals("동아리관리자")) {
+			return "redirect:recruit?club_id=" + board.getClub_id();
+	      } else {
+	         response.setContentType("text/html; charset=UTF-8");
+	         PrintWriter out = response.getWriter();
+	         out.println("<script>alert('접근이 제한된 사용자입니다.'); history.go(-1);</script>");
+	         out.flush();
+	         return "redirect:recruit?club_id=" + board.getClub_id();
+	      }
 	}
 
 	/*
@@ -743,9 +866,18 @@ public class ClubAdminController {
 
 	/* 학기에 따른 회계 리스트 조회 */
 	@RequestMapping(value = "account")
-	public String account(Model model, SemDate semdate, Principal principal, @RequestParam("club_id") int club_id) {
+	public String account(Model model, SemDate semdate, Principal principal, @RequestParam("club_id") int club_id, HttpServletResponse response) throws IOException {
 
-		UserDto user = userService.findByLoginId(principal.getName());
+
+		UserDto user = userService.findByLoginId(principal.getName()); // 현재 로그인한 사용자로 user 정보 획득
+
+		List<UserClubDto> clubs = userClubService.findByUserId(user.getId()); //소속되어있는 동아리들
+		boolean club_belong = false; //동아리에 소속되어있는지 확인하는 변수
+		for(int i = 0; i < clubs.size(); i++) {
+			if(clubs.get(i).getClub_id()==club_id) club_belong = true;
+			//파라미터 club_id와 소속되어있는 동아리목록(clubs)의 club_id가 같은게 있다면 소속확인하는 변수(clus_belong)을 true로 바꿈
+		}
+
 		ClubDto club = clubService.findById(club_id);
 
 		System.out.println(semdate.getSem_name());
@@ -773,7 +905,17 @@ public class ClubAdminController {
 		model.addAttribute("end_date", end_date);
 		nav_list(model);
 		nav_user(model, principal);
-		return "club_admin/account";
+
+		//접근권한 확인
+		if (club_belong==true) {
+			return "club_admin/account";
+		} else {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('접근이 제한된 사용자입니다.'); history.go(-1);</script>");
+			out.flush();
+			return " ";
+		}
 	}
 
 	/* 회계 내역 입력 */
@@ -859,7 +1001,6 @@ public class ClubAdminController {
 	public String attendance(Model model, SemDate semdate, Principal principal, @RequestParam("club_id") int club_id) {
 
 		// 로그인 한 유저 정보 추출
-
 		UserDto user = userService.findByLoginId(principal.getName());
 		ClubDto club = clubService.findById(club_id);
 
@@ -939,7 +1080,7 @@ public class ClubAdminController {
 				attendanceService.update(updateck[i]);
 			}
 		}
-		return "redirect:attendance?club_id=" + club_id;
+		return "redirect:attendance?club_id=" + club_id + "#heading";
 	}
 
 	/*
@@ -961,7 +1102,7 @@ public class ClubAdminController {
 			// 현재 학기에 해당하는 경우 - 삽입
 			attendanceService.dateNow(date, sem, club_id);
 		}
-		return "redirect:attendance?club_id=" + club_id;
+		return "redirect:attendance?club_id=" + club_id + "#heading";
 	}
 
 	/*
@@ -970,6 +1111,6 @@ public class ClubAdminController {
 	@RequestMapping("attendance_delete")
 	public String delete(Model model, @RequestParam("date") Date date, @RequestParam("club_id") int club_id) {
 		attendanceService.delete(date, club_id);
-		return "redirect:attendance?club_id=" + club_id;
+		return "redirect:attendance?club_id=" + club_id + "#heading";
 	}
 }

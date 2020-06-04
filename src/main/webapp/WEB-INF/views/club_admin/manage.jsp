@@ -42,7 +42,7 @@
                    <h4 style="color: #8B969C; font-weight: bold">사진 등록</h4>
                    <input type="file" name="file_id" id="uploadImage"
 					onchange="fileChange(this);"> 
-					<img src="${R}club_admin/getClubImage?id=${club.id}" id="clubImg" />
+					<img src="${R}club_admin/getClubImage?id=${club.id}" id="clubImg" style="width: 270px; height: 230px" />
 					</div>
 					<div style="float:right;" class="col-md-5">
                    <h4 style="color: #8B969C; font-weight: bold">소개글</h4>

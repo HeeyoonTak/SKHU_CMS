@@ -21,6 +21,11 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
+	public BoardDto findOneClub(int id) {
+		return boardMapper.findOneClub(id);
+	}
+
+	@Override
 	public List<BoardDto> findBySem_m(SemDate sem_name) {
 		return boardMapper.findBySem_m(sem_name);
 	}

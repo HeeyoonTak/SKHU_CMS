@@ -12,6 +12,8 @@ import com.sofCap.model.SemDate;
 public interface BoardMapper {
 	BoardDto findById(int id);
 
+	BoardDto findOneClub(int id);
+
 	List<BoardDto> findBySem_m(SemDate sem_name);
 
 	List<BoardDto> findBySem_a(String sem_name,  int club_id);

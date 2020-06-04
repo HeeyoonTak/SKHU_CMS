@@ -1,5 +1,7 @@
 package com.sofCap.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +20,7 @@ public class UserClubServiceImpl implements UserClubService{
 	}
 
 	@Override
-	public UserClubDto findByUserId(int user_id) {
+	public List<UserClubDto> findByUserId(int user_id) {
 		// TODO Auto-generated method stub
 		return userClubDao.findByUserId(user_id);
 	}
@@ -27,6 +29,18 @@ public class UserClubServiceImpl implements UserClubService{
 	public void delete(int user_id) {
 		// TODO Auto-generated method stub
 		userClubDao.delete(user_id);
+	}
+
+	@Override
+	public void deleteMember(int user_id, int club_id) {
+		// TODO Auto-generated method stub
+		userClubDao.deleteMember(user_id, club_id);
+	}
+
+	@Override
+	public int userCount(int user_id) {
+		// TODO Auto-generated method stub
+		return userClubDao.userCount(user_id);
 	}
 
 }

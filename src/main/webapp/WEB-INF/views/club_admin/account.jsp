@@ -111,9 +111,15 @@
 															data-target="#createModal"
 															onclick="return showReceipt('${account.id}');">영수증</a> <%-- <img src ="${R}club_union/getImage?id=${account.id}" width="100" height="100"></img> --%>
 														</td>
-														<td><a
+														
+														<!-- 삭제 버튼 -->
+														<td>
+														<sec:authorize access="hasRole('ROLE_ClubAdmin')">
+														<a
 															href="${R}club_admin/delete?id=${account.id}&club_id=${club_id}"
-															onclick="return deleteAlert();">x</a></td>
+															onclick="return deleteAlert();">x</a>
+														</sec:authorize>
+														</td>
 													</tr>
 												</c:if>
 											</c:forEach>
@@ -126,8 +132,9 @@
 												</c:if>
 											</c:forEach>
 										</tbody>
+										
+										<sec:authorize access="hasRole('ROLE_ClubAdmin')">
 										<tbody>
-
 											<!-- START input row -->
 											<tr id="default">
 												<input type="hidden" name="club_id" value="${club_id}">
@@ -161,9 +168,12 @@
 														class="btn btn-primary col-md" id="pls-btn">+</button></td>
 											</tr>
 										</tbody>
+										</sec:authorize>
 
 									</table>
 							</div>
+							
+							<sec:authorize access="hasRole('ROLE_ClubAdmin')">
 							<div class="row">
 								<div class="col-md-8"></div>
 								<div class="col-md-4">
@@ -172,6 +182,7 @@
 										id="l_account_save" name="l_account_save" value="회계 저장">
 								</div>
 							</div>
+							</sec:authorize>
 							</form>
 						</div>
 					</div>

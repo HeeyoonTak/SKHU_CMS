@@ -27,14 +27,14 @@
 <div id="fh5co-main">
 	<div class="container">
 		<div class="row">
-			<div class="content-box animate-box">
-				<div class="col-md-9 col-md-push-3" id="fh5co-content">
+			<div class="col-md-12 animate-box">
 					<div class="row">
 						<div class="col-xs-12" style="margin-bottom: 0px">
-							<h2 class="h3" style="margin-bottom: 20px">${club.club_name}
+							<h2 class="h3" style="margin-bottom: 20px; margin-left: 170px">${club.club_name}
 								모집</h2>
 						</div>
-						<div class="col-xs-12" style="margin-bottom: 0px">
+						<div class="col-xs-2"></div>
+						<div class="col-xs-9" style="margin-bottom: 0px">
 							<form method="post" enctype="multipart/form-data"
 								name="apply_submit" id="apply_submit">
 								<input type="hidden" name="club_id" value="${club.id}">
@@ -50,8 +50,7 @@
 											<tbody>
 												<c:forEach var="q" items="${applyQ}">
 													<tr height="10">
-														<td><p
-																style="word-break: break-all; margin-bottom: 3px;">${q.content}</p></td>
+														<td><p style="word-break: break-all; margin-bottom: 3px;">${q.content}</p></td>
 													</tr>
 													<tr height="40">
 														<input type="hidden" name="Qs" value=${q.id}>
@@ -76,10 +75,8 @@
 							</form>
 						</div>
 					</div>
-				</div>
-				<div class="col-md-3 col-md-pull-9" id="fh5co-sidebar">
-					<c:import url="../tiles/tiles_club_sidebar.jsp" />
-				</div>
+
+
 			</div>
 		</div>
 	</div>
