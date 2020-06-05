@@ -84,8 +84,7 @@
 																	aria-label="Close">
 																	<span aria-hidden="true">x</span>
 																</button>
-																<h4 id="modal-title" class="modal-title">동아리 지원서
-																	${user.id}</h4>
+																<h4 id="modal-title" class="modal-title">동아리 지원서</h4>
 															</div>
 															<div class="modal-body" style="overflow: scroll">
 																<table class="table table-striped" style="max-width: 100%; display: table;" >
