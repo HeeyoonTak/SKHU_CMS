@@ -22,16 +22,22 @@ public interface ClubMapper {
 
 	List<ClubDto> findByUserId(int user_id);
 
-	List<ApplyADto> findAnswer(int club_id,int user_id);
-	
+	List<ApplyADto> findAnswer(int club_id, int user_id);
+
+	List<ApplyADto> findAnswerByClubIdAndUserId(int club_id, int user_id);
+
 	List<ApplyADto> findAnswerByClubId(int club_id);
 
 	List<ApplyQDto> findQuestion(int club_id);
 
 	List<ApplyQDto> findQuestionByClub(int club_id);
-	
+
+	void deleteAnswerByUserId(int user_id, int club_id);
+
+	void editAnswer(int id, String content);
+
 	void insertA(ApplyADto applyA);
-	
+
 	void deleteA(int id);
 
 	ApplyQDto QfindById(int id);
