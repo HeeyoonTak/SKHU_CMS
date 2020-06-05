@@ -50,14 +50,28 @@
 	<insert id="insertA" useGeneratedKeys="true" keyProperty="id">
 		INSERT
 		apply_A(apply_q_id, content, user_id, club_id)
-		VALUES (#{apply_q_id}, #{content}, #{user_id}, #{club_id});
+		VALUES (#{apply_q_id},
+		#{content}, #{user_id}, #{club_id});
 	</insert>
+
+	<delete id="deleteAnswerByUserId">
+		DELETE
+		FROM apply_a
+		WHERE user_id = #{user_id} and
+		club_id = #{club_id}
+	</delete>
 
 	<delete id="deleteA">
 		DELETE
 		FROM apply_a
 		WHERE id = #{id};
 	</delete>
+
+	<update id="editAnswer">
+		UPDATE apply_a
+		SET content = #{content}
+		WHERE id=#{id}
+	</update>
 
 	<insert id="insertQ" useGeneratedKeys="true" keyProperty="id">
 		INSERT
@@ -83,6 +97,11 @@
 		From Club
 		WHERE
 		club_name = #{name};
+	</select>
+	<select id="findAnswerByClubIdAndUserId" resultType="ApplyADto">
+		SELECT *
+		FROM apply_a
+		Where club_id = #{club_id} and user_id = #{user_id}
 	</select>
 
 	<select id="findAnswer" resultType="ApplyADto">

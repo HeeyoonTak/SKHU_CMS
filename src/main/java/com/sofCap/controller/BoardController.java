@@ -182,12 +182,35 @@ public class BoardController {
 
 	// 일반 회원이 모집 폼에 지원하기
 	@RequestMapping(value = "apply_recruit")
-	public String apply_recruit(Model model, @RequestParam("club_id") int club_id, Principal principal) {
+	public String apply_recruit(Model model, @RequestParam("club_id") int club_id, Principal principal,
+			HttpServletResponse response) throws IOException {
+		if (principal == null) {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('로그인 시 지원 가능합니다.'); history.go(-1);</script>");
+			out.flush();
+			return "redirect:/";
+		}
 		UserDto user = userService.findByLoginId(principal.getName()); // 현재 로그인한 사용자로 user 정보 획득
+
 		ClubDto club = clubService.findById(club_id);
 		List<ApplyQDto_mod> applyQ = clubMapper.findQmodQusetionByClub(club.getId()); // club에 해당되어 있는 질문 리스트 가져오기
+		List<ApplyADto> applyAs = clubMapper.findAnswerByClubIdAndUserId(club_id, user.getId());
+		ApplyADto[] applyA = new ApplyADto[clubMapper.findAnswerByClubIdAndUserId(club_id, user.getId()).size()];
+		for (int i = 0; i < applyAs.size(); i++)
+			applyA[i] = applyAs.get(i);
+		int applyA_size = applyA.length;
+		for (int i = 0; i < applyA.length; i++)
+			System.out.println(applyA[i].getId() + " " + applyA[i].getContent());
+		System.out.println("대답 개수 : " + applyA_size);
+		model.addAttribute("applyA", applyA);
+		model.addAttribute("applyA_size", applyA_size);
+		int applyQ_size = applyQ.size();
+		System.out.println("질문 개수 : " + applyQ_size);
 		model.addAttribute("applyQ", applyQ);
+		model.addAttribute("applyQ_size", applyQ_size);
 		model.addAttribute("club", club);
+		model.addAttribute("club_id", club_id);
 		nav_list(model);
 		nav_user(model, principal);
 		return "guest/apply_recruit";
@@ -212,5 +235,30 @@ public class BoardController {
 			applyA.setClub_id(club_id);
 			clubMapper.insertA(applyA);
 		}
+	}
+
+	// 모집 지원 수정
+	@RequestMapping("editAnswer")
+	public String editAnswer(Model model, Principal principal, @RequestParam("club_id") int club_id,
+			@RequestParam("answers") String[] answers) {
+		UserDto user = userService.findByLoginId(principal.getName()); // 현재 로그인한 사용자로 user 정보 획득
+		List<ApplyADto> applyAs = clubMapper.findAnswerByClubIdAndUserId(club_id, user.getId());
+		ApplyADto[] applyA = new ApplyADto[clubMapper.findAnswerByClubIdAndUserId(club_id, user.getId()).size()];
+		for (int i = 0; i < applyAs.size(); i++)
+			applyA[i] = applyAs.get(i);
+
+		for (int i = 0; i < answers.length; i++) {
+			if (!answers[i].equals(""))
+				clubMapper.editAnswer(applyA[i].getId(), answers[i]);
+		}
+		return "redirect:apply_recruit?club_id=" + club_id;
+	}
+
+	// 지원 취소
+	@RequestMapping("deleteAllAnswer")
+	public String deleteAllAnswer(Model model, Principal principal, @RequestParam("club_id") int club_id) {
+		UserDto user = userService.findByLoginId(principal.getName()); // 현재 로그인한 사용자로 user 정보 획득
+		clubMapper.deleteAnswerByUserId(user.getId(), club_id);
+		return "redirect:apply_recruit?club_id=" + club_id;
 	}
 }
