@@ -46,11 +46,13 @@ public class BoardController {
 	@Autowired
 	FileMapper fileMapper;
 
+	//네비게이션 동아리 띄우기
 	public void nav_list(Model model) {
 		List<ClubDto> clubs = clubService.findAll();
 		model.addAttribute("clubs", clubs);
 	}
 
+	//네비게이션 user 동아리 띄우기
 	public void nav_user(Model model, Principal principal) {
 		if (principal == null)
 			return;
@@ -61,6 +63,7 @@ public class BoardController {
 		}
 	}
 
+	//각 동아리 소개
 	@RequestMapping("list-content")
 	public String list_content(Model model, @RequestParam("id") int club_id, Principal principal) {
 		ClubDto club = clubService.findById(club_id);
@@ -74,6 +77,7 @@ public class BoardController {
 		return "guest/list-content";
 	}
 
+	//이미지 불러오기
 	@RequestMapping(value = "getClubImage")
 	public void getClubImage(HttpServletRequest req, HttpServletResponse res, @RequestParam("id") int id)
 			throws IOException {
@@ -84,6 +88,7 @@ public class BoardController {
 		IOUtils.copy(in1, res.getOutputStream());
 	}
 
+	//전체 홍보게시물
 	@RequestMapping("p_content")
 	public String p_content(Model model, @RequestParam("id") int id, Principal principal) {
 		BoardDto board = boardService.findOne(id);
@@ -95,6 +100,7 @@ public class BoardController {
 		return "guest/p_content";
 	}
 
+	//전체 모집게시물
 	@RequestMapping("r_content")
 	public String r_content(Model model, @RequestParam("id") int id, Principal principal, HttpServletResponse response)
 			throws IOException {
@@ -126,6 +132,7 @@ public class BoardController {
 		return "guest/r_content";
 	}
 
+	//동연 공지사항
 	@RequestMapping("n_content")
 	public String n_content(Model model, @RequestParam("id") int id, Principal principal) {
 		BoardDto board = boardService.findOne(id);
@@ -135,6 +142,7 @@ public class BoardController {
 		return "club_union/n_content";
 	}
 
+	//동연 회의록
 	@RequestMapping("m_content")
 	public String m_content(Model model, @RequestParam("id") int id, Principal principal) {
 		BoardDto board = boardService.findOne(id);
@@ -144,6 +152,7 @@ public class BoardController {
 		return "club_union/m_content";
 	}
 
+	//전체 홍보 게시판
 	@RequestMapping("publicity")
 	public String publicity(Model model, Principal principal) {
 		List<BoardDto> boards = boardService.findAll_p();
@@ -153,6 +162,7 @@ public class BoardController {
 		return "guest/publicity";
 	}
 
+	//전체 모집게시판
 	@RequestMapping("recruit")
 	public String recruit(Model model, Principal principal) {
 		List<BoardDto> boards = boardService.findAll_r();
