@@ -1,9 +1,11 @@
 package com.sofCap.controller;
 
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 import java.security.Principal;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
@@ -13,6 +15,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -48,6 +51,7 @@ import com.sofCap.service.AccountService;
 import com.sofCap.service.AttendanceService;
 import com.sofCap.service.BoardService;
 import com.sofCap.service.ClubService;
+import com.sofCap.service.ExcelService;
 import com.sofCap.service.FileService;
 import com.sofCap.service.SemDateService;
 import com.sofCap.service.UserClubService;
@@ -87,6 +91,8 @@ public class ClubUnionController {
 	SemDateMapper semdateMapper;
 	@Autowired
 	UserClubService userClubService;
+	@Autowired
+	ExcelService excelService;
 
 	public void nav_list(Model model) {
 		List<ClubDto> clubs = clubService.findAll();
@@ -616,4 +622,46 @@ public class ClubUnionController {
 		fileMapper.delete(f_id);
 		return "redirect:account#fh5co-tab-feature-center" + club_id;
 	}
+	
+	/* 저장된 회계 내역 다운로드 */
+	@RequestMapping("account/excel/downloadByClub")
+	public void downloadByClub(HttpServletResponse response, @RequestParam("club_id") int club_id,
+			@RequestParam("sem_name") String sem_name) throws Exception {
+		List<AccountDto> accounts = excelService.findByClubIdAndSem(club_id, sem_name);
+
+		Workbook workbook = excelService.createXLS(accounts);
+
+		Date now = Date.valueOf(LocalDate.now());
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		String now_date = format.format(now);
+		String club_name = clubService.findById(club_id).getClub_name();
+		String fileName = URLEncoder.encode(now_date + " " + club_name + " " + sem_name + " 회계.xls", "UTF-8");
+
+		response.setContentType("application/octet-stream");
+		response.setHeader("Content-Disposition", "attachment;filename=" + fileName + ";");
+		try (BufferedOutputStream output = new BufferedOutputStream(response.getOutputStream())) {
+			workbook.write(output);
+		}
+	}
+	
+	/* 저장된 회계 내역 다운로드 */
+	@RequestMapping("account/excel/downloadAll")
+	public void downloadAll(HttpServletResponse response,@RequestParam("sem_name") String sem_name) throws Exception {
+		List<AccountDto> accounts = excelService.findBySem(sem_name);
+
+		Workbook workbook = excelService.createAllClubXLS(accounts);
+
+		Date now = Date.valueOf(LocalDate.now());
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		String now_date = format.format(now);
+		String club_name = "전체 동아리";
+		String fileName = URLEncoder.encode(now_date + " " + club_name + " " + sem_name + " 회계.xls", "UTF-8");
+
+		response.setContentType("application/octet-stream");
+		response.setHeader("Content-Disposition", "attachment;filename=" + fileName + ";");
+		try (BufferedOutputStream output = new BufferedOutputStream(response.getOutputStream())) {
+			workbook.write(output);
+		}
+	}
 }
+
