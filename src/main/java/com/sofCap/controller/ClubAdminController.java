@@ -260,8 +260,8 @@ public class ClubAdminController {
 	public String apply_q_list(Model model, @RequestParam("club_id") int club_id, SemDate semdate, Principal principal,
 			HttpServletResponse response) throws IOException {
 		UserDto user = userService.findByLoginId(principal.getName()); // 현재 로그인한 사용자로 user 정보 획득
-		UserClubDto userclub = userClubService.findByUserId(user.getId()); // user와 연결된 user_club 정보 획득
-		ClubDto club = clubService.findById(userclub.getClub_id()); // user_club로 club 정보 획득
+		List<UserClubDto> userclub = userClubService.findByUserId(user.getId()); // user와 연결된 user_club 정보 획득
+		ClubDto club = clubService.findById(userclub.get(0).getClub_id()); // user_club로 club 정보 획득
 		if (!user.getUser_type().equals("동아리관리자") && club_id != club.getId()) {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
