@@ -69,19 +69,23 @@
 
 										</div>
 									</div>
+									
+									<!-- select 방식 -->
 									<div class="col-md-6"
 										style="float: right; margin-top:-10px; margin-bottom:20px;">
 										<select class="form-control input-sm" name="exceldownload" onchange="if(this.value) location.href=(this.value);">
 											<option value="">엑셀 다운로드</option>
 											<option value="${R}club_union/account/excel/downloadByClub?club_id=${club.id}&sem_name=${semdate.sem_name}">
-												${semdate.sem_name} 엑셀 다운로드</option>
-											<option value="${R}club_union/account/excel/downloadAll?sem_name=${semdate.sem_name}">전체동아리
-												${semdate.sem_name} 엑셀 다운로드</option>
+												${club.club_name} ${semdate.sem_name} 엑셀 다운로드</option>
+											<option value="${R}club_union/account/excel/downloadAll?sem_name=${semdate.sem_name}">
+												전체동아리 ${semdate.sem_name} 엑셀 다운로드</option>
 
 										</select> 
 									</div>
+									<!-- select 방식 끝 -->
 									
-									<div class="col-md-6"
+									<!-- 버튼형 -->
+									<%-- <div class="col-md-6"
 										style="float: right; margin-right: inherit; ">
 										<a
 											href="${R}club_union/account/excel/downloadByClub?club_id=${club.id}&sem_name=${semdate.sem_name}"
@@ -92,7 +96,9 @@
 											class="btn btn-primary btn-sm"
 											style="font-size: x-small; float: right; margin-top: -20px">
 											전체동아리 ${semdate.sem_name} 엑셀 다운로드</a>
-									</div>
+									</div> --%>
+									<!-- 버튼형 끝 -->
+									
 								</form>
 							</div>
 							<div class="row">
