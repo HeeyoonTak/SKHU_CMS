@@ -21,6 +21,14 @@
 		ORDER BY date ASC
 	</select>
 
+	<select id="findBySemName" resultType="AccountDto">
+		SELECT a.*, s.sem_name
+		FROM account a RIGHT JOIN sem_date s
+		ON a.date BETWEEN s.start_date AND s.end_date
+		WHERE s.sem_name=#{sem_name}
+		ORDER BY date ASC
+	</select>
+	
 	<update id="update">
 		UPDATE account
 		SET club_id = #{club_id},
