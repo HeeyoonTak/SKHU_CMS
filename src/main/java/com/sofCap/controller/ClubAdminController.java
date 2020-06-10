@@ -119,13 +119,6 @@ public class ClubAdminController {
 		List<ApplyQDto> questionList = clubService.findQuestion(club_id);
 		List<ApplyADto> answerList = clubService.findAnswer(club_id, user_id);
 		List<ApplyADto> answerList1 = clubService.findAnswerByClubId(club_id);
-
-		List<UserClubDto> clubs = userClubService.findByUserId(user.getId());
-		boolean club_belong = false; //동아리에 소속되어있는지 확인하는 변수
-		for(int i = 0; i < clubs.size(); i++) {
-			if(clubs.get(i).getClub_id()==club_id) club_belong = true;
-			//파라미터 club_id와 소속되어있는 동아리목록(clubs)의 club_id가 같은게 있다면 소속확인하는 변수(clus_belong)을 true로 바꿈
-		}
 		model.addAttribute("user", user);
 		model.addAttribute("club", club);
 		model.addAttribute("club_id", club_id);
@@ -137,8 +130,8 @@ public class ClubAdminController {
 		model.addAttribute("user_id", user_id);
 		nav_list(model);
 		nav_user(model, principal);
-		System.out.println(user.getUser_type());
-		if (user.getUser_type().equals("동아리관리자") && club_belong==true) {
+
+		if (user.getUser_type().equals("동아리관리자") && userClubService.clubBelong(user.getId(), club_id)) {
 			return "club_admin/acceptance";
 		} else {
 			response.setContentType("text/html; charset=UTF-8");
