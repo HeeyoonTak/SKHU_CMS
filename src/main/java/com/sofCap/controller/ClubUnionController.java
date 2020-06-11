@@ -500,30 +500,6 @@ public class ClubUnionController {
 	 */
 	String[] account_type = { "중앙지원금", "동아리회비" };
 
-//	@RequestMapping("account")
-//	public List<AccountDto> account() {
-//		return accountService.findAll();
-//	}
-
-	// 버전 1
-//	@RequestMapping("account")
-//	public String account(Model model, @RequestParam(name="club_id",defaultValue="1") int club_id) {
-//		List<AccountDto> accounts = accountService.findByClubId(club_id);
-//		model.addAttribute("accounts", accounts);
-//		model.addAttribute("clubs",clubService.findAll());
-//		return "club_union/account";
-//	}
-
-	// 버전 2
-//	@RequestMapping("account")
-//	public String account(Model model) {
-//		List<AccountDto> accounts = accountService.findAll();
-//		model.addAttribute("accounts", accounts);
-//		model.addAttribute("clubs",clubService.findAll());
-//		return "club_union/account";
-//	}
-
-	// 버전 3
 	/* 학기에 따른 회계 리스트 조회 */
 	@RequestMapping(value = "account")
 	public String account(Model model, SemDate semdate, Principal principal, HttpServletResponse response) throws IOException {
@@ -531,11 +507,9 @@ public class ClubUnionController {
 		UserClubDto user_club = userClubService.findByUserId(user.getId()).get(0); //동아리 관리자는 하나의 club에만 소속되어있기 때문에 get(0)해도 됨
 		int user_club_id = user_club.getClub_id();
 		ClubDto myClub = clubService.findById(user_club_id);
-		System.out.println(semdate.getSem_name());
 		if (semdate.getSem_name() == null) {
 			Date now = Date.valueOf(LocalDate.now());
 			String sem_name = semdateMapper.findByDate(now);
-			System.out.println(sem_name);
 		}
 		String sem_name = semdate.getSem_name();
 		List<AccountDto> accounts = accountService.findBySem(semdate);
@@ -544,8 +518,6 @@ public class ClubUnionController {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		String start_date = format.format(startenddate.getStart_date());
 		String end_date = format.format(startenddate.getEnd_date());
-//		System.out.println(format.format(startenddate.getStart_date()));
-//		System.out.println(format.format(startenddate.getEnd_date()));
 		model.addAttribute("myClub", myClub);
 		model.addAttribute("accounts", accounts);
 		model.addAttribute("clubs", clubService.findAll());
@@ -585,13 +557,11 @@ public class ClubUnionController {
 	@Transactional
 	private void save(int club_id, int[] price, String[] remark, MultipartFile[] file, int[] account_type, Date[] date,
 			String sem_name) throws IOException {
-		System.out.println("실행시작");
 		for (int i = 0; i < price.length; ++i) {
 			AccountDto account = new AccountDto();
 			account.setClub_id(club_id);
 			account.setPrice(price[i]);
-//			int total = accountService.getTotalByClubId(sem_name, club_id[i]);
-			account.setTotal(0); // total culmn 사용안함
+			account.setTotal(0); // total column 사용안함
 			account.setRemark(remark[i]);
 			account.setAccount_type(account_type[i]);
 			account.setDate(date[i]);
@@ -623,7 +593,7 @@ public class ClubUnionController {
 		return "redirect:account#fh5co-tab-feature-center" + club_id;
 	}
 	
-	/* 저장된 회계 내역 다운로드 */
+	/* 동아리별 저장된 회계 내역 다운로드 */
 	@RequestMapping("account/excel/downloadByClub")
 	public void downloadByClub(HttpServletResponse response, @RequestParam("club_id") int club_id,
 			@RequestParam("sem_name") String sem_name) throws Exception {
@@ -644,7 +614,7 @@ public class ClubUnionController {
 		}
 	}
 	
-	/* 저장된 회계 내역 다운로드 */
+	/* 전체 동아리 저장된 회계 내역 다운로드 */
 	@RequestMapping("account/excel/downloadAll")
 	public void downloadAll(HttpServletResponse response,@RequestParam("sem_name") String sem_name) throws Exception {
 		List<AccountDto> accounts = excelService.findBySem(sem_name);

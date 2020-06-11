@@ -60,45 +60,25 @@
 													<form:options value="${ sem_name }" itemValue="sem_name"
 														itemLabel="sem_name" items="${ sems }" />
 												</form:select>
-												<!-- <select class="form-control input-lg" id="l_search_term">
-												<option>2019-1학기</option>
-												<option>2019-2학기</option>
-												<option selected>2020-1학기</option>
-											</select> -->
 											</form:form>
 
 										</div>
 									</div>
-									
-									<!-- select 방식 -->
+
 									<div class="col-md-6"
-										style="float: right; margin-top:-10px; margin-bottom:20px;">
-										<select class="form-control input-sm" name="exceldownload" onchange="if(this.value) location.href=(this.value);">
+										style="float: right; margin-top: -10px; margin-bottom: 20px;">
+										<select class="form-control input-sm" name="exceldownload"
+											onchange="if(this.value) location.href=(this.value);">
 											<option value="">엑셀 다운로드</option>
-											<option value="${R}club_union/account/excel/downloadByClub?club_id=${club.id}&sem_name=${semdate.sem_name}">
+											<option
+												value="${R}club_union/account/excel/downloadByClub?club_id=${club.id}&sem_name=${semdate.sem_name}">
 												${club.club_name} ${semdate.sem_name} 엑셀 다운로드</option>
-											<option value="${R}club_union/account/excel/downloadAll?sem_name=${semdate.sem_name}">
+											<option
+												value="${R}club_union/account/excel/downloadAll?sem_name=${semdate.sem_name}">
 												전체동아리 ${semdate.sem_name} 엑셀 다운로드</option>
 
-										</select> 
+										</select>
 									</div>
-									<!-- select 방식 끝 -->
-									
-									<!-- 버튼형 -->
-									<%-- <div class="col-md-6"
-										style="float: right; margin-right: inherit; ">
-										<a
-											href="${R}club_union/account/excel/downloadByClub?club_id=${club.id}&sem_name=${semdate.sem_name}"
-											class="btn btn-primary btn-sm"
-											style="font-size: x-small; float: right; margin-top: -20px">
-											${club.club_name} ${semdate.sem_name} 엑셀 다운로드 </a> <a
-											href="${R}club_union/account/excel/downloadAll?sem_name=${semdate.sem_name}"
-											class="btn btn-primary btn-sm"
-											style="font-size: x-small; float: right; margin-top: -20px">
-											전체동아리 ${semdate.sem_name} 엑셀 다운로드</a>
-									</div> --%>
-									<!-- 버튼형 끝 -->
-									
 								</form>
 							</div>
 							<div class="row">
@@ -143,7 +123,6 @@
 																	<td>${ account.remark }</td>
 																</c:otherwise>
 															</c:choose>
-															<%-- <td>${ account.total }</td> --%>
 															<td><a class="btn btn-primary" id="showReceipt"
 																data-target="#createModal"
 																onclick="return showReceipt('${account.id}');">영수증</a> <%-- <img src ="${R}club_union/getImage?id=${account.id}" width="100" height="100"></img> --%>
@@ -216,24 +195,6 @@
 					</div>
 				</c:forEach>
 			</div>
-
-			<!-- sidebar -->
-			<%-- <div class="col-md-3 col-md-pull-9" id="fh5co-sidebar">
-				<ul class="attendance_check-list hor_1">
-					<li><a href="${R}club_union/notice">공지사항</a></li>
-					<sec:authorize
-						access="hasAnyRole('ROLE_ClubUnion, ROLE_ClubAdmin')">
-						<li><a href="${R}club_union/account">회계 관리</a></li>
-					</sec:authorize>
-
-					<sec:authorize access="hasRole('ROLE_ClubUnion')">
-						<li><a href="${R}club_union/club_list">동아리 관리</a></li>
-					</sec:authorize>
-					<li><a href="${R}club_union/attendance">출석체크</a></li>
-					<li><a href="${R}club_union/minutes">회의록</a></li>
-				</ul>
-			</div> --%>
-			<!-- sidebar 끝 -->
 
 			<!-- sidebar -->
 			<div class="col-md-3 col-md-pull-9" id="fh5co-sidebar">
