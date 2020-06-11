@@ -903,11 +903,9 @@ public class ClubAdminController {
 
 		ClubDto club = clubService.findById(club_id);
 
-		System.out.println(semdate.getSem_name());
 		if (semdate.getSem_name() == null) {
 			Date now = Date.valueOf(LocalDate.now());
 			String sem_name = semdateMapper.findByDate(now);
-			System.out.println(sem_name);
 		}
 		String sem_name = semdate.getSem_name();
 		List<AccountDto> accounts = accountService.findBySem(semdate);
@@ -957,13 +955,11 @@ public class ClubAdminController {
 	@Transactional
 	private void save(int club_id, int[] price, String[] remark, MultipartFile[] file, int[] account_type, Date[] date,
 			String sem_name) throws IOException {
-		System.out.println("실행시작");
 		for (int i = 0; i < price.length; ++i) {
 			AccountDto account = new AccountDto();
 			account.setClub_id(club_id);
 			account.setPrice(price[i]);
-//			int total = accountService.getTotalByClubId(sem_name, club_id[i]);
-			account.setTotal(0); // total culmn 사용안함
+			account.setTotal(0); // total column 사용안함
 			account.setRemark(remark[i]);
 			account.setAccount_type(account_type[i]);
 			account.setDate(date[i]);

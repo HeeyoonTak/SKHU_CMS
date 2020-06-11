@@ -52,11 +52,6 @@
 												<form:options value="${ sem_name }" itemValue="sem_name"
 													itemLabel="sem_name" items="${ sems }" />
 											</form:select>
-											<!-- <select class="form-control input-lg" id="l_search_term">
-												<option>2019-1학기</option>
-												<option>2019-2학기</option>
-												<option selected>2020-1학기</option>
-											</select> -->
 										</form:form>
 										<a
 											href="${R}club_admin/account/excel/download?club_id=${club_id}&sem_name=${semdate.sem_name}"
@@ -106,20 +101,17 @@
 																<td>${ account.remark }</td>
 															</c:otherwise>
 														</c:choose>
-														<%-- <td>${ account.total }</td> --%>
 														<td><a class="btn btn-primary" id="showReceipt"
 															data-target="#createModal"
 															onclick="return showReceipt('${account.id}');">영수증</a> <%-- <img src ="${R}club_union/getImage?id=${account.id}" width="100" height="100"></img> --%>
 														</td>
-														
+
 														<!-- 삭제 버튼 -->
-														<td>
-														<sec:authorize access="hasRole('ROLE_ClubAdmin')">
-														<a
-															href="${R}club_admin/delete?id=${account.id}&club_id=${club_id}"
-															onclick="return deleteAlert();">x</a>
-														</sec:authorize>
-														</td>
+														<td><sec:authorize access="hasRole('ROLE_ClubAdmin')">
+																<a
+																	href="${R}club_admin/delete?id=${account.id}&club_id=${club_id}"
+																	onclick="return deleteAlert();">x</a>
+															</sec:authorize></td>
 													</tr>
 												</c:if>
 											</c:forEach>
@@ -132,56 +124,55 @@
 												</c:if>
 											</c:forEach>
 										</tbody>
-										
+
 										<sec:authorize access="hasRole('ROLE_ClubAdmin')">
-										<tbody>
-											<!-- START input row -->
-											<tr id="default">
-												<input type="hidden" name="club_id" value="${club_id}">
-												<td><input type="date" name="date"
-													class="form-control input-lg" max="${end_date}"
-													min="${start_date}"></td>
-												<td><select class="form-control input-lg"
-													name="account_type">
-														<c:forEach var="at" items="${ account_type }"
-															varStatus="i">
-															<option value="${i.index}">${ at }</option>
-														</c:forEach>
-												</select></td>
-												<td><input type="number" name="price"
-													class="form-control input-lg" placeholder="사용금액"></td>
-												<td><input type="text" name="remark"
-													class="form-control input-lg" placeholder="사용내용"></td>
-												<!-- <td></td> -->
-												<td><p class="btn btn-primary" onclick="clickbutton(this);">파일선택</p>
-													<input type="file" name="file" class="btn btn-primary"
-													id="uploadImage" onchange="fileChange(this);"
-													style="display:none">
-													<p
-													class="fileName" style="display: none"></p></td>
-												<td><a onclick="return delete_row(this);"></a></td>
-											</tr>
-											<!-- END input row -->
-											<tr>
-												<td colspan="6"><button
-														onclick="return attachAddr(this);"
-														class="btn btn-primary col-md" id="pls-btn">+</button></td>
-											</tr>
-										</tbody>
+											<tbody>
+												<!-- START input row -->
+												<tr id="default">
+													<input type="hidden" name="club_id" value="${club_id}">
+													<td><input type="date" name="date"
+														class="form-control input-lg" max="${end_date}"
+														min="${start_date}"></td>
+													<td><select class="form-control input-lg"
+														name="account_type">
+															<c:forEach var="at" items="${ account_type }"
+																varStatus="i">
+																<option value="${i.index}">${ at }</option>
+															</c:forEach>
+													</select></td>
+													<td><input type="number" name="price"
+														class="form-control input-lg" placeholder="사용금액"></td>
+													<td><input type="text" name="remark"
+														class="form-control input-lg" placeholder="사용내용"></td>
+													<!-- <td></td> -->
+													<td><p class="btn btn-primary"
+															onclick="clickbutton(this);">파일선택</p> <input type="file"
+														name="file" class="btn btn-primary" id="uploadImage"
+														onchange="fileChange(this);" style="display: none">
+														<p class="fileName" style="display: none"></p></td>
+													<td><a onclick="return delete_row(this);"></a></td>
+												</tr>
+												<!-- END input row -->
+												<tr>
+													<td colspan="6"><button
+															onclick="return attachAddr(this);"
+															class="btn btn-primary col-md" id="pls-btn">+</button></td>
+												</tr>
+											</tbody>
 										</sec:authorize>
 
 									</table>
 							</div>
-							
+
 							<sec:authorize access="hasRole('ROLE_ClubAdmin')">
-							<div class="row">
-								<div class="col-md-8"></div>
-								<div class="col-md-4">
-									<input type="submit"
-										class="btn btn-primary col-md-offset-7 btn-lg"
-										id="l_account_save" name="l_account_save" value="회계 저장">
+								<div class="row">
+									<div class="col-md-8"></div>
+									<div class="col-md-4">
+										<input type="submit"
+											class="btn btn-primary col-md-offset-7 btn-lg"
+											id="l_account_save" name="l_account_save" value="회계 저장">
+									</div>
 								</div>
-							</div>
 							</sec:authorize>
 							</form>
 						</div>
@@ -190,27 +181,10 @@
 			</div>
 			<!-- sidebar -->
 			<div class="col-md-3 col-md-pull-9" id="fh5co-sidebar">
-
-                <c:import url="../tiles/tiles_club_sidebar.jsp" /> 
-                
-				<%-- <ul class="attendance_check-list hor_1">
-					<li><a href="${R}club_admin/notice?club_id=${club_id}">공지사항</a></li>
-					<li><a href="${R}club_admin/account?club_id=${club_id}">회계
-							관리</a></li>
-					<li><a href="${R}club_admin/minutes?club_id=${club_id}">회의록</a></li>
-					<li><a href="${R}club_admin/publicity?club_id=${club_id}">홍보게시판</a></li>
-					<li><a href="${R}club_admin/recruit?club_id=${club_id}">모집게시판</a></li>
-					<li><a href="${R}club_admin/attendance?club_id=${club_id}">출석체크</a></li>
-					<li><a href="${R}club_admin/acceptance?club_id=${club_id}">회원
-							관리</a></li>
-					<li><a href="${R}club_admin/apply_q_form?club_id=${club_id}">지원
-							폼</a></li>
-				</ul> --%>
+				<c:import url="../tiles/tiles_club_sidebar.jsp" />
 			</div>
 			<!-- sidebar 끝 -->
 		</div>
-
-		<div class="fh5co-spacer fh5co-spacer-md"></div>
 
 		<div class="row"></div>
 		<!-- // END row -->
@@ -218,21 +192,6 @@
 
 	</div>
 	<!-- // END container -->
-	<%-- <!-- sidebar -->
-			<div class="col-md-2 col-md-pull-7" id="fh5co-sidebar">
-				<ul class="attendance_check-list hor_1">
-					<li><a href="${R}club_admin/notice?club_id=${club_id}">공지사항</a></li>
-                    <li><a href="${R}club_admin/account?club_id=${club_id}">회계 관리</a></li>
-                    <li><a href="${R}club_admin/minutes?club_id=${club_id}">회의록</a></li>
-                    <li><a href="${R}club_admin/publicity?club_id=${club_id}">홍보게시판</a></li>
-                    <li><a href="${R}club_admin/recruit?club_id=${club_id}">모집게시판</a></li>
-                    <li><a href="${R}club_admin/attendance?club_id=${club_id}">출석체크</a></li>
-                    <li><a href="${R}club_admin/acceptance?club_id=${club_id}">회원 관리</a></li>
-                    <li><a href="${R}club_admin/apply_q_form?club_id=${club_id}">지원 폼</a></li>
-				</ul>
-			</div>
-			<!-- sidebar 끝 --> --%>
-
 </div>
 
 <!-- showReceipt modal -->
