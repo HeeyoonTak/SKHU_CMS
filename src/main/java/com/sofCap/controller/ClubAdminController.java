@@ -255,14 +255,7 @@ public class ClubAdminController {
 		UserDto user = userService.findByLoginId(principal.getName()); // 현재 로그인한 사용자로 user 정보 획득
 		List<UserClubDto> userclub = userClubService.findByUserId(user.getId()); // user와 연결된 user_club 정보 획득
 		ClubDto club = clubService.findById(userclub.get(0).getClub_id()); // user_club로 club 정보 획득
-		if (!user.getUser_type().equals("동아리관리자") && club_id != club.getId()) {
-			response.setContentType("text/html; charset=UTF-8");
-			PrintWriter out = response.getWriter();
-			out.println("<script>alert('접근이 제한된 사용자입니다.'); history.go(-1);</script>");
-			out.flush();
-			return "redirect:notice?club_id=" + club_id;
 
-		}
 		List<ApplyQDto_mod> applyQ = clubMapper.findQmodQusetionByClub(club.getId()); // club에 해당되어 있는 질문 리스트 가져오기
 		if (semdate.getSem_name() == null) {
 			Date now = Date.valueOf(LocalDate.now());
@@ -274,7 +267,16 @@ public class ClubAdminController {
 		model.addAttribute("applyQ", applyQ);
 		nav_list(model);
 		nav_user(model, principal);
-		return "club_admin/apply_q_list";
+		if (user.getUser_type().equals("동아리관리자") && userClubService.clubBelong(user.getId(), club_id)) {
+			return "club_admin/apply_q_list";
+		} else {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('접근이 제한된 사용자입니다.'); history.go(-1);</script>");
+			out.flush();
+			return " ";
+		}
+
 
 	}
 
@@ -361,14 +363,7 @@ public class ClubAdminController {
 		nav_list(model);
 		nav_user(model, principal);
 
-		List<UserClubDto> clubs = userClubService.findByUserId(user.getId());
-		boolean club_belong = false; //동아리에 소속되어있는지 확인하는 변수
-		for(int i = 0; i < clubs.size(); i++) {
-			if(clubs.get(i).getClub_id()==club_id) club_belong = true;
-			//파라미터 club_id와 소속되어있는 동아리목록(clubs)의 club_id가 같은게 있다면 소속확인하는 변수(clus_belong)을 true로 바꿈
-		}
-
-		if (user.getUser_type().equals("동아리관리자") && club_belong==true) {
+		if (user.getUser_type().equals("동아리관리자") && userClubService.clubBelong(user.getId(), club_id)) {
 			return "club_admin/club_manage";
 		} else {
 			response.setContentType("text/html; charset=UTF-8");
@@ -390,14 +385,7 @@ public class ClubAdminController {
 		nav_list(model);
 		nav_user(model, principal);
 
-		List<UserClubDto> clubs = userClubService.findByUserId(user.getId());
-		boolean club_belong = false; //동아리에 소속되어있는지 확인하는 변수
-		for(int i = 0; i < clubs.size(); i++) {
-			if(clubs.get(i).getClub_id()==club_id) club_belong = true;
-			//파라미터 club_id와 소속되어있는 동아리목록(clubs)의 club_id가 같은게 있다면 소속확인하는 변수(clus_belong)을 true로 바꿈
-		}
-
-		if (user.getUser_type().equals("동아리관리자") && club_belong==true) {
+		if (user.getUser_type().equals("동아리관리자") && userClubService.clubBelong(user.getId(), club_id)) {
 			return "club_admin/manage";
 		} else {
 			response.setContentType("text/html; charset=UTF-8");
