@@ -156,8 +156,6 @@ public class ClubAdminController {
 		model.addAttribute("userClub", userClub);
 		model.addAttribute("acceptanceYes", acceptanceYes);
 		model.addAttribute("acceptanceNo", acceptanceNo);
-		System.out.println("유저 id: " + user_id);
-		System.out.println("클럽 id: " + club_id);
 		userClubService.insert(user_id, club_id);
 		userService.updateNotMemberRole(user_id);
 		userService.deleteCandidate(user_id);
@@ -179,14 +177,11 @@ public class ClubAdminController {
 		model.addAttribute("userClub", userClub);
 		model.addAttribute("acceptanceYes", acceptanceYes);
 		model.addAttribute("acceptanceNo", acceptanceNo);
-		System.out.println(userClubService.userCount(user_id));
 		userClubService.deleteMember(user_id, club_id);
 		for(int i = 0; i < clubs.size(); i++) {
 			if(clubs.get(i).getClub_id()==club_id) {
 				if(userClubService.userCount(user_id)==0) {
 					userService.updateMemberRole(user_id);
-				}else {
-					System.out.println(userClubService.userCount(user_id));
 				}
 			}
 		}
@@ -201,8 +196,6 @@ public class ClubAdminController {
 		ClubDto club = clubService.findById(club_id);
 		model.addAttribute("club", club);
 		for (int i : chArr) {
-			System.out.println(i);
-			System.out.println(club_id);
 			userClubService.insert(i, club_id);
 			userService.updateNotMemberRole(i);
 			userService.deleteCandidate(i);
@@ -220,8 +213,6 @@ public class ClubAdminController {
 			userClubService.deleteMember(i, club_id);
 			if(userClubService.userCount(i)==0) {
 				userService.updateMemberRole(i);
-			}else {
-				System.out.println(userClubService.userCount(i));
 			}
 		}
 	}
@@ -260,7 +251,6 @@ public class ClubAdminController {
 		if (semdate.getSem_name() == null) {
 			Date now = Date.valueOf(LocalDate.now());
 			String sem_name = semdateMapper.findByDate(now);
-			System.out.println(sem_name);
 		}
 		model.addAttribute("club", club);
 		model.addAttribute("club_id", club.getId());
@@ -535,7 +525,6 @@ public class ClubAdminController {
 		if (semdate.getSem_name() == null) {
 			Date now = Date.valueOf(LocalDate.now());
 			String sem_name = semdateMapper.findByDate(now);
-			System.out.println(sem_name);
 		}
 		String sem_name = semdate.getSem_name();
 		List<BoardDto> boards = boardService.findBySem_a(sem_name, club_id);
