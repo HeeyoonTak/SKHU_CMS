@@ -998,11 +998,18 @@ public class ClubAdminController {
 	 */
 	@RequestMapping("attendance")
 
-	public String attendance(Model model, SemDate semdate, Principal principal, @RequestParam("club_id") int club_id) {
+	public String attendance(Model model, SemDate semdate, Principal principal, @RequestParam("club_id") int club_id, HttpServletResponse response) throws IOException {
 
 		// 로그인 한 유저 정보 추출
 		UserDto user = userService.findByLoginId(principal.getName());
 		ClubDto club = clubService.findById(club_id);
+
+		List<UserClubDto> clubs = userClubService.findByUserId(user.getId()); //소속되어있는 동아리들
+		boolean club_belong = false; //동아리에 소속되어있는지 확인하는 변수
+		for(int i = 0; i < clubs.size(); i++) {
+			if(clubs.get(i).getClub_id()==club_id) club_belong = true;
+			//파라미터 club_id와 소속되어있는 동아리목록(clubs)의 club_id가 같은게 있다면 소속확인하는 변수(clus_belong)을 true로 바꿈
+		}
 
 		// 현재 날짜에 맞는 현재 학기 추출
 		Date now = Date.valueOf(LocalDate.now());
@@ -1035,7 +1042,17 @@ public class ClubAdminController {
 		model.addAttribute("adminUser", attendanceService.findUser(semId, club_id));
 		nav_list(model);
 		nav_user(model, principal);
-		return "club_admin/attendance";
+
+		//접근권한 확인
+				if (club_belong==true) {
+					return "club_admin/attendance";
+				} else {
+					response.setContentType("text/html; charset=UTF-8");
+					PrintWriter out = response.getWriter();
+					out.println("<script>alert('접근이 제한된 사용자입니다.'); history.go(-1);</script>");
+					out.flush();
+					return " ";
+				}
 	}
 
 	/*
