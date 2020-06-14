@@ -26,8 +26,10 @@ import com.sofCap.dto.BoardDto;
 import com.sofCap.dto.ClubDto;
 import com.sofCap.dto.FilesDto;
 import com.sofCap.dto.UserDto;
+import com.sofCap.mapper.BoardMapper;
 import com.sofCap.mapper.ClubMapper;
 import com.sofCap.mapper.FileMapper;
+import com.sofCap.model.Pagination;
 import com.sofCap.service.BoardService;
 import com.sofCap.service.ClubService;
 import com.sofCap.service.UserService;
@@ -45,6 +47,8 @@ public class BoardController {
 	ClubMapper clubMapper;
 	@Autowired
 	FileMapper fileMapper;
+	@Autowired
+	BoardMapper boardMapper;
 
 	//네비게이션 동아리 띄우기
 	public void nav_list(Model model) {
@@ -65,10 +69,15 @@ public class BoardController {
 
 	//각 동아리 소개
 	@RequestMapping("list-content")
-	public String list_content(Model model, @RequestParam("id") int club_id, Principal principal) {
+	public String list_content(Model model, @RequestParam("id") int club_id, Principal principal
+			, Pagination pagination) {
 		ClubDto club = clubService.findById(club_id);
 		List<BoardDto> boards_p = boardService.findByClubId_p(club_id);
 		List<BoardDto> boards_r = boardService.findByClubId_r(club_id);
+        List<BoardDto> list = boardMapper.findAll(pagination);
+        pagination.setRecordCount(boardMapper.count());
+        model.addAttribute("list", list);
+
 		model.addAttribute("club", club);
 		model.addAttribute("boards_p", boards_p);
 		model.addAttribute("boards_r", boards_r);
@@ -154,9 +163,14 @@ public class BoardController {
 
 	//전체 홍보 게시판
 	@RequestMapping("publicity")
-	public String publicity(Model model, Principal principal) {
+	public String publicity(Model model, Principal principal, Pagination pagination) {
 		List<BoardDto> boards = boardService.findAll_p();
 		model.addAttribute("boards", boards);
+
+		List<BoardDto> list = boardMapper.findAll(pagination);
+        pagination.setRecordCount(boardMapper.count());
+        model.addAttribute("list", list);
+
 		nav_list(model);
 		nav_user(model, principal);
 		return "guest/publicity";

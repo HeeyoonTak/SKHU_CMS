@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%-- <%@ taglib tagdir="/WEB-INF/tags" prefix="my" %> --%>
+
 <div id="fh5co-hero">
 	<a href="#fh5co-main"
 		class="smoothscroll fh5co-arrow to-animate hero-animate-4"><i
@@ -70,11 +72,13 @@
 												</c:forEach>
 											</table>
 											<div class="col-md-offset-7" style="margin-left: 50%;">
-												<ul class="pagination">
+											   <my:pagination pageSize="${ pagination.sz }" recordCount="${ pagination.recordCount }" class="pagination" queryStringName="pg" />
+											
+<!-- 												<ul class="pagination">
 													<li><a href="#" style="color: #90D7EA">이전</a></li>
 													<li><a href="#" style="color: #90D7EA">1</a></li>
 													<li><a href="#" style="color: #90D7EA">다음</a></li>
-												</ul>
+												</ul>  -->
 											</div>
 										</div>
 									</div>

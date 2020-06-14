@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.sofCap.dto.BoardDto;
+import com.sofCap.model.Pagination;
 import com.sofCap.model.SemDate;
 
 @Mapper
@@ -37,6 +38,9 @@ public interface BoardMapper {
 	List<BoardDto> listFive_p();
 
 	List<BoardDto> listFive_r();
+
+    List<BoardDto> findAll(Pagination pagination);
+    int count();
 
 	void delete(int id);
 
