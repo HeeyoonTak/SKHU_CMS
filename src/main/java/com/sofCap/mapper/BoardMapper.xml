@@ -132,17 +132,22 @@
 		DESC LIMIT 5;
 	</select>
 
-	<select id="findAll" resultMap="resultMap_BoardDto">
+	<select id="findAll_pp" resultMap="resultMap_BoardDto">
 		<bind name="start" value="(pg - 1) * sz" />
 		SELECT b.*, c.club_name
-		FROM board b LEFT JOIN club c ON
-		b.club_id = c.id
+		FROM board b
+		JOIN club c ON b.club_id = c.id
+		JOIN board_name b_n ON b.board_name_id = b_n.id
+		WHERE board_name_id = 1
 		ORDER BY date DESC
 		LIMIT #{start}, #{sz}
 	</select>
 
-	<select id="count" resultType="int">
-		SELECT COUNT(id) FROM board
+	<select id="count_p" resultType="int">
+		SELECT COUNT(*) FROM board b
+		JOIN club c ON b.club_id = c.id
+		JOIN board_name b_n ON b.board_name_id = b_n.id
+		WHERE board_name_id = 1
 	</select>
 
 	<delete id="delete">    <!-- 게시글 삭제 -->

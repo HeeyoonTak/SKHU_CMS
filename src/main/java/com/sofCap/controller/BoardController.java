@@ -74,8 +74,8 @@ public class BoardController {
 		ClubDto club = clubService.findById(club_id);
 		List<BoardDto> boards_p = boardService.findByClubId_p(club_id);
 		List<BoardDto> boards_r = boardService.findByClubId_r(club_id);
-        List<BoardDto> list = boardMapper.findAll(pagination);
-        pagination.setRecordCount(boardMapper.count());
+        List<BoardDto> list = boardMapper.findAll_pp(pagination);
+        pagination.setRecordCount(boardMapper.count_p());
         model.addAttribute("list", list);
 
 		model.addAttribute("club", club);
@@ -167,8 +167,8 @@ public class BoardController {
 		List<BoardDto> boards = boardService.findAll_p();
 		model.addAttribute("boards", boards);
 
-		List<BoardDto> list = boardMapper.findAll(pagination);
-        pagination.setRecordCount(boardMapper.count());
+		List<BoardDto> list = boardMapper.findAll_pp(pagination);
+        pagination.setRecordCount(boardMapper.count_p());
         model.addAttribute("list", list);
 
 		nav_list(model);

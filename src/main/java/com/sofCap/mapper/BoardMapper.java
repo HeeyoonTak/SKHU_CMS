@@ -39,8 +39,8 @@ public interface BoardMapper {
 
 	List<BoardDto> listFive_r();
 
-    List<BoardDto> findAll(Pagination pagination);
-    int count();
+    List<BoardDto> findAll_pp(Pagination pagination);
+    int count_p();
 
 	void delete(int id);
 
