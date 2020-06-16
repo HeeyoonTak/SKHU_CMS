@@ -74,7 +74,7 @@ public class BoardController {
 		ClubDto club = clubService.findById(club_id);
 		List<BoardDto> boards_p = boardService.findByClubId_p(club_id);
 		List<BoardDto> boards_r = boardService.findByClubId_r(club_id);
-        List<BoardDto> list = boardMapper.findAll_pp(pagination);
+        List<BoardDto> list = boardMapper.findAll(pagination);
         pagination.setRecordCount(boardMapper.count_p());
         model.addAttribute("list", list);
 
@@ -167,7 +167,7 @@ public class BoardController {
 		List<BoardDto> boards = boardService.findAll_p();
 		model.addAttribute("boards", boards);
 
-		List<BoardDto> list = boardMapper.findAll_pp(pagination);
+		List<BoardDto> list = boardMapper.findAll(pagination);
         pagination.setRecordCount(boardMapper.count_p());
         model.addAttribute("list", list);
 
@@ -178,9 +178,10 @@ public class BoardController {
 
 	//전체 모집게시판
 	@RequestMapping("recruit")
-	public String recruit(Model model, Principal principal) {
-		List<BoardDto> boards = boardService.findAll_r();
-		model.addAttribute("boards", boards);
+	public String recruit(Model model, Principal principal, Pagination pagination) {
+		List<BoardDto> boards = boardMapper.findAll_r(pagination);
+        pagination.setRecordCount(boardMapper.count_r());
+        model.addAttribute("boards", boards);
 		nav_list(model);
 		nav_user(model, principal);
 		return "guest/recruit";
