@@ -50,11 +50,6 @@
 								</table>
 								<div class="col-md-offset-7" style="margin-left: 40%;">
 								<my:pagination pageSize="${ pagination.sz }" recordCount="${ pagination.recordCount }" queryStringName="pg" />
-<!-- 									<ul class="pagination">
-										<li><a href="#" style="color: #90D7EA">이전</a></li>
-										<li><a href="#" style="color: #90D7EA">1</a></li>
-										<li><a href="#" style="color: #90D7EA">다음</a></li>
-									</ul> -->
 								</div>
 							</div>
 						</div>

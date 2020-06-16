@@ -5,6 +5,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
+	<%@ taglib tagdir="/WEB-INF/tags" prefix="my" %>
 <c:url var="R" value="/" />
 <div id="fh5co-hero">
 	<a href="#fh5co-main"
