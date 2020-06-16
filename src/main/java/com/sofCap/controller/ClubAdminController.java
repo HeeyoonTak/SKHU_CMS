@@ -45,6 +45,7 @@ import com.sofCap.dto.SemDateDto;
 import com.sofCap.dto.UserClubDto;
 import com.sofCap.dto.UserDto;
 import com.sofCap.mapper.AccountMapper;
+import com.sofCap.mapper.BoardMapper;
 import com.sofCap.mapper.ClubMapper;
 import com.sofCap.mapper.FileMapper;
 import com.sofCap.mapper.SemDateMapper;
@@ -87,6 +88,8 @@ public class ClubAdminController {
 	FileService fileService;
 	@Autowired
 	ClubMapper clubMapper;
+	@Autowired
+	BoardMapper boardMapper;
 	@Autowired
 	ExcelService excelService;
 
@@ -642,7 +645,7 @@ public class ClubAdminController {
 	 */
 	@RequestMapping("publicity")
 	public String club_publicity(Model model, @RequestParam("club_id") int club_id, Principal principal) {
-		List<BoardDto> boards = boardService.findByClubId_p(club_id);
+		List<BoardDto> boards = boardMapper.findByClubId_p(club_id);
 		ClubDto club = clubService.findById(club_id);
 		model.addAttribute("club", club);
 		model.addAttribute("boards", boards);
@@ -750,10 +753,10 @@ public class ClubAdminController {
 	 */
 	@RequestMapping("recruit")
 	public String club_recruit(Model model, @RequestParam("club_id") int club_id, Principal principal) {
-		List<BoardDto> boards = boardService.findByClubId_r(club_id);
+//		List<BoardDto> boards = boardService.findByClubId_r(club_id);
 		ClubDto club = clubService.findById(club_id);
 		model.addAttribute("club", club);
-		model.addAttribute("boards", boards);
+//		model.addAttribute("boards", boards);
 		model.addAttribute("club_id", club_id);
 		nav_list(model);
 		nav_user(model, principal);
