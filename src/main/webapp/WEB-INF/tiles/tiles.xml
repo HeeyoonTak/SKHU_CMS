@@ -13,6 +13,8 @@
 		<put-attribute name="body" value="" />
 		<put-attribute name="footer"
 			value="/WEB-INF/tiles/tiles_footer.jsp" />
+		<put-attribute name="page"
+			value="/WEB-INF/tags/pagination.tag" />
 	</definition>
 
 	<definition name="layout_board_tiles"
@@ -24,6 +26,8 @@
 		<put-attribute name="body" value="" />
 		<put-attribute name="footer"
 			value="/WEB-INF/tiles/tiles_footer.jsp" />
+			<put-attribute name="page"
+			value="/WEB-INF/tags/pagination.tag" />
 	</definition>
 
 	<definition name="club_union/posting" extends="layout_board_tiles">

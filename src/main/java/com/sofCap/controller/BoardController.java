@@ -26,8 +26,10 @@ import com.sofCap.dto.BoardDto;
 import com.sofCap.dto.ClubDto;
 import com.sofCap.dto.FilesDto;
 import com.sofCap.dto.UserDto;
+import com.sofCap.mapper.BoardMapper;
 import com.sofCap.mapper.ClubMapper;
 import com.sofCap.mapper.FileMapper;
+import com.sofCap.model.Pagination;
 import com.sofCap.service.BoardService;
 import com.sofCap.service.ClubService;
 import com.sofCap.service.UserService;
@@ -45,6 +47,8 @@ public class BoardController {
 	ClubMapper clubMapper;
 	@Autowired
 	FileMapper fileMapper;
+	@Autowired
+	BoardMapper boardMapper;
 
 	//네비게이션 동아리 띄우기
 	public void nav_list(Model model) {
@@ -69,7 +73,7 @@ public class BoardController {
 		ClubDto club = clubService.findById(club_id);
 		List<BoardDto> boards_p = boardService.findByClubId_p(club_id);
 		List<BoardDto> boards_r = boardService.findByClubId_r(club_id);
-		model.addAttribute("club", club);
+	    model.addAttribute("club", club);
 		model.addAttribute("boards_p", boards_p);
 		model.addAttribute("boards_r", boards_r);
 		nav_list(model);
@@ -154,9 +158,11 @@ public class BoardController {
 
 	//전체 홍보 게시판
 	@RequestMapping("publicity")
-	public String publicity(Model model, Principal principal) {
-		List<BoardDto> boards = boardService.findAll_p();
-		model.addAttribute("boards", boards);
+	public String publicity(Model model, Principal principal, Pagination pagination) {
+		List<BoardDto> boards = boardMapper.findAll_p(pagination);
+        pagination.setRecordCount(boardMapper.count_p());
+        model.addAttribute("boards", boards);
+
 		nav_list(model);
 		nav_user(model, principal);
 		return "guest/publicity";
@@ -164,9 +170,11 @@ public class BoardController {
 
 	//전체 모집게시판
 	@RequestMapping("recruit")
-	public String recruit(Model model, Principal principal) {
-		List<BoardDto> boards = boardService.findAll_r();
+	public String recruit(Model model, Principal principal, Pagination pagination) {
+		List<BoardDto> boards = boardMapper.findAll_r(pagination);
+		pagination.setRecordCount(boardMapper.count_r());
 		model.addAttribute("boards", boards);
+
 		nav_list(model);
 		nav_user(model, principal);
 		return "guest/recruit";
