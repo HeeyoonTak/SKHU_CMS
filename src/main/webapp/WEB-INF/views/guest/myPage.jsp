@@ -54,7 +54,10 @@
 								</div>
 								
 								<hr class="mb-4">
+								<div>
+								<label style="color:red; font-size:10pt">*모든 항목을 입력하셔야 합니다.</label>
 								<button class="btn btn-primary btn-lg btn-block" type="submit">개인정보 수정</button>
+								</div>
 							</form>
 						</div>
 
