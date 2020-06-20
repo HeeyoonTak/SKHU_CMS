@@ -326,7 +326,9 @@ public class ClubUnionController {
 			System.out.println(sem_name);
 		}
 		String sem_name = semdate.getSem_name();
-		List<BoardDto> boards = boardService.findBySem_m(semdate);
+		List<BoardDto> boards = boardMapper.findBySem_m(semdate);
+//		List<BoardDto> boards = boardMapper.findBySem_m(semdate, pagination);
+//		pagination.setRecordCount(boardMapper.count_m());
 		SemDateDto startenddate = semdateService.findStartAndEndDate(sem_name);
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		String start_date = format.format(startenddate.getStart_date());

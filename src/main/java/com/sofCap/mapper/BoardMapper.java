@@ -17,6 +17,9 @@ public interface BoardMapper {
 
 	List<BoardDto> findBySem_m(SemDate sem_name);
 
+//	List<BoardDto> findBySem_m(SemDate sem_name, Pagination pagination);
+//	int count_m();
+
 	List<BoardDto> findBySem_a(String sem_name,  int club_id);
 
 	List<BoardDto> findByClubId_p(@Param("id") int club_id);

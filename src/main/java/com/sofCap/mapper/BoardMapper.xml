@@ -34,7 +34,27 @@
 		board_name_id = '4' AND club_id = '1'
 		ORDER BY date DESC
 	</select>
+	
+<!-- 
+	<select id="findBySem_m" resultType="BoardDto">   학기별 회의록 리스트 조회
+	<bind name="start" value="(pg - 1) * sz" />
+		SELECT b.*
+		FROM Board b RIGHT JOIN sem_date s
+		ON b.date BETWEEN
+		s.start_date AND s.end_date
+		WHERE s.sem_name=#{sem_name} AND
+		board_name_id = '4' AND club_id = '1'
+		ORDER BY date DESC
+		LIMIT #{start}, #{sz}
+	</select>
 
+    <select id="count_m" resultType="int">
+		SELECT COUNT(*) FROM board b
+		JOIN club c ON b.club_id = c.id
+		board_name_id = '4' AND club_id = '1'
+		ORDER BY date DESC
+	</select> -->
+	
 	<select id="findAll_n" resultType="BoardDto">  <!-- 동연 공지사항 전체 리스트 조회 -->
 	<bind name="start" value="(pg - 1) * sz" />
 		SELECT *
