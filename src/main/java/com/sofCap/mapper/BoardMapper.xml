@@ -36,14 +36,23 @@
 	</select>
 
 	<select id="findAll_n" resultType="BoardDto">  <!-- 동연 공지사항 전체 리스트 조회 -->
+	<bind name="start" value="(pg - 1) * sz" />
 		SELECT *
 		FROM Board
 		WHERE
 		board_name_id = '3' AND club_id = '1'
 		ORDER BY
 		date DESC
+		LIMIT #{start}, #{sz}
 	</select>
 
+	<select id="count_n" resultType="int">
+		SELECT COUNT(*) FROM board b
+		JOIN club c ON b.club_id = c.id
+		WHERE board_name_id = '3' AND club_id = '1'
+		ORDER BY date DESC
+	</select>
+	
 	<select id="findAll_m" resultType="BoardDto">  <!-- 동연 회의록 전체 리스트 조회 -->
 		SELECT *
 		FROM Board

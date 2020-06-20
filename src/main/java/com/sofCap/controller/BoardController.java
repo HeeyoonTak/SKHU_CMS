@@ -181,8 +181,9 @@ public class BoardController {
 	}
 
 	@RequestMapping("notice")
-	public String union_notice(Model model, Principal principal) {
-		List<BoardDto> boards = boardService.findAll_n();
+	public String union_notice(Model model, Principal principal, Pagination pagination) {
+		List<BoardDto> boards = boardService.findAll_n(pagination);
+		pagination.setRecordCount(boardMapper.count_n());
 		model.addAttribute("boards", boards);
 		nav_list(model);
 		nav_user(model, principal);

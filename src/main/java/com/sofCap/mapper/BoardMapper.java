@@ -29,7 +29,8 @@ public interface BoardMapper {
 
 	List<BoardDto> findAll_r();
 
-	List<BoardDto> findAll_n();
+	List<BoardDto> findAll_n(Pagination pagination);
+	int count_n();
 
 	List<BoardDto> findAll_m();
 

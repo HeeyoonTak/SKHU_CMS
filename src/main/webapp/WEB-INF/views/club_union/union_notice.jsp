@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="my" %>
 <c:url var="R" value="/" />
 <div id="fh5co-hero">
 	<a href="#fh5co-main"
@@ -55,11 +56,7 @@
 									</c:forEach>
 								</table>
 								<div style="margin-left: 35%;">
-									<ul class="pagination">
-										<li><a href="#" style="color: #90D7EA">이전</a></li>
-										<li><a href="#" style="color: #90D7EA">1</a></li>
-										<li><a href="#" style="color: #90D7EA">다음</a></li>
-									</ul>
+								<my:pagination pageSize="${ pagination.sz }" recordCount="${ pagination.recordCount }" queryStringName="pg" />
 								</div>
 								<div class="row">
 									<div class="col-md-12">

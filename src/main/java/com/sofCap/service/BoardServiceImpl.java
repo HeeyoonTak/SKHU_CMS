@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.sofCap.dao.BoardDao;
 import com.sofCap.dto.BoardDto;
+import com.sofCap.model.Pagination;
 import com.sofCap.model.SemDate;
 
 @Service
@@ -61,8 +62,8 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public List<BoardDto> findAll_n() {
-		return boardDao.findAll_n();
+	public List<BoardDto> findAll_n(Pagination pagination) {
+		return boardDao.findAll_n(pagination);
 	}
 
 	@Override

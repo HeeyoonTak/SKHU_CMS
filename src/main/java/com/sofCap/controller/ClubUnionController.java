@@ -46,6 +46,7 @@ import com.sofCap.mapper.FileMapper;
 import com.sofCap.mapper.SemDateMapper;
 import com.sofCap.mapper.UserClubMapper;
 import com.sofCap.mapper.UserMapper;
+import com.sofCap.model.Pagination;
 import com.sofCap.model.SemDate;
 import com.sofCap.service.AccountService;
 import com.sofCap.service.AttendanceService;
@@ -218,8 +219,9 @@ public class ClubUnionController {
 	 * ASY_board 동아리 연합회 공지사항
 	 */
 	@RequestMapping("notice")
-	public String union_notice(Model model,Principal principal) {
-		List<BoardDto> boards = boardService.findAll_n();
+	public String union_notice(Model model,Principal principal, Pagination pagination) {
+		List<BoardDto> boards = boardService.findAll_n(pagination);
+		pagination.setRecordCount(boardMapper.count_n());
 		model.addAttribute("boards", boards);
 		nav_list(model);
 		nav_user(model, principal);
@@ -529,7 +531,7 @@ public class ClubUnionController {
 		model.addAttribute("end_date", end_date);
 		nav_list(model);
 		nav_user(model, principal);
-		
+
 		if (user.getUser_type().equals("동아리관리자") || user.getUser_type().equals("동연")) {
 			return "club_union/account";
 		} else {
@@ -592,7 +594,7 @@ public class ClubUnionController {
 		fileMapper.delete(f_id);
 		return "redirect:account#fh5co-tab-feature-center" + club_id;
 	}
-	
+
 	/* 동아리별 저장된 회계 내역 다운로드 */
 	@RequestMapping("account/excel/downloadByClub")
 	public void downloadByClub(HttpServletResponse response, @RequestParam("club_id") int club_id,
@@ -613,7 +615,7 @@ public class ClubUnionController {
 			workbook.write(output);
 		}
 	}
-	
+
 	/* 전체 동아리 저장된 회계 내역 다운로드 */
 	@RequestMapping("account/excel/downloadAll")
 	public void downloadAll(HttpServletResponse response,@RequestParam("sem_name") String sem_name) throws Exception {

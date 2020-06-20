@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.sofCap.dto.BoardDto;
 import com.sofCap.mapper.BoardMapper;
+import com.sofCap.model.Pagination;
 import com.sofCap.model.SemDate;
 
 @Repository
@@ -61,8 +62,8 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public List<BoardDto> findAll_n() {
-		return boardMapper.findAll_n();
+	public List<BoardDto> findAll_n(Pagination pagination) {
+		return boardMapper.findAll_n(pagination);
 	}
 
 	@Override
