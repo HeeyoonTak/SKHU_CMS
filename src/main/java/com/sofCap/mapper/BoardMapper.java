@@ -39,6 +39,10 @@ public interface BoardMapper {
 
 	List<BoardDto> listFive_r();
 
+	List<BoardDto> listEight_p(@Param("id") int club_id);
+
+	List<BoardDto> listEight_r(@Param("id") int club_id);
+
     List<BoardDto> findAll_r(Pagination pagination);
     int count_r();
 

@@ -71,8 +71,8 @@ public class BoardController {
 	@RequestMapping("list-content")
 	public String list_content(Model model, @RequestParam("id") int club_id, Principal principal) {
 		ClubDto club = clubService.findById(club_id);
-		List<BoardDto> boards_p = boardService.findByClubId_p(club_id);
-		List<BoardDto> boards_r = boardService.findByClubId_r(club_id);
+		List<BoardDto> boards_p = boardMapper.listEight_p(club_id);
+		List<BoardDto> boards_r = boardMapper.listEight_r(club_id);
 	    model.addAttribute("club", club);
 		model.addAttribute("boards_p", boards_p);
 		model.addAttribute("boards_r", boards_r);

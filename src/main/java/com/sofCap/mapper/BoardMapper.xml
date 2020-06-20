@@ -111,6 +111,28 @@
 		DESC LIMIT 5;
 	</select>
 
+	<select id="listEight_p" resultType="BoardDto">
+		SELECT b.*
+		FROM board b
+		LEFT JOIN Club c ON b.club_id = c.id
+		WHERE
+		board_name_id = 1 AND club_id = #{id}
+		ORDER BY
+		date
+		DESC LIMIT 8;
+	</select>
+
+	<select id="listEight_r" resultType="BoardDto">
+		SELECT b.*
+		FROM board b
+		LEFT JOIN Club c ON b.club_id = c.id
+		WHERE
+		board_name_id = 2 AND club_id = #{id}
+		ORDER BY
+		date
+		DESC LIMIT 8;
+	</select>
+	
 	<select id="findAll_p" resultMap="resultMap_BoardDto">   <!-- 홍보게시판 전체 리스트 조회 -->
 		<bind name="start" value="(pg - 1) * sz" />
 		SELECT b.*, c.club_name
