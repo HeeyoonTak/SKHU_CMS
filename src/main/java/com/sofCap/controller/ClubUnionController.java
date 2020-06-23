@@ -88,8 +88,8 @@ public class ClubUnionController {
 	AccountMapper accountMapper;
 	@Autowired
 	FileService fileService;
-	@Autowired
-	SemDateMapper semdateMapper;
+//	@Autowired
+//	SemDateMapper semdateMapper;
 	@Autowired
 	UserClubService userClubService;
 	@Autowired
@@ -322,7 +322,7 @@ public class ClubUnionController {
 	public String union_minutes(Model model, SemDate semdate, Principal principal) {
 		if (semdate.getSem_name() == null) {
 			Date now = Date.valueOf(LocalDate.now());
-			String sem_name = semdateMapper.findByDate(now);
+			String sem_name = semdateService.findByDate(now);
 			System.out.println(sem_name);
 		}
 		String sem_name = semdate.getSem_name();
@@ -513,7 +513,7 @@ public class ClubUnionController {
 		ClubDto myClub = clubService.findById(user_club_id);
 		if (semdate.getSem_name() == null) {
 			Date now = Date.valueOf(LocalDate.now());
-			String sem_name = semdateMapper.findByDate(now);
+			String sem_name = semdateService.findByDate(now);
 		}
 		String sem_name = semdate.getSem_name();
 		List<AccountDto> accounts = accountService.findBySem(semdate);
@@ -582,7 +582,7 @@ public class ClubUnionController {
 	public void getImage(HttpServletRequest req, HttpServletResponse res, @RequestParam("id") int id)
 			throws IOException {
 		res.setContentType("image/jpeg");
-		FilesDto file = fileMapper.getReceiptImage(id);
+		FilesDto file = fileService.getReceiptImage(id);
 		byte[] imagefile = file.getData();
 		InputStream in1 = new ByteArrayInputStream(imagefile);
 		IOUtils.copy(in1, res.getOutputStream());
@@ -591,9 +591,9 @@ public class ClubUnionController {
 	/* 선택한 회계 내역 삭제 */
 	@RequestMapping("delete")
 	public String delete(Model model, @RequestParam("id") int id, @RequestParam("club_id") int club_id) {
-		int f_id = accountMapper.findFileId(id);
-		accountMapper.delete(id);
-		fileMapper.delete(f_id);
+		int f_id = accountService.findFileId(id);
+		accountService.delete(id);
+		fileService.delete(f_id);
 		return "redirect:account#fh5co-tab-feature-center" + club_id;
 	}
 

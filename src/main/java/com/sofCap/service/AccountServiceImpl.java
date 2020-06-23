@@ -52,4 +52,9 @@ public class AccountServiceImpl implements AccountService{
 	public List<AccountDto> getTotalByClubId(String sem_name) {
 		return accountDao.getTotalByClubId(sem_name);
 	}
+	
+	@Override
+	public int findFileId(int id) {
+		return accountDao.findFileId(id);
+	}
 }

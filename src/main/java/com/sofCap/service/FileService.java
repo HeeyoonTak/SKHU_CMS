@@ -11,4 +11,7 @@ public interface FileService {
 	int accountFileUpload(MultipartFile uploadFile) throws IOException;
 	void clubFileUpload(FilesDto file);
 	int clubFileUpload(MultipartFile uploadFile) throws IOException;
+	FilesDto getReceiptImage(int id);
+	void delete(int id);
+
 }
