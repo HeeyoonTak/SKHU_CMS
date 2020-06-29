@@ -11,8 +11,8 @@ import com.sofCap.model.SemDate;
 public interface BoardService {
 	BoardDto findById(int id);
 	BoardDto findOneClub(int id);
-	List<BoardDto> findBySem_m(SemDate sem_name);
-//	List<BoardDto> findBySem_m(SemDate sem_name, Pagination pagination);
+//	List<BoardDto> findBySem_m(SemDate sem_name);
+	List<BoardDto> findBySem_m(SemDate sem_name, Pagination pagination);
 	List<BoardDto> findBySem_a(String sem_name, int club_id);
 	List<BoardDto> findByClubId_p(@Param("id") int club_id);
 	List<BoardDto> findByClubId_r(@Param("id") int club_id);

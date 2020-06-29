@@ -27,8 +27,8 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public List<BoardDto> findBySem_m(SemDate sem_name) {
-		return boardMapper.findBySem_m(sem_name);
+	public List<BoardDto> findBySem_m(SemDate sem_name,Pagination pagination) {
+		return boardMapper.findBySem_m(sem_name,pagination);
 	}
 
 //	@Override

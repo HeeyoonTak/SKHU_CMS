@@ -27,8 +27,8 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public List<BoardDto> findBySem_m(SemDate sem_name) {
-		return boardDao.findBySem_m(sem_name);
+	public List<BoardDto> findBySem_m(SemDate sem_name,Pagination pagination) {
+		return boardDao.findBySem_m(sem_name,pagination);
 	}
 
 //	@Override
