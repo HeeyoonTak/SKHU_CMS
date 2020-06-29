@@ -52,8 +52,8 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public List<BoardDto> findByClubId_n(@Param("id") int club_id) {
-		return boardMapper.findByClubId_n(club_id);
+	public List<BoardDto> findByClubId_n(int club_id, Pagination pagination) {
+		return boardMapper.findByClubId_n(club_id, pagination);
 	}
 
 	@Override

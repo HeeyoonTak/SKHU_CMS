@@ -96,11 +96,19 @@
 	</select>
 
 	<select id="findByClubId_n" resultType="BoardDto">  <!-- 각 동아리 공지사항 리스트 조회 -->
+	<bind name="start" value="(pagination.pg - 1) * pagination.sz" />	
 		SELECT *
 		FROM Board
-		WHERE club_id = #{id} AND board_name_id = '3'
+		WHERE club_id = #{club_id} AND board_name_id = '3'
 		ORDER
 		BY date DESC
+		LIMIT #{start}, #{pagination.sz}
+	</select>
+	
+	<select id="count_cn" resultType="int">
+		SELECT COUNT(*) FROM board b
+		JOIN club c ON b.club_id = c.id
+		WHERE b.board_name_id = '3' AND b.club_id = #{club_id}
 	</select>
 
 	<select id="findByClubId_p" resultType="BoardDto">  <!-- 각 동아리 홍보게시판 리스트 조회 -->

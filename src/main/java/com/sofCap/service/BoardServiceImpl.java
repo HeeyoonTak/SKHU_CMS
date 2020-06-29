@@ -52,8 +52,8 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public List<BoardDto> findByClubId_n(@Param("id") int club_id) {
-		return boardDao.findByClubId_n(club_id);
+	public List<BoardDto> findByClubId_n(int club_id, Pagination pagination) {
+		return boardDao.findByClubId_n(club_id, pagination);
 	}
 
 	@Override

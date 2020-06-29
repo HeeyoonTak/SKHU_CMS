@@ -49,6 +49,7 @@ import com.sofCap.mapper.BoardMapper;
 import com.sofCap.mapper.ClubMapper;
 import com.sofCap.mapper.FileMapper;
 import com.sofCap.mapper.SemDateMapper;
+import com.sofCap.model.Pagination;
 import com.sofCap.model.SemDate;
 import com.sofCap.service.AccountService;
 import com.sofCap.service.AttendanceService;
@@ -416,8 +417,9 @@ public class ClubAdminController {
 	 * ASY_board 동아리 공지사항
 	 */
 	@RequestMapping("notice")
-	public String club_notice(Model model, @RequestParam("club_id") int club_id, Principal principal) {
-		List<BoardDto> boards = boardService.findByClubId_n(club_id);
+	public String club_notice(Model model, @RequestParam("club_id") int club_id, Principal principal,Pagination pagination) {
+		List<BoardDto> boards = boardService.findByClubId_n(club_id, pagination);
+		pagination.setRecordCount(boardMapper.count_cn(club_id));
 		ClubDto club = clubService.findById(club_id);
 		model.addAttribute("club", club);
 		model.addAttribute("boards", boards);

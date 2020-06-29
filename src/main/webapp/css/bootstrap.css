@@ -4829,7 +4829,7 @@ tbody.collapse.in {
   padding: 6px 12px;
   line-height: 1.42857;
   text-decoration: none;
-  color: #08b1f7;
+  color: #90d7ea;
   background-color: #fff;
   border: 1px solid #ddd;
   margin-left: -1px;
@@ -4848,7 +4848,7 @@ tbody.collapse.in {
 .pagination > li > a:hover, .pagination > li > a:focus,
 .pagination > li > span:hover,
 .pagination > li > span:focus {
-  color: #067cad;
+  color: #90d7ea;
   background-color: #eeeeee;
   border-color: #ddd;
 }
@@ -4858,8 +4858,8 @@ tbody.collapse.in {
 .pagination > .active > span:focus {
   z-index: 2;
   color: #fff;
-  background-color: #08b1f7;
-  border-color: #08b1f7;
+  background-color: #90d7ea;
+  border-color: #90d7ea;
   cursor: default;
 }
 .pagination > .disabled > span,

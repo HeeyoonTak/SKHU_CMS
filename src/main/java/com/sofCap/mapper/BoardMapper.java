@@ -26,8 +26,8 @@ public interface BoardMapper {
 
 	List<BoardDto> findByClubId_r(@Param("id") int club_id);
 
-	List<BoardDto> findByClubId_n(@Param("id") int club_id);
-
+	List<BoardDto> findByClubId_n(int club_id, Pagination pagination);
+	int count_cn(int club_id);
 	List<BoardDto> findAll_p();
 
 	List<BoardDto> findAll_r();
