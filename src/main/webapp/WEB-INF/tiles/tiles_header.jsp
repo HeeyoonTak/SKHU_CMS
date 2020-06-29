@@ -331,3 +331,23 @@
 		
 	}	
 </script>
+
+<script>
+	function u_account_del(seq1,seq2) {
+		var chk = confirm("정말 삭제하시겠습니까?");
+		if (chk) {
+			location.href="${R}club_union/delete?id="+seq1+"&club_id="+seq2;
+			return deleteAlert();
+		}
+	}	
+</script>
+
+<script>
+	function a_account_del(seq1,seq2) {
+		var chk = confirm("정말 삭제하시겠습니까?");
+		if (chk) {
+			location.href="${R}club_admin/delete?id="+seq1+"&club_id="+seq2;
+			return deleteAlert();
+		}
+	}	
+</script>
