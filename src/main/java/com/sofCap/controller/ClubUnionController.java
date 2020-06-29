@@ -15,6 +15,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.json.JSONArray;
@@ -319,16 +320,17 @@ public class ClubUnionController {
 	 * ASY_board 동아리 연합회 회의록
 	 */
 	@RequestMapping("minutes")
-	public String union_minutes(Model model, SemDate semdate, Principal principal) {
+	public String union_minutes(Model model, SemDate semdate, Principal principal, Pagination pagination) {
 		if (semdate.getSem_name() == null) {
 			Date now = Date.valueOf(LocalDate.now());
 			String sem_name = semdateService.findByDate(now);
 			System.out.println(sem_name);
 		}
 		String sem_name = semdate.getSem_name();
-		List<BoardDto> boards = boardMapper.findBySem_m(semdate);
-//		List<BoardDto> boards = boardMapper.findBySem_m(semdate, pagination);
-//		pagination.setRecordCount(boardMapper.count_m());
+//		List<BoardDto> boards = boardMapper.findBySem_m(semdate);
+		System.out.print(pagination.getPg());
+		List<BoardDto> boards = boardMapper.findBySem_m(semdate, pagination);
+		pagination.setRecordCount(boardMapper.count_m());
 		SemDateDto startenddate = semdateService.findStartAndEndDate(sem_name);
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		String start_date = format.format(startenddate.getStart_date());

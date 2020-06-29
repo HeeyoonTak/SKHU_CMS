@@ -43,14 +43,7 @@
 									<tr>
 										<td><textarea id="summernote" name="content">${board.content }</textarea></td>
 									</tr>
-									<tr style="text-align: center">
-										<td>신청 기간: <form:input type="date" path="start_date"
-												class="form-control input-sm"
-												style="width: 130px; display :inline" autocomplete="off" />
-											~ <form:input type="date" path="end_date"
-												class="form-control input-sm"
-												style="width: 130px; display :inline" autocomplete="off" /></td>
-									</tr>
+									
 								</table>
 								<div class="row">
 									<div class="col-md-12">

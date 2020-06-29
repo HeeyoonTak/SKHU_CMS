@@ -67,14 +67,14 @@
 											<td style="text-align: center; width: 200px;"><fmt:formatDate
 													pattern="yyyy-MM-dd" value="${ board.date }" /></td>
 											<sec:authorize access="hasRole('ROLE_ClubUnion')">
-												<td style="width: 50px"><a href="m_delete?id=${board.id}"
+												<td style="width: 50px"><a onclick="return m_del(${board.id});"
 													style="color: #ff0000">x</a></td>
 											</sec:authorize>
 										</tr>
 									</c:forEach>
 								</table>
 								<div style="margin-left: 35%;">
-								<%-- <my:pagination pageSize="${ pagination.sz }" recordCount="${ pagination.recordCount }" queryStringName="pg" /> --%>
+								<my:pagination pageSize="${ pagination.sz }" recordCount="${ pagination.recordCount }" queryStringName="pg" />
 								</div>
 								<div class="row">
 									<div class="col-md-12">

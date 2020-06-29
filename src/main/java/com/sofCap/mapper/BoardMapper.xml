@@ -26,14 +26,16 @@
 
 	<!-- 동연 mapper -->
 	<select id="findBySem_m" resultType="BoardDto">   <!-- 학기별 회의록 리스트 조회 -->
+	<bind name="start" value="(pagination.pg - 1) * pagination.sz" />
 		SELECT b.*
 		FROM Board b RIGHT JOIN sem_date s
 		ON b.date BETWEEN
 		s.start_date AND s.end_date
-		WHERE s.sem_name=#{sem_name} AND
+		WHERE s.sem_name=#{semdate.sem_name} AND
 		board_name_id = '4' AND club_id = '1'
 		ORDER BY date DESC
-	</select>
+		LIMIT #{start}, #{pagination.sz}
+	</select> 
 	
 <!-- 
 	<select id="findBySem_m" resultType="BoardDto">   학기별 회의록 리스트 조회
@@ -47,13 +49,14 @@
 		ORDER BY date DESC
 		LIMIT #{start}, #{sz}
 	</select>
+	-->
 
     <select id="count_m" resultType="int">
 		SELECT COUNT(*) FROM board b
 		JOIN club c ON b.club_id = c.id
-		board_name_id = '4' AND club_id = '1'
+		where b.board_name_id = '4' AND club_id = '1'
 		ORDER BY date DESC
-	</select> -->
+	</select> 
 	
 	<select id="findAll_n" resultType="BoardDto">  <!-- 동연 공지사항 전체 리스트 조회 -->
 	<bind name="start" value="(pg - 1) * sz" />
@@ -89,7 +92,7 @@
 		s.start_date AND s.end_date
 		WHERE s.sem_name = #{sem_name} AND
 		b.board_name_id = '4' AND b.club_id = #{club_id}
-		ORDER BY date DESC
+		ORDER BY b.id DESC
 	</select>
 
 	<select id="findByClubId_n" resultType="BoardDto">  <!-- 각 동아리 공지사항 리스트 조회 -->
