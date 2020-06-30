@@ -13,9 +13,9 @@ public interface BoardDao {
 	BoardDto findOneClub(int id);
 //	List<BoardDto> findBySem_m(SemDate sem_name);
 	List<BoardDto> findBySem_m(SemDate sem_name, Pagination pagination);
-	List<BoardDto> findBySem_a(String sem_name, int club_id);
-	List<BoardDto> findByClubId_p(@Param("id") int club_id);
-	List<BoardDto> findByClubId_r(@Param("id") int club_id);
+	List<BoardDto> findBySem_a(SemDate sem_name, int club_id, Pagination pagination);
+	List<BoardDto> findByClubId_p(int club_id, Pagination pagination);
+	List<BoardDto> findByClubId_r(int club_id,Pagination pagination);
 	List<BoardDto> findByClubId_n(int club_id, Pagination pagination);
 	List<BoardDto> findAll_p();
 	List<BoardDto> findAll_r();

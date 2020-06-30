@@ -20,14 +20,22 @@ public interface BoardMapper {
 	List<BoardDto> findBySem_m(SemDate semdate, Pagination pagination);
 	int count_m();
 
-	List<BoardDto> findBySem_a(String sem_name,  int club_id);
-
-	List<BoardDto> findByClubId_p(@Param("id") int club_id);
-
-	List<BoardDto> findByClubId_r(@Param("id") int club_id);
-
+	//동아리별 회의록
+	List<BoardDto> findBySem_a(SemDate semdate, int club_id, Pagination pagination);
+	int count_a(int club_id);
+	
+	//동아리별 홍보게시물
+	List<BoardDto> findByClubId_p(int club_id, Pagination pagination);
+	int count_p(int club_id);
+	
+	//동아리별 모집게시물
+	List<BoardDto> findByClubId_r(int club_id, Pagination pagination);
+	int count_r(int club_id);
+	
+	//동아리별 공지사항
 	List<BoardDto> findByClubId_n(int club_id, Pagination pagination);
 	int count_cn(int club_id);
+	
 	List<BoardDto> findAll_p();
 
 	List<BoardDto> findAll_r();

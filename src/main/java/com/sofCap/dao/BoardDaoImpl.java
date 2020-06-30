@@ -37,18 +37,18 @@ public class BoardDaoImpl implements BoardDao {
 //	}
 
 	@Override
-	public List<BoardDto> findBySem_a(String sem_name, int club_id) {
-		return boardMapper.findBySem_a(sem_name, club_id);
+	public List<BoardDto> findBySem_a(SemDate sem_name, int club_id, Pagination pagination) {
+		return boardMapper.findBySem_a(sem_name, club_id, pagination);
 	}
 
 	@Override
-	public List<BoardDto> findByClubId_p(@Param("id") int club_id) {
-		return boardMapper.findByClubId_p(club_id);
+	public List<BoardDto> findByClubId_p(int club_id,Pagination pagination) {
+		return boardMapper.findByClubId_p(club_id, pagination);
 	}
 
 	@Override
-	public List<BoardDto> findByClubId_r(@Param("id") int club_id) {
-		return boardMapper.findByClubId_r(club_id);
+	public List<BoardDto> findByClubId_r(int club_id, Pagination pagination) {
+		return boardMapper.findByClubId_r(club_id,pagination);
 	}
 
 	@Override

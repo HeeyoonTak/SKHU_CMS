@@ -526,13 +526,14 @@ public class ClubAdminController {
 	 */
 	@RequestMapping("minutes")
 	public String club_minutes(Model model, SemDate semdate, @RequestParam("club_id") int club_id,
-			Principal principal) {
+			Principal principal, Pagination pagination) {
 		if (semdate.getSem_name() == null) {
 			Date now = Date.valueOf(LocalDate.now());
 			String sem_name = semdateMapper.findByDate(now);
 		}
 		String sem_name = semdate.getSem_name();
-		List<BoardDto> boards = boardService.findBySem_a(sem_name, club_id);
+		List<BoardDto> boards = boardService.findBySem_a(semdate, club_id, pagination);
+		pagination.setRecordCount(boardMapper.count_a(club_id));
 		SemDateDto startenddate = semdateService.findStartAndEndDate(sem_name);
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		String start_date = format.format(startenddate.getStart_date());
@@ -646,8 +647,9 @@ public class ClubAdminController {
 	 * ASY_board 동아리 홍보게시판
 	 */
 	@RequestMapping("publicity")
-	public String club_publicity(Model model, @RequestParam("club_id") int club_id, Principal principal) {
-		List<BoardDto> boards = boardService.findByClubId_p(club_id);
+	public String club_publicity(Model model, @RequestParam("club_id") int club_id, Principal principal, Pagination pagination) {
+		List<BoardDto> boards = boardService.findByClubId_p(club_id, pagination);
+		pagination.setRecordCount(boardMapper.count_p(club_id));
 		ClubDto club = clubService.findById(club_id);
 		model.addAttribute("club", club);
 		model.addAttribute("boards", boards);
@@ -754,8 +756,9 @@ public class ClubAdminController {
 	 * ASY_board 동아리 모집게시판
 	 */
 	@RequestMapping("recruit")
-	public String club_recruit(Model model, @RequestParam("club_id") int club_id, Principal principal) {
-//		List<BoardDto> boards = boardService.findByClubId_r(club_id);
+	public String club_recruit(Model model, @RequestParam("club_id") int club_id, Principal principal, Pagination pagination) {
+		List<BoardDto> boards = boardService.findByClubId_r(club_id,pagination);
+		pagination.setRecordCount(boardMapper.count_r(club_id));
 		ClubDto club = clubService.findById(club_id);
 		model.addAttribute("club", club);
 //		model.addAttribute("boards", boards);
