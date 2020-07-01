@@ -761,7 +761,7 @@ public class ClubAdminController {
 		pagination.setRecordCount(boardMapper.count_cr(club_id));
 		ClubDto club = clubService.findById(club_id);
 		model.addAttribute("club", club);
-//		model.addAttribute("boards", boards);
+		model.addAttribute("boards", boards);
 		model.addAttribute("club_id", club_id);
 		nav_list(model);
 		nav_user(model, principal);
