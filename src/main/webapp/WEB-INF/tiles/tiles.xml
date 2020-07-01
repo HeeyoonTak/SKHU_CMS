@@ -39,7 +39,12 @@
 		<put-attribute name="body"
 			value="/WEB-INF/views/club_admin/posting.jsp" />
 	</definition>
-	
+
+	<definition name="club_admin/posting_r" extends="layout_board_tiles">
+		<put-attribute name="body"
+			value="/WEB-INF/views/club_admin/posting_r.jsp" />
+	</definition>
+		
 	<definition name="*/*" extends="layout_tiles">
 		<put-attribute name="body"
 			value="/WEB-INF/views/{1}.jsp" />

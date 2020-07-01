@@ -761,7 +761,7 @@ public class ClubAdminController {
 		pagination.setRecordCount(boardMapper.count_cr(club_id));
 		ClubDto club = clubService.findById(club_id);
 		model.addAttribute("club", club);
-//		model.addAttribute("boards", boards);
+		model.addAttribute("boards", boards);
 		model.addAttribute("club_id", club_id);
 		nav_list(model);
 		nav_user(model, principal);
@@ -792,7 +792,7 @@ public class ClubAdminController {
 		nav_list(model);
 		nav_user(model, principal);
 		if (user.getUser_type().equals("동아리관리자")) {
-			return "club_admin/posting";
+			return "club_admin/posting_r";
 	      } else {
 	         response.setContentType("text/html; charset=UTF-8");
 	         PrintWriter out = response.getWriter();
@@ -823,7 +823,7 @@ public class ClubAdminController {
 		nav_list(model);
 		nav_user(model, principal);
 		if (user.getUser_type().equals("동아리관리자")) {
-			return "club_admin/posting";
+			return "club_admin/posting_r";
 	      } else {
 	         response.setContentType("text/html; charset=UTF-8");
 	         PrintWriter out = response.getWriter();
