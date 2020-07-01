@@ -179,6 +179,7 @@
 
 										</table>
 								</div>
+								<c:if test="${club.id eq myClub.id}">
 								<div class="row">
 									<div class="col-md-8"></div>
 									<div class="col-md-4">
@@ -187,6 +188,7 @@
 											id="l_account_save" name="l_account_save" value="회계 저장">
 									</div>
 								</div>
+								</c:if>
 								</form>
 							</div>
 						</div>
