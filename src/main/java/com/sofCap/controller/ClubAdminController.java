@@ -792,7 +792,7 @@ public class ClubAdminController {
 		nav_list(model);
 		nav_user(model, principal);
 		if (user.getUser_type().equals("동아리관리자")) {
-			return "club_admin/posting";
+			return "club_admin/posting_r";
 	      } else {
 	         response.setContentType("text/html; charset=UTF-8");
 	         PrintWriter out = response.getWriter();
@@ -823,7 +823,7 @@ public class ClubAdminController {
 		nav_list(model);
 		nav_user(model, principal);
 		if (user.getUser_type().equals("동아리관리자")) {
-			return "club_admin/posting";
+			return "club_admin/posting_r";
 	      } else {
 	         response.setContentType("text/html; charset=UTF-8");
 	         PrintWriter out = response.getWriter();
