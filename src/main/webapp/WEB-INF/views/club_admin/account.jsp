@@ -130,18 +130,19 @@
 													<input type="hidden" name="club_id" value="${club_id}">
 													<td><input type="date" name="date"
 														class="form-control input-lg" max="${end_date}"
-														min="${start_date}"></td>
+														min="${start_date}" required="required"></td>
 													<td><select class="form-control input-lg"
-														name="account_type">
+														name="account_type" required="required">
+														<option value="" selected disabled hidden>구분</option>
 															<c:forEach var="at" items="${ account_type }"
 																varStatus="i">
 																<option value="${i.index}">${ at }</option>
 															</c:forEach>
 													</select></td>
 													<td><input type="number" name="price"
-														class="form-control input-lg" placeholder="사용금액"></td>
+														class="form-control input-lg" placeholder="사용금액" required="required"></td>
 													<td><input type="text" name="remark"
-														class="form-control input-lg" placeholder="사용내용"></td>
+														class="form-control input-lg" placeholder="사용내용" required="required"></td>
 													<!-- <td></td> -->
 													<td><p class="btn btn-primary"
 															onclick="clickbutton(this);">파일선택</p> <input type="file"
