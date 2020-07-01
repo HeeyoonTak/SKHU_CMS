@@ -26,11 +26,11 @@ public interface BoardMapper {
 	
 	//동아리별 홍보게시물
 	List<BoardDto> findByClubId_p(int club_id, Pagination pagination);
-	int count_p(int club_id);
+	int count_cp(int club_id);
 	
 	//동아리별 모집게시물
 	List<BoardDto> findByClubId_r(int club_id, Pagination pagination);
-	int count_r(int club_id);
+	int count_cr(int club_id);
 	
 	//동아리별 공지사항
 	List<BoardDto> findByClubId_n(int club_id, Pagination pagination);

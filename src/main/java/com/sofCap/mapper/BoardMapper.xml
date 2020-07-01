@@ -94,7 +94,7 @@
 		s.start_date AND s.end_date
 		WHERE s.sem_name = #{semdate.sem_name} AND
 		b.board_name_id = '4' AND b.club_id = #{club_id}
-		ORDER BY b.id DESC
+		ORDER BY b.date DESC
 		LIMIT #{start}, #{pagination.sz}
 	</select>
 	<select id="count_a" resultType="int">
@@ -133,7 +133,7 @@
 		LIMIT #{start}, #{pagination.sz}
 	</select>
 	
-	<select id="count_p" resultType="int">
+	<select id="count_cp" resultType="int">
 		SELECT COUNT(*) FROM board b
 		JOIN club c ON b.club_id = c.id
 		WHERE b.board_name_id = '1' AND b.club_id = #{club_id}
@@ -152,7 +152,7 @@
 		LIMIT #{start}, #{pagination.sz}
 	</select>
 	
-	<select id="count_r" resultType="int">
+	<select id="count_cr" resultType="int">
 		SELECT COUNT(*) FROM board b
 		JOIN club c ON b.club_id = c.id
 		WHERE b.board_name_id = '2' AND b.club_id = #{club_id}

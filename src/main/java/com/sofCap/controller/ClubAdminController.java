@@ -649,7 +649,7 @@ public class ClubAdminController {
 	@RequestMapping("publicity")
 	public String club_publicity(Model model, @RequestParam("club_id") int club_id, Principal principal, Pagination pagination) {
 		List<BoardDto> boards = boardService.findByClubId_p(club_id, pagination);
-		pagination.setRecordCount(boardMapper.count_p(club_id));
+		pagination.setRecordCount(boardMapper.count_cp(club_id));
 		ClubDto club = clubService.findById(club_id);
 		model.addAttribute("club", club);
 		model.addAttribute("boards", boards);
@@ -758,7 +758,7 @@ public class ClubAdminController {
 	@RequestMapping("recruit")
 	public String club_recruit(Model model, @RequestParam("club_id") int club_id, Principal principal, Pagination pagination) {
 		List<BoardDto> boards = boardService.findByClubId_r(club_id,pagination);
-		pagination.setRecordCount(boardMapper.count_r(club_id));
+		pagination.setRecordCount(boardMapper.count_cr(club_id));
 		ClubDto club = clubService.findById(club_id);
 		model.addAttribute("club", club);
 //		model.addAttribute("boards", boards);
