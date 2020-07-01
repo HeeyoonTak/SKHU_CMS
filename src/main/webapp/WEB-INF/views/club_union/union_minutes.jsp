@@ -67,7 +67,7 @@
 											<td style="text-align: center; width: 200px;"><fmt:formatDate
 													pattern="yyyy-MM-dd" value="${ board.date }" /></td>
 											<sec:authorize access="hasRole('ROLE_ClubUnion')">
-												<td style="width: 50px"><a onclick="return m_del(${board.id});"
+												<td style="width: 50px"><a onclick="return post_del('m_delete?id=${board.id}');"
 													style="color: #ff0000">x</a></td>
 											</sec:authorize>
 										</tr>

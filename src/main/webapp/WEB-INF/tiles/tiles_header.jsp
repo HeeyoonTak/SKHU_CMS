@@ -322,10 +322,10 @@
 	</script>
 	
 	<script>
-	function m_del(seq) {
+	function post_del(seq) {
 		var chk = confirm("정말 삭제하시겠습니까?");
 		if (chk) {
-			location.href="m_delete?id="+seq;
+			location.href = seq;			
 			return deleteAlert();
 		}
 		
