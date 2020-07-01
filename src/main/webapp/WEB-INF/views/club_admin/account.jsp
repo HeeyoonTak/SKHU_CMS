@@ -108,7 +108,7 @@
 
 														<!-- 삭제 버튼 -->
 														<td><sec:authorize access="hasRole('ROLE_ClubAdmin')">
-																<a onclick="return a_account_del(${account.id},${club_id});">x</a>
+																<a onclick="return post_del('${R}club_admin/delete?id=${account.id}&club_id=${club_id}');">x</a>
 															</sec:authorize></td>
 													</tr>
 												</c:if>
