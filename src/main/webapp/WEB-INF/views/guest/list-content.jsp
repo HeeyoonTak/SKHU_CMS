@@ -71,15 +71,7 @@
 													</tr>
 												</c:forEach>
 											</table>
-											<div class="col-md-offset-7" style="margin-left: 50%;">
-											   <my:pagination pageSize="${ pagination.sz }" recordCount="${ pagination.recordCount }" class="pagination" queryStringName="pg" />
-											
-<!-- 												<ul class="pagination">
-													<li><a href="#" style="color: #90D7EA">이전</a></li>
-													<li><a href="#" style="color: #90D7EA">1</a></li>
-													<li><a href="#" style="color: #90D7EA">다음</a></li>
-												</ul>  -->
-											</div>
+											<a href="publicity" style="color: #8b969c">전체보기</a>
 										</div>
 									</div>
 								</div>
@@ -110,13 +102,7 @@
 													</tr>
 												</c:forEach>
 											</table>
-											<div class="col-md-offset-7" style="margin-left: 50%;">
-												<ul class="pagination">
-													<li><a href="#" style="color: #90D7EA">이전</a></li>
-													<li><a href="#" style="color: #90D7EA">1</a></li>
-													<li><a href="#" style="color: #90D7EA">다음</a></li>
-												</ul>
-											</div>
+											<a href="recruit" style="color: #8b969c">전체보기</a>
 										</div>
 									</div>
 								</div>

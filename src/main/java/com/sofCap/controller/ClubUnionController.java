@@ -15,6 +15,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.json.JSONArray;
@@ -46,6 +47,7 @@ import com.sofCap.mapper.FileMapper;
 import com.sofCap.mapper.SemDateMapper;
 import com.sofCap.mapper.UserClubMapper;
 import com.sofCap.mapper.UserMapper;
+import com.sofCap.model.Pagination;
 import com.sofCap.model.SemDate;
 import com.sofCap.service.AccountService;
 import com.sofCap.service.AttendanceService;
@@ -87,8 +89,8 @@ public class ClubUnionController {
 	AccountMapper accountMapper;
 	@Autowired
 	FileService fileService;
-	@Autowired
-	SemDateMapper semdateMapper;
+//	@Autowired
+//	SemDateMapper semdateMapper;
 	@Autowired
 	UserClubService userClubService;
 	@Autowired
@@ -218,8 +220,9 @@ public class ClubUnionController {
 	 * ASY_board 동아리 연합회 공지사항
 	 */
 	@RequestMapping("notice")
-	public String union_notice(Model model,Principal principal) {
-		List<BoardDto> boards = boardService.findAll_n();
+	public String union_notice(Model model,Principal principal, Pagination pagination) {
+		List<BoardDto> boards = boardService.findAll_n(pagination);
+		pagination.setRecordCount(boardMapper.count_n());
 		model.addAttribute("boards", boards);
 		nav_list(model);
 		nav_user(model, principal);
@@ -317,14 +320,16 @@ public class ClubUnionController {
 	 * ASY_board 동아리 연합회 회의록
 	 */
 	@RequestMapping("minutes")
-	public String union_minutes(Model model, SemDate semdate, Principal principal) {
+	public String union_minutes(Model model, SemDate semdate, Principal principal, Pagination pagination) {
 		if (semdate.getSem_name() == null) {
 			Date now = Date.valueOf(LocalDate.now());
-			String sem_name = semdateMapper.findByDate(now);
+			String sem_name = semdateService.findByDate(now);
 			System.out.println(sem_name);
 		}
 		String sem_name = semdate.getSem_name();
-		List<BoardDto> boards = boardService.findBySem_m(semdate);
+//		List<BoardDto> boards = boardMapper.findBySem_m(semdate);
+		List<BoardDto> boards = boardService.findBySem_m(semdate, pagination);
+		pagination.setRecordCount(boardMapper.count_m());
 		SemDateDto startenddate = semdateService.findStartAndEndDate(sem_name);
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		String start_date = format.format(startenddate.getStart_date());
@@ -509,7 +514,7 @@ public class ClubUnionController {
 		ClubDto myClub = clubService.findById(user_club_id);
 		if (semdate.getSem_name() == null) {
 			Date now = Date.valueOf(LocalDate.now());
-			String sem_name = semdateMapper.findByDate(now);
+			String sem_name = semdateService.findByDate(now);
 		}
 		String sem_name = semdate.getSem_name();
 		List<AccountDto> accounts = accountService.findBySem(semdate);
@@ -529,7 +534,7 @@ public class ClubUnionController {
 		model.addAttribute("end_date", end_date);
 		nav_list(model);
 		nav_user(model, principal);
-		
+
 		if (user.getUser_type().equals("동아리관리자") || user.getUser_type().equals("동연")) {
 			return "club_union/account";
 		} else {
@@ -578,7 +583,7 @@ public class ClubUnionController {
 	public void getImage(HttpServletRequest req, HttpServletResponse res, @RequestParam("id") int id)
 			throws IOException {
 		res.setContentType("image/jpeg");
-		FilesDto file = fileMapper.getReceiptImage(id);
+		FilesDto file = fileService.getReceiptImage(id);
 		byte[] imagefile = file.getData();
 		InputStream in1 = new ByteArrayInputStream(imagefile);
 		IOUtils.copy(in1, res.getOutputStream());
@@ -587,12 +592,12 @@ public class ClubUnionController {
 	/* 선택한 회계 내역 삭제 */
 	@RequestMapping("delete")
 	public String delete(Model model, @RequestParam("id") int id, @RequestParam("club_id") int club_id) {
-		int f_id = accountMapper.findFileId(id);
-		accountMapper.delete(id);
-		fileMapper.delete(f_id);
+		int f_id = accountService.findFileId(id);
+		accountService.delete(id);
+		fileService.delete(f_id);
 		return "redirect:account#fh5co-tab-feature-center" + club_id;
 	}
-	
+
 	/* 동아리별 저장된 회계 내역 다운로드 */
 	@RequestMapping("account/excel/downloadByClub")
 	public void downloadByClub(HttpServletResponse response, @RequestParam("club_id") int club_id,
@@ -613,7 +618,7 @@ public class ClubUnionController {
 			workbook.write(output);
 		}
 	}
-	
+
 	/* 전체 동아리 저장된 회계 내역 다운로드 */
 	@RequestMapping("account/excel/downloadAll")
 	public void downloadAll(HttpServletResponse response,@RequestParam("sem_name") String sem_name) throws Exception {

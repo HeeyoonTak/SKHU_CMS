@@ -49,6 +49,7 @@ import com.sofCap.mapper.BoardMapper;
 import com.sofCap.mapper.ClubMapper;
 import com.sofCap.mapper.FileMapper;
 import com.sofCap.mapper.SemDateMapper;
+import com.sofCap.model.Pagination;
 import com.sofCap.model.SemDate;
 import com.sofCap.service.AccountService;
 import com.sofCap.service.AttendanceService;
@@ -416,8 +417,9 @@ public class ClubAdminController {
 	 * ASY_board 동아리 공지사항
 	 */
 	@RequestMapping("notice")
-	public String club_notice(Model model, @RequestParam("club_id") int club_id, Principal principal) {
-		List<BoardDto> boards = boardService.findByClubId_n(club_id);
+	public String club_notice(Model model, @RequestParam("club_id") int club_id, Principal principal,Pagination pagination) {
+		List<BoardDto> boards = boardService.findByClubId_n(club_id, pagination);
+		pagination.setRecordCount(boardMapper.count_cn(club_id));
 		ClubDto club = clubService.findById(club_id);
 		model.addAttribute("club", club);
 		model.addAttribute("boards", boards);
@@ -524,13 +526,14 @@ public class ClubAdminController {
 	 */
 	@RequestMapping("minutes")
 	public String club_minutes(Model model, SemDate semdate, @RequestParam("club_id") int club_id,
-			Principal principal) {
+			Principal principal, Pagination pagination) {
 		if (semdate.getSem_name() == null) {
 			Date now = Date.valueOf(LocalDate.now());
 			String sem_name = semdateMapper.findByDate(now);
 		}
 		String sem_name = semdate.getSem_name();
-		List<BoardDto> boards = boardService.findBySem_a(sem_name, club_id);
+		List<BoardDto> boards = boardService.findBySem_a(semdate, club_id, pagination);
+		pagination.setRecordCount(boardMapper.count_a(club_id));
 		SemDateDto startenddate = semdateService.findStartAndEndDate(sem_name);
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		String start_date = format.format(startenddate.getStart_date());
@@ -644,8 +647,9 @@ public class ClubAdminController {
 	 * ASY_board 동아리 홍보게시판
 	 */
 	@RequestMapping("publicity")
-	public String club_publicity(Model model, @RequestParam("club_id") int club_id, Principal principal) {
-		List<BoardDto> boards = boardService.findByClubId_p(club_id);
+	public String club_publicity(Model model, @RequestParam("club_id") int club_id, Principal principal, Pagination pagination) {
+		List<BoardDto> boards = boardService.findByClubId_p(club_id, pagination);
+		pagination.setRecordCount(boardMapper.count_cp(club_id));
 		ClubDto club = clubService.findById(club_id);
 		model.addAttribute("club", club);
 		model.addAttribute("boards", boards);
@@ -752,11 +756,12 @@ public class ClubAdminController {
 	 * ASY_board 동아리 모집게시판
 	 */
 	@RequestMapping("recruit")
-	public String club_recruit(Model model, @RequestParam("club_id") int club_id, Principal principal) {
-//		List<BoardDto> boards = boardService.findByClubId_r(club_id);
+	public String club_recruit(Model model, @RequestParam("club_id") int club_id, Principal principal, Pagination pagination) {
+		List<BoardDto> boards = boardService.findByClubId_r(club_id,pagination);
+		pagination.setRecordCount(boardMapper.count_cr(club_id));
 		ClubDto club = clubService.findById(club_id);
 		model.addAttribute("club", club);
-//		model.addAttribute("boards", boards);
+		model.addAttribute("boards", boards);
 		model.addAttribute("club_id", club_id);
 		nav_list(model);
 		nav_user(model, principal);
@@ -787,7 +792,7 @@ public class ClubAdminController {
 		nav_list(model);
 		nav_user(model, principal);
 		if (user.getUser_type().equals("동아리관리자")) {
-			return "club_admin/posting";
+			return "club_admin/posting_r";
 	      } else {
 	         response.setContentType("text/html; charset=UTF-8");
 	         PrintWriter out = response.getWriter();
@@ -818,7 +823,7 @@ public class ClubAdminController {
 		nav_list(model);
 		nav_user(model, principal);
 		if (user.getUser_type().equals("동아리관리자")) {
-			return "club_admin/posting";
+			return "club_admin/posting_r";
 	      } else {
 	         response.setContentType("text/html; charset=UTF-8");
 	         PrintWriter out = response.getWriter();

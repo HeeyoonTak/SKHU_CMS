@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.sofCap.dto.BoardDto;
 import com.sofCap.mapper.BoardMapper;
+import com.sofCap.model.Pagination;
 import com.sofCap.model.SemDate;
 
 @Repository
@@ -26,28 +27,33 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public List<BoardDto> findBySem_m(SemDate sem_name) {
-		return boardMapper.findBySem_m(sem_name);
+	public List<BoardDto> findBySem_m(SemDate sem_name,Pagination pagination) {
+		return boardMapper.findBySem_m(sem_name,pagination);
+	}
+
+//	@Override
+//	public List<BoardDto> findBySem_m(SemDate sem_name, Pagination pagination) {
+//		return boardMapper.findBySem_m(sem_name, pagination);
+//	}
+
+	@Override
+	public List<BoardDto> findBySem_a(SemDate sem_name, int club_id, Pagination pagination) {
+		return boardMapper.findBySem_a(sem_name, club_id, pagination);
 	}
 
 	@Override
-	public List<BoardDto> findBySem_a(String sem_name, int club_id) {
-		return boardMapper.findBySem_a(sem_name, club_id);
+	public List<BoardDto> findByClubId_p(int club_id,Pagination pagination) {
+		return boardMapper.findByClubId_p(club_id, pagination);
 	}
 
 	@Override
-	public List<BoardDto> findByClubId_p(@Param("id") int club_id) {
-		return boardMapper.findByClubId_p(club_id);
+	public List<BoardDto> findByClubId_r(int club_id, Pagination pagination) {
+		return boardMapper.findByClubId_r(club_id,pagination);
 	}
 
 	@Override
-	public List<BoardDto> findByClubId_r(@Param("id") int club_id) {
-		return boardMapper.findByClubId_r(club_id);
-	}
-
-	@Override
-	public List<BoardDto> findByClubId_n(@Param("id") int club_id) {
-		return boardMapper.findByClubId_n(club_id);
+	public List<BoardDto> findByClubId_n(int club_id, Pagination pagination) {
+		return boardMapper.findByClubId_n(club_id, pagination);
 	}
 
 	@Override
@@ -61,8 +67,8 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public List<BoardDto> findAll_n() {
-		return boardMapper.findAll_n();
+	public List<BoardDto> findAll_n(Pagination pagination) {
+		return boardMapper.findAll_n(pagination);
 	}
 
 	@Override

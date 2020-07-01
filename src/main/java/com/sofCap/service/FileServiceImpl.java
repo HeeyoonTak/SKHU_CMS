@@ -56,5 +56,17 @@ public class FileServiceImpl implements FileService {
 		clubFileUpload(afd);
 		return afd.getId();
 	}
+	
+	@Override
+	public FilesDto getReceiptImage(int id) {
+		return fileDao.getReceiptImage(id);
+	}
+	
+	@Override
+	public void delete(int id) {
+		fileDao.delete(id);
+		return;
+	}
+
 
 }

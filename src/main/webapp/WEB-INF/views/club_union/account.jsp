@@ -128,9 +128,7 @@
 																onclick="return showReceipt('${account.id}');">영수증</a> <%-- <img src ="${R}club_union/getImage?id=${account.id}" width="100" height="100"></img> --%>
 															</td>
 															<td><c:if test="${club.id eq myClub.id}">
-																	<a
-																		href="${R}club_union/delete?id=${account.id}&club_id=${club.id}"
-																		onclick="return deleteAlert();">x</a>
+																	<a onclick="return post_del('${R}club_union/delete?id=${account.id}&club_id=${club.id}');">x</a>
 																</c:if></td>
 														</tr>
 													</c:if>
@@ -181,6 +179,7 @@
 
 										</table>
 								</div>
+								<c:if test="${club.id eq myClub.id}">
 								<div class="row">
 									<div class="col-md-8"></div>
 									<div class="col-md-4">
@@ -189,6 +188,7 @@
 											id="l_account_save" name="l_account_save" value="회계 저장">
 									</div>
 								</div>
+								</c:if>
 								</form>
 							</div>
 						</div>

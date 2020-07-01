@@ -50,4 +50,9 @@ public class AccountDaoImpl implements AccountDao {
 	public List<AccountDto> getTotalByClubId(String sem_name) {
 		return accountMapper.getTotalByClubId(sem_name);
 	}
+	
+	@Override
+	public int findFileId(int id) {
+		return accountMapper.findFileId(id);
+	}
 }

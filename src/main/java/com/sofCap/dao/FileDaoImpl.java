@@ -21,4 +21,16 @@ public class FileDaoImpl implements FileDao {
 		fileMapper.clubFileUpload(file);
 		return;
 	}
+	
+	@Override
+	public FilesDto getReceiptImage(int id) {
+		return fileMapper.getReceiptImage(id);
+	}
+	
+	@Override
+	public void delete(int id) {
+		fileMapper.delete(id);
+		return;
+	}
+
 }

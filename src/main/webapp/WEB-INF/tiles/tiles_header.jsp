@@ -320,3 +320,13 @@
 			$(obj).next().click();
 			}
 	</script>
+	
+	<script>
+	function post_del(seq) {
+		var chk = confirm("정말 삭제하시겠습니까?");
+		if (chk) {
+			location.href = seq;			
+			return deleteAlert();
+		}
+	}	
+</script>

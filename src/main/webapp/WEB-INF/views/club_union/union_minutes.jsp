@@ -5,6 +5,7 @@
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="my" %>
 <c:url var="R" value="/" />
 <div id="fh5co-hero">
 	<a href="#fh5co-main"
@@ -66,18 +67,14 @@
 											<td style="text-align: center; width: 200px;"><fmt:formatDate
 													pattern="yyyy-MM-dd" value="${ board.date }" /></td>
 											<sec:authorize access="hasRole('ROLE_ClubUnion')">
-												<td style="width: 50px"><a href="m_delete?id=${board.id}"
+												<td style="width: 50px"><a onclick="return post_del('m_delete?id=${board.id}');"
 													style="color: #ff0000">x</a></td>
 											</sec:authorize>
 										</tr>
 									</c:forEach>
 								</table>
 								<div style="margin-left: 35%;">
-									<ul class="pagination">
-										<li><a href="#" style="color: #90D7EA">이전</a></li>
-										<li><a href="#" style="color: #90D7EA">1</a></li>
-										<li><a href="#" style="color: #90D7EA">다음</a></li>
-									</ul>
+								<my:pagination pageSize="${ pagination.sz }" recordCount="${ pagination.recordCount }" queryStringName="pg" />
 								</div>
 								<div class="row">
 									<div class="col-md-12">

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.sofCap.dao.BoardDao;
 import com.sofCap.dto.BoardDto;
+import com.sofCap.model.Pagination;
 import com.sofCap.model.SemDate;
 
 @Service
@@ -26,28 +27,33 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public List<BoardDto> findBySem_m(SemDate sem_name) {
-		return boardDao.findBySem_m(sem_name);
+	public List<BoardDto> findBySem_m(SemDate sem_name,Pagination pagination) {
+		return boardDao.findBySem_m(sem_name,pagination);
+	}
+
+//	@Override
+//	public List<BoardDto> findBySem_m(SemDate sem_name, Pagination pagination) {
+//		return boardDao.findBySem_m(sem_name, pagination);
+//	}
+
+	@Override
+	public List<BoardDto> findBySem_a(SemDate sem_name, int club_id, Pagination pagination) {
+		return boardDao.findBySem_a(sem_name, club_id, pagination);
 	}
 
 	@Override
-	public List<BoardDto> findBySem_a(String sem_name, int club_id) {
-		return boardDao.findBySem_a(sem_name, club_id);
+	public List<BoardDto> findByClubId_p(int club_id, Pagination pagination) {
+		return boardDao.findByClubId_p(club_id, pagination);
 	}
 
 	@Override
-	public List<BoardDto> findByClubId_p(@Param("id") int club_id) {
-		return boardDao.findByClubId_p(club_id);
+	public List<BoardDto> findByClubId_r(int club_id, Pagination pagination) {
+		return boardDao.findByClubId_r(club_id,pagination);
 	}
 
 	@Override
-	public List<BoardDto> findByClubId_r(@Param("id") int club_id) {
-		return boardDao.findByClubId_r(club_id);
-	}
-
-	@Override
-	public List<BoardDto> findByClubId_n(@Param("id") int club_id) {
-		return boardDao.findByClubId_n(club_id);
+	public List<BoardDto> findByClubId_n(int club_id, Pagination pagination) {
+		return boardDao.findByClubId_n(club_id, pagination);
 	}
 
 	@Override
@@ -61,8 +67,8 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public List<BoardDto> findAll_n() {
-		return boardDao.findAll_n();
+	public List<BoardDto> findAll_n(Pagination pagination) {
+		return boardDao.findAll_n(pagination);
 	}
 
 	@Override
