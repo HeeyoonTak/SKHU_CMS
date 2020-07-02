@@ -37,18 +37,18 @@
 
 									<tr style="text-align: center">
 										<th style="text-align: center;"><form:input
-												placeholder="제목" path="title" class="form-control input-md" /></th>
+												placeholder="제목" path="title" class="form-control input-md" required ="required" /></th>
 									</tr>
 									<tr>
-										<td><textarea id="summernote" name="content">${board.content }</textarea></td>
+										<td><textarea id="summernote" name="content" required ="required" >${board.content }</textarea></td>
 									</tr>
 									<tr style="text-align: center">
 										<td>신청 기간: <form:input type="date" path="start_date"
 												class="form-control input-sm"
-												style="width: 130px; display :inline" autocomplete="off" />
+												style="width: 130px; display :inline" autocomplete="off" required ="required" />
 											~ <form:input type="date" path="end_date"
 												class="form-control input-sm"
-												style="width: 130px; display :inline" autocomplete="off" /></td>
+												style="width: 130px; display :inline" autocomplete="off" required ="required" /></td>
 									</tr>
 								</table>
 								<div class="row">

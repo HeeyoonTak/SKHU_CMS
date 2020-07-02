@@ -37,10 +37,10 @@
 
 									<tr style="text-align: center">
 										<th style="text-align: center;"><form:input
-												placeholder="제목" path="title" class="form-control input-md" /></th>
+												placeholder="제목" path="title" class="form-control input-md" required ="required" /></th>
 									</tr>
 									<tr>
-										<td><textarea id="summernote" name="content">${board.content }</textarea></td>
+										<td><textarea id="summernote" name="content" required ="required">${board.content }</textarea></td>
 									</tr>
 								</table>
 								<div class="row">
