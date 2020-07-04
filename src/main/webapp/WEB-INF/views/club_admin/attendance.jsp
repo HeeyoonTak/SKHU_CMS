@@ -27,12 +27,13 @@
 
 	<div class="container">
 		<div class="row animate-box">
-			<h2 class="fh5co-uppercase-heading-sm text-right" id="heading">출석체크</h2>
-		</div>
-
+		
 		<div class="row1">
 			<div class="col-md-9 col-md-push-3" id="fh5co-content">
 				<div class="row">
+				<div style="margin-bottom: 20px">
+			<h4 style="color: #CCCCCC; text-align:center">출석체크</h4>
+			</div>
 					<form action="#" method="get">
 						<input type="hidden" name="club_id" value="${club_id}">
 						<div class="col-md-9"></div>
@@ -127,6 +128,7 @@
 			<div class="col-md-3 col-md-pull-9" id="fh5co-sidebar">
 				<c:import url="../tiles/tiles_club_sidebar.jsp" />
 			</div>
+		</div>
 		</div>
 	</div>
 </div>

@@ -32,7 +32,7 @@
             <div class="col-md-9 col-md-push-3" id="fh5co-content">
                <div class="row">
                   <div style="margin-bottom: 20px">
-                     <h4 style="color: #CCCCCC; margin-left: 50px">동아리 정보 편집</h4>
+                     <h4 style="color: #CCCCCC; text-align : center;">동아리 정보 편집</h4>
                   </div>
                    <div>
                    <form method="post" modelAttribute="club" enctype="multipart/form-data">

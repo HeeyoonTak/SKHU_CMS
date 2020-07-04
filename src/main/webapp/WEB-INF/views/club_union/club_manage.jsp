@@ -30,16 +30,16 @@
 					<div class="row">
 						<div class="row">
 							<div class="col-xs-12" style="margin-bottom: 0px">
-								<h2 class="h3" style="margin-bottom: 0px">동아리 관리</h2>
+								<h4 style="color: #CCCCCC;  text-align : center;">동아리 관리</h4>
 								<ul class="pagination" style="margin-bottom: 0px">
 									<li><sec:authorize access="hasRole('ROLE_ClubUnion')">
 											<a href="club_create" class="btn btn-primary btn-lg"
-												id="l_search_term_btn">개설</a>
+												id="l_search_term_btn" style="margin-left: 50px">개설</a>
 										</sec:authorize></li>
 
 								</ul>
 							</div>
-							<div class="col-xs-12" style="margin-left: 0px">
+							<div class="col-xs-12" style="margin-left: 50px">
 								<table class="table table-striped " style="width: 650px">
 									<tr class="text-center">
 										<th colspan="3" style="text-align: center">목록</th>

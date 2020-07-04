@@ -36,7 +36,7 @@
 						<div>
 							<div class="row">
 								<div class="col-md-12">
-									<h2 class="h3">소개글</h2>
+									<h4 style="color: #CCCCCC;  text-align : center;">소개글</h4>
 								</div>
 								<div class="col-md-6">
 									<img src="${R}/getClubImage?id=${club.id}" id="clubImg"
@@ -53,11 +53,11 @@
 							<div class="row">
 								<div class="col-md-12 animate-box">
 									<div class="col-md-12" style="margin-bottom: 20px">
-										<h2 class="h3">홍보 게시판</h2>
+										<h4 style="color: #CCCCCC;  text-align : center; margin-left: 50px;">홍보 게시판</h4>
 									</div>
 									<div class="col-md-12">
 										<div>
-											<table class="table table-striped " style="width: 700px">
+											<table class="table table-striped " style="width: 620px">
 												<tr class="text-center">
 													<th style="text-align: center">제목</th>
 													<th style="text-align: center">등록일</th>
@@ -81,11 +81,11 @@
 							<div class="row">
 								<div class="col-md-12 animate-box">
 									<div class="col-md-12" style="margin-bottom: 20px">
-										<h2 class="h3">모집 게시판</h2>
+										<h4 style="color: #CCCCCC;  text-align : center; margin-left: 50px;">모집 게시판</h4>
 									</div>
 									<div class="col-md-12">
 										<div>
-											<table class="table table-striped " style="width: 700px">
+											<table class="table table-striped " style="width: 620px">
 												<tr class="text-center">
 													<th style="text-align: center">제목</th>
 													<th style="text-align: center">모집 기간</th>

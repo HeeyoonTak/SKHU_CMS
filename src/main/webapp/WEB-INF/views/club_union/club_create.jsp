@@ -30,7 +30,7 @@
 				<div class="col-md-9 col-md-push-3" id="fh5co-content">
 					<div class="row">
 						<div class="col-xs-12" style="margin-bottom: 0px">
-							<h2 class="h3" style="margin-bottom: 0px">동아리 관리</h2>
+							<h4 style="color: #CCCCCC;  text-align : center;">동아리 관리</h4>
 							<ul class="pagination" style="margin-bottom: 0px">
 								<li><a href="${R}club_list" class="btn btn-primary btn-lg"
 									id="l_search_term_btn">목록</a></li>

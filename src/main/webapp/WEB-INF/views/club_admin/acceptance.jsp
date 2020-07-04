@@ -34,7 +34,7 @@
 				<div class="col-md-9 col-md-push-3" id="fh5co-content">
 					<div class="row">
 						<div style="margin-bottom: 20px">
-							<h3>회원 관리</h3>
+							<h4 style="color: #CCCCCC; text-align : center;">회원 관리</h4>
 						</div>
 						<div class="col-md-5">
 							<table class="table table-striped" style="width:100%">

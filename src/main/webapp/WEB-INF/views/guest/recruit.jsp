@@ -29,7 +29,7 @@
 				<div class="row">
 					<div class="col-md-12 animate-box">
 						<div class="col-md-12" style="margin-bottom: 20px">
-							<h2 class="h3">모집 게시판</h2>
+							<h3 style="color: #CCCCCC; text-align : center;">모집 게시판</h3>
 						</div>
 						<div class="col-md-12">
 							<div style="margin-left: 50px">
