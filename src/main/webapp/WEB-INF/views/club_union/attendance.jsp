@@ -33,7 +33,7 @@
 			<div class="col-md-9 col-md-push-3" id="fh5co-content">
 				<div class="row">
 				<div style="margin-bottom: 20px">
-			<h4 style="color: #CCCCCC; text-align:center">출석체크</h4>
+			<h4 style="color: #CCCCCC; text-align:center" id="heading">출석체크</h4>
 			</div>
 					<form action="#" method="get">
 						<div class="col-md-9"></div>
